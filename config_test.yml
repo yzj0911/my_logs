@@ -1,7 +1,7 @@
 baseURL: "https://examplesite.com/"
 title: ExampleSite
 paginate: 5
-theme: hugo-theme-crisp
+theme: LoveIt
 
 enableRobotsTXT: true
 buildDrafts: false
@@ -18,7 +18,7 @@ params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
   title: ExampleSite
   description: "ExampleSite description"
-  keywords: [Blog, Portfolio, hugo-theme-crisp]
+  keywords: [Blog, Portfolio, LoveIt]
   author: Me
   # author: ["Me", "You"] # multiple authors
   images: ["<link or path of image for opengraph, twitter-cards>"]
