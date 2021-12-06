@@ -105,7 +105,7 @@ theme = "LoveIt"
       # LOGO 的 URL
       logo = ""
       # 标题名称
-      name = ""
+      name = "YZJ 的小博客"
       # 你可以在名称 (允许 HTML 格式) 之前添加其他信息, 例如图标
       pre = ""
       # 你可以在名称 (允许 HTML 格式) 之后添加其他信息, 例如图标
@@ -159,7 +159,7 @@ theme = "LoveIt"
       # Gravatar 邮箱，用于优先在主页显示的头像
       gravatarEmail = "935669265@qq.com"
       # 主页显示头像的 URL
-      avatarURL = "images/avatar1.jpeg"
+      avatarURL = "D://gopath//src//my_logs//mysite//content//posts//images//avatar1.jpeg"
       # LoveIt 更改 | 0.2.7 主页显示的网站标题 (支持 HTML 格式)
       title = "YZj 的小博客"
       # 主页显示的网站副标题
