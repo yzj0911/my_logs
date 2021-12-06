@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Linux内存 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="Linux内存" />
+<meta property="og:description" content="Linux内存 内存概论 虚拟内存 虚拟内存(virtual memory)是 Unix 系统中一种对内存的抽象。虚拟内存作为一种逻辑层，处于应用程序的内存请" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/linux%E5%86%85%E5%AD%98/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-03T10:17:16+08:00" />
+<meta property="article:modified_time" content="2021-12-03T10:17:16+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="Linux内存"/>
+<meta name="twitter:description" content="Linux内存 内存概论 虚拟内存 虚拟内存(virtual memory)是 Unix 系统中一种对内存的抽象。虚拟内存作为一种逻辑层，处于应用程序的内存请"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/linux%E5%86%85%E5%AD%98/" /><link rel="prev" href="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" /><link rel="next" href="http://example.org/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Linux内存",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/linux%E5%86%85%E5%AD%98\/"
+        },"genre": "posts","wordcount":  7518 ,
+        "url": "http:\/\/example.org\/linux%E5%86%85%E5%AD%98\/","datePublished": "2021-12-03T10:17:16+08:00","dateModified": "2021-12-03T10:17:16+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "yzj"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="YZJ 的博客"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="YZJ 的博客"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Linux内存</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-03">2021-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 7518 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 16 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#内存概论">内存概论</a>
+      <ul>
+        <li><a href="#虚拟内存">虚拟内存</a></li>
+        <li><a href="#随机访问存储器ram的使用">随机访问存储器(RAM)的使用</a></li>
+        <li><a href="#内核内存分配器">内核内存分配器</a></li>
+        <li><a href="#进程虚拟地址空间处理">进程虚拟地址空间处理</a></li>
+        <li><a href="#高速缓存">高速缓存</a></li>
+      </ul>
+    </li>
+    <li><a href="#内存地址">内存地址</a></li>
+    <li><a href="#硬件中的分段">硬件中的分段</a>
+      <ul>
+        <li><a href="#段选择符和段寄存器">段选择符和段寄存器</a></li>
+        <li><a href="#段描述符">段描述符</a></li>
+        <li><a href="#分段单元">分段单元</a></li>
+      </ul>
+    </li>
+    <li><a href="#linux-中的分段">Linux 中的分段。</a>
+      <ul>
+        <li><a href="#linux-gdt">Linux GDT</a></li>
+        <li><a href="#linux-ldt">Linux LDT</a></li>
+      </ul>
+    </li>
+    <li><a href="#硬件中的分页">硬件中的分页</a>
+      <ul>
+        <li><a href="#常规分页">常规分页</a></li>
+        <li><a href="#硬件高速缓存">硬件高速缓存</a></li>
+      </ul>
+    </li>
+    <li><a href="#linux-中的分页">Linux 中的分页</a>
+      <ul>
+        <li><a href="#线性地址字段">线性地址字段</a></li>
+        <li><a href="#页表处理">页表处理</a></li>
+        <li><a href="#物理内存布局">物理内存布局</a></li>
+        <li><a href="#进程页表">进程页表</a></li>
+        <li><a href="#内核页表">内核页表</a></li>
+        <li><a href="#固定映射的线性地址">固定映射的线性地址</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="linux内存">Linux内存</h1>
+<h2 id="内存概论">内存概论</h2>
+<h3 id="虚拟内存">虚拟内存</h3>
+<p>虚拟内存(virtual memory)是 Unix 系统中一种对内存的抽象。虚拟内存作为一种逻辑层，处于应用程序的内存请求与硬件内存管理单元(Memory Management Unit, MMU)之间。虚拟内存有很多用途和优点:</p>
+<ul>
+<li>若干个进程可能并发地执行。</li>
+<li>应用程序所需内存大于可用物理内存时也可以运行。</li>
+<li>程序只有部分代码装入内存时进程可以执行它。</li>
+<li>允许每个进程访问可用物理内存的子集。</li>
+<li>进程可以共享库函数或程序的一个单独内存映象。</li>
+<li>程序时可重定位的，也就是说，可以把程序放在物理内存的任何地方。</li>
+<li>程序员可以编写与机器无关的代码，因为他们不必关心有关物理内存的组织结构。</li>
+</ul>
+<p>虚拟内存子系统的主要成分是虚拟地址空间(virtual address space)的概念。进程所用的一组内存地址不同于物理内存地址。当进程使用一个虚拟地址时，内核和MMU协同定位其在内存中的实际物理地址位置。</p>
+<p>现在的 CPU 包含了能自动把虚拟地址转换成物理地址的硬件电路。为了达到这个目标，把可用 RAM 划分成长度为 4KB 或 8KB 的页框(page frame)，并引入一组页表来指定虚拟地址与物理地址之间的对应关系。</p>
+<p>一块连续的虚拟地址请求可以通过分配一组非连续的物理地址页框而得到满足。</p>
+<h3 id="随机访问存储器ram的使用">随机访问存储器(RAM)的使用</h3>
+<p>Unix 操作系统将 RAM 划分成两部分。其中若干兆字节专门用于存放内核映象(也就是内核代码和内核静态数据结构)。RAM的其余部分通常由虚拟内存系统来处理，并且用在以下三种可能的方面:</p>
+<ul>
+<li>满足内核对缓冲区，描述符及其他动态内存数据结构的请求。</li>
+<li>满足进程对一般内存区的请求及对文件内存映射的请求。</li>
+<li>借助与高速缓存从磁盘及其他缓冲设备获得较好的性能。</li>
+</ul>
+<h3 id="内核内存分配器">内核内存分配器</h3>
+<p>内核内存分配器(Kernel Memory Allocator, KMA)是一个子系统，它试图满足系统中部分对内存的请求。其中一些请求来自内核其他子系统，它们需要一些内核使用的内存，还有一些请求来自于用户程序的系统调用，用来增加用户进程中地址空间。一个好的 KMA 应该具有下列特点:</p>
+<ul>
+<li>必须快。因为它由所有的内核子系统(包括中断处理程序)调用。</li>
+<li>必须把内存的浪费减到最少。</li>
+<li>必须努力减轻内存的碎片(fragmentation)问题。</li>
+<li>必须能与其他内存管理子系统合作，以便借用和释放页框。</li>
+</ul>
+<p>基于不同的算法技术实现的KMA:</p>
+<ul>
+<li>资源图分配算法(allocator)</li>
+<li>2的幂次方空闲链表</li>
+<li>McKusick-Karels 分配算法</li>
+<li>伙伴 (Buddy) 系统</li>
+<li>Mach 的区域 (Zone) 分配算法</li>
+<li>Dynix 分配算法</li>
+<li>Solaris 的 Slab 分配算法</li>
+</ul>
+<h3 id="进程虚拟地址空间处理">进程虚拟地址空间处理</h3>
+<p>进程的虚拟地址空间包括了进程可以引用的所有虚拟内存地址。内核通常用一组内存区描述符描述进程虚拟地址空间。例如，当进程通过 <code>exec()</code> 类系统调用开始某个程序执行时，内核分配给进程的虚拟地址空间有以下内存区组成。</p>
+<ul>
+<li>程序的可执行代码。</li>
+<li>程序的初始化数据。</li>
+<li>程序的未初始化数据。</li>
+<li>初始程序栈(即用户态栈)。</li>
+<li>所需共享库的可执行代码和数据。</li>
+<li>堆(由程序董太太请求的内存)。</li>
+</ul>
+<p>现代 Unix 操作系统采用了请求调页(demand paging)的内存分配策略。有了请求调页，进程可以在它的页还没有在内存时就开始执行。当进程访问一个不存在的页时，MMU产生一个异常，异常处理程序找到受影响的内存区，分配一个空闲的页，并用适当的数据把啊初始化。同理，当进程通过调用 <code>malloc()</code> 或 <code>brk()</code>(由malloc()在内部调用)系统调用动态地请求内存是，内核仅仅修改进程的堆内存区的大小。只有试图引进进程的虚拟内存而产生异常时，才给进程分配页框。</p>
+<p>虚拟地址空间也采用其他更有效的策略，如写时复制策略。例如，当一个新进程被创建时，内核仅仅把父进程的页框赋给子进程的地址空间，但是把这些页框标记为只读。一旦父或子进程修改页中的内容时，一个异常就会产生。异常处理程序把新页框赋给受影响的进程，并用原来也中的内容初始化新页框。</p>
+<h3 id="高速缓存">高速缓存</h3>
+<p>物理内存的一大优势就是用作磁盘和其他块设备的高速缓存。通常，在最早的 Unix 系统中就已经实现的一个策略是: 尽可能地推迟写磁盘的时间，因此，从磁盘读入内存的数据即使任何进程都不再使用它们，它们也继续留在 RAM 中。</p>
+<p>新进程请求从磁盘读或写的数据，就是被撤销进程曾拥有的数据。当一个进程请求访问磁盘时，内核首先检查进程请求的数据是否在缓存中，如果在(把这种请求叫做缓存命中)，内核就可以为进程请求提供服务而不用访问磁盘。</p>
+<p><code>sync()</code> 系统调用把所有&quot;脏&quot;的缓冲区写入磁盘来强制磁盘同步。为了避免数据丢失，所有的操作系统都会注意周期性地把脏缓存区写回磁盘。</p>
+<h2 id="内存地址">内存地址</h2>
+<p>x86微处理器的三种不同地址:</p>
+<ul>
+<li>逻辑地址(logical address): 每一个逻辑地址都由一个段(segment)和偏移量(offset或displacement)组成，偏移量指明了从段开始的地方到实际地址之间的距离。</li>
+<li>线性地址(linear address)(也称虚拟地址 virtual address): 线性地址通常用十六进制数字表示，值得范围从 0x00000000 到 0xffffffff。可以表示高达 4GB 的地址。</li>
+<li>物理地址(physical address): 用于芯片级内存单元寻址。他们从微处理器的地址引脚发送到内存总线上的电信号相对应。</li>
+</ul>
+<p>内存控制单元(MMU)通过分段单元(segmentation unit)的硬件电路把一个逻辑地址转换成线性地址。通过分页单元(paging unit)的硬件电路把线性地址转化成物理地址。</p>
+<p>在多处理器系统中，所有 CPU 都共享同一内存。RAM芯片上的读和写操作必须串行执行，因此内存仲裁器(memory arbiter)的硬件电路插在总线和每个 RAM 芯片之间。其作用就是如果某个 RAM 芯片空闲，就准予一个 CPU 访问，如果该芯片忙于为另一个处理器提出的请求服务，就延迟这个 CPU 的访问。</p>
+<h2 id="硬件中的分段">硬件中的分段</h2>
+<p>80206 开始，Intel 微处理器具有两种方式执行地址转换：</p>
+<ul>
+<li>实模式(real mode)。</li>
+<li>保护模式(protected mode)。</li>
+</ul>
+<p>实模式存在是处于兼容性考虑，主要还是保护模式。</p>
+<h3 id="段选择符和段寄存器">段选择符和段寄存器</h3>
+<p>一个逻辑地址由两部分组成：一个段标识符和一个指定段内相对地址的偏移量。段标识符是一个 16 位长的字段，称为段选择符(Segment Selector)。偏移量是一个 32 位长的字段。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211012090918.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211012090918.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211012090918.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211012090918.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211012090918.png"
+        title="图2-2: 段描述符" /></p>
+<p>专门存放段选择符的寄存器: cs, ss, ds, es, fs 和 gs。其中3个有专门的用途:</p>
+<ul>
+<li>cs 代码段寄存器，指向包含程序指令的段。</li>
+<li>ss 栈段寄存器，指向包含当前程序栈的段。</li>
+<li>ds 数据段寄存器，指向包含静态数据或者全局数据段。</li>
+</ul>
+<p>其他3个段寄存器作一般用途，可以指向任意的数据段。</p>
+<p>cs 寄存器还有一个很重要的功能: 它含有一个两位的字段，用以指明 CPU 的当前特权级 (Current Privilege Level, CPL)。值为0代表最高优先级，为值为3代表最低优先级。Linux 只用0级和3级，分别称之为内核态和用户态。</p>
+<h3 id="段描述符">段描述符</h3>
+<p>每个段由一个8字节的段描述符(Segment Descriptor)表示，它描述了段的特征。段描述符放在全局描述符表(Global Descriptor Table, GDT)或局部描述符表(Local Descriptor Table, LDT)中。</p>
+<p>GDT 通常只有一个，在主存中的地址和大小存放在 gdtr 控制寄存器中，当前正被使用的 LDT 地址和大小放在 ldtr 控制寄存器中。</p>
+<p>段描述符字段</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Base</td>
+<td>包含段的首字节的线性地址</td>
+</tr>
+<tr>
+<td>G</td>
+<td>粒度标志：如果改位清0，则大小以字节为单位，否则以4096字节的倍数计。</td>
+</tr>
+<tr>
+<td>Limit</td>
+<td>存放段中最后一个内存单元的偏移量，从而决定段的长度。如果 G 被置为0，则一个段的大小在1个字节到1MB之间变化；否则，将在 4KB 到 4GB 之间变化。</td>
+</tr>
+<tr>
+<td>S</td>
+<td>系统标志：如果它被清0，则这是一个系统段，存储诸如 LDT 这种关键的数据结构，否则它是一个普通的代码段或数据段。</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>描述了段的类型特征和它的存取权限。</td>
+</tr>
+<tr>
+<td>DPL</td>
+<td>描述符特权级(Descriptor Privilege Level)字段：用于限制对这个段的存取。它表示为访问这个段而要求的CPU最小的优先级。因此，DPL设为0的段只能当 CPL 为0时(即在内核态)才是可访问的，而DPL设为3的段对任何CPL值都是可访问的</td>
+</tr>
+<tr>
+<td>P</td>
+<td>Segment-Present标志：等于0表示段当前不在主存中。Linux总是把这个表示(第47位)设为1，因为它从来不把整个daunt交换到磁盘上去。</td>
+</tr>
+<tr>
+<td>D 或 B</td>
+<td>称为D或B的标志，取决于代码段还是数据段。D或B的含义在两种情况中有所区别，但是如果段偏移量的地址是32位长，就基本上把它置为1，如果这个偏移量是16位长，它被清0。</td>
+</tr>
+<tr>
+<td>AVL 标志</td>
+<td>可以由操作系统使用，但是被 Linux 忽略。</td>
+</tr>
+</tbody>
+</table>
+<p>Linux 中被广泛采用的类型:</p>
+<ul>
+<li>代码段描述符</li>
+<li>数据段描述符</li>
+<li>任务状态段描述符</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211013084126.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211013084126.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211013084126.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211013084126.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211013084126.png"
+        title="2-3: 段描述符格式" /></p>
+<p>段选择符字段:</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td>指定了放在 GDT 或 LDT 中的相应段描述符的入口。</td>
+</tr>
+<tr>
+<td>TI</td>
+<td>TI ((Table Indicator)标志：指明段描述符是在 GDT 中 (TI=0) 或在 LDT 中(TI=1))。</td>
+</tr>
+<tr>
+<td>RPL</td>
+<td>请求者特权级：当相应的段选择符装入到 cs 寄存器中时，指示出 CPU 当前的特权级；它还可以用于在访问数据段时有选择地削弱处理器的特权级。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>为了加速逻辑地址到线性地址的转换，80x86处理器提供一种附加的非编程的寄存器，供6个可编程的段寄存器使用。现在，针对那个段的逻辑地址转化就可以不访问主存中的 GDT 或 LDT，处理器只需直接引用存放段描述符的CPU寄存器即可。</p>
+</blockquote>
+<h3 id="分段单元">分段单元</h3>
+<p>分段单元(segmentation unit)执行以下操作，将一个逻辑地址转换成相应的线性地址。</p>
+<ul>
+<li>先检查段选择符的TI字段，以决定段描述符保存在哪一个描述表中。TI字段指明描述符是在GDT中(在这种情况下，分段单元从gdtr寄存器中得到GDT的线性基地址)还是在激活的LDT中(在这种情况下，分段单元从ldtr寄存器中得到LDT的线性基地址)。</li>
+<li>从段选择符的 index 字段计算段描述符的地址，index字段的值乘以8(一个段描述符的大小)，这个结果与gdtr或ldtr寄存器中的内存相加。</li>
+<li>把逻辑地址的偏移量与段描述符 Base 字段的值相加就得到了线性地址。</li>
+</ul>
+<h2 id="linux-中的分段">Linux 中的分段。</h2>
+<p>Linux 中使用分段的方式十分有限。分段可以给每个进程分配不同的线性地址空间，而分页可以把同一线性地址空间映射到不同的物理空间。与分段相比，Linux 中倾向采用分页方式，因为:</p>
+<ul>
+<li>当所有的进程使用相同的段寄存器值时，内存管理变得更简单，也就是说它们能共享同样的一组线性地址。</li>
+<li>Linux 设计目标之一是可以把它移植到绝大多数流行的处理器平台上。然而，RISC体系结构对分段的支持很有限。</li>
+</ul>
+<blockquote>
+<p>2.6 版的 Linux 只有在 80x86 结构下才需要使用分段。</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211014090014.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211014090014.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211014090014.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211014090014.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211014090014.png"
+        title="表2-3: 四个主要的 Linux 段的段描述符字段的值" /></p>
+<p>相应的段选择符由宏 __USER_CS, __USER_DS, __KERNEL_CS 和 __KERNEL_DS 分别定义。例如，为了对内存代码段寻址，内核只需要把 __KERNEL_CS 宏产生的值装进 cs 段寄存器即可。</p>
+<p>所有段都从 0x00000000 开始，这可以得出另一个重要的结论，就是在 Linux 下逻辑地址与线性地址是一致的，机逻辑地址的偏移量字段的值与相应的线性地址的值总是一致的。</p>
+<h3 id="linux-gdt">Linux GDT</h3>
+<p>在单处理器系统中只有一个 GDT，而在多处理器系统中每个 CPU 对应一个 GDT。所有的 GDT 都存放在 <code>cpu_gdt_table</code> 数组中。以下是 GDT 的布局示意图。每个 GDT 包含 18 个段描述符合 14 个空的，未使用的，或保留的项。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211014091048.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211014091048.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211014091048.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211014091048.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211014091048.png"
+        title="图2-6: 全局描述符表" /></p>
+<p>每一个 GDT 中包含 18 个段描述符指向下列的段:</p>
+<ul>
+<li>用户态和内核态下的代码段和数据段共 4 个。</li>
+<li>任务状态段 (TSS)，每个处理器有 1 个。</li>
+<li>1 个包括缺省局部描述符表的段。</li>
+<li>3 个局部线程存储。</li>
+<li>与高级电源管理 (AMP) 相关的 3 个段。</li>
+<li>与支持即插即用 (PnP) 功能的 BIOS 服务程序相关的 5 个段。</li>
+<li>被内核用来处理“双重错误”(处理一个异常是可能引发另一个异常，在这个情况下产生的双重错误)异常的特殊 TSS 段。</li>
+</ul>
+<h3 id="linux-ldt">Linux LDT</h3>
+<p>大多数用户态下的 Linux 程序不使用局部描述符表，这样内核就定义了一个缺省的 LDT 供大多数进程共享。缺省的局部描述符表存放在 <code>default_ldt</code> 数组中。</p>
+<p>在某些情况下，进程仍然需要创建自己的局部描述符表，这对有些应用程序很有用，如 <code>Wine</code> 程序。</p>
+<h2 id="硬件中的分页">硬件中的分页</h2>
+<p>分页单元(paging unit)把线性地址转换成物理地址。线性地址被分成以固定长度为单位的组，称为页(page)。页内部连续的线性地址被映射到连续的物理地址中。</p>
+<p>分页单元把所有的 RAM 分成固定长度的页框 (page frame) (有时叫做物理页)。每一个页框包含一个页 (page)，页就是说一个页框的长度与一个页的长度一致。</p>
+<p>把线性地址映射到物理地址的数据结构称为页表 (page table)。页表放在主存中，并在启用分页单元之前必须由内核对页表进行适当的初始化。</p>
+<p>从 80386 开始，所有的 80x86 处理器都支持分页，它通过设置 cr0 寄存器的 PG 标志启用。 当 PG=0 时，线性地址就被解释成物理地址。</p>
+<h3 id="常规分页">常规分页</h3>
+<p>从 80386 起，Intel 处理器的分页单元处理 4K 的页。
+32 位的线性地址被分成 3 个域:</p>
+<ul>
+<li>Directory (目录) 最高 10 位。</li>
+<li>Table (页表) 中间 10 位。</li>
+<li>Offset (偏移量) 最低 12 位。</li>
+</ul>
+<p>线性地址的转换分两步完成，每一步都基于一种转化表，第一种转换表称为页目录表 (page directory)，第二种转换表称为页表 (page table)。</p>
+<p>正在使用的页目录的物理地址存放在控制寄存器 cr0 中。线性地址内的 Directory 字段决定目录中的目录项，而目录项指向适当的页表。地址的 Table 字段依次又决定页表中的表项，而表项含有页所在页框的物理地址。Offset 字段决定页框也的相对位置。由于它是 12 长，故每一页含有 4096 字节的数据。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211015090255.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211015090255.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211015090255.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211015090255.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211015090255.png"
+        title="图2-7: 80x86 处理器的分页" /></p>
+<p>假设进程需要读线性地址 0x20021406 中的字节。这个地址由分页单元按下面的方法处理:</p>
+<ul>
+<li>Directory 字段的 0x80 用于选择页目录的第 0x80 目录项，此目录项指向和该进程的页相关的页表。</li>
+<li>Table 字段 0x21 用于选择页表的第 0x21 表项，此表项指向包含所需页的页框。</li>
+<li>最后，Offset 字段 0x406 用于在目标页框中读偏移量为 0x406 中的字节。</li>
+</ul>
+<h3 id="硬件高速缓存">硬件高速缓存</h3>
+<p>当今的微处理器时钟频率接近几个 GHz，而动态 RAM 芯片的存取时间是时钟周期的数百倍。这意味着，当从 RAM 中取操作数或向 RAM 中存放结果这样的指令执行时，CPU 可能登台很长时间。</p>
+<p>为了缩小 CPU 和 RAM 之间的速度不匹配，引入了硬件高速缓存内存(hardware cache memory)。硬件高速缓存基于著名的局部性原理(locality principle)，该原理既适用程序结构也适用数据结构。</p>
+<p>80x86 体系结构中引入了一个叫行 (line) 的新单位。行由几十个连续的字节组成，它们以脉冲突发模式 (burst mode) 在慢速 DRAM 和快速的用来实现高速缓存的片上静态 RAM (SRAM) 之间传送，用来实现高速缓存。</p>
+<p>如图，高速缓存单元插在分页单元和主内存之间。它包含一个硬件高速缓存内存 (hardware cache memory) 和一个高速缓存控制器 (cache controller)。高速缓存内存存放内存中真正的行。高速缓存控制器存放一个表项数组，每个表项对应高速缓存内存中的一个行。每个表项有一个标签(tag)和描述高速缓存行状态的几个标志(flag)。这种内存物理地址通常分为3组：最高几位对应标签，中间几位对应高速缓存控制器的子集索引，最低几位对应行内的偏移量。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211018093652.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211018093652.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211018093652.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211018093652.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211018093652.png"
+        title="图2-10: 处理器硬件高速缓存" /></p>
+<p>当访问一个 RAM 存储单元时，CPU 从物理地址中提取出子集的索引号并把子集中所有行的标签与物理地址的高几位相比较。如果发现某一个行的标签与这个物理地址的高位相同，则 CPU 命中一个高速缓存 (cache hit)；否则，高速缓存没有命中 (cache miss)。</p>
+<p>对于读操作，控制器从高速缓存行中选择数据并送到 CPU 寄存器。对于写操作，控制器可能采用以下两个基本策略之一:</p>
+<ul>
+<li>通写(write-through): 控制器总是既写 RAM 也写高速缓存行，为了提高写操作的效率关闭高速缓存。</li>
+<li>回写(write-back): 只更新高速缓存行，不改变 RAM 的内存，提供了更快的效率。</li>
+</ul>
+<p>处理器的 cr0 寄存器的 CD 标志位用来启用或禁用高速缓存电路。这个寄存器中的 NW 标志指明高速缓存是使用通写还是回写策略。</p>
+<h2 id="linux-中的分页">Linux 中的分页</h2>
+<p>Linux 采用了一种同时适用于32位和64位的普通分页模型。在 2.6.10 版本之前，Linux 采用三级分页的模型。从 2.6.11 版本开始，采用了四级分页模型:</p>
+<ul>
+<li>页全局目录 (Page Global Directory)</li>
+<li>页上级目录 (Page Upper Directory)</li>
+<li>页中间目录 (Page Middle Directory)</li>
+<li>页表 (Page Table)</li>
+</ul>
+<p>页全局目录包含若干页上级目录的地址，页上级目录有一次包含若干页中间目录的地址，而页中间目录又包含若干页表的地址。每一个页表项指向一个页框。线性地址因此被分成五个部分。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211020091014.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211020091014.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211020091014.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211020091014.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211020091014.png"
+        title="图2-12: Linux 分页模式" /></p>
+<p>Linux 的进程处理很大程度上依赖于分页。事实上，线性地址到物理地址的自动转换使下面的设计目标变得可行:</p>
+<ul>
+<li>给每一个进程分配一块不同的物理地址空间，这确保了可以有效地防止寻址错误。</li>
+<li>区别页(即一组数据)和页框(即主存中的物理地址)的不同。这就允许存放在某个页框中的一个页，然后保存到磁盘上，以后重新装入这同一页是又可以被装载不同的页框中。这就是虚拟内存机制的基本要素。</li>
+</ul>
+<p>每一个进程有它自己的页全局目录和自己的页表集。当发生进程切换时，Linux 把 cr3 控制寄存器的内存保存在前一个执行进程的描述符中，然后把下一个要执行进程的描述符的值装入 cr3 寄存器中。</p>
+<h3 id="线性地址字段">线性地址字段</h3>
+<h3 id="页表处理">页表处理</h3>
+<h3 id="物理内存布局">物理内存布局</h3>
+<p>在初始化阶段，内核必须建立一个物理地址映射来指定哪些物理地址范围对内核可用而哪些不可用。</p>
+<p>内核将下列页框记为保留:</p>
+<ul>
+<li>在不可用的物理地址范围内的页框。</li>
+<li>含有内核代码和已初始化的数据结构的页框。</li>
+</ul>
+<p>从 0x07ff0000 到 0x07ff2fff 的物理地址范围中存有加电自检(POST)阶段由BIOS写入的系统硬件设备信息。在初始化阶段，内核把这些信息拷贝到一个合适的内核数据结构中，然后认为这些页框是可用的。相反，从 0x07ff3000 到 0x07ffffff 的物理地址范围被映射到硬件设备的 ROM 芯片。从 0xffff0000 开始的物理地址范围标记为保留，因为它由硬件地址映射到 BIOS 的 ROM 芯片。</p>
+<p>Linux 用 PC 体系结构未保留的页框来动态存放所分配的页。</p>
+<h3 id="进程页表">进程页表</h3>
+<p>进程的线性地址空间分成两部分:</p>
+<ul>
+<li>从 0x00000000 到 0xbfffffff 的线性地址，无论进程运行在用户态还是内核态都可以寻址。</li>
+<li>从 0xc0000000 到 0xffffffff 的线性地址，只有内核态的进程才能寻址。</li>
+</ul>
+<p>当进程运行在用户态时，它产生的线性地址小于 0xc0000000；当进程运行在内核态时，它执行内核代码，所产生的地址大于等于 0xc0000000。</p>
+<h3 id="内核页表">内核页表</h3>
+<p>内核维持着一组自己使用的页表，驻留在主内核页全局目录(master kernel Page Global Directory)中。</p>
+<p>内核如何初始化自己的页表:</p>
+<ol>
+<li>内核创建一个有限的地址空间，包括内核的代码段和数据段、初始页表和用于存放动态数据结构的128KB大小的空间。这个最小限度的地址空间仅够将内核装入RAM和对其初始化的数据结构。</li>
+<li>内核充分利用剩余的RAM并适当地建立分页表。</li>
+</ol>
+<p>建立分页表的详细步骤:
+临时页全局目录放在 <code>swapper_pg_dir</code> 变量中，临时页表在 pg0 变量出开始存放，紧接在内核未初始化的数据段后面。内核在初始化的第一阶段，可以通过与物理地址相同的线性地址或者通过从 0xc0000000 开始的 8MB 线性地址对 RAM 的前 8MB 进行寻址。</p>
+<p>内核通过把 swapper_pg_dir 所有项都填充为0来创建期望的映射，0、1、0x300(768)和0x301(769)除外，它们的初始化如下：</p>
+<ul>
+<li>0 项和 0x300 项的地址字段置为 pg0 的物理地址，而 1 项和 0x301 项的地址字段置为紧随 pg0 后的页框的物理地址。</li>
+<li>把这四个项中的 Present、Read/Write 和 User/Supervisor 标志置零。</li>
+<li>把这四个项中的 Accessed、Dirty、PCD、PWD 和 Page Size 标志请0。</li>
+</ul>
+<h3 id="固定映射的线性地址">固定映射的线性地址</h3>
+<p>我们看到内核线性地址第四个GB的初始化部分映射系统的物理内存。但是，至少128MB的线性地址总是留作它用，因为内核使用这些线性地址实现非连续内存分配和固定映射的线性地址。</p>
+<p>固定映射的线性地址(fix-mapped linear address)基本上是一种类似于 0xffffc000 这样的常量线性地址，其对应的物理地址不必等于线性地址减去 0xc000000。内核使用固定映射的线性地址来代替指针变量，因为这些指针变量的值从不改变。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-12-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/linux%E5%86%85%E5%AD%98/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/linux%E5%86%85%E5%AD%98/" data-title="Linux内存" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/linux%E5%86%85%E5%AD%98/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/linux%E5%86%85%E5%AD%98/" data-title="Linux内存" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/linux%E5%86%85%E5%AD%98/" data-title="Linux内存"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/linux%E5%86%85%E5%AD%98/" data-title="Linux内存"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/linux%E5%86%85%E5%AD%98/" data-title="Linux内存" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/linux%E5%86%85%E5%AD%98/" data-title="Linux内存" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/linux%E5%86%85%E5%AD%98/" data-title="Linux内存"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" class="prev" rel="prev" title="Linux内核同步"><i class="fas fa-angle-left fa-fw"></i>Linux内核同步</a>
+            <a href="/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/" class="next" rel="next" title="Linux中断和异常">Linux中断和异常<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

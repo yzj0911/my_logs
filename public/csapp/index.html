@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>深入理解计算机系统 - YZJ 的博客</title><meta name="Description" content="YZJ 的博客"><meta property="og:title" content="深入理解计算机系统" />
+<meta property="og:description" content="深入理解计算机系统 一、计算机系统漫游 计算机系统是由硬件和软件组成。 1.1 信息就是位 &#43; 上下文 系统中所有的信息——包括磁盘文件、内存中的程序、内存中" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/csapp/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-03T10:17:16+08:00" />
+<meta property="article:modified_time" content="2021-12-03T10:17:16+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="深入理解计算机系统"/>
+<meta name="twitter:description" content="深入理解计算机系统 一、计算机系统漫游 计算机系统是由硬件和软件组成。 1.1 信息就是位 &#43; 上下文 系统中所有的信息——包括磁盘文件、内存中的程序、内存中"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/csapp/" /><link rel="next" href="http://example.org/lnmp/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "深入理解计算机系统",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/csapp\/"
+        },"genre": "posts","wordcount":  9815 ,
+        "url": "http:\/\/example.org\/csapp\/","datePublished": "2021-12-03T10:17:16+08:00","dateModified": "2021-12-03T10:17:16+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "yzj"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="YZJ 的博客">YZJ 的小博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="YZJ 的博客">YZJ 的小博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">深入理解计算机系统</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yzj0911" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-03">2021-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 9815 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 20 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一计算机系统漫游">一、计算机系统漫游</a>
+      <ul>
+        <li><a href="#11-信息就是位--上下文">1.1 信息就是位 + 上下文</a></li>
+        <li><a href="#12-程序被其他程序翻译成不同的格式">1.2 程序被其他程序翻译成不同的格式</a></li>
+        <li><a href="#13-了解编译系统如何工作是大有益处的">1.3 了解编译系统如何工作是大有益处的</a></li>
+        <li><a href="#14-处理器读并解释储存在内存中指令">1.4 处理器读并解释储存在内存中指令</a></li>
+        <li><a href="#15-高速缓存至关重要">1.5 高速缓存至关重要</a></li>
+        <li><a href="#16-存储设备形成层次结构">1.6 存储设备形成层次结构</a></li>
+        <li><a href="#17-操作系统管理硬件">1.7 操作系统管理硬件</a></li>
+        <li><a href="#18-系统之间利用网络通信">1.8 系统之间利用网络通信</a></li>
+        <li><a href="#19-重要主题">1.9 重要主题</a></li>
+      </ul>
+    </li>
+    <li><a href="#三程序的机器级表示">三、程序的机器级表示</a>
+      <ul>
+        <li><a href="#31-历史观点">3.1 历史观点</a></li>
+        <li><a href="#32-程序编码">3.2 程序编码</a></li>
+        <li><a href="#33-数据格式">3.3 数据格式</a></li>
+        <li><a href="#34-访问信息">3.4 访问信息</a></li>
+        <li><a href="#35-算术和逻辑操作">3.5 算术和逻辑操作</a></li>
+        <li><a href="#36-控制">3.6 控制</a></li>
+        <li><a href="#37-过程">3.7 过程</a></li>
+        <li><a href="#38-数组分配和访问">3.8 数组分配和访问</a></li>
+        <li><a href="#39-异质的数据结构">3.9 异质的数据结构</a></li>
+        <li><a href="#310-在机器级程序中将控制与数据结合起来">3.10 在机器级程序中将控制与数据结合起来</a></li>
+        <li><a href="#311-浮点代码">3.11 浮点代码</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="深入理解计算机系统">深入理解计算机系统</h1>
+<h2 id="一计算机系统漫游">一、计算机系统漫游</h2>
+<p>计算机系统是由<code>硬件</code>和<code>软件</code>组成。</p>
+<h3 id="11-信息就是位--上下文">1.1 信息就是位 + 上下文</h3>
+<p>系统中所有的信息——包括磁盘文件、内存中的程序、内存中存放的用户数据以及网络上传送的数据，都是由一串 bit 表示的。区分不同数据对象的唯一方法是我们读到这些数据对象是的上下文。</p>
+<h3 id="12-程序被其他程序翻译成不同的格式">1.2 程序被其他程序翻译成不同的格式</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210831190321.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210831190321.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210831190321.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210831190321.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210831190321.png"
+        title="编译系统" /></p>
+<h3 id="13-了解编译系统如何工作是大有益处的">1.3 了解编译系统如何工作是大有益处的</h3>
+<p>为什么程序员必须要知道编译系统是如何工作的?</p>
+<ul>
+<li>优化程序性能。</li>
+<li>理解链接时出现的错误。</li>
+<li>避免安全漏洞。</li>
+</ul>
+<h3 id="14-处理器读并解释储存在内存中指令">1.4 处理器读并解释储存在内存中指令</h3>
+<p>系统硬件组成</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901205400.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901205400.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901205400.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901205400.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901205400.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901205400.png" /></p>
+<ol>
+<li>总线: 贯穿整个系统的一组电子管道，称作总线，他携带信息字节并负责在各个部件间传递。</li>
+<li>I/O 设备: 系统与外部世界的联系通道。每个 I/O 设备都通过一个控制器或者适配器与 I/O 总线相连。控制器和适配器之间的区别主要在于它们的封装方式。控制器是 I/O 设备本身或者系统的主印制电路板上的芯片组。而适配器则是一块插在主板插槽上的卡。</li>
+<li>主存: 主存是一个临时存储设备，在处理执行程序时，用来存放程序和程序处理的数据。从物理上来说，主存是由一组动态随机存储存储器 (DRAM) 芯片组成的。从逻辑上来说，存储器是一个线性的字节数组，每个字节都有其唯一的地址(数组索引)，这些地址是从零开始的。</li>
+<li>处理器：中央处理单元 (CPU)，简称处理器，是解释(或)执行存储在主存中指令的引擎、处理器的核心是一个大小与一个字的存储设备(或寄存器)，称为程序计数器(PC)。在任何时刻，PC 都指向主存中的某条机器语言指令。</li>
+</ol>
+<p>系统执行一个 <code>Hello World</code> 程序时，硬件运行流程。</p>
+<ol>
+<li>键盘输入命令时，shell 程序将字符逐一读入寄存器，再存放到内存中。</li>
+<li>键入回车键后，shell 执行一系列指令来加载可执行的 hello 文件，将 hello 目标文件中的代码和数据从磁盘复制到内存。</li>
+<li>处理器开始执行 hello 程序 main 程序中的机器语言指令。</li>
+<li>这些指令将输出的字符串中的字节从主存复制到寄存器文件，再从寄存器文件中复制到显示设备，最终显示在屏幕上。</li>
+</ol>
+<h3 id="15-高速缓存至关重要">1.5 高速缓存至关重要</h3>
+<p>系统运行时会频繁的挪动信息，而不同存储设备之间的读写性能有严重偏差 (从寄存器中读取数据比从主存中读取快 100 被，从主存中读取又比磁盘中快 1000 万倍)。所以不同存储设备间需要高速缓存来提供系统运行速度。</p>
+<blockquote>
+<p>这里的高速缓存是相对概念。</p>
+</blockquote>
+<h3 id="16-存储设备形成层次结构">1.6 存储设备形成层次结构</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901212609.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901212609.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901212609.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901212609.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901212609.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901212609.png" /></p>
+<h3 id="17-操作系统管理硬件">1.7 操作系统管理硬件</h3>
+<p>我们并不直接访问硬件，而是通过操作系统。所有应用程序对硬件的操作尝试都必须通过操作系统。</p>
+<p>操作系统有两个基本功能:</p>
+<ul>
+<li>防止硬件被失控的应用程序滥用。</li>
+<li>向应用程序提供简单一致的机制来控制复杂而又通常不大相同的低级硬件设备。</li>
+</ul>
+<p>操作系统通过几个基本抽象概念来实现这两个功能。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901214102.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901214102.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901214102.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901214102.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901214102.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901214102.png" /></p>
+<p>进程: 操作系统对一个正在运行的程序的一种抽象。</p>
+<p>上下文: 操作系统保持跟踪进程运行所需的所有状态信息，其中包含 PC 和寄存器文件的当前值，以及主存的内存。</p>
+<p>在任何一个时刻，单处理器系统都只能执行一个进程的代码。当操作系统决定要把控制权从当前进程转移到某个新进程时，就会进行上下文切换。这一过程有操作系统内核 (kernel) 管理。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901213718.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901213718.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901213718.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901213718.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901213718.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901213718.png" /></p>
+<p>线程: 现代操作系统中，一个进程实际上可以由多个称为线程的执行单元组成，每个线程都裕兴在进程的上下文中，并共享同样的代码和全局数据。</p>
+<p>虚拟机内存是一个抽象概念，它为每个进程提供一个假象，即每个进程都在独占地使用主存，每个进程看到的内存都是一致的，称为虚拟地址空间。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901214306.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901214306.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901214306.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901214306.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901214306.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901214306.png" /></p>
+<p>虚拟地址空间从下至上依次为:</p>
+<ul>
+<li>程序代码和数据。对所有的进程来说，代码是从同一固定地址开始，紧接着的是和 C 全局变量相对应的数据位置。代码和数据区是直接按照可执行目标文件的内容初始化的。</li>
+<li>堆。堆可以在运行时动态地扩展和收缩。</li>
+<li>共享库。存放 C 标准库和数学库这些共享库的代码和数据。</li>
+<li>栈。位于用户虚拟地址空间顶部，编译器用它来实现函数调用，它和堆一样在程序运行期间可以动态地扩展和收缩。每次调用一个函数时，栈就会增长，从一个函数返回时，栈就会收缩。</li>
+<li>内核虚拟内存。地址空间顶部的区域是为内核保留的。不允许应用程序读写这个区域的内容或者直接调用内核代码定义的函数。相反，他们必须调用内核来执行这些操作。</li>
+</ul>
+<p>文件就是字节序列！每个 I/O 设备，包括磁盘、键盘、显示器，甚至网络，都可以看成文件。</p>
+<h3 id="18-系统之间利用网络通信">1.8 系统之间利用网络通信</h3>
+<p>硬件和软件组合成一个系统，而通过网络间不同的主机连接成一个更广大的现代系统。</p>
+<h3 id="19-重要主题">1.9 重要主题</h3>
+<p>并发 (concurrency): 一个同时具有多个活动的系统。</p>
+<p>并行 (parallelism): 用并发来是一个系统运行得更快。</p>
+<p>超线程：有时称为同时多线程 (simultaneous multi-threading)，是一项允许一个 CPU 执行多个控制流的技术。</p>
+<p>抽象的使用是计算机科学中最为重要的概念之一。这里介绍四个抽象:</p>
+<ul>
+<li>文件是对 I/O 设备的抽象。</li>
+<li>虚拟内存是对程序存储器的抽象。</li>
+<li>进程是对一个正在运行的程序的抽象。</li>
+<li>虚拟机是对整个计算机的抽象。</li>
+</ul>
+<h2 id="三程序的机器级表示">三、程序的机器级表示</h2>
+<h3 id="31-历史观点">3.1 历史观点</h3>
+<p>Intel 处理器系列俗称 <code>x86</code>。</p>
+<p>摩尔定律: 1965 年， Gordon Moore, Intel 公司的创始人根据当时的芯片技术做出推断，预测在未来 10 年，芯片上的晶体管数量每年都会翻一番。这个预测就成为摩尔定律。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210906193611.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210906193611.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210906193611.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210906193611.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210906193611.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210906193611.png" /></p>
+<h3 id="32-程序编码">3.2 程序编码</h3>
+<p>机器级编程重要的两种抽象:</p>
+<ul>
+<li>由指令级体系结构或指令集架构(Instruction Set Architecture, ISA) 来定义机器级程序的格式和行为，它定义了处理器状态、指令的格式，以及每条指令对状态的影响。</li>
+<li>机器级程序使用的内存地址是虚拟地址，提供的内存模型看上去是一个非常大的字节数组。</li>
+</ul>
+<p>汇编代码非常接近于机器代码，它的主要特点是它用可读性更好的文本格式表示。</p>
+<p>程序内存包含：程序的可执行机器代码，操作系统需要的一些信息，用来管理过程调用和返回的运行时栈，以及用户分配的内存块。</p>
+<p>一条机器指令只能执行一个非常基本的操作。</p>
+<h3 id="33-数据格式">3.3 数据格式</h3>
+<p>Intel 中数据格式：</p>
+<ul>
+<li>字 word: 表示 16 位数据类型</li>
+<li>双字 double words: 32 位数</li>
+<li>四字 qoad words: 64 位数</li>
+</ul>
+<p>C 语言数据类型在 x86-64 中的大小。在 64 为机器中，指针长 8 字节。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210906202049.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210906202049.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210906202049.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210906202049.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210906202049.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210906202049.png" /></p>
+<p>大多数<code>GCC</code>生成的汇编代码指令都有一个字符的后缀，表明操作数的大小。例如。数据传送指令有四个变种：</p>
+<ul>
+<li>movb: 传送字节</li>
+<li>movw: 传送字</li>
+<li>movl: 传送双字</li>
+<li>movq: 传送四字</li>
+</ul>
+<h3 id="34-访问信息">3.4 访问信息</h3>
+<p>一个 <code>x86-64</code> 的中央处理单元 CPU 包含一组 16 个存储 64 位值的通用目的寄存器，这些寄存器用来存储整数数据和指针。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907213431.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907213431.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907213431.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907213431.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907213431.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907213431.png" /></p>
+<p>关于寄存器的说明可以参考:</p>
+<ul>
+<li><a href="https://blog.csdn.net/u013982161/article/details/51347944" target="_blank" rel="noopener noreffer">X86-64 寄存器和栈帧</a></li>
+<li><a href="https://lenzhao.com/topic/597acd202e95f0fd0a981868" target="_blank" rel="noopener noreffer">x86_64 寄存器介绍</a></li>
+</ul>
+<p>大多数指令有一个或多个操作数(operand)，指示出执行一个操作中要使用到的源数据值，以及放置结果的目的位置。</p>
+<p>存放操作数的类型：</p>
+<ul>
+<li>立即数(immediate)，用来表示常数值。格式是 &lsquo;$&rsquo; 后面跟一个标准 C 表示法表示的整数。比如 <code>$-577</code>或<code>$0x1F</code>。</li>
+<li>寄存器(register)，它表示某个寄存器的内容，用符号 $R_a$ 表示。</li>
+<li>内存引用，它会根据计算出来的地址(通常称为有效地址)访问某个内存位置。使用 $M_b$[Addr] 表示对存储在内存中从 <em>Addr</em> 开始的 b 个字节值的引用。</li>
+</ul>
+<p>多种不同的寻址方式，允许不同形式的内存引用。</p>
+<p>Imm($r_b$, $r_i$, s) : 一个立即数偏移 Imm，一个基址寄存器 $r_b$，一个变址寄存器 $r_i$ 和一个比例因子 s，s 必须是 1、2、4、8。基址和变址寄存器都必须是 64 位寄存器。有效地址为 Imm+R[$r_b$]+R[$r_i$]*s。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907204700.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907204700.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907204700.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907204700.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907204700.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907204700.png" /></p>
+<p>计算题:
+有以下内存地址和寄存器的值:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907210324.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907210324.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907210324.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907210324.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907210324.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907210324.png" /></p>
+<p>得出以下操作数的值:</p>
+<table>
+<thead>
+<tr>
+<th>操作数</th>
+<th>值</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%rax</td>
+<td>0x100</td>
+<td>寄存器</td>
+</tr>
+<tr>
+<td>0x104</td>
+<td>0xAB</td>
+<td>绝对地址</td>
+</tr>
+<tr>
+<td>$0x108</td>
+<td>0x108</td>
+<td>立即数</td>
+</tr>
+<tr>
+<td>(%rax)</td>
+<td>0xFF</td>
+<td>地址 0x100</td>
+</tr>
+<tr>
+<td>4(%rax)</td>
+<td>0xAB</td>
+<td>地址 0x104</td>
+</tr>
+<tr>
+<td>9(%rax,%rdx)</td>
+<td>0x11</td>
+<td>地址 0x10C</td>
+</tr>
+<tr>
+<td>260(%rax,%rdx)</td>
+<td>0x13</td>
+<td>地址 0x108</td>
+</tr>
+<tr>
+<td>OxFC(,%rcx,4)</td>
+<td>0xFF</td>
+<td>地址 0x100</td>
+</tr>
+<tr>
+<td>(%rax,%rdx,4)</td>
+<td>0x11</td>
+<td>地址 0x10C</td>
+</tr>
+</tbody>
+</table>
+<p>数据传送指令: 将数据从一个位置复制到另一个位置。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907211404.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907211404.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907211404.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907211404.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907211404.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907211404.png" /></p>
+<p>源操作数指定的值是一个立即数，存储在寄存器或者内存中。目的操作数指定一个位置，寄存器或者内存地址。</p>
+<blockquote>
+<p>x86-64 中传送指令的两个操作数不能都指向内存位置，内存间的复制需要两条指令。</p>
+</blockquote>
+<p><code>MOV</code> 的五种可能组合:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nf">movl</span> <span class="no">$0x4050</span><span class="p">,</span> <span class="no">$eax</span>        <span class="c">; Immediate -- Register, 4 bytes
+</span><span class="c"></span><span class="no">movw</span> <span class="nv">%bp</span><span class="p">,</span> <span class="nv">%sp</span>             <span class="c">; Register -- Register,  2 bytes
+</span><span class="c"></span><span class="no">movb</span> <span class="p">(</span><span class="nv">%bp</span><span class="p">,</span> <span class="nv">%rcx</span><span class="p">),</span> <span class="nv">%al</span>     <span class="c">; Memory -- Register,    1 bytes
+</span><span class="c"></span><span class="no">movb</span> <span class="no">$-17</span><span class="p">,</span> <span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>         <span class="c">; Immediate -- Memory,   1 bytes
+</span><span class="c"></span><span class="no">movq</span> <span class="nv">%rax</span><span class="p">,</span> <span class="p">-</span><span class="mi">12</span><span class="p">(</span><span class="nv">%rbp</span><span class="p">)</span>      <span class="c">; Register -- Memory,    8 bytes
+</span></code></pre></td></tr></table>
+</div>
+</div><p><code>MOVZ</code> 类中指令把目的中剩余的字节填充为0。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907212410.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907212410.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907212410.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907212410.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907212410.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907212410.png" /></p>
+<p><code>MOVS</code> 类中的指令通过符号扩展来填充，把源操作的最高为进行复制。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907212339.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907212339.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907212339.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907212339.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907212339.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907212339.png" /></p>
+<p>下面是一个数据传送示例:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">long</span> <span class="nf">exchange</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="n">xp</span><span class="p">,</span> <span class="kt">long</span> <span class="n">y</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">long</span> <span class="n">x</span> <span class="o">=</span> <span class="o">*</span><span class="n">xp</span><span class="p">;</span>
+    <span class="o">*</span><span class="n">xp</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>执行命令 <code>gcc -Og -S main.c</code> 生成以下汇编内容:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nl">exchange:</span>
+        <span class="nf">movq</span>    <span class="p">(</span><span class="nv">%rdi</span><span class="p">),</span> <span class="nv">%rax</span>
+        <span class="nf">movq</span>    <span class="nv">%rsi</span><span class="p">,</span> <span class="p">(</span><span class="nv">%rdi</span><span class="p">)</span>
+        <span class="nf">ret</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看出: C 语言的 &ldquo;指针&rdquo; 其实就是地址。间接引用指针就是间该指针放在一个寄存器中，然后再内存引用中使用这个寄存器。</p>
+<p>最后的两个数据传送操作: 将数据压入程序栈中，从程序栈中弹出数据。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908212726.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908212726.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908212726.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908212726.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908212726.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908212726.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nf">pushq</span> <span class="nv">%rbp</span>        <span class="c">; 栈指针减8，然后将值写到新的栈顶地址。
+</span><span class="c">; 等同于
+</span><span class="c"></span><span class="no">subq</span> <span class="no">$8</span><span class="p">,</span> <span class="nv">%rsp</span>     <span class="c">; Decrement stack pointer
+</span><span class="c"></span><span class="no">movq</span> <span class="nv">%rbp</span><span class="p">,</span> <span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span> <span class="c">; Store %rbp on stack
+</span></code></pre></td></tr></table>
+</div>
+</div><p>操作示意图:
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908213559.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908213559.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908213559.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908213559.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908213559.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908213559.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nf">popq</span> <span class="nv">%rbp</span>         <span class="c">; 弹出一个四字的操作包括从栈顶位置读出数据，然后减栈指针加8。
+</span><span class="c">; 等同于
+</span><span class="c"></span><span class="no">movq</span> <span class="nv">%rsp</span><span class="p">,</span> <span class="p">(</span><span class="nv">%rax</span><span class="p">)</span> <span class="c">; Read %rax from stack
+</span><span class="c"></span><span class="no">addq</span> <span class="no">$8</span><span class="p">,</span> <span class="nv">%rsp</span>     <span class="c">; Increment stack pointer
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="35-算术和逻辑操作">3.5 算术和逻辑操作</h3>
+<p>指令类 ADD 由四条加法指令组成: <code>addb</code> 字节加法、<code>addw</code> 字加法、<code>addl</code> 双字加法 和 <code>addq</code> 四字加法。</p>
+<p>这些操作被分成四组: 加载有效地址、一元操作、二元操作和移位。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908213818.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908213818.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908213818.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908213818.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908213818.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908213818.png" /></p>
+<p>加载有效地址(load effective address)指令 <code>leaq</code> 实际上是 <code>movq</code> 指令的变形。它的指令形式是从内存读数据到寄存器，但实际上它根本就没有引用内存。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">long</span> <span class="nf">scale</span><span class="p">(</span><span class="kt">long</span> <span class="n">x</span><span class="p">,</span> <span class="kt">long</span> <span class="n">y</span><span class="p">,</span> <span class="kt">long</span> <span class="n">z</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">long</span> <span class="n">t</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">12</span> <span class="o">*</span> <span class="n">z</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">t</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>得到汇编命令:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nl">_scale:</span>                                 <span class="c">## @scale
+</span><span class="c"></span>	<span class="na">.cfi_startproc</span>
+<span class="c">## %bb.0:
+</span><span class="c"></span>	<span class="nf">pushq</span>	<span class="nv">%rbp</span>
+	<span class="nf">movq</span>	<span class="nv">%rsp</span><span class="p">,</span> <span class="nv">%rbp</span>
+	<span class="nf">leaq</span>	<span class="p">(</span><span class="nv">%rdi</span><span class="p">,</span><span class="nv">%rsi</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nv">%rax</span>
+	<span class="nf">leaq</span>	<span class="p">(</span><span class="nv">%rdx</span><span class="p">,</span><span class="nv">%rdx</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="nv">%rcx</span>
+	<span class="nf">leaq</span>	<span class="p">(</span><span class="nv">%rax</span><span class="p">,</span><span class="nv">%rcx</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nv">%rax</span>
+	<span class="nf">popq</span>	<span class="nv">%rbp</span>
+	<span class="nf">retq</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>一元操作数只有一个操作数，既是源又是目的。如 <code>incq (%rsp)</code>。</p>
+<p>二元操作数，第二个操作数既是源又是目的。如 <code>subq %rax,%rdx</code>。</p>
+<p>移位操作，先给出移位量，然后第二项是要移位。可以进行算术和逻辑右移。位移量可以是一个立即数，或者放在单字节寄存器 %cl 中(移位操作指令只允许以这个特定的寄存器作为操作数)。</p>
+<p>特殊的算术操作</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909085314.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909085314.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909085314.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909085314.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909085314.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909085314.png" /></p>
+<p>以下的 C 代码:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="cp">#include</span> <span class="cpf">&lt;inttypes.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="k">typedef</span> <span class="kt">unsigned</span> <span class="n">__int128</span> <span class="n">uint128_t</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">store_uprod</span><span class="p">(</span><span class="n">uint128_t</span> <span class="o">*</span><span class="n">dest</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">x</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">*</span><span class="n">dest</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="n">uint128_t</span><span class="p">)</span> <span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">remdiv</span><span class="p">(</span><span class="kt">long</span> <span class="n">x</span><span class="p">,</span> <span class="kt">long</span> <span class="n">y</span><span class="p">,</span>
+            <span class="kt">long</span> <span class="o">*</span><span class="n">qp</span><span class="p">,</span> <span class="kt">long</span> <span class="o">*</span><span class="n">rp</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">long</span> <span class="n">q</span> <span class="o">=</span> <span class="n">x</span> <span class="o">/</span> <span class="n">y</span><span class="p">;</span>
+    <span class="kt">long</span> <span class="n">r</span> <span class="o">=</span> <span class="n">x</span><span class="o">%</span><span class="n">y</span><span class="p">;</span>
+    <span class="o">*</span><span class="n">qp</span> <span class="o">=</span> <span class="n">q</span><span class="p">;</span>
+    <span class="o">*</span><span class="n">rp</span> <span class="o">=</span> <span class="n">r</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>生成汇编</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nl">store_uprod:</span>
+	<span class="nf">movq</span>	<span class="nv">%rsp</span><span class="p">,</span> <span class="nv">%rbp</span>
+	<span class="nf">movq</span>	<span class="nv">%rdx</span><span class="p">,</span> <span class="nv">%rax</span>      <span class="c">; Copy x to multiplicand
+</span><span class="c"></span>	<span class="no">mulq</span>	<span class="nv">%rsi</span>            <span class="c">; Multiply by y
+</span><span class="c"></span>	<span class="no">movq</span>	<span class="nv">%rdx</span><span class="p">,</span> <span class="mi">8</span><span class="p">(</span><span class="nv">%rdi</span><span class="p">)</span>   <span class="c">; Store upper 8 bytes at dest+8
+</span><span class="c"></span>	<span class="no">movq</span>	<span class="nv">%rax</span><span class="p">,</span> <span class="p">(</span><span class="nv">%rdi</span><span class="p">)</span>    <span class="c">; Store lower 8 bytes at dest
+</span><span class="c"></span>	<span class="no">retq</span>
+
+<span class="nl">remdiv:</span>
+	<span class="nf">movq</span>	<span class="nv">%rsp</span><span class="p">,</span> <span class="nv">%rbp</span>
+	<span class="nf">movq</span>	<span class="nv">%rdx</span><span class="p">,</span> <span class="nv">%r8</span>       <span class="c">; Copy qp
+</span><span class="c"></span>	<span class="no">movq</span>	<span class="nv">%rdi</span><span class="p">,</span> <span class="nv">%rax</span>      <span class="c">; Move x to lower 8 bytes of dividend
+</span><span class="c"></span>	<span class="no">cqto</span>                  <span class="c">; Sign-extend to upper 8 bytes of dividend
+</span><span class="c"></span>	<span class="no">idivq</span>	<span class="nv">%rsi</span>            <span class="c">; Divide by y 
+</span><span class="c"></span>	<span class="no">movq</span>	<span class="nv">%rax</span><span class="p">,</span> <span class="p">(</span><span class="nv">%r8</span><span class="p">)</span>     <span class="c">; Store remainder at rp
+</span><span class="c"></span>	<span class="no">movq</span>	<span class="nv">%rdx</span><span class="p">,</span> <span class="p">(</span><span class="nv">%rcx</span><span class="p">)</span>    <span class="c">; Store quotient at qp
+</span><span class="c"></span>	<span class="no">retq</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="36-控制">3.6 控制</h3>
+<p>CPU 还维护着一组单个位的条件码 (condition code) 寄存器，它们描述了最近的算术或逻辑操作的属性。可以检测这些寄存器来执行条件分支指令。最常用的条件码有:</p>
+<ul>
+<li>CF: 进位标志。最近的操作使最高位产生了进位。可以来检查无符号操作的溢出。</li>
+<li>ZF: 零标志。最近的操作得出的结果为0。</li>
+<li>SF: 符号标志。最近的操作得到的结果为负数。</li>
+<li>OF: 溢出标志。最近的操作导致一个补码溢出 —— 正溢出或负溢出。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909124413.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909124413.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909124413.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909124413.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909124413.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909124413.png" /></p>
+<p>条件码通常不会直接读取，常用的使用方法有三种:</p>
+<ul>
+<li>可以根据条件码的某种组合，将一个字节设置为 0 或者 1。</li>
+<li>可以条件跳转到程序的某个其他部分。</li>
+<li>可以有条件地创送数据。</li>
+</ul>
+<p><code>SET</code> 指令是根据条件码的某种组合，将一个字节设置为 0 或者 1的一整类指令。这些指令的后缀表示不同的条件而不是操作数的大小。如</p>
+<ul>
+<li><code>setl</code> 表示 “小于时设置 (set less)”。</li>
+<li><code>setb</code> 表示 “低于时设置 (set below)”。</li>
+</ul>
+<p>一条 <code>SET</code> 指令的目的操作数是低位单字节寄存器元素之一，或者是一个字节的内存位置，指令会将这个字节设置成 0 或者 1。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909125357.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909125357.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909125357.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909125357.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909125357.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909125357.png" /></p>
+<p>跳转 (jump) 指令会导致执行切换到程序中一个全新的位置。在汇编代码中，这些跳转的目的地通常用一个标号 (label) 指明。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm">  <span class="nf">movq</span> <span class="no">$0</span><span class="p">,</span><span class="nv">%rax</span>        <span class="c">; Set %rax to 0
+</span><span class="c"></span>  <span class="no">jmp</span> <span class="no">.L1</span>             <span class="c">; Goto .L1
+</span><span class="c"></span>  <span class="no">movq</span> <span class="p">(</span><span class="nv">%rax</span><span class="p">),</span> <span class="nv">%rdx</span>   <span class="c">; Null pointer dereference (skipped)
+</span><span class="c"></span><span class="no">.L1</span><span class="p">:</span>
+  <span class="nf">popq</span> <span class="nv">%rdx</span>           <span class="c">; Jump target
+</span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909170813.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909170813.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909170813.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909170813.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909170813.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909170813.png" /></p>
+<p>实现条件操作的传统方法是通过使用控制的条件转移。当条件满足时，程序沿着一条执行路径执行，而当条件不满足是，就走另一条路径。但这个方法在现代处理器上可能会非常低效。</p>
+<p>另一种策略是使用数据的条件转移。这个方法计算一个条件操作的两种结果，然后再根据条件是否满足从中选取一个。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909190735.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909190735.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909190735.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909190735.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909190735.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909190735.png" /></p>
+<p>汇编中没有循环指令存在，可以用条件测试和跳转组合起来实现循环效果。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="kt">long</span> <span class="nf">fact_do</span><span class="p">(</span><span class="kt">long</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">long</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="n">result</span> <span class="o">*=</span> <span class="n">n</span><span class="p">;</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>生成汇编代码:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nl">_fact_do:</span>                               <span class="c">## @fact_do
+</span><span class="c"></span>	<span class="nf">pushq</span>	<span class="nv">%rbp</span>
+	<span class="nf">movq</span>	<span class="nv">%rsp</span><span class="p">,</span> <span class="nv">%rbp</span>
+	<span class="nf">movl</span>	<span class="no">$1</span><span class="p">,</span> <span class="nv">%eax</span>
+<span class="nl">LBB0_1:</span>                                 <span class="c">## =&gt;This Inner Loop Header: Depth=1
+</span><span class="c"></span>	<span class="nf">imulq</span>	<span class="nv">%rdi</span><span class="p">,</span> <span class="nv">%rax</span>
+	<span class="nf">decq</span>	<span class="nv">%rdi</span>
+	<span class="nf">cmpq</span>	<span class="no">$1</span><span class="p">,</span> <span class="nv">%rdi</span>
+	<span class="nf">jg</span>	<span class="no">LBB0_1</span>
+	<span class="nf">popq</span>	<span class="nv">%rbp</span>
+	<span class="nf">retq</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>switch 语句可以根据一个整数索引值进行多重分支 (multiway branching)。switch 会被转化成跳转表 (jump table)。跳转表示一个数组，表项 i 是一个代码段的地址，这个代码段实现当开关索引值等于 i 时程序应该采取的动作。程序代码用开关索引值来执行一个跳转表内的数组引用，确定跳转指令的目标。和使用一组很长的 if-else 语句对比，使用跳转表的优点是执行开关语句的时间与开关情况的数量无关。</p>
+<p>C switch 代码:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="kt">void</span> <span class="nf">switch_eg</span><span class="p">(</span><span class="kt">long</span> <span class="n">x</span><span class="p">,</span> <span class="kt">long</span> <span class="n">n</span><span class="p">,</span>
+               <span class="kt">long</span> <span class="o">*</span><span class="n">dest</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">long</span> <span class="n">val</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+
+    <span class="k">switch</span> <span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="mi">100</span><span class="o">:</span>
+            <span class="n">val</span> <span class="o">*=</span> <span class="mi">13</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+
+        <span class="k">case</span> <span class="mi">102</span><span class="o">:</span>
+            <span class="n">val</span> <span class="o">+=</span> <span class="mi">10</span><span class="p">;</span>
+
+        <span class="k">case</span> <span class="mi">103</span><span class="o">:</span>
+            <span class="n">val</span> <span class="o">+=</span> <span class="mi">11</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+
+        <span class="k">case</span> <span class="mi">104</span><span class="o">:</span>
+        <span class="k">case</span> <span class="mi">106</span><span class="o">:</span>
+            <span class="n">val</span> <span class="o">*=</span> <span class="n">val</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+
+        <span class="k">default</span><span class="o">:</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="o">*</span><span class="n">dest</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>生成汇编:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm">	<span class="na">.section</span>	<span class="no">__TEXT</span><span class="p">,</span><span class="no">__text</span><span class="p">,</span><span class="no">regular</span><span class="p">,</span><span class="no">pure_instructions</span>
+	<span class="na">.build_version</span> <span class="no">macos</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">4</span>	<span class="no">sdk_version</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">4</span>
+	<span class="na">.globl</span>	<span class="no">_switch_eg</span>              <span class="c">## -- Begin function switch_eg
+</span><span class="c"></span>	<span class="no">.p2align</span>	<span class="mi">4</span><span class="p">,</span> <span class="mi">0x90</span>
+<span class="nl">_switch_eg:</span>                             <span class="c">## @switch_eg
+</span><span class="c">## %bb.0:
+</span><span class="c"></span>	<span class="nf">pushq</span>	<span class="nv">%rbp</span>
+	<span class="nf">movq</span>	<span class="nv">%rsp</span><span class="p">,</span> <span class="nv">%rbp</span>
+	<span class="nf">xorl</span>	<span class="nv">%eax</span><span class="p">,</span> <span class="nv">%eax</span>
+	<span class="nf">addq</span>	<span class="no">$-100</span><span class="p">,</span> <span class="nv">%rsi</span>
+	<span class="nf">cmpq</span>	<span class="no">$6</span><span class="p">,</span> <span class="nv">%rsi</span>
+	<span class="nf">ja</span>	<span class="no">LBB0_7</span>
+<span class="c">## %bb.1:
+</span><span class="c"></span>	<span class="nf">leaq</span>	<span class="no">LJTI0_0</span><span class="p">(</span><span class="nv">%rip</span><span class="p">),</span> <span class="nv">%rcx</span>
+	<span class="nf">movslq</span>	<span class="p">(</span><span class="nv">%rcx</span><span class="p">,</span><span class="nv">%rsi</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nv">%rsi</span>
+	<span class="nf">addq</span>	<span class="nv">%rcx</span><span class="p">,</span> <span class="nv">%rsi</span>
+	<span class="nf">jmpq</span>	<span class="p">*</span><span class="nv">%rsi</span>
+<span class="nl">LBB0_5:</span>
+	<span class="nf">imulq</span>	<span class="nv">%rdi</span><span class="p">,</span> <span class="nv">%rdi</span>
+	<span class="nf">jmp</span>	<span class="no">LBB0_6</span>
+<span class="nl">LBB0_2:</span>
+	<span class="nf">leaq</span>	<span class="p">(</span><span class="nv">%rdi</span><span class="p">,</span><span class="nv">%rdi</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="nv">%rax</span>
+	<span class="nf">leaq</span>	<span class="p">(</span><span class="nv">%rdi</span><span class="p">,</span><span class="nv">%rax</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nv">%rax</span>
+	<span class="nf">jmp</span>	<span class="no">LBB0_7</span>
+<span class="nl">LBB0_3:</span>
+	<span class="nf">addq</span>	<span class="no">$10</span><span class="p">,</span> <span class="nv">%rdi</span>
+<span class="nl">LBB0_4:</span>
+	<span class="nf">addq</span>	<span class="no">$11</span><span class="p">,</span> <span class="nv">%rdi</span>
+<span class="nl">LBB0_6:</span>
+	<span class="nf">movq</span>	<span class="nv">%rdi</span><span class="p">,</span> <span class="nv">%rax</span>
+<span class="nl">LBB0_7:</span>
+	<span class="nf">movq</span>	<span class="nv">%rax</span><span class="p">,</span> <span class="p">(</span><span class="nv">%rdx</span><span class="p">)</span>
+	<span class="nf">popq</span>	<span class="nv">%rbp</span>
+	<span class="nf">retq</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="37-过程">3.7 过程</h3>
+<p>过程是软件中一种很重要的抽象。它提供了一种封装代码的方式，用一组指定的参数和一个可选的返回值实现了某种功能。然后，可以在程序中不同的地方调用这个函数。设计良好的如软件用过程作为抽象机制，隐藏某个行为的具体实现，同时又提供清晰简洁的接口定义，说明要计算的是哪些值，过程会对程序状态产生说明样的影响。</p>
+<p>不同编程语言中，过程的形式:</p>
+<ul>
+<li>函数 (function)</li>
+<li>方法 (method)</li>
+<li>子例程 (subroutine)</li>
+<li>处理函数 (handler)</li>
+</ul>
+<p>假设过程 P 调用过程 Q，Q 执行后返回 P。过程可能用到的一个或多个机制:</p>
+<ul>
+<li>传递控制。在进入过程 Q 的时候，程序计数器必须被设置为 Q 的代码的起始地址，然后再返回时，要把程序计数器设置为 P 中调用 Q 后面那条指令的地址。</li>
+<li>传递数据。P 必须能够向 Q 提供一个或多个参数，Q 必须能够向 P 返回一个值。</li>
+<li>分配和释放内存。在开始是，Q 可能需要为局部变量分配空间，而在返回前，又必须释放这些存储空间。</li>
+</ul>
+<h4 id="371-传递控制">3.7.1 传递控制</h4>
+<p>C 语言过程调用中使用栈数据结构提供的后进先出的内存管理原则。</p>
+<p>程序可以用栈来管理它的过程所需要的存储空间，栈和程序寄存器存放这传递控制和数据、分配内存所需要的信息。当 P 调用 Q 时，控制和数据信息添加到栈尾。当 P 返回时，这些信息会释放掉。</p>
+<p>当 <code>x86-64</code> 过程需要的存储空间超出寄存器能够存放的大小时，就会在栈上分配空间。这个部分称为过程的栈帧(stack frame)。当前正在执行的过程的帧总是在栈顶。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910082909.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910082909.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910082909.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910082909.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910082909.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910082909.png" /></p>
+<h4 id="372-转移控制">3.7.2 转移控制</h4>
+<p>将控制从函数 P 转移到函数 Q 只需要简单地把程序计数器(PC)设置为 Q 的代码的起始位置。不过，当稍后从 Q 返回的时候，处理器必须记录好需要继续 P 的执行的代码位置。在 x86-64 机器中，这个信息是用指令 <code>call Q</code> 调用过程 Q 来记录的。该指令会把地址 A 压入栈中，并将 PC 设置为 Q 的起始地址。压入的地址 A 被称为返回地址，是紧跟在 call 指令后面的那条指令的地址。对应的指令 ret 会从栈中弹出地址 A，并把 PC 设置为 A。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910084602.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910084602.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910084602.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910084602.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910084602.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910084602.png" /></p>
+<p>call 指令有一个目标，即指明被调用过程起始的指令地址。同调整一样，调用可能是直接的，也可以是间接的。在汇编代码中，直接调用的目标是一个标号，而间接调用的目标是 * 后面跟讴歌操作数指示符。</p>
+<h4 id="373-数据创送">3.7.3 数据创送</h4>
+<p>数据传送: 当调用一个过程时，除了要把控制传递给它并在过程返回时再传递回来之外，过程调用还可能包括吧数据作为参数传递，而从过程返回还有可能包括返回一个值。</p>
+<p><code>x86-64</code>中，可能通过寄存器最多传递 6 个整型(例如整数和指针)参数。寄存器的使用是由特殊顺序的，寄存器使用的名字取决于要传递的数据类型的大小。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910090642.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910090642.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910090642.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910090642.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910090642.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910090642.png" /></p>
+<p>如果一个函数有大于 6 个整型参数，超出 6 个的部分就要通过栈来传递。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="kt">void</span> <span class="nf">proc</span><span class="p">(</span><span class="kt">long</span> <span class="n">a1</span><span class="p">,</span> <span class="kt">long</span> <span class="o">*</span><span class="n">a1p</span><span class="p">,</span>
+          <span class="kt">int</span> <span class="n">a2</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">a2p</span><span class="p">,</span>
+          <span class="kt">short</span> <span class="n">a3</span><span class="p">,</span> <span class="kt">short</span> <span class="o">*</span><span class="n">a3p</span><span class="p">,</span>
+          <span class="kt">char</span> <span class="n">a4</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">a4p</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="o">*</span><span class="n">a1p</span> <span class="o">+=</span> <span class="n">a1</span><span class="p">;</span>
+    <span class="o">*</span><span class="n">a2p</span> <span class="o">+=</span> <span class="n">a2</span><span class="p">;</span>
+    <span class="o">*</span><span class="n">a3p</span> <span class="o">+=</span> <span class="n">a3</span><span class="p">;</span>
+    <span class="o">*</span><span class="n">a4p</span> <span class="o">+=</span> <span class="n">a4</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910091803.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910091803.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910091803.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910091803.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910091803.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910091803.png" /></p>
+<h4 id="374-栈上的局部存储">3.7.4 栈上的局部存储</h4>
+<p>需要栈上局部存储的情况:</p>
+<ul>
+<li>寄存器不能足够存放素有的本地数据。</li>
+<li>对一个局部变量使用地址运算符 &lsquo;&amp;&rsquo;, 因此必须能够为他产生一个地址。</li>
+<li>某些局部变量是数组或结构，因此必须能够通过数据或结构引用被访问到。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="kt">long</span> <span class="nf">call_proc</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">long</span> <span class="n">x1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">x2</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="kt">short</span> <span class="n">x3</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">x4</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="n">proc</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x2</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x3</span><span class="p">,</span> <span class="n">x4</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x4</span><span class="p">);</span> <span class="c1">// 创建栈帧
+</span><span class="c1"></span>    <span class="k">return</span> <span class="p">(</span><span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x3</span> <span class="o">-</span> <span class="n">x4</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910092035.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910092035.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910092035.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910092035.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910092035.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910092035.png" /></p>
+<h4 id="375-寄存器中的局部存储空间">3.7.5 寄存器中的局部存储空间</h4>
+<p>寄存器组是唯一被所有过程共享的资源，为了防止寄存器的值在被一个过程使用时，不被其他过程调用导致值被覆盖，<code>x86-64</code> 采用一组统一的寄存器使用惯例:</p>
+<ul>
+<li>寄存器 %rbx、%rbp 和 %r12~%r15 被划分为被调用者寄存器，Q 过程必须保证寄存器值的安全。</li>
+<li>除了栈指针 %rsp, 都分类为调用者保存寄存器。</li>
+</ul>
+<h4 id="376-递归过程">3.7.6 递归过程</h4>
+<p>递归调用一个函数本身与调用其他函数时一样的。栈规则提供了一种机制，每次函数调用都有它自己私有的状态信息(保存的返回位置和被调用者保存寄存器的值)存储空间。如果需要，它还可以提供局部变量的存储。栈分配和释放的规则很自然就与函数调用-返回的循序匹配。这种实现函数调用和返回的方法甚至对更复杂的情况也适用，暴扣互相递归调用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="kt">long</span> <span class="nf">rfact</span><span class="p">(</span><span class="kt">long</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">long</span> <span class="n">result</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">rfact</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>对应汇编代码:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nl">rfact:</span>
+    <span class="nf">pushq</span>   <span class="nv">%rbx</span>
+    <span class="nf">movq</span>    <span class="nv">%rdi</span><span class="p">,</span> <span class="no">rbx</span>
+    <span class="nf">movl</span>    <span class="no">$1</span><span class="p">,</span> <span class="nv">%eax</span>
+    <span class="nf">cmpq</span>    <span class="no">$1</span><span class="p">,</span> <span class="nv">%rdi</span>
+    <span class="nf">jle</span>     <span class="no">.L35</span>
+    <span class="nf">leaq</span>    <span class="p">-</span><span class="mi">1</span><span class="p">(</span><span class="nv">%rdi</span><span class="p">),</span> <span class="nv">%rdi</span>
+    <span class="nf">call</span>    <span class="no">rfact</span>
+    <span class="nf">imulq</span>   <span class="nv">%rbx</span><span class="p">,</span> <span class="nv">%rax</span>
+<span class="nl">.L35:</span>
+    <span class="nf">popq</span>    <span class="nv">%rbx</span>
+    <span class="nf">ret</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="38-数组分配和访问">3.8 数组分配和访问</h3>
+<p>C 语言的数组是一种将标量数据聚集成更大数据类型的方式。</p>
+<h4 id="381-基本原则">3.8.1 基本原则</h4>
+<p>对于数据类型 <em>T</em> 和整型常数 <em>N</em>，声明如下:</p>
+<p><em>T</em> A[<em>N</em>];</p>
+<p>起始位置表示为 $x_A$。这个声明有两个效果。首先，它在内存中分配一个 L·N 字节的连续区域。这里 L 是数据类型 <em>T</em> 的大小(单位为字节)。其次，它引入了标识符 A，可以用 A 来作为指向数组开头的指针，这个指针的值就是 $x_A$。可用用 0~N-1 的证书索引来访问该数组元素。数组元素 i 会被存放在地址为 $x_A$+L·i 的地方。</p>
+<h4 id="382-指针运算">3.8.2 指针运算</h4>
+<p>C 语言允许对指针进行运算，而计算出来的值会根据该指针引用的数据类型的大小进行伸缩。也就是说，如果 p 是一个指向类型为 <em>T</em> 的数据的指针，p 的值为 $x_p$，那么表达式 p+i 的值为 $x_p$+L·i，这里 <em>L</em> 是数据类型 <em>T</em> 的大小。</p>
+<p>单操作数操作符 &lsquo;$&rsquo; 和 &lsquo;* ' 可以产生指针和间接引用指针。对于一个表示某个对象的表达式 <code>Expr</code>，<code>&amp;Expr</code> 是该对象的一个指针。对于一个表示地址的表达式 <code>AExpr</code>, <code>*AExpr</code> 是该地址的值。因此，表达式 <code>Expr</code> 与 <code>* &amp;Expr</code> 是等价的。可以对数组和指针应用数组下标操作。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911092013.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911092013.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911092013.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911092013.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911092013.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911092013.png" /></p>
+<h4 id="383-嵌套数组">3.8.3 嵌套数组</h4>
+<p>要访问多维数组的元素，编译器会以数组起始为基地址，偏移量为索引，产生计算期望的元素偏移量，然后使用某种 MOV 指令。</p>
+<p>通常来说，对于一个声明如下的数组: <code>T D[R][C]</code> 的元素 <code>D[i][j]</code> 的内存地址为 $$ D[i][j] = x_D+L(C·i+j) $$</p>
+<h4 id="384-定长数组">3.8.4 定长数组</h4>
+<p>C语言编译器能够优化定长多维数组上的操作代码</p>
+<h3 id="39-异质的数据结构">3.9 异质的数据结构</h3>
+<p>C 语言2提供了两种将不同类型的对象组合到一起创建数据类型的机制:</p>
+<ul>
+<li>结构 (structure)，关键字 struct，将多个对象集合到一个单位中。</li>
+<li>联合 (union)，用关键字 union 来声明，允许用几种不同的类型来引用一个对象。</li>
+</ul>
+<h4 id="391-结构">3.9.1 结构</h4>
+<p>C 语言的 struct 声明创建一个数据类型，将可能不同类型的对象聚合到一个对象中。用名字来引用结构的各个组成部分。类似于数组的实现，结构的所有组成部分都存放在内存中一段连续的区域内，而指向结构的指针就是结构第一个字节的地址。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="k">struct</span> <span class="n">rect</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">j</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>该结构在内存中的布局:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911111340.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911111340.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911111340.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911111340.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911111340.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911111340.png" /></p>
+<h4 id="392-联合">3.9.2 联合</h4>
+<p>联合提供了一种方式，能够规避 C 语言的类型系统，允许以多种类型来引用一个对象。一个联合的总的大小等于它最大字段的大小。</p>
+<p>在一些上下文中，联合十分有用。但是，它也能引起一些讨厌的错误，因为他们绕过了 C 语言类型系统提供的安全措施。一种应用情况是，我们事先知道对一个数据结构中的两个不同字段的使用是互斥的，那么将这两个字段声明为联合的一部分，而不是结构的一部分，会减小分配空间的总量。</p>
+<h4 id="393-数据对齐">3.9.3 数据对齐</h4>
+<p>许多计算机系统对基本数据类型的合法地址做出了一些限制，要求某种类型对象的地址必须是某个值 <em>K</em> (通常是2、4或8)的倍数。这种对齐限制简化了形成处理器和内存系统之间接口的硬件设计。</p>
+<p>无论数据是否对齐，<code>x86-64</code> 硬件都能正确工作。不过，Intel 还是建议要对齐数据以提高内存系统的性能。对齐原则是任何 <em>K</em> 字节的基本对象的地址必须是 <em>K</em> 的倍数。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911130649.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911130649.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911130649.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911130649.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911130649.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911130649.png" /></p>
+<p>确保每种数据类型都是按照指定方式来组织和分配，即每种类型的对象都满足它的对齐限制，就可保证实施对齐。编译器在汇编代码中放入命令，指明全局数据所需的对齐。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="na">.align</span> <span class="mi">8</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这命令就保证了它后面的数据的开始地址是 8 的倍数。因为每个表项长 8 个字节，后面的元素都会遵守 8 字节对齐的限制。</p>
+<p>对于包含结构的代码，编译器可能需要在字段的分配中插入间隙，以保证每个结构元素都满足它的对齐要求。而结构本身对它的起始地址也有一些对齐要求。</p>
+<p>假设如下的结构声明:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="k">struct</span> <span class="n">S1</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">j</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>如果编译器用最小的9字节分配，内存布局会是这样:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911171439.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911171439.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911171439.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911171439.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911171439.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911171439.png" /></p>
+<p>但是它不满足字段 i 和 j 的4字节对齐要求，所以编译器在字段 c 和 j 之间插入一个 3 字节的间隙:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911171552.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911171552.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911171552.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911171552.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911171552.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911171552.png" /></p>
+<h3 id="310-在机器级程序中将控制与数据结合起来">3.10 在机器级程序中将控制与数据结合起来</h3>
+<h4 id="3101-理解指针">3.10.1 理解指针</h4>
+<p>一些指针和它们映射到机器代码的关键原则:</p>
+<ul>
+<li>每个指针都对应一个类型。这个类型表明该指针指向的是哪一类对象。</li>
+<li>每个指针都有一个值。这个值是某个指定类型的对象的地址。特殊的 NULL(0) 值表示该指针没有指向任何地方。</li>
+<li>指针用 &lsquo;&amp;&rsquo; 运算符创建。</li>
+<li>*操作符用于间接引用指针。其结果是一个值，它的类型与该指针的类型一致。间接引用是用内存来实现的，要么是存储到一个指定的地址，要么是从指定的地址读取。</li>
+<li>数组与指针紧密联系。一个数组的名字可以像一个指针变量一样引用(但是不能修改)。</li>
+<li>将指针从一种类型强制转化成另一个类型，只改变它的类型，而不改变它的值。强制类型转换的一个效果是改变指针运算的伸缩。</li>
+<li>指针也可以指向函数。这提供了一个很强大的存储和向代码传递引用的功能，这个引用可以被程序的某个其他部分调用。</li>
+</ul>
+<p>函数指针:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">fun</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">fp</span><span class="p">)(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="p">);</span>
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">fp</span> <span class="o">=</span> <span class="n">fun</span><span class="p">;</span>
+
+    <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">fp</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">y</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+<span class="p">}</span>
+
+
+<span class="kt">int</span> <span class="nf">fun</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">*</span><span class="n">p</span> <span class="o">+=</span> <span class="n">x</span><span class="p">;</span>
+    <span class="k">return</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="311-浮点代码">3.11 浮点代码</h3>
+<p>处理器的浮点系统结构包括多个方面，会影响对浮点数据操作的程序如何被映射到机器上，包括:</p>
+<ul>
+<li>如何存储和访问浮点数据。通常是通过某种寄存器方式来完成。</li>
+<li>对浮点数据操作的指令。</li>
+<li>向函数传递浮点数参数和从函数返回浮点数结构的规则。</li>
+<li>函数调用过程中保存寄存器的规则。</li>
+</ul>
+<p><code>x86-64</code> 浮点体系结构的历史:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913085103.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913085103.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913085103.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913085103.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913085103.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913085103.png" /></p>
+<p>如图所示，AVX 浮点体系结构允许数据存储在 16 个 YMM 寄存器中，名字是 <code>%ymm0~%ymm15</code>。每个 YMM 寄存器都是 256(32 字节)。当对标量数据操作时，这些寄存器值保存浮点数，而且只使用低 32 位(对于 float) 或 64 位(对于 double)。汇编代码用寄存器的 SSE XMM 寄存器名字 <code>%xmm0~%xmm15</code> 来引用它们，每个 XMM 寄存器都是对应的 YMM 寄存器的低 128 位(16字节)。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913085612.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913085612.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913085612.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913085612.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913085612.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913085612.png" /></p>
+<h4 id="3111-浮点传送和转化操作">3.11.1 浮点传送和转化操作</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913090024.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913090024.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913090024.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913090024.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913090024.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913090024.png" /></p>
+<p><code>GCC</code> 只用标量传送操作从内存传送数据到 XMM 寄存器或从 XMM 寄存器传送数据到内存。对于在两个 XMM 寄存器之间传送数据，<code>GCC</code> 会使用两种指令之一，即用 <code>vmpovaps</code> 传送单精度数，用 <code>vmovapd</code> 传送双精度数。对于这些情况，程序复制整个寄存器还是只复制低位值。既不会影响程序功能，也不会影响执行速度，所以使用这些指令还是针对标量数据的人指令没有实质上的差别。指令名字中的字母 &lsquo;a&rsquo; 表示 &ldquo;aligned(对齐的)&quot;。当用于读写内存是，如果地址不满足16字节对齐，它们会导致异常。在两个寄存器之间传送数据，绝不会出现错误对齐的状况。</p>
+<p>浮点数和整数数据类型之间以及不同浮点格式之间进行转换的指令集合。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913091445.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913091445.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913091445.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913091445.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913091445.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913091445.png" /></p>
+<p>把一个从 XMM 寄存器或内存中读出的浮点值进行转换，并将结果写入一个通用寄存器。把浮点值转换成整数时，指令会执行截断(truncation)，把值向 0 进行舍入。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913091717.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913091717.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913091717.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913091717.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913091717.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913091717.png" /></p>
+<h4 id="3112-过程中的浮点代码">3.11.2 过程中的浮点代码</h4>
+<p>在 <code>x86-64</code> 中，XMM 寄存器用来向函数传递浮点参数，以及从函数返回浮点值。具有以下规则:</p>
+<ul>
+<li>XMM 寄存器 <code>%xmm0~%xmm7</code> 最多可以传递 8 个浮点参数。按照参数列出的顺序使用这些寄存器。可以通过栈传递额外的浮点参数。</li>
+<li>函数使用寄存器 %xmm0 来返回浮点值。</li>
+<li>所有的 XMM 寄存器都是调用者保存的。被调用者可以不同保存就覆盖这些寄存器中任意一个。</li>
+</ul>
+<p>当函数包含指针、整数和浮点数混合的参数时，指针和整数通过通用寄存器传递，而浮点值通过 XMM 寄存器传递。也就是说，参数到寄存器的映射取决于它们的类型和排列的顺序。例如:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="c1">// 这个函数会把 x 存放在 %edi 中，y 放在 %xmm0 中，z 放在 %rsi 中。
+</span><span class="c1"></span><span class="kt">double</span> <span class="nf">f1</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y</span><span class="p">,</span> <span class="kt">long</span> <span class="n">z</span><span class="p">);</span>
+<span class="c1">// 这个函数的寄存器分配与函数 f1 相同。
+</span><span class="c1"></span><span class="kt">double</span> <span class="nf">f2</span><span class="p">(</span><span class="kt">double</span> <span class="n">y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">long</span> <span class="n">z</span><span class="p">);</span>
+<span class="c1">// 这个函数会将 x 放在 %xmm0 中，y 放在 %rdi 中，z 放在 %rsi 中。
+</span><span class="c1"></span><span class="kt">double</span> <span class="nf">f1</span><span class="p">(</span><span class="kt">float</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="o">*</span><span class="n">y</span><span class="p">,</span> <span class="kt">long</span> <span class="o">*</span><span class="n">z</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="3113-浮点运算操作">3.11.3 浮点运算操作</h4>
+<p>下图描述了一组执行算术运算的标量 AVX2 浮点指令。每条指令有一个($S_1$)或两个($S_1, S_2$)，和一个目的操作数 <em>D</em>。第一个源操作数 $S_1$ 可以是一个 XMM 寄存器或一个内存位置。第二个源操作数和目的操作数都必须是 XMM 寄存器。每个操作多有一条针对当精度的指令和一条针对双精度的指令。结果存放在目的寄存器中。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913093055.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913093055.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913093055.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913093055.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913093055.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913093055.png" /></p>
+<h4 id="3114-定义和使用浮点常数">3.11.4 定义和使用浮点常数</h4>
+<p>和整数运算操作不同，AVX 浮点操作不能以立即数值作为操作数。相反，编译器必须为所有的常量值分配和初始化存储空间。然后代码再把这些值从内存读入。</p>
+<h4 id="3115-在浮点代码中使用位级操作">3.11.5 在浮点代码中使用位级操作</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913125840.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913125840.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913125840.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913125840.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913125840.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913125840.png" /></p>
+<h4 id="3116-浮点比较操作">3.11.6 浮点比较操作</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913125948.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913125948.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913125948.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913125948.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913125948.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913125948.png" /></p>
+<p>浮点比较指令会设置三个条件码: 零标志位 ZF, 进位标志位 CF 和奇偶标志位 PF。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-12-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/csapp/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/csapp/" data-title="深入理解计算机系统"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/csapp/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/csapp/" data-title="深入理解计算机系统" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/csapp/" data-title="深入理解计算机系统"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/csapp/" data-title="深入理解计算机系统"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/csapp/" data-title="深入理解计算机系统" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/csapp/" data-title="深入理解计算机系统" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/csapp/" data-title="深入理解计算机系统"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+            <a href="/lnmp/" class="next" rel="next" title="搭建lnmp环境">搭建lnmp环境<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

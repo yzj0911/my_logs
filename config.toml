@@ -42,7 +42,7 @@ theme = "LoveIt"
   # LoveIt 更改 | 0.2.0 LoveIt 主题版本
   version = "0.2.X"
   # 网站描述
-  description = "这是我的全新 Hugo 网站"
+  description = "Hello 来了就别走了，进来留下文章"
   # 网站关键词
   keywords = ["Theme", "Hugo"]
   # 网站默认主题样式 ("light", "dark", "auto")
@@ -105,7 +105,7 @@ theme = "LoveIt"
       # LOGO 的 URL
       logo = ""
       # 标题名称
-      name = "YZJ 的小博客"
+      name = ""
       # 你可以在名称 (允许 HTML 格式) 之前添加其他信息, 例如图标
       pre = ""
       # 你可以在名称 (允许 HTML 格式) 之后添加其他信息, 例如图标
@@ -157,13 +157,13 @@ theme = "LoveIt"
     [params.home.profile]
       enable = true
       # Gravatar 邮箱，用于优先在主页显示的头像
-      gravatarEmail = "935669265@qq.com"
+      gravatarEmail = ""
       # 主页显示头像的 URL
-      avatarURL = "D://gopath//src//my_logs//mysite//content//posts//images//avatar1.jpeg"
+      avatarURL = "/posts/images/avatar.webp"
       # LoveIt 更改 | 0.2.7 主页显示的网站标题 (支持 HTML 格式)
-      title = "YZj 的小博客"
+      title = ""
       # 主页显示的网站副标题
-      subtitle = "YZj 的小博客"
+      subtitle = "Hello 来了就别走了，进来留下文章"
       # 是否为副标题显示打字机动画
       typeit = true
       # 是否显示社交账号
@@ -181,12 +181,12 @@ theme = "LoveIt"
 
   # 作者的社交信息设置
   [params.social]
-    GitHub = "https://github.com/yzj0911"
+    GitHub = "/yzj0911"
     Linkedin = ""
-   # Twitter = "xxxx"
-   # Instagram = "xxxx"
-   # Facebook = "xxxx"
-   # Telegram = "xxxx"
+    Twitter = "xxxx"
+    Instagram = "xxxx"
+    Facebook = "xxxx"
+    Telegram = "xxxx"
     Medium = ""
     Gitlab = ""
     Youtubelegacy = ""
@@ -243,7 +243,7 @@ theme = "LoveIt"
     XMPP = ""
     Matrix = ""
     Bilibili = ""
-    Email = "935669265@qq.com"
+    Email = "xxxx@xxxx.com"
     RSS = true # LoveIt 新增 | 0.2.0
 
   # LoveIt 更改 | 0.2.0 文章页面配置
@@ -517,15 +517,15 @@ theme = "LoveIt"
       # 是否在文档中直接使用 HTML 标签
       unsafe = true
   # 目录设置
-  #[markup.tableOfContents]
-  #  startLevel = 2
-  #  endLevel = 6
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 6
 
 # 作者配置
 [author]
   name = "yzj"
   email = "935669265@qq.com"
-  link = "https://github.com/yzj0911"
+  link = "/yzj0911"
 
 # 网站地图配置
 [sitemap]
