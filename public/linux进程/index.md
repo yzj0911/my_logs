@@ -9,7 +9,7 @@
 Linux 使用轻量级进程(lightweight process)对多线程应用提供更好的支持。两个轻量级进程基本上可以共享一些资源，诸如地址空间、打开的文件等等。
 
 ## 进程描述符
-![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211025101011.png)
+![](https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211025101011.png)
 
 ### 进程状态
 进程状态符中的 state 字段描述了进程所处的状态:

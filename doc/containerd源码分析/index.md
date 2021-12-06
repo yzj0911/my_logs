@@ -31,7 +31,7 @@ cmd
 └── protoc-gen-gogoctrd
 ```
 以下是它们之间的调用流程图: 
-![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211117090030.png)
+![](https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211117090030.png)
 
 ## containerd
 containerd 本身是一个命令行工具实现，入口文件为 `cmd/containerd/main.go`
@@ -391,7 +391,7 @@ func (em *eventMonitor) handleEvent(any interface{}) error {
 由此可知，Images 的后台操作都是调用一个处理方法 `updateImage`。
 
 containerd 镜像完整的下载流程如下:
-![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211125160350.png)
+![](https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211125160350.png)
 
 ## 容器操作
 介绍完镜像操作后，接下来就是关于容器部分的操作。以下我们通过一段代码来探究 containerd 内部的容器管理方式:

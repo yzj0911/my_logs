@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Linux内核同步 - YZJ 的博客</title><meta name="Description" content="YZJ 的博客"><meta property="og:title" content="Linux内核同步" />
+        <title>Linux内核同步 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="Linux内核同步" />
 <meta property="og:description" content="Linux内核同步 内核抢占 抢占内核的主要特点是: 一个在内核态运行的进程，可能在执行内核函数期间被另外一个进程取代。 用实例来说明抢占内核和非抢" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
@@ -43,7 +43,7 @@
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="YZJ 的博客">YZJ 的小博客</a>
+            <a href="/" title="YZJ 的博客"></a>
         </div>
         <div class="menu">
             <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
@@ -67,7 +67,7 @@
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="YZJ 的博客">YZJ 的小博客</a>
+                <a href="/" title="YZJ 的博客"></a>
             </div>
             <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
@@ -105,7 +105,7 @@
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Linux内核同步</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yzj0911" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-03">2021-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4957 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="true">
@@ -121,7 +121,13 @@
         <li><a href="#每cpu变量">每CPU变量</a></li>
         <li><a href="#原子操作">原子操作</a></li>
         <li><a href="#优化和内存屏障">优化和内存屏障</a></li>
-        <li><a href="#自旋锁">自旋锁</a></li>
+        <li><a href="#自旋锁">自旋锁</a>
+          <ul>
+            <li><a href="#读写自旋锁">读/写自旋锁</a></li>
+            <li><a href="#顺序锁">顺序锁</a></li>
+            <li><a href="#读-拷贝-更新rcu">读-拷贝-更新(RCU)</a></li>
+          </ul>
+        </li>
         <li><a href="#信号量">信号量</a></li>
       </ul>
     </li>
@@ -201,11 +207,11 @@
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101161518.png"
-        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101161518.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101161518.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101161518.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101161518.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101161518.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101161518.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101161518.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101161518.png"
-        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101161518.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101161518.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101161518.png" /></p>
 <h3 id="原子操作">原子操作</h3>
 <p>通过原子操作指令完成。</p>
 <p>80x86 指令:</p>
@@ -219,28 +225,28 @@
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101162753.png"
-        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101162753.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101162753.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101162753.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162753.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162753.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162753.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162753.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101162753.png"
-        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101162753.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162753.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162753.png" /></p>
 <p>另一类原子函数操作作用于位掩码</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101162847.png"
-        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101162847.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101162847.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101162847.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162847.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162847.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162847.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162847.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101162847.png"
-        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101162847.png" />
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162847.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162847.png" />
 <img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101162904.png"
-        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101162904.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101162904.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101162904.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162904.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162904.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162904.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162904.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101162904.png"
-        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101162904.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162904.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162904.png" /></p>
 <h3 id="优化和内存屏障">优化和内存屏障</h3>
 <p>当使用优化的编译器时，编译器可能重新安排汇编语言指令已使寄存器以最优的方式使用。此外，现代CPU通常并行地执行若干条指令，且可能重新安排内存访问。然而，当处理同步时，必须避免指令重新排序。</p>
 <p>优化屏障(optimization barrier) 原语保证编译程序不会混淆放在原语操作之前的汇编语言指令和放在原语操作之后的汇编语言指令，这些汇编语言指令在C中都有对应的语句。在Linux中，优化屏障就是 <code>barrier()</code> 宏，它展开 <code>asm volatile(&quot;&quot;:::&quot;memory&quot;)</code> 。指令 asm 告诉编译程序要插入汇编语言片段(这种情况下为空)。volatile 关键字禁止编译器把asm指令与程序中的其他指令重新组合。memory 关键字强制编译器假定RAM中的所有内存单元已经被汇编语言指令修改。</p>
@@ -248,11 +254,11 @@
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101193945.png"
-        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101193945.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101193945.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101193945.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101193945.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101193945.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101193945.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101193945.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101193945.png"
-        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211101193945.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101193945.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101193945.png" /></p>
 <h3 id="自旋锁">自旋锁</h3>
 <p>自旋锁(spin lock)是用来在多处理器环境中工作的一种特殊的锁。如果内核控制路径发现自旋锁&quot;开着&quot;，就获取锁并继续自己的执行。相反，如果内核控制路径发现锁由运行在另一个CPU上的内核控制路径&quot;锁着&quot;，就在周围&quot;旋转&quot;，反复执行一条紧凑的循环指令，直到锁被释放。</p>
 <p>自旋锁的循环指令表示&quot;忙等&quot;。即使等待的内核控制路径无事可做，它也在CPU上保持运行。不过，自旋锁通常非常方便，因为很多内核资源只锁1毫秒的时间片段；所以说，释放CPU和随后有获得CPU都不会消耗多少时间。</p>
@@ -324,7 +330,7 @@
                             <a class="link-to-markdown" href="/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" data-title="Linux内核同步"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" data-title="Linux内核同步" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" data-title="Linux内核同步"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" data-title="Linux内核同步"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" data-title="Linux内核同步" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" data-title="Linux内核同步" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" data-title="Linux内核同步"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" data-title="Linux内核同步" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" data-title="Linux内核同步" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" data-title="Linux内核同步"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" data-title="Linux内核同步"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" data-title="Linux内核同步" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" data-title="Linux内核同步" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" data-title="Linux内核同步"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
@@ -342,7 +348,7 @@
 <div id="comments"></div></article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

@@ -88,7 +88,7 @@ x86微处理器的三种不同地址:
 ### 段选择符和段寄存器
 一个逻辑地址由两部分组成：一个段标识符和一个指定段内相对地址的偏移量。段标识符是一个 16 位长的字段，称为段选择符(Segment Selector)。偏移量是一个 32 位长的字段。
 
-![图2-2: 段描述符](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211012090918.png)
+![图2-2: 段描述符](https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211012090918.png)
 
 专门存放段选择符的寄存器: cs, ss, ds, es, fs 和 gs。其中3个有专门的用途:
 - cs 代码段寄存器，指向包含程序指令的段。
@@ -122,7 +122,7 @@ Linux 中被广泛采用的类型:
 - 数据段描述符
 - 任务状态段描述符
 
-![2-3: 段描述符格式](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211013084126.png)
+![2-3: 段描述符格式](https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211013084126.png)
 
 段选择符字段: 
 |字段|含义|
@@ -146,7 +146,7 @@ Linux 中使用分段的方式十分有限。分段可以给每个进程分配�
 
 > 2.6 版的 Linux 只有在 80x86 结构下才需要使用分段。
 
-![表2-3: 四个主要的 Linux 段的段描述符字段的值](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211014090014.png)
+![表2-3: 四个主要的 Linux 段的段描述符字段的值](https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211014090014.png)
 
 相应的段选择符由宏 __USER_CS, __USER_DS, __KERNEL_CS 和 __KERNEL_DS 分别定义。例如，为了对内存代码段寻址，内核只需要把 __KERNEL_CS 宏产生的值装进 cs 段寄存器即可。
 
@@ -155,7 +155,7 @@ Linux 中使用分段的方式十分有限。分段可以给每个进程分配�
 ### Linux GDT
 在单处理器系统中只有一个 GDT，而在多处理器系统中每个 CPU 对应一个 GDT。所有的 GDT 都存放在 `cpu_gdt_table` 数组中。以下是 GDT 的布局示意图。每个 GDT 包含 18 个段描述符合 14 个空的，未使用的，或保留的项。
 
-![图2-6: 全局描述符表](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211014091048.png)
+![图2-6: 全局描述符表](https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211014091048.png)
 
 每一个 GDT 中包含 18 个段描述符指向下列的段:
 - 用户态和内核态下的代码段和数据段共 4 个。
@@ -192,7 +192,7 @@ Linux 中使用分段的方式十分有限。分段可以给每个进程分配�
 
 正在使用的页目录的物理地址存放在控制寄存器 cr0 中。线性地址内的 Directory 字段决定目录中的目录项，而目录项指向适当的页表。地址的 Table 字段依次又决定页表中的表项，而表项含有页所在页框的物理地址。Offset 字段决定页框也的相对位置。由于它是 12 长，故每一页含有 4096 字节的数据。
 
-![图2-7: 80x86 处理器的分页](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211015090255.png)
+![图2-7: 80x86 处理器的分页](https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211015090255.png)
 
 假设进程需要读线性地址 0x20021406 中的字节。这个地址由分页单元按下面的方法处理:
 - Directory 字段的 0x80 用于选择页目录的第 0x80 目录项，此目录项指向和该进程的页相关的页表。
@@ -208,7 +208,7 @@ Linux 中使用分段的方式十分有限。分段可以给每个进程分配�
 
 如图，高速缓存单元插在分页单元和主内存之间。它包含一个硬件高速缓存内存 (hardware cache memory) 和一个高速缓存控制器 (cache controller)。高速缓存内存存放内存中真正的行。高速缓存控制器存放一个表项数组，每个表项对应高速缓存内存中的一个行。每个表项有一个标签(tag)和描述高速缓存行状态的几个标志(flag)。这种内存物理地址通常分为3组：最高几位对应标签，中间几位对应高速缓存控制器的子集索引，最低几位对应行内的偏移量。
 
-![图2-10: 处理器硬件高速缓存](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211018093652.png)
+![图2-10: 处理器硬件高速缓存](https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211018093652.png)
 
 当访问一个 RAM 存储单元时，CPU 从物理地址中提取出子集的索引号并把子集中所有行的标签与物理地址的高几位相比较。如果发现某一个行的标签与这个物理地址的高位相同，则 CPU 命中一个高速缓存 (cache hit)；否则，高速缓存没有命中 (cache miss)。
 
@@ -227,7 +227,7 @@ Linux 采用了一种同时适用于32位和64位的普通分页模型。在 2.6
 
 页全局目录包含若干页上级目录的地址，页上级目录有一次包含若干页中间目录的地址，而页中间目录又包含若干页表的地址。每一个页表项指向一个页框。线性地址因此被分成五个部分。
 
-![图2-12: Linux 分页模式](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211020091014.png)
+![图2-12: Linux 分页模式](https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211020091014.png)
 
 Linux 的进程处理很大程度上依赖于分页。事实上，线性地址到物理地址的自动转换使下面的设计目标变得可行:
 - 给每一个进程分配一块不同的物理地址空间，这确保了可以有效地防止寻址错误。

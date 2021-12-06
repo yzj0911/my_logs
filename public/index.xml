@@ -2,7 +2,7 @@
     <channel>
         <title>YZJ 的博客</title>
         <link>http://example.org/</link>
-        <description>YZJ 的博客</description>
+        <description>Hello 来了就别走了，进来留下文章</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>935669265@qq.com (yzj)</managingEditor>
             <webMaster>935669265@qq.com (yzj)</webMaster><lastBuildDate>Fri, 03 Dec 2021 10:17:16 &#43;0800</lastBuildDate>
             <atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />

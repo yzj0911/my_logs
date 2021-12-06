@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>深入理解计算机系统 - YZJ 的博客</title><meta name="Description" content="YZJ 的博客"><meta property="og:title" content="深入理解计算机系统" />
+        <title>深入理解计算机系统 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="深入理解计算机系统" />
 <meta property="og:description" content="深入理解计算机系统 一、计算机系统漫游 计算机系统是由硬件和软件组成。 1.1 信息就是位 &#43; 上下文 系统中所有的信息——包括磁盘文件、内存中的程序、内存中" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/csapp/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
@@ -43,7 +43,7 @@
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="YZJ 的博客">YZJ 的小博客</a>
+            <a href="/" title="YZJ 的博客"></a>
         </div>
         <div class="menu">
             <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
@@ -67,7 +67,7 @@
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="YZJ 的博客">YZJ 的小博客</a>
+                <a href="/" title="YZJ 的博客"></a>
             </div>
             <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
@@ -105,7 +105,7 @@
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">深入理解计算机系统</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yzj0911" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-03">2021-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 9815 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 20 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="true">
@@ -136,11 +136,46 @@
         <li><a href="#34-访问信息">3.4 访问信息</a></li>
         <li><a href="#35-算术和逻辑操作">3.5 算术和逻辑操作</a></li>
         <li><a href="#36-控制">3.6 控制</a></li>
-        <li><a href="#37-过程">3.7 过程</a></li>
-        <li><a href="#38-数组分配和访问">3.8 数组分配和访问</a></li>
-        <li><a href="#39-异质的数据结构">3.9 异质的数据结构</a></li>
-        <li><a href="#310-在机器级程序中将控制与数据结合起来">3.10 在机器级程序中将控制与数据结合起来</a></li>
-        <li><a href="#311-浮点代码">3.11 浮点代码</a></li>
+        <li><a href="#37-过程">3.7 过程</a>
+          <ul>
+            <li><a href="#371-传递控制">3.7.1 传递控制</a></li>
+            <li><a href="#372-转移控制">3.7.2 转移控制</a></li>
+            <li><a href="#373-数据创送">3.7.3 数据创送</a></li>
+            <li><a href="#374-栈上的局部存储">3.7.4 栈上的局部存储</a></li>
+            <li><a href="#375-寄存器中的局部存储空间">3.7.5 寄存器中的局部存储空间</a></li>
+            <li><a href="#376-递归过程">3.7.6 递归过程</a></li>
+          </ul>
+        </li>
+        <li><a href="#38-数组分配和访问">3.8 数组分配和访问</a>
+          <ul>
+            <li><a href="#381-基本原则">3.8.1 基本原则</a></li>
+            <li><a href="#382-指针运算">3.8.2 指针运算</a></li>
+            <li><a href="#383-嵌套数组">3.8.3 嵌套数组</a></li>
+            <li><a href="#384-定长数组">3.8.4 定长数组</a></li>
+          </ul>
+        </li>
+        <li><a href="#39-异质的数据结构">3.9 异质的数据结构</a>
+          <ul>
+            <li><a href="#391-结构">3.9.1 结构</a></li>
+            <li><a href="#392-联合">3.9.2 联合</a></li>
+            <li><a href="#393-数据对齐">3.9.3 数据对齐</a></li>
+          </ul>
+        </li>
+        <li><a href="#310-在机器级程序中将控制与数据结合起来">3.10 在机器级程序中将控制与数据结合起来</a>
+          <ul>
+            <li><a href="#3101-理解指针">3.10.1 理解指针</a></li>
+          </ul>
+        </li>
+        <li><a href="#311-浮点代码">3.11 浮点代码</a>
+          <ul>
+            <li><a href="#3111-浮点传送和转化操作">3.11.1 浮点传送和转化操作</a></li>
+            <li><a href="#3112-过程中的浮点代码">3.11.2 过程中的浮点代码</a></li>
+            <li><a href="#3113-浮点运算操作">3.11.3 浮点运算操作</a></li>
+            <li><a href="#3114-定义和使用浮点常数">3.11.4 定义和使用浮点常数</a></li>
+            <li><a href="#3115-在浮点代码中使用位级操作">3.11.5 在浮点代码中使用位级操作</a></li>
+            <li><a href="#3116-浮点比较操作">3.11.6 浮点比较操作</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
@@ -154,10 +189,10 @@
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210831190321.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210831190321.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210831190321.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210831190321.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210831190321.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210831190321.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210831190321.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210831190321.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210831190321.png"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210831190321.png"
         title="编译系统" /></p>
 <h3 id="13-了解编译系统如何工作是大有益处的">1.3 了解编译系统如何工作是大有益处的</h3>
 <p>为什么程序员必须要知道编译系统是如何工作的?</p>
@@ -171,11 +206,11 @@
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901205400.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901205400.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901205400.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901205400.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901205400.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901205400.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901205400.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901205400.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901205400.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901205400.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901205400.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901205400.png" /></p>
 <ol>
 <li>总线: 贯穿整个系统的一组电子管道，称作总线，他携带信息字节并负责在各个部件间传递。</li>
 <li>I/O 设备: 系统与外部世界的联系通道。每个 I/O 设备都通过一个控制器或者适配器与 I/O 总线相连。控制器和适配器之间的区别主要在于它们的封装方式。控制器是 I/O 设备本身或者系统的主印制电路板上的芯片组。而适配器则是一块插在主板插槽上的卡。</li>
@@ -198,11 +233,11 @@
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901212609.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901212609.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901212609.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901212609.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901212609.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901212609.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901212609.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901212609.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901212609.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901212609.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901212609.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901212609.png" /></p>
 <h3 id="17-操作系统管理硬件">1.7 操作系统管理硬件</h3>
 <p>我们并不直接访问硬件，而是通过操作系统。所有应用程序对硬件的操作尝试都必须通过操作系统。</p>
 <p>操作系统有两个基本功能:</p>
@@ -214,32 +249,32 @@
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901214102.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901214102.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901214102.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901214102.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901214102.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901214102.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901214102.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901214102.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901214102.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901214102.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901214102.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901214102.png" /></p>
 <p>进程: 操作系统对一个正在运行的程序的一种抽象。</p>
 <p>上下文: 操作系统保持跟踪进程运行所需的所有状态信息，其中包含 PC 和寄存器文件的当前值，以及主存的内存。</p>
 <p>在任何一个时刻，单处理器系统都只能执行一个进程的代码。当操作系统决定要把控制权从当前进程转移到某个新进程时，就会进行上下文切换。这一过程有操作系统内核 (kernel) 管理。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901213718.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901213718.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901213718.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901213718.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901213718.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901213718.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901213718.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901213718.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901213718.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901213718.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901213718.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901213718.png" /></p>
 <p>线程: 现代操作系统中，一个进程实际上可以由多个称为线程的执行单元组成，每个线程都裕兴在进程的上下文中，并共享同样的代码和全局数据。</p>
 <p>虚拟机内存是一个抽象概念，它为每个进程提供一个假象，即每个进程都在独占地使用主存，每个进程看到的内存都是一致的，称为虚拟地址空间。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901214306.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901214306.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901214306.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901214306.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901214306.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901214306.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901214306.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901214306.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901214306.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210901214306.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901214306.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210901214306.png" /></p>
 <p>虚拟地址空间从下至上依次为:</p>
 <ul>
 <li>程序代码和数据。对所有的进程来说，代码是从同一固定地址开始，紧接着的是和 C 全局变量相对应的数据位置。代码和数据区是直接按照可执行目标文件的内容初始化的。</li>
@@ -269,11 +304,11 @@
 <img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210906193611.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210906193611.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210906193611.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210906193611.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210906193611.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210906193611.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210906193611.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210906193611.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210906193611.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210906193611.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210906193611.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210906193611.png" /></p>
 <h3 id="32-程序编码">3.2 程序编码</h3>
 <p>机器级编程重要的两种抽象:</p>
 <ul>
@@ -294,11 +329,11 @@
 <img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210906202049.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210906202049.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210906202049.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210906202049.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210906202049.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210906202049.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210906202049.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210906202049.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210906202049.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210906202049.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210906202049.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210906202049.png" /></p>
 <p>大多数<code>GCC</code>生成的汇编代码指令都有一个字符的后缀，表明操作数的大小。例如。数据传送指令有四个变种：</p>
 <ul>
 <li>movb: 传送字节</li>
@@ -311,11 +346,11 @@
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907213431.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907213431.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907213431.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907213431.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907213431.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907213431.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907213431.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907213431.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907213431.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907213431.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907213431.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907213431.png" /></p>
 <p>关于寄存器的说明可以参考:</p>
 <ul>
 <li><a href="https://blog.csdn.net/u013982161/article/details/51347944" target="_blank" rel="noopener noreffer">X86-64 寄存器和栈帧</a></li>
@@ -333,21 +368,21 @@
 <img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907204700.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907204700.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907204700.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907204700.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907204700.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907204700.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907204700.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907204700.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907204700.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907204700.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907204700.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907204700.png" /></p>
 <p>计算题:
 有以下内存地址和寄存器的值:</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907210324.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907210324.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907210324.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907210324.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907210324.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907210324.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907210324.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907210324.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907210324.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907210324.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907210324.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907210324.png" /></p>
 <p>得出以下操作数的值:</p>
 <table>
 <thead>
@@ -409,11 +444,11 @@
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907211404.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907211404.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907211404.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907211404.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907211404.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907211404.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907211404.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907211404.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907211404.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907211404.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907211404.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907211404.png" /></p>
 <p>源操作数指定的值是一个立即数，存储在寄存器或者内存中。目的操作数指定一个位置，寄存器或者内存地址。</p>
 <blockquote>
 <p>x86-64 中传送指令的两个操作数不能都指向内存位置，内存间的复制需要两条指令。</p>
@@ -439,20 +474,20 @@
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907212410.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907212410.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907212410.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907212410.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907212410.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907212410.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907212410.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907212410.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907212410.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907212410.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907212410.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907212410.png" /></p>
 <p><code>MOVS</code> 类中的指令通过符号扩展来填充，把源操作的最高为进行复制。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907212339.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907212339.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907212339.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907212339.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907212339.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907212339.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907212339.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907212339.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907212339.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210907212339.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907212339.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907212339.png" /></p>
 <p>下面是一个数据传送示例:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -492,11 +527,11 @@
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908212726.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908212726.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908212726.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908212726.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210908212726.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210908212726.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210908212726.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210908212726.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908212726.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908212726.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210908212726.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210908212726.png" /></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -515,11 +550,11 @@
 <img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908213559.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908213559.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908213559.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908213559.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210908213559.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210908213559.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210908213559.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210908213559.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908213559.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908213559.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210908213559.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210908213559.png" /></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -540,11 +575,11 @@
 <img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908213818.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908213818.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908213818.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908213818.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210908213818.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210908213818.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210908213818.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210908213818.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908213818.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210908213818.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210908213818.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210908213818.png" /></p>
 <p>加载有效地址(load effective address)指令 <code>leaq</code> 实际上是 <code>movq</code> 指令的变形。它的指令形式是从内存读数据到寄存器，但实际上它根本就没有引用内存。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -594,11 +629,11 @@
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909085314.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909085314.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909085314.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909085314.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909085314.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909085314.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909085314.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909085314.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909085314.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909085314.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909085314.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909085314.png" /></p>
 <p>以下的 C 代码:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -688,11 +723,11 @@
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909124413.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909124413.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909124413.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909124413.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909124413.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909124413.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909124413.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909124413.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909124413.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909124413.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909124413.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909124413.png" /></p>
 <p>条件码通常不会直接读取，常用的使用方法有三种:</p>
 <ul>
 <li>可以根据条件码的某种组合，将一个字节设置为 0 或者 1。</li>
@@ -708,11 +743,11 @@
 <img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909125357.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909125357.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909125357.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909125357.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909125357.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909125357.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909125357.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909125357.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909125357.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909125357.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909125357.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909125357.png" /></p>
 <p>跳转 (jump) 指令会导致执行切换到程序中一个全新的位置。在汇编代码中，这些跳转的目的地通常用一个标号 (label) 指明。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -733,21 +768,21 @@
 </div><p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909170813.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909170813.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909170813.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909170813.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909170813.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909170813.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909170813.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909170813.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909170813.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909170813.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909170813.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909170813.png" /></p>
 <p>实现条件操作的传统方法是通过使用控制的条件转移。当条件满足时，程序沿着一条执行路径执行，而当条件不满足是，就走另一条路径。但这个方法在现代处理器上可能会非常低效。</p>
 <p>另一种策略是使用数据的条件转移。这个方法计算一个条件操作的两种结果，然后再根据条件是否满足从中选取一个。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909190735.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909190735.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909190735.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909190735.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909190735.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909190735.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909190735.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909190735.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909190735.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210909190735.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909190735.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210909190735.png" /></p>
 <p>汇编中没有循环指令存在，可以用条件测试和跳转组合起来实现循环效果。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -957,21 +992,21 @@
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910082909.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910082909.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910082909.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910082909.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910082909.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910082909.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910082909.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910082909.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910082909.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910082909.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910082909.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910082909.png" /></p>
 <h4 id="372-转移控制">3.7.2 转移控制</h4>
 <p>将控制从函数 P 转移到函数 Q 只需要简单地把程序计数器(PC)设置为 Q 的代码的起始位置。不过，当稍后从 Q 返回的时候，处理器必须记录好需要继续 P 的执行的代码位置。在 x86-64 机器中，这个信息是用指令 <code>call Q</code> 调用过程 Q 来记录的。该指令会把地址 A 压入栈中，并将 PC 设置为 Q 的起始地址。压入的地址 A 被称为返回地址，是紧跟在 call 指令后面的那条指令的地址。对应的指令 ret 会从栈中弹出地址 A，并把 PC 设置为 A。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910084602.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910084602.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910084602.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910084602.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910084602.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910084602.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910084602.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910084602.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910084602.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910084602.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910084602.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910084602.png" /></p>
 <p>call 指令有一个目标，即指明被调用过程起始的指令地址。同调整一样，调用可能是直接的，也可以是间接的。在汇编代码中，直接调用的目标是一个标号，而间接调用的目标是 * 后面跟讴歌操作数指示符。</p>
 <h4 id="373-数据创送">3.7.3 数据创送</h4>
 <p>数据传送: 当调用一个过程时，除了要把控制传递给它并在过程返回时再传递回来之外，过程调用还可能包括吧数据作为参数传递，而从过程返回还有可能包括返回一个值。</p>
@@ -979,11 +1014,11 @@
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910090642.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910090642.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910090642.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910090642.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910090642.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910090642.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910090642.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910090642.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910090642.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910090642.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910090642.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910090642.png" /></p>
 <p>如果一个函数有大于 6 个整型参数，超出 6 个的部分就要通过栈来传递。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1014,11 +1049,11 @@
 </div><p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910091803.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910091803.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910091803.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910091803.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910091803.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910091803.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910091803.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910091803.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910091803.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910091803.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910091803.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910091803.png" /></p>
 <h4 id="374-栈上的局部存储">3.7.4 栈上的局部存储</h4>
 <p>需要栈上局部存储的情况:</p>
 <ul>
@@ -1051,11 +1086,11 @@
 </div><p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910092035.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910092035.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910092035.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910092035.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910092035.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910092035.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910092035.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910092035.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910092035.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210910092035.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910092035.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210910092035.png" /></p>
 <h4 id="375-寄存器中的局部存储空间">3.7.5 寄存器中的局部存储空间</h4>
 <p>寄存器组是唯一被所有过程共享的资源，为了防止寄存器的值在被一个过程使用时，不被其他过程调用导致值被覆盖，<code>x86-64</code> 采用一组统一的寄存器使用惯例:</p>
 <ul>
@@ -1131,11 +1166,11 @@
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911092013.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911092013.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911092013.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911092013.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911092013.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911092013.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911092013.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911092013.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911092013.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911092013.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911092013.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911092013.png" /></p>
 <h4 id="383-嵌套数组">3.8.3 嵌套数组</h4>
 <p>要访问多维数组的元素，编译器会以数组起始为基地址，偏移量为索引，产生计算期望的元素偏移量，然后使用某种 MOV 指令。</p>
 <p>通常来说，对于一个声明如下的数组: <code>T D[R][C]</code> 的元素 <code>D[i][j]</code> 的内存地址为 $$ D[i][j] = x_D+L(C·i+j) $$</p>
@@ -1171,11 +1206,11 @@
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911111340.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911111340.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911111340.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911111340.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911111340.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911111340.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911111340.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911111340.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911111340.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911111340.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911111340.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911111340.png" /></p>
 <h4 id="392-联合">3.9.2 联合</h4>
 <p>联合提供了一种方式，能够规避 C 语言的类型系统，允许以多种类型来引用一个对象。一个联合的总的大小等于它最大字段的大小。</p>
 <p>在一些上下文中，联合十分有用。但是，它也能引起一些讨厌的错误，因为他们绕过了 C 语言类型系统提供的安全措施。一种应用情况是，我们事先知道对一个数据结构中的两个不同字段的使用是互斥的，那么将这两个字段声明为联合的一部分，而不是结构的一部分，会减小分配空间的总量。</p>
@@ -1185,11 +1220,11 @@
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911130649.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911130649.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911130649.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911130649.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911130649.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911130649.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911130649.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911130649.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911130649.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911130649.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911130649.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911130649.png" /></p>
 <p>确保每种数据类型都是按照指定方式来组织和分配，即每种类型的对象都满足它的对齐限制，就可保证实施对齐。编译器在汇编代码中放入命令，指明全局数据所需的对齐。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1222,20 +1257,20 @@
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911171439.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911171439.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911171439.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911171439.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911171439.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911171439.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911171439.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911171439.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911171439.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911171439.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911171439.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911171439.png" /></p>
 <p>但是它不满足字段 i 和 j 的4字节对齐要求，所以编译器在字段 c 和 j 之间插入一个 3 字节的间隙:</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911171552.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911171552.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911171552.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911171552.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911171552.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911171552.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911171552.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911171552.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911171552.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210911171552.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911171552.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210911171552.png" /></p>
 <h3 id="310-在机器级程序中将控制与数据结合起来">3.10 在机器级程序中将控制与数据结合起来</h3>
 <h4 id="3101-理解指针">3.10.1 理解指针</h4>
 <p>一些指针和它们映射到机器代码的关键原则:</p>
@@ -1307,48 +1342,48 @@
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913085103.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913085103.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913085103.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913085103.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913085103.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913085103.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913085103.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913085103.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913085103.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913085103.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913085103.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913085103.png" /></p>
 <p>如图所示，AVX 浮点体系结构允许数据存储在 16 个 YMM 寄存器中，名字是 <code>%ymm0~%ymm15</code>。每个 YMM 寄存器都是 256(32 字节)。当对标量数据操作时，这些寄存器值保存浮点数，而且只使用低 32 位(对于 float) 或 64 位(对于 double)。汇编代码用寄存器的 SSE XMM 寄存器名字 <code>%xmm0~%xmm15</code> 来引用它们，每个 XMM 寄存器都是对应的 YMM 寄存器的低 128 位(16字节)。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913085612.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913085612.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913085612.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913085612.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913085612.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913085612.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913085612.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913085612.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913085612.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913085612.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913085612.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913085612.png" /></p>
 <h4 id="3111-浮点传送和转化操作">3.11.1 浮点传送和转化操作</h4>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913090024.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913090024.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913090024.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913090024.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913090024.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913090024.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913090024.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913090024.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913090024.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913090024.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913090024.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913090024.png" /></p>
 <p><code>GCC</code> 只用标量传送操作从内存传送数据到 XMM 寄存器或从 XMM 寄存器传送数据到内存。对于在两个 XMM 寄存器之间传送数据，<code>GCC</code> 会使用两种指令之一，即用 <code>vmpovaps</code> 传送单精度数，用 <code>vmovapd</code> 传送双精度数。对于这些情况，程序复制整个寄存器还是只复制低位值。既不会影响程序功能，也不会影响执行速度，所以使用这些指令还是针对标量数据的人指令没有实质上的差别。指令名字中的字母 &lsquo;a&rsquo; 表示 &ldquo;aligned(对齐的)&quot;。当用于读写内存是，如果地址不满足16字节对齐，它们会导致异常。在两个寄存器之间传送数据，绝不会出现错误对齐的状况。</p>
 <p>浮点数和整数数据类型之间以及不同浮点格式之间进行转换的指令集合。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913091445.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913091445.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913091445.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913091445.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913091445.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913091445.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913091445.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913091445.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913091445.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913091445.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913091445.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913091445.png" /></p>
 <p>把一个从 XMM 寄存器或内存中读出的浮点值进行转换，并将结果写入一个通用寄存器。把浮点值转换成整数时，指令会执行截断(truncation)，把值向 0 进行舍入。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913091717.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913091717.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913091717.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913091717.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913091717.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913091717.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913091717.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913091717.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913091717.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913091717.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913091717.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913091717.png" /></p>
 <h4 id="3112-过程中的浮点代码">3.11.2 过程中的浮点代码</h4>
 <p>在 <code>x86-64</code> 中，XMM 寄存器用来向函数传递浮点参数，以及从函数返回浮点值。具有以下规则:</p>
 <ul>
@@ -1380,31 +1415,31 @@
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913093055.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913093055.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913093055.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913093055.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913093055.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913093055.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913093055.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913093055.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913093055.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913093055.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913093055.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913093055.png" /></p>
 <h4 id="3114-定义和使用浮点常数">3.11.4 定义和使用浮点常数</h4>
 <p>和整数运算操作不同，AVX 浮点操作不能以立即数值作为操作数。相反，编译器必须为所有的常量值分配和初始化存储空间。然后代码再把这些值从内存读入。</p>
 <h4 id="3115-在浮点代码中使用位级操作">3.11.5 在浮点代码中使用位级操作</h4>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913125840.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913125840.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913125840.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913125840.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913125840.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913125840.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913125840.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913125840.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913125840.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913125840.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913125840.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913125840.png" /></p>
 <h4 id="3116-浮点比较操作">3.11.6 浮点比较操作</h4>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913125948.png"
-        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913125948.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913125948.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913125948.png 2x"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913125948.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913125948.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913125948.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913125948.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913125948.png"
-        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/images/20210913125948.png" /></p>
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913125948.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913125948.png" /></p>
 <p>浮点比较指令会设置三个条件码: 零标志位 ZF, 进位标志位 CF 和奇偶标志位 PF。</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
@@ -1419,7 +1454,7 @@
                             <a class="link-to-markdown" href="/csapp/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/csapp/" data-title="深入理解计算机系统"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/csapp/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/csapp/" data-title="深入理解计算机系统" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/csapp/" data-title="深入理解计算机系统"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/csapp/" data-title="深入理解计算机系统"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/csapp/" data-title="深入理解计算机系统" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/csapp/" data-title="深入理解计算机系统" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/csapp/" data-title="深入理解计算机系统"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/csapp/" data-title="深入理解计算机系统" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/csapp/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/csapp/" data-title="深入理解计算机系统" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/csapp/" data-title="深入理解计算机系统"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/csapp/" data-title="深入理解计算机系统"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/csapp/" data-title="深入理解计算机系统" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/csapp/" data-title="深入理解计算机系统" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/csapp/" data-title="深入理解计算机系统"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
@@ -1437,7 +1472,7 @@
 <div id="comments"></div></article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

@@ -22,7 +22,7 @@ draft: false
 - 隔离文件系统
 - 但是无法限制 CPU, 内存, 网络端口号的命名空间
 
-![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210928202733.png)
+![](https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210928202733.png)
 
 ### Jails
 特点：
@@ -38,7 +38,7 @@ draft: false
 - 使用复杂
 - 隔离级别较弱
 
-![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210928202801.png)
+![](https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210928202801.png)
 
 出现沙盒概念
 
@@ -71,7 +71,7 @@ draft: false
 - 只能在Linux操作系统运行。
 - LXC 并不安全，安全性取决于主机系统。
 
-![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210928203455.png)
+![](https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210928203455.png)
 
 ### cgroup 和 namespace
 Cgroups:
@@ -84,7 +84,7 @@ Namespace:
 - 不同进程在各自namespace中对同一种资源的使用互不干扰
 - 常用的namespace有IPC、Network、Mount、PID、User和UTC     
 
-![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210928204249.png)
+![](https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210928204249.png)
 
 ## docker 的架构和原理
 
@@ -119,7 +119,7 @@ VXLAN:
 - 灵活的虚机部署和部署
 - 复用网络链路
 
-![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210928220632.png)
+![](https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210928220632.png)
 
 桥接:
 - 从一个网卡设备发出的以太帧，原封不动地到达另外一个网卡设备。
@@ -134,7 +134,7 @@ VXLAN:
 - 不同协议类型的物理接口，只能使用路由。
 - 二层封装方式不一样，桥接无法解析数据。路由器可以替换二层数据帧
 
-![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210928220917.png)
+![](https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210928220917.png)
 
 ### docker 跨主机互访方案
 - Bridge

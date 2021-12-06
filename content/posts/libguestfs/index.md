@@ -10,7 +10,7 @@ draft: false
 # 简介
 [`libguestfs`](https://libguestfs.org/) 是一套管理虚拟机镜像的工具。它提供以一系列命令和API来修改和管理虚拟机的镜像。
 
-![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210131105105.png)
+![](https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210131105105.png)
 
 # 安装
 直接使用 `yum` 安装 `libguestfs` :
