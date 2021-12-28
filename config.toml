@@ -20,7 +20,7 @@ theme = "LoveIt"
     name = "文章"
     url = "/posts/"
     # 当你将鼠标悬停在此菜单链接上时, 将显示的标题
-    title = ""
+    title = "YZJ 的博客"
     weight = 1
   [[menu.main]]
     identifier = "tags"
@@ -28,7 +28,7 @@ theme = "LoveIt"
     post = ""
     name = "标签"
     url = "/tags/"
-    title = ""
+    title = "YZJ 的博客"
     weight = 2
   [[menu.main]]
     identifier = "categories"
@@ -36,7 +36,7 @@ theme = "LoveIt"
     post = ""
     name = "分类"
     url = "/categories/"
-    title = ""
+    title = "YZJ 的博客"
     weight = 3
 [params]
   # LoveIt 更改 | 0.2.0 LoveIt 主题版本
@@ -154,14 +154,14 @@ theme = "LoveIt"
     # LoveIt 新增 | 0.2.0 RSS 文章数目
     rss = 10
     # 主页个人信息
-    [params.home.profile]
+    [params.home.profile]  
       enable = true
       # Gravatar 邮箱，用于优先在主页显示的头像
       gravatarEmail = ""
       # 主页显示头像的 URL
       avatarURL = "/posts/images/avatar.webp"
       # LoveIt 更改 | 0.2.7 主页显示的网站标题 (支持 HTML 格式)
-      title = ""
+      title = "Yzj0911 博客"
       # 主页显示的网站副标题
       subtitle = "Hello 来了就别走了，进来留下文章"
       # 是否为副标题显示打字机动画
@@ -243,7 +243,7 @@ theme = "LoveIt"
     XMPP = ""
     Matrix = ""
     Bilibili = ""
-    Email = "xxxx@xxxx.com"
+    Email = "935669265@qq.com"
     RSS = true # LoveIt 新增 | 0.2.0
 
   # LoveIt 更改 | 0.2.0 文章页面配置
@@ -424,7 +424,7 @@ theme = "LoveIt"
       images = []
       # 出版者信息
       [params.page.seo.publisher]
-        name = ""
+        name = "YZJ"
         logoUrl = ""
 
   # LoveIt 新增 | 0.2.5 TypeIt 配置
