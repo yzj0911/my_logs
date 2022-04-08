@@ -5,32 +5,38 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>搭建lnmp环境 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="搭建lnmp环境" />
-<meta property="og:description" content="搭建lnmp环境 lnmp即：nginx &#43; mysql &#43; php 与lamp不同的是，lnmp的php不在只是httpd中的一个库，lnmp架构中php作为一个" />
+        <title> - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="" />
+<meta property="og:description" content="搭建lnmp环境 搭建lnmp环境 lnmp即：nginx &#43; mysql &#43; php 与lamp不同的是，lnmp的php不在只是httpd中的一个库，lnmp架构中php作为一个服务，专门解析php。 同样的php依赖mysql，所以首先安装mysql 这里环境为CentOS6.5
+安装mysql 这里选择免编译安装，可以在官网找到。在mysql5.5之后的版本不在开源了，但还可以选择mariadb的分支版本作为这个架构的代替。接下来就可以开始mysql的安装了。
+下载mysql 1  wget http://mirrors.sohu.com/mysql/MySQL-5.1/mysql-5.1.73-linux-i686-glibc23.tar.gz   这个版本有点低，可以自己选择合适版本
+解压 1  tar -zxvf tar -zxvf mysql-5.1.73-linux-i686-glibc23.tar.gz   移动到指定目录 1  mv mysql-5.1.73-linux-i686-glibc23 /usr/local/mysql   创建mysql用户，但不允许登录，不创建家目录 1  useradd -s /sbin/nologin -M mysql   -s表示指定bash，这里出于安全性考虑设置不允许登录，-M不创建家目录
+创建数据库目录，并改为mysql属主 1 2  mkdir /data/mysql -pv chown -R mysql：mysql /data/mysql   初始化mysql 1 2  cd /usr/local/mysql ./scripts/mysql_install_db --user=mysql --datadir=/data/mysql   --user=*是指定用户mysql，--datadir=*是指定数据库目录。可以使用echo $?" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/lnmp/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-12-03T10:17:16+08:00" />
-<meta property="article:modified_time" content="2021-12-03T10:17:16+08:00" />
+<meta property="og:url" content="http://example.org/lnmp/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="" />
+
+
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://example.org/logo.png"/>
 
-<meta name="twitter:title" content="搭建lnmp环境"/>
-<meta name="twitter:description" content="搭建lnmp环境 lnmp即：nginx &#43; mysql &#43; php 与lamp不同的是，lnmp的php不在只是httpd中的一个库，lnmp架构中php作为一个"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="搭建lnmp环境 搭建lnmp环境 lnmp即：nginx &#43; mysql &#43; php 与lamp不同的是，lnmp的php不在只是httpd中的一个库，lnmp架构中php作为一个服务，专门解析php。 同样的php依赖mysql，所以首先安装mysql 这里环境为CentOS6.5
+安装mysql 这里选择免编译安装，可以在官网找到。在mysql5.5之后的版本不在开源了，但还可以选择mariadb的分支版本作为这个架构的代替。接下来就可以开始mysql的安装了。
+下载mysql 1  wget http://mirrors.sohu.com/mysql/MySQL-5.1/mysql-5.1.73-linux-i686-glibc23.tar.gz   这个版本有点低，可以自己选择合适版本
+解压 1  tar -zxvf tar -zxvf mysql-5.1.73-linux-i686-glibc23.tar.gz   移动到指定目录 1  mv mysql-5.1.73-linux-i686-glibc23 /usr/local/mysql   创建mysql用户，但不允许登录，不创建家目录 1  useradd -s /sbin/nologin -M mysql   -s表示指定bash，这里出于安全性考虑设置不允许登录，-M不创建家目录
+创建数据库目录，并改为mysql属主 1 2  mkdir /data/mysql -pv chown -R mysql：mysql /data/mysql   初始化mysql 1 2  cd /usr/local/mysql ./scripts/mysql_install_db --user=mysql --datadir=/data/mysql   --user=*是指定用户mysql，--datadir=*是指定数据库目录。可以使用echo $?"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/lnmp/" /><link rel="prev" href="http://example.org/csapp/" /><link rel="next" href="http://example.org/lamp/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/lnmp/" /><link rel="prev" href="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" /><link rel="next" href="http://example.org/linux%E8%BF%9B%E7%A8%8B/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "搭建lnmp环境",
+        "headline": "",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/lnmp\/"
-        },"genre": "posts","wordcount":  1277 ,
-        "url": "http:\/\/example.org\/lnmp\/","datePublished": "2021-12-03T10:17:16+08:00","dateModified": "2021-12-03T10:17:16+08:00","publisher": {
+        },"genre": "page","wordcount":  551 ,
+        "url": "http:\/\/example.org\/lnmp\/","publisher": {
             "@type": "Organization",
             "name": "YZJ"},"author": {
                 "@type": "Person",
@@ -43,11 +49,18 @@
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="YZJ 的博客"></a>
+            <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
         </div>
         <div class="menu">
             <div class="menu-inner"><a class="menu-item" href="/posts/" title="YZJ 的博客"> 文章 </a><a class="menu-item" href="/tags/" title="YZJ 的博客"> 标签 </a><a class="menu-item" href="/categories/" title="YZJ 的博客"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
                             <i class="fas fa-search fa-fw"></i>
                         </a>
@@ -67,7 +80,14 @@
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="YZJ 的博客"></a>
+                <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
             </div>
             <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
@@ -75,7 +95,7 @@
         </div>
         <div class="menu" id="menu-mobile"><div class="search-wrapper">
                     <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
                             <i class="fas fa-search fa-fw"></i>
                         </a>
@@ -101,49 +121,8 @@
     <div id="search-dropdown-mobile"></div>
 </div>
 <main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">搭建lnmp环境</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-03">2021-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1277 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="true">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#下载mysql">下载mysql</a></li>
-    <li><a href="#解压">解压</a></li>
-    <li><a href="#移动到指定目录">移动到指定目录</a></li>
-    <li><a href="#创建mysql用户但不允许登录不创建家目录">创建mysql用户，但不允许登录，不创建家目录</a></li>
-    <li><a href="#创建数据库目录并改为mysql属主">创建数据库目录，并改为mysql属主</a></li>
-    <li><a href="#初始化mysql">初始化mysql</a></li>
-    <li><a href="#mysql配置文件">mysql配置文件</a></li>
-    <li><a href="#mysql启动脚本">mysql启动脚本</a></li>
-    <li><a href="#设置开机启动">设置开机启动</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#下载">下载</a></li>
-    <li><a href="#解压-1">解压</a></li>
-    <li><a href="#编译安装">编译安装</a></li>
-    <li><a href="#php的配置文件">php的配置文件</a></li>
-    <li><a href="#php开机启动">php开机启动</a></li>
-    <li><a href="#启动php">启动php</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#下载nginx">下载nginx</a></li>
-    <li><a href="#解压-2">解压</a></li>
-    <li><a href="#编译安装-1">编译安装</a></li>
-    <li><a href="#启动">启动</a></li>
-    <li><a href="#测试解析php">测试解析php</a></li>
-  </ul>
-</nav></div>
-            </div><div class="content" id="content"><h1 id="搭建lnmp环境">搭建lnmp环境</h1>
+                <div class="container"><div class="page single special"><h1 class="single-title animated pulse faster"></h1><div class="content" id="content"><h1 id="搭建lnmp环境">搭建lnmp环境</h1>
+<h1 id="搭建lnmp环境-1">搭建lnmp环境</h1>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -660,38 +639,10 @@ location ~ <span class="se">\.</span>php$ <span class="o">{</span>
 </span></code></pre></td></tr></table>
 </div>
 </div><p>浏览器访问：<code>http://127.0.0.1/info.php</code>测试</p>
-</div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2021-12-03</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
-        <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/lnmp/index.md" target="_blank">阅读原始文档</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/lnmp/" data-title="搭建lnmp环境" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/lnmp/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/lnmp/" data-title="搭建lnmp环境" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/lnmp/" data-title="搭建lnmp环境"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/lnmp/" data-title="搭建lnmp环境"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/lnmp/" data-title="搭建lnmp环境" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/lnmp/" data-title="搭建lnmp环境" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/lnmp/" data-title="搭建lnmp环境"><i class="fab fa-evernote fa-fw"></i></a></span>
-            </div>
-        </div>
-    </div>
-
-    <div class="post-info-more">
-        <section class="post-tags"></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="/csapp/" class="prev" rel="prev" title="深入理解计算机系统"><i class="fas fa-angle-left fa-fw"></i>深入理解计算机系统</a>
-            <a href="/lamp/" class="next" rel="next" title="搭建lamp环境">搭建lamp环境<i class="fas fa-angle-right fa-fw"></i></a></div>
-</div>
-<div id="comments"></div></article></div>
+</div><div id="comments"></div></div></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

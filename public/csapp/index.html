@@ -5,32 +5,40 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>深入理解计算机系统 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="深入理解计算机系统" />
-<meta property="og:description" content="深入理解计算机系统 一、计算机系统漫游 计算机系统是由硬件和软件组成。 1.1 信息就是位 &#43; 上下文 系统中所有的信息——包括磁盘文件、内存中的程序、内存中" />
+        <title> - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="" />
+<meta property="og:description" content="深入理解计算机系统 深入理解计算机系统 一、计算机系统漫游 计算机系统是由硬件和软件组成。
+1.1 信息就是位 &#43; 上下文 系统中所有的信息——包括磁盘文件、内存中的程序、内存中存放的用户数据以及网络上传送的数据，都是由一串 bit 表示的。区分不同数据对象的唯一方法是我们读到这些数据对象是的上下文。
+1.2 程序被其他程序翻译成不同的格式 1.3 了解编译系统如何工作是大有益处的 为什么程序员必须要知道编译系统是如何工作的?
+ 优化程序性能。 理解链接时出现的错误。 避免安全漏洞。  1.4 处理器读并解释储存在内存中指令 系统硬件组成
+ 总线: 贯穿整个系统的一组电子管道，称作总线，他携带信息字节并负责在各个部件间传递。 I/O 设备: 系统与外部世界的联系通道。每个 I/O 设备都通过一个控制器或者适配器与 I/O 总线相连。控制器和适配器之间的区别主要在于它们的封装方式。控制器是 I/O 设备本身或者系统的主印制电路板上的芯片组。而适配器则是一块插在主板插槽上的卡。 主存: 主存是一个临时存储设备，在处理执行程序时，用来存放程序和程序处理的数据。从物理上来说，主存是由一组动态随机存储存储器 (DRAM) 芯片组成的。从逻辑上来说，存储器是一个线性的字节数组，每个字节都有其唯一的地址(数组索引)，这些地址是从零开始的。 处理器：中央处理单元 (CPU)，简称处理器，是解释(或)执行存储在主存中指令的引擎、处理器的核心是一个大小与一个字的存储设备(或寄存器)，称为程序计数器(PC)。在任何时刻，PC 都指向主存中的某条机器语言指令。  系统执行一个 Hello World 程序时，硬件运行流程。
+ 键盘输入命令时，shell 程序将字符逐一读入寄存器，再存放到内存中。 键入回车键后，shell 执行一系列指令来加载可执行的 hello 文件，将 hello 目标文件中的代码和数据从磁盘复制到内存。 处理器开始执行 hello 程序 main 程序中的机器语言指令。 这些指令将输出的字符串中的字节从主存复制到寄存器文件，再从寄存器文件中复制到显示设备，最终显示在屏幕上。  1.5 高速缓存至关重要 系统运行时会频繁的挪动信息，而不同存储设备之间的读写性能有严重偏差 (从寄存器中读取数据比从主存中读取快 100 被，从主存中读取又比磁盘中快 1000 万倍)。所以不同存储设备间需要高速缓存来提供系统运行速度。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/csapp/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-12-03T10:17:16+08:00" />
-<meta property="article:modified_time" content="2021-12-03T10:17:16+08:00" />
+<meta property="og:url" content="http://example.org/csapp/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="" />
+
+
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://example.org/logo.png"/>
 
-<meta name="twitter:title" content="深入理解计算机系统"/>
-<meta name="twitter:description" content="深入理解计算机系统 一、计算机系统漫游 计算机系统是由硬件和软件组成。 1.1 信息就是位 &#43; 上下文 系统中所有的信息——包括磁盘文件、内存中的程序、内存中"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="深入理解计算机系统 深入理解计算机系统 一、计算机系统漫游 计算机系统是由硬件和软件组成。
+1.1 信息就是位 &#43; 上下文 系统中所有的信息——包括磁盘文件、内存中的程序、内存中存放的用户数据以及网络上传送的数据，都是由一串 bit 表示的。区分不同数据对象的唯一方法是我们读到这些数据对象是的上下文。
+1.2 程序被其他程序翻译成不同的格式 1.3 了解编译系统如何工作是大有益处的 为什么程序员必须要知道编译系统是如何工作的?
+ 优化程序性能。 理解链接时出现的错误。 避免安全漏洞。  1.4 处理器读并解释储存在内存中指令 系统硬件组成
+ 总线: 贯穿整个系统的一组电子管道，称作总线，他携带信息字节并负责在各个部件间传递。 I/O 设备: 系统与外部世界的联系通道。每个 I/O 设备都通过一个控制器或者适配器与 I/O 总线相连。控制器和适配器之间的区别主要在于它们的封装方式。控制器是 I/O 设备本身或者系统的主印制电路板上的芯片组。而适配器则是一块插在主板插槽上的卡。 主存: 主存是一个临时存储设备，在处理执行程序时，用来存放程序和程序处理的数据。从物理上来说，主存是由一组动态随机存储存储器 (DRAM) 芯片组成的。从逻辑上来说，存储器是一个线性的字节数组，每个字节都有其唯一的地址(数组索引)，这些地址是从零开始的。 处理器：中央处理单元 (CPU)，简称处理器，是解释(或)执行存储在主存中指令的引擎、处理器的核心是一个大小与一个字的存储设备(或寄存器)，称为程序计数器(PC)。在任何时刻，PC 都指向主存中的某条机器语言指令。  系统执行一个 Hello World 程序时，硬件运行流程。
+ 键盘输入命令时，shell 程序将字符逐一读入寄存器，再存放到内存中。 键入回车键后，shell 执行一系列指令来加载可执行的 hello 文件，将 hello 目标文件中的代码和数据从磁盘复制到内存。 处理器开始执行 hello 程序 main 程序中的机器语言指令。 这些指令将输出的字符串中的字节从主存复制到寄存器文件，再从寄存器文件中复制到显示设备，最终显示在屏幕上。  1.5 高速缓存至关重要 系统运行时会频繁的挪动信息，而不同存储设备之间的读写性能有严重偏差 (从寄存器中读取数据比从主存中读取快 100 被，从主存中读取又比磁盘中快 1000 万倍)。所以不同存储设备间需要高速缓存来提供系统运行速度。"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/csapp/" /><link rel="next" href="http://example.org/lnmp/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/csapp/" /><link rel="prev" href="http://example.org/dblink/" /><link rel="next" href="http://example.org/containerd%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "深入理解计算机系统",
+        "headline": "",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/csapp\/"
-        },"genre": "posts","wordcount":  9815 ,
-        "url": "http:\/\/example.org\/csapp\/","datePublished": "2021-12-03T10:17:16+08:00","dateModified": "2021-12-03T10:17:16+08:00","publisher": {
+        },"genre": "page","wordcount":  1794 ,
+        "url": "http:\/\/example.org\/csapp\/","publisher": {
             "@type": "Organization",
             "name": "YZJ"},"author": {
                 "@type": "Person",
@@ -43,11 +51,18 @@
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="YZJ 的博客"></a>
+            <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
         </div>
         <div class="menu">
             <div class="menu-inner"><a class="menu-item" href="/posts/" title="YZJ 的博客"> 文章 </a><a class="menu-item" href="/tags/" title="YZJ 的博客"> 标签 </a><a class="menu-item" href="/categories/" title="YZJ 的博客"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
                             <i class="fas fa-search fa-fw"></i>
                         </a>
@@ -67,7 +82,14 @@
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="YZJ 的博客"></a>
+                <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
             </div>
             <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
@@ -75,7 +97,7 @@
         </div>
         <div class="menu" id="menu-mobile"><div class="search-wrapper">
                     <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
                             <i class="fas fa-search fa-fw"></i>
                         </a>
@@ -101,86 +123,8 @@
     <div id="search-dropdown-mobile"></div>
 </div>
 <main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">深入理解计算机系统</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-03">2021-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 9815 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 20 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="true">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#一计算机系统漫游">一、计算机系统漫游</a>
-      <ul>
-        <li><a href="#11-信息就是位--上下文">1.1 信息就是位 + 上下文</a></li>
-        <li><a href="#12-程序被其他程序翻译成不同的格式">1.2 程序被其他程序翻译成不同的格式</a></li>
-        <li><a href="#13-了解编译系统如何工作是大有益处的">1.3 了解编译系统如何工作是大有益处的</a></li>
-        <li><a href="#14-处理器读并解释储存在内存中指令">1.4 处理器读并解释储存在内存中指令</a></li>
-        <li><a href="#15-高速缓存至关重要">1.5 高速缓存至关重要</a></li>
-        <li><a href="#16-存储设备形成层次结构">1.6 存储设备形成层次结构</a></li>
-        <li><a href="#17-操作系统管理硬件">1.7 操作系统管理硬件</a></li>
-        <li><a href="#18-系统之间利用网络通信">1.8 系统之间利用网络通信</a></li>
-        <li><a href="#19-重要主题">1.9 重要主题</a></li>
-      </ul>
-    </li>
-    <li><a href="#三程序的机器级表示">三、程序的机器级表示</a>
-      <ul>
-        <li><a href="#31-历史观点">3.1 历史观点</a></li>
-        <li><a href="#32-程序编码">3.2 程序编码</a></li>
-        <li><a href="#33-数据格式">3.3 数据格式</a></li>
-        <li><a href="#34-访问信息">3.4 访问信息</a></li>
-        <li><a href="#35-算术和逻辑操作">3.5 算术和逻辑操作</a></li>
-        <li><a href="#36-控制">3.6 控制</a></li>
-        <li><a href="#37-过程">3.7 过程</a>
-          <ul>
-            <li><a href="#371-传递控制">3.7.1 传递控制</a></li>
-            <li><a href="#372-转移控制">3.7.2 转移控制</a></li>
-            <li><a href="#373-数据创送">3.7.3 数据创送</a></li>
-            <li><a href="#374-栈上的局部存储">3.7.4 栈上的局部存储</a></li>
-            <li><a href="#375-寄存器中的局部存储空间">3.7.5 寄存器中的局部存储空间</a></li>
-            <li><a href="#376-递归过程">3.7.6 递归过程</a></li>
-          </ul>
-        </li>
-        <li><a href="#38-数组分配和访问">3.8 数组分配和访问</a>
-          <ul>
-            <li><a href="#381-基本原则">3.8.1 基本原则</a></li>
-            <li><a href="#382-指针运算">3.8.2 指针运算</a></li>
-            <li><a href="#383-嵌套数组">3.8.3 嵌套数组</a></li>
-            <li><a href="#384-定长数组">3.8.4 定长数组</a></li>
-          </ul>
-        </li>
-        <li><a href="#39-异质的数据结构">3.9 异质的数据结构</a>
-          <ul>
-            <li><a href="#391-结构">3.9.1 结构</a></li>
-            <li><a href="#392-联合">3.9.2 联合</a></li>
-            <li><a href="#393-数据对齐">3.9.3 数据对齐</a></li>
-          </ul>
-        </li>
-        <li><a href="#310-在机器级程序中将控制与数据结合起来">3.10 在机器级程序中将控制与数据结合起来</a>
-          <ul>
-            <li><a href="#3101-理解指针">3.10.1 理解指针</a></li>
-          </ul>
-        </li>
-        <li><a href="#311-浮点代码">3.11 浮点代码</a>
-          <ul>
-            <li><a href="#3111-浮点传送和转化操作">3.11.1 浮点传送和转化操作</a></li>
-            <li><a href="#3112-过程中的浮点代码">3.11.2 过程中的浮点代码</a></li>
-            <li><a href="#3113-浮点运算操作">3.11.3 浮点运算操作</a></li>
-            <li><a href="#3114-定义和使用浮点常数">3.11.4 定义和使用浮点常数</a></li>
-            <li><a href="#3115-在浮点代码中使用位级操作">3.11.5 在浮点代码中使用位级操作</a></li>
-            <li><a href="#3116-浮点比较操作">3.11.6 浮点比较操作</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</nav></div>
-            </div><div class="content" id="content"><h1 id="深入理解计算机系统">深入理解计算机系统</h1>
+                <div class="container"><div class="page single special"><h1 class="single-title animated pulse faster"></h1><div class="content" id="content"><h1 id="深入理解计算机系统">深入理解计算机系统</h1>
+<h1 id="深入理解计算机系统-1">深入理解计算机系统</h1>
 <h2 id="一计算机系统漫游">一、计算机系统漫游</h2>
 <p>计算机系统是由<code>硬件</code>和<code>软件</code>组成。</p>
 <h3 id="11-信息就是位--上下文">1.1 信息就是位 + 上下文</h3>
@@ -1441,38 +1385,10 @@
         alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913125948.png"
         title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913125948.png" /></p>
 <p>浮点比较指令会设置三个条件码: 零标志位 ZF, 进位标志位 CF 和奇偶标志位 PF。</p>
-</div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2021-12-03</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
-        <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/csapp/index.md" target="_blank">阅读原始文档</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/csapp/" data-title="深入理解计算机系统" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/csapp/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/csapp/" data-title="深入理解计算机系统" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/csapp/" data-title="深入理解计算机系统"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/csapp/" data-title="深入理解计算机系统"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/csapp/" data-title="深入理解计算机系统" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/csapp/" data-title="深入理解计算机系统" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/csapp/" data-title="深入理解计算机系统"><i class="fab fa-evernote fa-fw"></i></a></span>
-            </div>
-        </div>
-    </div>
-
-    <div class="post-info-more">
-        <section class="post-tags"></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav">
-            <a href="/lnmp/" class="next" rel="next" title="搭建lnmp环境">搭建lnmp环境<i class="fas fa-angle-right fa-fw"></i></a></div>
-</div>
-<div id="comments"></div></article></div>
+</div><div id="comments"></div></div></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

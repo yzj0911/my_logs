@@ -5,32 +5,38 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Linux进程 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="Linux进程" />
-<meta property="og:description" content="Linux进程 进程时程序执行的一个实例，可以把它看作充分描述程序已经执行到何种程度的数据结构的汇集。在 Linux 源代码中，常把进程称为任务(task" />
+        <title> - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="" />
+<meta property="og:description" content="Linux进程 Linux进程 进程时程序执行的一个实例，可以把它看作充分描述程序已经执行到何种程度的数据结构的汇集。在 Linux 源代码中，常把进程称为任务(task)或线程(thread)。
+Linux 使用轻量级进程(lightweight process)对多线程应用提供更好的支持。两个轻量级进程基本上可以共享一些资源，诸如地址空间、打开的文件等等。
+进程描述符 进程状态 进程状态符中的 state 字段描述了进程所处的状态:
+ 可运行状态 (TASK_RUNNING) : 进程要么在 CPU 上执行，要么准备执行。 可中断的等待状态 (TASK_INTERRUPTIBLE) : 进程被挂起 (睡眠)，直到某个条件表为真。产生一个硬件中断，释放进程正等待的系统资源，或传递一个信号都是可以唤醒进程的条件(把进程的状态放回到 TASK_RUNNING)。 不可中断的等待状态 (TASK_UNINTERRUPTIBLE) : 与可中断的等待状态类似，但有一个例外，把信号传递到睡眠不能改变它的状态。这种状态很少用到，但在一些特定的情况下(进程必须等待，直到一个不能被中断的事件发生)，这种状态是很有用的。例如，当进程打开一个设备文件，其相应的设备驱动程序开始探测相应的硬件设备时会用到这种状态。探测完成以前，设备驱动程序不能被中断，否则，硬件设备会处于不可预知的状态。 暂定状态 (TASK_STOPPED) : 进程的执行被暂停。当进程接收到 SIGSTOP、SIGTSTP、SIGTTIN 或 STGTTOU 信号，进程暂停状态。 跟踪状态 (TASK_TRACED) : 进程的执行已由 debugger 程序暂停。当一个进程被另一个进程监控时(例如 debugger 执行 ptrace() 系统调用监控一个测试程序)，任何信号都可以把这个进程置于 TASK_TRACED 状态。  还有两个进程状态是既可以存放在进程描述符的 state 字段中，也可以存放在 exit_state 字段中。从这两个字段的名称可以看出，只有当进程的执行被终止时，进程的状态才会变为这两种状态中的一种:
+ 僵死状态 (EXIT_ZOMBIE) : 进程的执行被终止，但是，父进程还没有发布 wait4() 或 waitpid() 系统调用来返回有关死亡进程的信息。发布 wait() 类系统调用前，内核不能丢弃包含在死进程描述符中的数据，因为父进程可能还需要它。 僵死撤销状态 (EXIT_DEAD) : 最终状态：由于父进程刚发出 wait4() 或 waitpid() 系统调用，因而进程由系统删除。为了防止其他执行线程在同一个进程上也执行 wait() 类系统调用，而把进程的状态由 (EXIT_ZOMBIE) 状态改为僵死撤销状态 (EXIT_DEAD)。  标识一个进程 标识一个进程有两种方式:" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/linux%E8%BF%9B%E7%A8%8B/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-12-03T10:17:16+08:00" />
-<meta property="article:modified_time" content="2021-12-03T10:17:16+08:00" />
+<meta property="og:url" content="http://example.org/linux%E8%BF%9B%E7%A8%8B/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="" />
+
+
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://example.org/logo.png"/>
 
-<meta name="twitter:title" content="Linux进程"/>
-<meta name="twitter:description" content="Linux进程 进程时程序执行的一个实例，可以把它看作充分描述程序已经执行到何种程度的数据结构的汇集。在 Linux 源代码中，常把进程称为任务(task"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="Linux进程 Linux进程 进程时程序执行的一个实例，可以把它看作充分描述程序已经执行到何种程度的数据结构的汇集。在 Linux 源代码中，常把进程称为任务(task)或线程(thread)。
+Linux 使用轻量级进程(lightweight process)对多线程应用提供更好的支持。两个轻量级进程基本上可以共享一些资源，诸如地址空间、打开的文件等等。
+进程描述符 进程状态 进程状态符中的 state 字段描述了进程所处的状态:
+ 可运行状态 (TASK_RUNNING) : 进程要么在 CPU 上执行，要么准备执行。 可中断的等待状态 (TASK_INTERRUPTIBLE) : 进程被挂起 (睡眠)，直到某个条件表为真。产生一个硬件中断，释放进程正等待的系统资源，或传递一个信号都是可以唤醒进程的条件(把进程的状态放回到 TASK_RUNNING)。 不可中断的等待状态 (TASK_UNINTERRUPTIBLE) : 与可中断的等待状态类似，但有一个例外，把信号传递到睡眠不能改变它的状态。这种状态很少用到，但在一些特定的情况下(进程必须等待，直到一个不能被中断的事件发生)，这种状态是很有用的。例如，当进程打开一个设备文件，其相应的设备驱动程序开始探测相应的硬件设备时会用到这种状态。探测完成以前，设备驱动程序不能被中断，否则，硬件设备会处于不可预知的状态。 暂定状态 (TASK_STOPPED) : 进程的执行被暂停。当进程接收到 SIGSTOP、SIGTSTP、SIGTTIN 或 STGTTOU 信号，进程暂停状态。 跟踪状态 (TASK_TRACED) : 进程的执行已由 debugger 程序暂停。当一个进程被另一个进程监控时(例如 debugger 执行 ptrace() 系统调用监控一个测试程序)，任何信号都可以把这个进程置于 TASK_TRACED 状态。  还有两个进程状态是既可以存放在进程描述符的 state 字段中，也可以存放在 exit_state 字段中。从这两个字段的名称可以看出，只有当进程的执行被终止时，进程的状态才会变为这两种状态中的一种:
+ 僵死状态 (EXIT_ZOMBIE) : 进程的执行被终止，但是，父进程还没有发布 wait4() 或 waitpid() 系统调用来返回有关死亡进程的信息。发布 wait() 类系统调用前，内核不能丢弃包含在死进程描述符中的数据，因为父进程可能还需要它。 僵死撤销状态 (EXIT_DEAD) : 最终状态：由于父进程刚发出 wait4() 或 waitpid() 系统调用，因而进程由系统删除。为了防止其他执行线程在同一个进程上也执行 wait() 类系统调用，而把进程的状态由 (EXIT_ZOMBIE) 状态改为僵死撤销状态 (EXIT_DEAD)。  标识一个进程 标识一个进程有两种方式:"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/linux%E8%BF%9B%E7%A8%8B/" /><link rel="prev" href="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" /><link rel="next" href="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/linux%E8%BF%9B%E7%A8%8B/" /><link rel="prev" href="http://example.org/lnmp/" /><link rel="next" href="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "Linux进程",
+        "headline": "",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/linux%E8%BF%9B%E7%A8%8B\/"
-        },"genre": "posts","wordcount":  2794 ,
-        "url": "http:\/\/example.org\/linux%E8%BF%9B%E7%A8%8B\/","datePublished": "2021-12-03T10:17:16+08:00","dateModified": "2021-12-03T10:17:16+08:00","publisher": {
+        },"genre": "page","wordcount":  286 ,
+        "url": "http:\/\/example.org\/linux%E8%BF%9B%E7%A8%8B\/","publisher": {
             "@type": "Organization",
             "name": "YZJ"},"author": {
                 "@type": "Person",
@@ -43,11 +49,18 @@
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="YZJ 的博客"></a>
+            <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
         </div>
         <div class="menu">
             <div class="menu-inner"><a class="menu-item" href="/posts/" title="YZJ 的博客"> 文章 </a><a class="menu-item" href="/tags/" title="YZJ 的博客"> 标签 </a><a class="menu-item" href="/categories/" title="YZJ 的博客"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
                             <i class="fas fa-search fa-fw"></i>
                         </a>
@@ -67,7 +80,14 @@
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="YZJ 的博客"></a>
+                <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
             </div>
             <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
@@ -75,7 +95,7 @@
         </div>
         <div class="menu" id="menu-mobile"><div class="search-wrapper">
                     <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
                             <i class="fas fa-search fa-fw"></i>
                         </a>
@@ -101,50 +121,8 @@
     <div id="search-dropdown-mobile"></div>
 </div>
 <main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">Linux进程</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-03">2021-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2794 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="true">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#进程描述符">进程描述符</a>
-      <ul>
-        <li><a href="#进程状态">进程状态</a></li>
-        <li><a href="#标识一个进程">标识一个进程</a></li>
-      </ul>
-    </li>
-    <li><a href="#进程的切换">进程的切换</a>
-      <ul>
-        <li><a href="#硬件上下文">硬件上下文</a></li>
-        <li><a href="#任务状态段">任务状态段</a></li>
-        <li><a href="#执行进程切换">执行进程切换</a></li>
-      </ul>
-    </li>
-    <li><a href="#创建进程">创建进程</a>
-      <ul>
-        <li><a href="#内核进程">内核进程</a></li>
-        <li><a href="#进程-0">进程 0</a></li>
-        <li><a href="#进程-1">进程 1</a></li>
-        <li><a href="#其他内核线程">其他内核线程</a></li>
-      </ul>
-    </li>
-    <li><a href="#撤销进程">撤销进程</a>
-      <ul>
-        <li><a href="#进程终止">进程终止</a></li>
-        <li><a href="#进程删除">进程删除</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav></div>
-            </div><div class="content" id="content"><h1 id="linux进程">Linux进程</h1>
+                <div class="container"><div class="page single special"><h1 class="single-title animated pulse faster"></h1><div class="content" id="content"><h1 id="linux进程">Linux进程</h1>
+<h1 id="linux进程-1">Linux进程</h1>
 <p>进程时程序执行的一个实例，可以把它看作充分描述程序已经执行到何种程度的数据结构的汇集。在 Linux 源代码中，常把进程称为任务(task)或线程(thread)。</p>
 <p>Linux 使用轻量级进程(lightweight process)对多线程应用提供更好的支持。两个轻量级进程基本上可以共享一些资源，诸如地址空间、打开的文件等等。</p>
 <h2 id="进程描述符">进程描述符</h2>
@@ -234,38 +212,10 @@
 <h3 id="进程删除">进程删除</h3>
 <p>进程通过调用 <code>wait()</code> 类函数来检查子进程是否终止，在子进程已终止，但是父进程还未接收到 <code>wait()</code> 类函数的通知之前，子进程处于僵死状态。这时系统资源已经释放，但还占用进程描述符。</p>
 <p>如果父进程在接收到子进程前就终止，子进程就会被<em>init</em>进程接管。</p>
-</div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2021-12-03</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
-        <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/linux%E8%BF%9B%E7%A8%8B/index.md" target="_blank">阅读原始文档</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/linux%E8%BF%9B%E7%A8%8B/" data-title="Linux进程" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/linux%E8%BF%9B%E7%A8%8B/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/linux%E8%BF%9B%E7%A8%8B/" data-title="Linux进程" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/linux%E8%BF%9B%E7%A8%8B/" data-title="Linux进程"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/linux%E8%BF%9B%E7%A8%8B/" data-title="Linux进程"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/linux%E8%BF%9B%E7%A8%8B/" data-title="Linux进程" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/linux%E8%BF%9B%E7%A8%8B/" data-title="Linux进程" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/linux%E8%BF%9B%E7%A8%8B/" data-title="Linux进程"><i class="fab fa-evernote fa-fw"></i></a></span>
-            </div>
-        </div>
-    </div>
-
-    <div class="post-info-more">
-        <section class="post-tags"></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" class="prev" rel="prev" title="Nginx多组代理配置"><i class="fas fa-angle-left fa-fw"></i>Nginx多组代理配置</a>
-            <a href="/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" class="next" rel="next" title="Linux内核同步">Linux内核同步<i class="fas fa-angle-right fa-fw"></i></a></div>
-</div>
-<div id="comments"></div></article></div>
+</div><div id="comments"></div></div></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

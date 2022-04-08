@@ -1,3 +1,5 @@
+# 
+
 # linux上使用udev创建裸设备
 
 
@@ -57,4 +59,5 @@ mknod /dev/sdb <DEVICE_TYPE> <主设备号> <次设备号>
 [root@localhost ~]#  /usr/sbin/udevadm trigger --type=devices --action=change
 ```
 在同时添加多个设备时，后添加的设备同步较慢。比较好的方法是先全部添加到`.rules`文件中，最后再执行`udevadm trigger`加载。
+
 

@@ -1,3 +1,5 @@
+# 
+
 # CentOS7 安装 qemu-5.2.0
 
 
@@ -94,5 +96,6 @@ make && make install
 qemu-edid            qemu-img             qemu-nbd             qemu-storage-daemon
 qemu-ga              qemu-io              qemu-pr-helper       qemu-system-x86_64
 ```
+
 
 

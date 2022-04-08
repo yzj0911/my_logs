@@ -1,3 +1,5 @@
+# 
+
 # CentOS下kvm安装
 
 
@@ -245,4 +247,5 @@ conn = libvirt.open("qemu+tcp://192.168.11.17/system")
 ```
 
 没有报错，安装完毕。
+
 

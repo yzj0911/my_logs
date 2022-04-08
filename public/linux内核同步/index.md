@@ -1,3 +1,5 @@
+# 
+
 # Linux内核同步
 
 
@@ -137,4 +139,5 @@ Linux 提供两种[信号量](https://zh.wikipedia.org/wiki/%E4%BF%A1%E5%8F%B7%E
 - wait_lock: 一个自旋锁，用户保护等待队列链表和 `rw_semphore` 结构本身。
 
 `down_read()` 和 `down_write()` 函数分别为读或写获取读/写信号量。同样，`up_read()` 和 `up_write()` 函数为读或写释放以前获取的读/写信号量。 `down_read_trylock()` 和 `down_write_trylock()` 函数分别类似于 `down_read()` 和 `down_write()` 函数，但是，在信号量忙的情况下，它们不阻塞进程。最后，函数 `downgrade_write()` 自动把写锁转换成读锁。
+
 

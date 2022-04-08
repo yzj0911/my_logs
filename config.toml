@@ -64,7 +64,7 @@ theme = "LoveIt"
     # 是否隐藏网站图标资源链接
     noFavicon = false
     # 更现代的 SVG 网站图标, 可替代旧的 .png 和 .ico 文件
-    svgFavicon = ""
+    svgFavicon = "/posts/images/avatar.webp"
     # Android 浏览器主题色
     themeColor = "#ffffff"
     # Safari 图标颜色
@@ -80,7 +80,7 @@ theme = "LoveIt"
     # 文章内容最长索引长度
     contentLength = 4000
     # 搜索框的占位提示语
-    placeholder = ""
+    placeholder = "请输入搜索文章"
     # LoveIt 新增 | 0.2.1 最大结果数目
     maxResultLength = 10
     # LoveIt 新增 | 0.2.3 结果内容片段长度
@@ -105,7 +105,7 @@ theme = "LoveIt"
       # LOGO 的 URL
       logo = "/posts/images/avatar.webp"
       # 标题名称
-      name = "YZj 的博客"
+      name = "YZj 的个人博客"
       # 你可以在名称 (允许 HTML 格式) 之前添加其他信息, 例如图标
       pre = ""
       # 你可以在名称 (允许 HTML 格式) 之后添加其他信息, 例如图标
@@ -567,3 +567,8 @@ theme = "LoveIt"
   section = ["HTML", "RSS"]
   taxonomy = ["HTML", "RSS"]
   taxonomyTerm = ["HTML"]
+
+[taxonomies]
+  tag = "tags"
+  series = "series"
+  category = "categories"

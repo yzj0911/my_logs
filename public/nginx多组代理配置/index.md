@@ -1,3 +1,5 @@
+# 
+
 # Nginx多组代理配置
 
 
@@ -201,6 +203,7 @@ tcp        0      0 192.168.10.10:8081      0.0.0.0:*               LISTEN      
 ![](https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110541.png)
 
 到这里配置就完成了。如果需要再代理，在 /etc/nginx/conf.d 目录下再添加相应的配置文件就可以。如果没有访问成功，请检查各种防火墙和安全策略。
+
 
 
 

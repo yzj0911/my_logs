@@ -1,3 +1,5 @@
+# 
+
 # postgresql 实战一：安装和使用
 
 
@@ -293,5 +295,6 @@ testdb=# select id, spec from posts where spec @> '{"other": {"name": "other"}}'
 (1 row)
 ```
 `JSONB` 支持的其他函数和操作符可以参考 [这里](http://www.postgres.cn/docs/12/functions-json.html#FUNCTIONS-JSONB-OP-TABLE)。
+
 
 

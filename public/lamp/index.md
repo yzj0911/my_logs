@@ -1,3 +1,5 @@
+# 
+
 # 搭建lamp环境
 
 
@@ -206,4 +208,5 @@ vim 1.php
     echo "Welcome to 1.php" ;
 ?>
 ```
+
 

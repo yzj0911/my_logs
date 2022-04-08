@@ -1,3 +1,5 @@
+# 
+
 # etcd的使用实例
 
 
@@ -888,6 +890,7 @@ func main() {
 ![](https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110336.png)
 
 同样官方自带示例：详细看 [这里](https://github.com/etcd-io/etcd/blob/master/clientv3/concurrency/example_election_test.go)
+
 
 
 
