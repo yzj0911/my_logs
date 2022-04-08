@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>搭建lnmp环境 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="搭建lnmp环境" />
+<meta property="og:description" content="搭建lnmp环境 lnmp即：nginx &#43; mysql &#43; php 与lamp不同的是，lnmp的php不在只是httpd中的一个库，lnmp架构中php作为一个" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/lnmp/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-03T10:17:16+08:00" />
+<meta property="article:modified_time" content="2021-12-03T10:17:16+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="搭建lnmp环境"/>
+<meta name="twitter:description" content="搭建lnmp环境 lnmp即：nginx &#43; mysql &#43; php 与lamp不同的是，lnmp的php不在只是httpd中的一个库，lnmp架构中php作为一个"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/lnmp/" /><link rel="prev" href="http://example.org/csapp/" /><link rel="next" href="http://example.org/lamp/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "搭建lnmp环境",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/lnmp\/"
+        },"genre": "posts","wordcount":  1277 ,
+        "url": "http:\/\/example.org\/lnmp\/","datePublished": "2021-12-03T10:17:16+08:00","dateModified": "2021-12-03T10:17:16+08:00","publisher": {
+            "@type": "Organization",
+            "name": "YZJ"},"author": {
+                "@type": "Person",
+                "name": "yzj"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="YZJ 的博客"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="YZJ 的博客"> 文章 </a><a class="menu-item" href="/tags/" title="YZJ 的博客"> 标签 </a><a class="menu-item" href="/categories/" title="YZJ 的博客"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="YZJ 的博客"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="YZJ 的博客">文章</a><a class="menu-item" href="/tags/" title="YZJ 的博客">标签</a><a class="menu-item" href="/categories/" title="YZJ 的博客">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">搭建lnmp环境</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-03">2021-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1277 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#下载mysql">下载mysql</a></li>
+    <li><a href="#解压">解压</a></li>
+    <li><a href="#移动到指定目录">移动到指定目录</a></li>
+    <li><a href="#创建mysql用户但不允许登录不创建家目录">创建mysql用户，但不允许登录，不创建家目录</a></li>
+    <li><a href="#创建数据库目录并改为mysql属主">创建数据库目录，并改为mysql属主</a></li>
+    <li><a href="#初始化mysql">初始化mysql</a></li>
+    <li><a href="#mysql配置文件">mysql配置文件</a></li>
+    <li><a href="#mysql启动脚本">mysql启动脚本</a></li>
+    <li><a href="#设置开机启动">设置开机启动</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#下载">下载</a></li>
+    <li><a href="#解压-1">解压</a></li>
+    <li><a href="#编译安装">编译安装</a></li>
+    <li><a href="#php的配置文件">php的配置文件</a></li>
+    <li><a href="#php开机启动">php开机启动</a></li>
+    <li><a href="#启动php">启动php</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#下载nginx">下载nginx</a></li>
+    <li><a href="#解压-2">解压</a></li>
+    <li><a href="#编译安装-1">编译安装</a></li>
+    <li><a href="#启动">启动</a></li>
+    <li><a href="#测试解析php">测试解析php</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="搭建lnmp环境">搭建lnmp环境</h1>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://image.xingyys.club/blog/linux.png"
+        data-srcset="http://image.xingyys.club/blog/linux.png, http://image.xingyys.club/blog/linux.png 1.5x, http://image.xingyys.club/blog/linux.png 2x"
+        data-sizes="auto"
+        alt="http://image.xingyys.club/blog/linux.png"
+        title="http://image.xingyys.club/blog/linux.png" />
+lnmp即：nginx + mysql + php
+与lamp不同的是，lnmp的php不在只是httpd中的一个库，lnmp架构中php作为一个服务，专门解析php。
+同样的php依赖mysql，所以首先安装mysql
+这里环境为CentOS6.5</p>
+<h1 id="安装mysql">安装mysql</h1>
+<p>这里选择免编译安装，可以在官网找到。在mysql5.5之后的版本不在开源了，但还可以选择mariadb的分支版本作为这个架构的代替。接下来就可以开始mysql的安装了。</p>
+<h2 id="下载mysql">下载mysql</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">wget http://mirrors.sohu.com/mysql/MySQL-5.1/mysql-5.1.73-linux-i686-glibc23.tar.gz
+</code></pre></td></tr></table>
+</div>
+</div><p>这个版本有点低，可以自己选择合适版本</p>
+<h2 id="解压">解压</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">tar -zxvf tar -zxvf mysql-5.1.73-linux-i686-glibc23.tar.gz
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="移动到指定目录">移动到指定目录</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mv mysql-5.1.73-linux-i686-glibc23 /usr/local/mysql
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="创建mysql用户但不允许登录不创建家目录">创建mysql用户，但不允许登录，不创建家目录</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">useradd -s /sbin/nologin -M mysql
+</code></pre></td></tr></table>
+</div>
+</div><p><code>-s</code>表示指定bash，这里出于安全性考虑设置不允许登录，<code>-M</code>不创建家目录</p>
+<h2 id="创建数据库目录并改为mysql属主">创建数据库目录，并改为mysql属主</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir /data/mysql -pv
+chown -R mysql：mysql /data/mysql
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="初始化mysql">初始化mysql</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /usr/local/mysql
+./scripts/mysql_install_db --user<span class="o">=</span>mysql --datadir<span class="o">=</span>/data/mysql
+</code></pre></td></tr></table>
+</div>
+</div><p><code>--user=*</code>是指定用户mysql，<code>--datadir=*</code>是指定数据库目录。可以使用<code>echo $?</code>验证命令执行结果是否正确，0为正确。</p>
+<h2 id="mysql配置文件">mysql配置文件</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cp /usr/local/mysql/support-files/my-large.cnf /etc/my.cnf
+vim /etc/my.cnf
+......
+<span class="nv">port</span>            <span class="o">=</span> <span class="m">3306</span>        <span class="c1">#监听端口</span>
+<span class="nv">socket</span>          <span class="o">=</span> /tmp/mysql.sock  <span class="c1">#socket</span>
+.....
+log-bin<span class="o">=</span>mysql-bin   <span class="c1">#修改mysql数据库时，记录日志</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="mysql启动脚本">mysql启动脚本</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cp /usr/local/mysql/mysql.server /etc/init.d/mysqld
+vim /etc/init.d/mysqld
+
+<span class="nv">basedir</span><span class="o">=</span>/usr/local/mysql   <span class="c1">#指定安装目录</span>
+<span class="nv">datadir</span><span class="o">=</span>/data/mysql          <span class="c1">#指定数据库目录</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="设置开机启动">设置开机启动</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">chkconfig --add mysqld；chkconfig mysqld on 开机启动
+</code></pre></td></tr></table>
+</div>
+</div><p>编译安装mysql时编译参数记录在<code>cat /usr/local/mysql/bin/mysqlbug |grep -i configure</code></p>
+<h1 id="安装php">安装php</h1>
+<h2 id="下载">下载</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">wget http://cn2.php.net/get/php-5.4.45.tar.bz2/from/this/mirror
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="解压-1">解压</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mv mirror php-5.4.45.tar.bz2
+tar -jxvf php-5.4.45.tar.bz2
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="编译安装">编译安装</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> php-5.4.45
+
+./configure --prefix<span class="o">=</span>/usr/local/php --with-config-file-path<span class="o">=</span>/usr/local/php/etc  --enable-fpm   --with-fpm-user<span class="o">=</span>php-fpm  --with-fpm-group<span class="o">=</span>php-fpm   --with-mysql<span class="o">=</span>/usr/local/mysql --with-mysql-sock<span class="o">=</span>/tmp/mysql.sock --with-libxml-dir  --with-gd   --with-jpeg-dir   --with-png-dir   --with-freetype-dir  --with-iconv-dir   --with-zlib-dir   --with-mcrypt   --enable-soap   --enable-gd-native-ttf   --enable-ftp --enable-mbstring --enable-exif --enable-zend-multibyte --disable-ipv6 --with-pear  --with-curl
+
+<span class="c1"># 出现错误：</span>
+configure: error: jpeglib.h not found.
+	
+<span class="c1">#解决方法：</span>
+yum install -y libjpeg-devel
+	
+<span class="c1">#出现错误：</span>
+configure: error: mcrypt.h not found.
+	
+<span class="c1"># 解决方法：</span>
+wget http://www.lishiming.net/data/attachment/forum/epel-release-6-8_32.noarch.rpm <span class="c1">#CentOS的yum扩展源</span>
+rpm -ivh epel-release-6-8_32.noarch.rpm
+yum install -y libmcrypt-devel
+	 
+make
+
+make install
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>/usr/local/php/bin/php -m :查看静态模块</li>
+<li>/usr/local/php/bin/php -i ：查看相关配置</li>
+</ul>
+<h2 id="php的配置文件">php的配置文件</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cp /usr/src/php-5.4.45/php.ini-production /usr/local/php/etc/php.ini
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="php开机启动">php开机启动</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cp /usr/src/php-5.4.45/sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm
+mv /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf  <span class="c1">#服务启动的脚本配置文件</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">chkconfig --add php-fpm
+chkconfig --level <span class="m">345</span> php-fpm on
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="启动php">启动php</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">useradd -s /sbin/nologin php-fpm
+chmod +x /etc/init.d/php-fpm
+service php-fpm start
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="安装nginx">安装nginx</h1>
+<h2 id="下载nginx">下载nginx</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /usr/src
+wget http://nginx.org/download/nginx-1.6.2.tar.gz
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="解压-2">解压</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">tar -xvf nginx-1.6.2.tar.gz
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="编译安装-1">编译安装</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">./configure --prefix<span class="o">=</span>/usr/local/nginx --with-pcre
+
+<span class="c1">#出现错误：</span>
+./configure: error: the HTTP rewrite module requires the PCRE library.
+  
+<span class="c1">#解决方法： </span>
+
+yum install -y pcre-devel
+
+make
+
+make install
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="启动">启动</h2>
+<p>编辑启动脚本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">vim /etc/init.d/nginx
+
+<span class="c1">#!/bin/bash</span>
+<span class="c1"># chkconfig: - 30 21</span>
+<span class="c1"># description: http service.</span>
+<span class="c1"># Source Function Library</span>
+. /etc/init.d/functions
+<span class="c1"># Nginx Settings</span>
+
+<span class="nv">NGINX_SBIN</span><span class="o">=</span><span class="s2">&#34;/usr/local/nginx/sbin/nginx&#34;</span>
+<span class="nv">NGINX_CONF</span><span class="o">=</span><span class="s2">&#34;/usr/local/nginx/conf/nginx.conf&#34;</span>
+<span class="nv">NGINX_PID</span><span class="o">=</span><span class="s2">&#34;/usr/local/nginx/logs/nginx.pid&#34;</span>
+<span class="nv">RETVAL</span><span class="o">=</span><span class="m">0</span>
+<span class="nv">prog</span><span class="o">=</span><span class="s2">&#34;Nginx&#34;</span>
+
+start<span class="o">()</span> <span class="o">{</span>
+     <span class="nb">echo</span> -n $<span class="s2">&#34;Starting </span><span class="nv">$prog</span><span class="s2">: &#34;</span>
+     mkdir -p /dev/shm/nginx_temp
+     daemon <span class="nv">$NGINX_SBIN</span> -c <span class="nv">$NGINX_CONF</span>
+     <span class="nv">RETVAL</span><span class="o">=</span><span class="nv">$?</span>
+     <span class="nb">echo</span>
+     <span class="k">return</span> <span class="nv">$RETVAL</span>
+<span class="o">}</span>
+
+stop<span class="o">()</span> <span class="o">{</span>
+     <span class="nb">echo</span> -n $<span class="s2">&#34;Stopping </span><span class="nv">$prog</span><span class="s2">: &#34;</span>
+     killproc -p <span class="nv">$NGINX_PID</span> <span class="nv">$NGINX_SBIN</span> -TERM
+     rm -rf /dev/shm/nginx_temp
+     <span class="nv">RETVAL</span><span class="o">=</span><span class="nv">$?</span>
+     <span class="nb">echo</span>
+     <span class="k">return</span> <span class="nv">$RETVAL</span>
+ <span class="o">}</span>
+
+ reload<span class="o">(){</span>
+     <span class="nb">echo</span> -n $<span class="s2">&#34;Reloading </span><span class="nv">$prog</span><span class="s2">: &#34;</span>
+     killproc -p <span class="nv">$NGINX_PID</span> <span class="nv">$NGINX_SBIN</span> -HUP
+     <span class="nv">RETVAL</span><span class="o">=</span><span class="nv">$?</span>
+     <span class="nb">echo</span>
+     <span class="k">return</span> <span class="nv">$RETVAL</span>
+<span class="o">}</span>
+
+restart<span class="o">(){</span>
+     stop
+     start
+<span class="o">}</span>
+
+configtest<span class="o">(){</span>
+ <span class="nv">$NGINX_SBIN</span> -c <span class="nv">$NGINX_CONF</span> -t
+ <span class="k">return</span> <span class="m">0</span>
+<span class="o">}</span>
+
+<span class="k">case</span> <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> in
+ start<span class="o">)</span>
+     start
+     <span class="p">;;</span>
+ stop<span class="o">)</span>
+     stop
+     <span class="p">;;</span>
+ reload<span class="o">)</span>
+     reload
+     <span class="p">;;</span>
+ restart<span class="o">)</span>
+     restart
+     <span class="p">;;</span>
+ configtest<span class="o">)</span>
+     configtest
+     <span class="p">;;</span>
+ *<span class="o">)</span>
+     <span class="nb">echo</span> $<span class="s2">&#34;Usage: </span><span class="nv">$0</span><span class="s2"> {start|stop|reload|restart|configtest}&#34;</span>
+     <span class="nv">RETVAL</span><span class="o">=</span><span class="m">1</span>
+ <span class="k">esac</span>
+
+ <span class="nb">exit</span> <span class="nv">$RETVAL</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>保存后，更改权限:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">chmod <span class="m">755</span> /etc/init.d/nginx
+chkconfig --add nginx
+</code></pre></td></tr></table>
+</div>
+</div><p>开机启动</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">chkconfig nginx on
+</code></pre></td></tr></table>
+</div>
+</div><p>启动服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">service nginx start
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="测试解析php">测试解析php</h2>
+<p>编辑配置文件/usr/local/nginx/conf/nginx.conf
+修改制定行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">......
+location ~ <span class="se">\.</span>php$ <span class="o">{</span>
+	root           html<span class="p">;</span>
+	fastcgi_pass   127.0.0.1:9000<span class="p">;</span>
+	fastcgi_index  index.php<span class="p">;</span>
+	fastcgi_param  SCRIPT_FILENAME  /usr/local/nginx/html<span class="nv">$fastcgi_script_name</span><span class="p">;</span>           <span class="c1">#路径为网站根目录</span>
+	include        fastcgi_params<span class="p">;</span>
+<span class="o">}</span>
+......
+</code></pre></td></tr></table>
+</div>
+</div><p>在/usr/local/nginx/html/下创建一个info.php文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+	 <span class="nx">phpinfo</span><span class="p">();</span>
+<span class="cp">?&gt;</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>浏览器访问：<code>http://127.0.0.1/info.php</code>测试</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-12-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/lnmp/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/lnmp/" data-title="搭建lnmp环境" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/lnmp/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/lnmp/" data-title="搭建lnmp环境" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/lnmp/" data-title="搭建lnmp环境"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/lnmp/" data-title="搭建lnmp环境"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/lnmp/" data-title="搭建lnmp环境" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/lnmp/" data-title="搭建lnmp环境" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/lnmp/" data-title="搭建lnmp环境"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/csapp/" class="prev" rel="prev" title="深入理解计算机系统"><i class="fas fa-angle-left fa-fw"></i>深入理解计算机系统</a>
+            <a href="/lamp/" class="next" rel="next" title="搭建lamp环境">搭建lamp环境<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

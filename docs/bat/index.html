@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Windows Bat总结 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="Windows Bat总结" />
+<meta property="og:description" content="Windows Bat总结 最近项目需要再 windows 上做开发，而且一些自动化的处理需要使用 windows 的的脚本。所以做些记录，防止遗忘。 基本的语法 首先从基础开始吧，之前都是使" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/bat/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-03T10:17:16+08:00" />
+<meta property="article:modified_time" content="2021-12-03T10:17:16+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="Windows Bat总结"/>
+<meta name="twitter:description" content="Windows Bat总结 最近项目需要再 windows 上做开发，而且一些自动化的处理需要使用 windows 的的脚本。所以做些记录，防止遗忘。 基本的语法 首先从基础开始吧，之前都是使"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/bat/" /><link rel="prev" href="http://example.org/lamp/" /><link rel="next" href="http://example.org/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Windows Bat总结",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/bat\/"
+        },"genre": "posts","wordcount":  1620 ,
+        "url": "http:\/\/example.org\/bat\/","datePublished": "2021-12-03T10:17:16+08:00","dateModified": "2021-12-03T10:17:16+08:00","publisher": {
+            "@type": "Organization",
+            "name": "YZJ"},"author": {
+                "@type": "Person",
+                "name": "yzj"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="YZJ 的博客"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="YZJ 的博客"> 文章 </a><a class="menu-item" href="/tags/" title="YZJ 的博客"> 标签 </a><a class="menu-item" href="/categories/" title="YZJ 的博客"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="YZJ 的博客"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="YZJ 的博客">文章</a><a class="menu-item" href="/tags/" title="YZJ 的博客">标签</a><a class="menu-item" href="/categories/" title="YZJ 的博客">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Windows Bat总结</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-03">2021-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1620 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#设置变量">设置变量</a></li>
+    <li><a href="#注释">注释</a></li>
+    <li><a href="#条件判断">条件判断</a></li>
+    <li><a href="#循环语句">循环语句</a></li>
+    <li><a href="#函数">函数</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#延时赋值问题">延时赋值问题</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="windows-bat总结">Windows Bat总结</h1>
+<p>最近项目需要再 windows 上做开发，而且一些自动化的处理需要使用 windows 的的脚本。所以做些记录，防止遗忘。</p>
+<h1 id="基本的语法">基本的语法</h1>
+<p>首先从基础开始吧，之前都是使用 linux bash 的。可以说 windows bat 脚本和 linux bash 脚本还是有很多区别的。</p>
+<h2 id="设置变量">设置变量</h2>
+<p>变量设置使用的命令为<code>set</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">set</span> <span class="nv">a</span><span class="o">=</span><span class="s2">&#34;hello world&#34;</span>
+<span class="nb">echo</span> %a%
+</code></pre></td></tr></table>
+</div>
+</div><p>从上面的脚本中可以知道，使用<code>set</code>来设置变量，语法为<code>set var=&lt;值&gt;</code>。如果要引用这个变量的话就使用<code>%var%</code>。</p>
+<blockquote>
+<p>注：bat 脚本不能像 bash 中一样设置临时变量，只用将变量设置为环境变量。</p>
+</blockquote>
+<p><code>set</code>命令的功能还是比较强大的，比如获取从键盘中输入的字符：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">set</span> /p <span class="nv">a</span><span class="o">=</span><span class="s2">&#34;Input a number:&#34;</span>
+
+<span class="nb">echo</span> %a%
+</code></pre></td></tr></table>
+</div>
+</div><p>支持算术：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">set</span> /a <span class="nv">a</span><span class="o">=</span>1+2
+<span class="nb">echo</span> %a%
+<span class="nb">set</span> /a a-<span class="o">=</span><span class="m">1</span>
+<span class="nb">echo</span> %a%
+<span class="nb">set</span> /a a*<span class="o">=</span><span class="m">3</span>
+<span class="nb">echo</span> %a%
+<span class="nb">set</span> /a a/<span class="o">=</span><span class="m">3</span>
+<span class="nb">echo</span> %a%
+</code></pre></td></tr></table>
+</div>
+</div><p>这个关键在于<code>set /a</code>
+还有字符串的修改和截取：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">:::::::::: 字符串的截取 ::::::::::
+<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>Hello Windows Bat
+:: 截取所有
+<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>%a:~0%
+:: 截取指定的
+<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>%a:~1,-1%
+<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>%a:~2,4%
+
+
+:::::::::: 字符串的替换 ::::::::::
+<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>Hello Windows
+
+:: 将Windows替换成Linux
+<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>%a:Windows<span class="o">=</span>Linux%
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="注释">注释</h2>
+<p>bat 中能实现注释功能的有两个<code>::</code>和<code>rem</code>。
+它们的不同点是：<code>rem</code>是一条命令，在运行的时候相当于把rem本身及其后面的内容置空。既然它是一条命令，就必须处于单独的一行或者有类似 &ldquo;&amp;&rdquo; 的连接符号连接。
+bat 遇到以冒号 &ldquo;:&rdquo; 开头的行时（忽略冒号前的空格），会将其后的语句识别为“标记”而不是命令语句，因此类似 &ldquo;:label&rdquo; 这样的在 bat 中仅仅是一个标记。</p>
+<blockquote>
+<p>注: 使用 bat 中的注释时需要注意一点，不要再 () 的边上使用注释。</p>
+</blockquote>
+<h2 id="条件判断">条件判断</h2>
+<p>bat 中的条件判断也是使用<code>if</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">set</span> <span class="nv">a</span><span class="o">=</span><span class="m">1</span>
+
+<span class="k">if</span> %a%<span class="o">==</span><span class="m">1</span> <span class="o">(</span>
+    <span class="nb">echo</span> OK
+<span class="o">)</span> <span class="k">else</span> <span class="o">(</span>
+    <span class="nb">echo</span> ERROR
+<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>如果时判断字符串使用为空时,可以这样处理:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">set</span> <span class="nv">a</span><span class="o">=</span><span class="s2">&#34;hello&#34;</span>
+
+<span class="k">if</span> <span class="o">(</span>%a%<span class="o">)==()</span> <span class="o">(</span>
+    <span class="nb">echo</span> OK
+<span class="o">)</span> <span class="k">else</span> <span class="o">(</span>
+    <span class="nb">echo</span> ERROR
+<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="循环语句">循环语句</h2>
+<p>bat 中的循环有些不同。关键字也是<code>for</code>。还是先来看一个例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> /f <span class="s2">&#34;delims=: tokens=1,2,3&#34;</span> %%i in <span class="o">(</span> <span class="s2">&#34;2018:04:11&#34;</span> <span class="o">)</span> <span class="k">do</span> <span class="o">(</span>
+    <span class="nb">echo</span> %%i
+    <span class="nb">echo</span> %%j
+<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这段脚本中需要注意的点是：<code>delims=:</code>表示使用 &ldquo;:&rdquo; 来分割字符串，而<code>tokens=1,2,3</code>则表示取出分割后的字符串的部分，从1开始。<code>%%i</code>是循环中的每个项。输出时<code>%%i</code>和<code>%%j</code>分别对应的就是截取的字段1和2。如果还需要输出第三个，也是使用<code>%%k</code>表示，依次类推。</p>
+<p>但 bat 中的<code>for</code>会存在延迟赋值的情况，先来看一段脚本:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> /f <span class="s2">&#34;delims=: tokens=2&#34;</span> %%i in <span class="o">(</span> <span class="s1">&#39;ipconfig /all ^| findstr /i &#34;ipv4&#34; &#39;</span> <span class="o">)</span> <span class="k">do</span> <span class="o">(</span>
+    <span class="nb">echo</span> %%i
+    <span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>%%i
+    <span class="nb">echo</span> %a%
+<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>输出结果:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">IPv4 地址 . . . . . . . . . . . . : 192.168.168.1(首选)
+IPv4 地址 . . . . . . . . . . . . : 192.168.2.160(首选
+IPv4 地址 . . . . . . . . . . . . : 192.168.157.1(首选)
+IPv4 地址 . . . . . . . . . . . . : 192.168.2.160(首选
+IPv4 地址 . . . . . . . . . . . . : 192.168.2.160(首选)
+IPv4 地址 . . . . . . . . . . . . : 192.168.2.160(首选
+</code></pre></td></tr></table>
+</div>
+</div><p><code>%a%</code>的值一直等于最后一项。</p>
+<h2 id="函数">函数</h2>
+<p>bat 中函数是使用<code>:label</code>方式定义的，使用<code>call</code>来调用:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">call :test Hello World
+
+goto EXIT
+
+:test
+    <span class="nb">echo</span> %1 %2
+
+:EXIT
+</code></pre></td></tr></table>
+</div>
+</div><p>脚本中的<code>goto</code>用来跳转退出，而且函数要放在脚本的尾部，存在多个函数时还需要使用<code>goto</code>直接跳转，因为脚本是会按顺序执行下去的。</p>
+<h1 id="实战操作">实战操作</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">@echo off
+
+<span class="nb">set</span> <span class="nv">option</span><span class="o">=</span>%1
+<span class="nb">set</span> <span class="nv">address</span><span class="o">=</span>%2
+
+<span class="k">if</span> <span class="o">(</span>%option%<span class="o">)</span> <span class="o">==</span> <span class="o">()</span> <span class="o">(</span>
+    <span class="nb">echo</span> <span class="s2">&#34;Usage: connectIscsi.bat &lt;start|stop&gt; &lt;address&gt;&#34;</span>
+    goto EXIT
+<span class="o">)</span>
+
+<span class="k">if</span> <span class="o">(</span>%address%<span class="o">)</span> <span class="o">==</span> <span class="o">()</span> <span class="o">(</span>
+    <span class="nb">echo</span> <span class="s2">&#34;Usage: connectIscsi.bat &lt;start|stop&gt; &lt;address&gt;&#34;</span>
+    goto EXIT
+<span class="o">)</span>
+
+<span class="k">if</span> %option% <span class="o">==</span> start <span class="o">(</span>
+    call :start %address%
+<span class="o">)</span> <span class="k">else</span> <span class="k">if</span> %option% <span class="o">==</span> stop <span class="o">(</span>
+    call :stop %address%
+<span class="o">)</span> <span class="k">else</span> <span class="o">(</span>
+    <span class="nb">echo</span> <span class="s2">&#34;Usage: connectIscsi.bat &lt;start|stop&gt; &lt;address&gt;&#34;</span>
+    goto EXIT
+<span class="o">)</span>
+
+::sc config msiscsi <span class="nv">start</span><span class="o">=</span>auto
+::net start msiscsi
+
+goto EXIT
+
+:: 连接iscsi服务器
+:start
+    iscsicli QAddTargetPortal %1
+    <span class="k">for</span> /f <span class="s2">&#34;delims= tokens=1&#34;</span> %%i in <span class="o">(</span> <span class="s1">&#39;iscsicli ListTargets t ^| findstr /i &#34;iqn.2018-11&#34; &#39;</span> <span class="o">)</span> <span class="k">do</span> <span class="o">(</span>
+        iscsicli qlogintarget %%i
+    <span class="o">)</span>
+    goto EXIT
+
+:: 断开iscsi服务器
+:stop
+	<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>
+    <span class="k">for</span> /f <span class="s2">&#34;delims=: tokens=2&#34;</span> %%i in <span class="o">(</span><span class="s1">&#39;iscsicli SessionList ^| findstr /i &#34;fffffa8&#34;&#39;</span><span class="o">)</span> <span class="k">do</span> <span class="o">(</span>
+        <span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>%%i
+		goto <span class="k">return</span>
+    <span class="o">)</span>
+	:return
+	<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>%a: <span class="o">=</span>0x%
+	<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>%a:-<span class="o">=</span>-0x%
+	iscsicli LogoutTarget %a%
+    iscsicli RemoveTargetPortal %1 <span class="m">3260</span>
+    goto EXIT
+
+:EXIT
+</code></pre></td></tr></table>
+</div>
+</div><p>这个脚本是用来连接和断开iscsi服务器的。脚本有两个入参，option 和 address。连接和断开iscsi服务器。脚本的思路很简单，开始判断输入参数是否正确。然后根据 option 选择执行对应的函数。特别在<code>:stop</code>中，因为延时复制的关系，所以循环体中只放简单的复制，处理部分在外面进行处理。</p>
+<h1 id="后记">后记</h1>
+<h2 id="延时赋值问题">延时赋值问题</h2>
+<p>bat 的延时赋值有对应的解决方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">SETLOCAL ENABLEDELAYEDEXPANSION
+
+<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>hello
+<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>!a!
+<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>!a:~1!
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-12-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/bat/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/bat/" data-title="Windows Bat总结" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/bat/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/bat/" data-title="Windows Bat总结" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/bat/" data-title="Windows Bat总结"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/bat/" data-title="Windows Bat总结"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/bat/" data-title="Windows Bat总结" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/bat/" data-title="Windows Bat总结" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/bat/" data-title="Windows Bat总结"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/lamp/" class="prev" rel="prev" title="搭建lamp环境"><i class="fas fa-angle-left fa-fw"></i>搭建lamp环境</a>
+            <a href="/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" class="next" rel="next" title="postgresql 实战一：安装和使用">postgresql 实战一：安装和使用<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
