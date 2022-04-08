@@ -1,5 +1,3 @@
-# 
-
 # Golang跨平台编译
 
 
@@ -38,7 +36,6 @@ CGO_ENABLED=1 CC=x86_64-w64-mingw32-gcc CXX=x86_64-w64-mingw32-g++ GOOS=windows 
 # runtime/cgo
 gcc: error: unrecognized command line option ‘-mthreads’; did you mean ‘-pthread’?
 ```
-
 
 
 

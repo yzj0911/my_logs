@@ -1,5 +1,3 @@
-# 
-
 # 深入理解计算机系统
 
 
@@ -742,5 +740,4 @@ double f1(float x, double *y, long *z);
 ![](https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210913125948.png)
 
 浮点比较指令会设置三个条件码: 零标志位 ZF, 进位标志位 CF 和奇偶标志位 PF。
-
 

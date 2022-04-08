@@ -1,5 +1,3 @@
-# 
-
 # Golang使用json格式实现增删查改
 
 
@@ -645,6 +643,5 @@ func randId() string {
 	return fmt.Sprintf("%x", md5.Sum([]byte(time.Now().String())))
 }
 ```
-
 
 

@@ -5,36 +5,30 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title> - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="" />
-<meta property="og:description" content="Nginx多组代理配置 Nginx多组代理配置 一、需求 具体实现以下功能：使用 nginx 作为对外的服务机器，让客户端通过访问 nginx 所在的IP&#43;端口的方式能访问内部多个系统，这样一来通过对单台机器作访问控制就可以保证内部系统的访问安全。实现思路如下：在对外的机器上部署 nginx 服务，通过 nginx 虚拟机功能和代理功能相结合实现多组代理。具体场景如下：
-   代理服务器 代理服务     nginx 192.168.10.10:8080 192.168.10.11:8080   nginx 192.168.10.10:8081 192.168.10.11:9000    二、环境 测试环境如下：
- 代理服务器：ip 192.168.10.10；系统 CentOS7 ;  需要代理的服务：192.168.10.11:8080 nginx ；192.168.10.11:9000 tomcat  三、配置代理 假如有两个服务需要配置代理，一个 web，一个 tomcat。web 运行在 192.168.10.11:8080 tomcat 运行在 192.168.10.11:9000 现在配置 nginx 代理。 1.安装 nginx先在代理服务器上安装 nginx，使用命令：
-1  $ yum install -y nginx   安装成功后就可以尝试启动 nginx 服务器：" />
+        <title>Nginx多组代理配置 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="Nginx多组代理配置" />
+<meta property="og:description" content="Nginx多组代理配置 一、需求 具体实现以下功能：使用 nginx 作为对外的服务机器，让客户端通过访问 nginx 所在的IP&#43;端口的方式能访问内部多个系统，这样一" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="" />
-
-
+<meta property="og:url" content="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-03T10:17:16+08:00" />
+<meta property="article:modified_time" content="2021-12-03T10:17:16+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://example.org/logo.png"/>
 
-<meta name="twitter:title" content=""/>
-<meta name="twitter:description" content="Nginx多组代理配置 Nginx多组代理配置 一、需求 具体实现以下功能：使用 nginx 作为对外的服务机器，让客户端通过访问 nginx 所在的IP&#43;端口的方式能访问内部多个系统，这样一来通过对单台机器作访问控制就可以保证内部系统的访问安全。实现思路如下：在对外的机器上部署 nginx 服务，通过 nginx 虚拟机功能和代理功能相结合实现多组代理。具体场景如下：
-   代理服务器 代理服务     nginx 192.168.10.10:8080 192.168.10.11:8080   nginx 192.168.10.10:8081 192.168.10.11:9000    二、环境 测试环境如下：
- 代理服务器：ip 192.168.10.10；系统 CentOS7 ;  需要代理的服务：192.168.10.11:8080 nginx ；192.168.10.11:9000 tomcat  三、配置代理 假如有两个服务需要配置代理，一个 web，一个 tomcat。web 运行在 192.168.10.11:8080 tomcat 运行在 192.168.10.11:9000 现在配置 nginx 代理。 1.安装 nginx先在代理服务器上安装 nginx，使用命令：
-1  $ yum install -y nginx   安装成功后就可以尝试启动 nginx 服务器："/>
+<meta name="twitter:title" content="Nginx多组代理配置"/>
+<meta name="twitter:description" content="Nginx多组代理配置 一、需求 具体实现以下功能：使用 nginx 作为对外的服务机器，让客户端通过访问 nginx 所在的IP&#43;端口的方式能访问内部多个系统，这样一"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" /><link rel="prev" href="http://example.org/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" /><link rel="next" href="http://example.org/lnmp/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" /><link rel="prev" href="http://example.org/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" /><link rel="next" href="http://example.org/linux%E8%BF%9B%E7%A8%8B/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "",
+        "headline": "Nginx多组代理配置",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE\/"
-        },"genre": "page","wordcount":  500 ,
-        "url": "http:\/\/example.org\/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE\/","publisher": {
+        },"genre": "posts","wordcount":  1286 ,
+        "url": "http:\/\/example.org\/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE\/","datePublished": "2021-12-03T10:17:16+08:00","dateModified": "2021-12-03T10:17:16+08:00","publisher": {
             "@type": "Organization",
             "name": "YZJ"},"author": {
                 "@type": "Person",
@@ -119,8 +113,20 @@
     <div id="search-dropdown-mobile"></div>
 </div>
 <main class="main">
-                <div class="container"><div class="page single special"><h1 class="single-title animated pulse faster"></h1><div class="content" id="content"><h1 id="nginx多组代理配置">Nginx多组代理配置</h1>
-<h1 id="nginx多组代理配置-1">Nginx多组代理配置</h1>
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Nginx多组代理配置</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-03">2021-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1286 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><h1 id="nginx多组代理配置">Nginx多组代理配置</h1>
 <h1 id="一需求">一、需求</h1>
 <p>具体实现以下功能：使用 nginx 作为对外的服务机器，让客户端通过访问 nginx 所在的IP+端口的方式能访问内部多个系统，这样一来通过对单台机器作访问控制就可以保证内部系统的访问安全。实现思路如下：在对外的机器上部署 nginx 服务，通过 nginx 虚拟机功能和代理功能相结合实现多组代理。具体场景如下：</p>
 <table>
@@ -480,7 +486,35 @@ tcp        <span class="m">0</span>      <span class="m">0</span> 192.168.10.10:
         alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110541.png"
         title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110541.png" /></p>
 <p>到这里配置就完成了。如果需要再代理，在 /etc/nginx/conf.d 目录下再添加相应的配置文件就可以。如果没有访问成功，请检查各种防火墙和安全策略。</p>
-</div><div id="comments"></div></div></div>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-12-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" data-title="Nginx多组代理配置" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" data-title="Nginx多组代理配置" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" data-title="Nginx多组代理配置"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" data-title="Nginx多组代理配置"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" data-title="Nginx多组代理配置" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" data-title="Nginx多组代理配置" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" data-title="Nginx多组代理配置"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" class="prev" rel="prev" title="postgresql 实战一：安装和使用"><i class="fas fa-angle-left fa-fw"></i>postgresql 实战一：安装和使用</a>
+            <a href="/linux%E8%BF%9B%E7%A8%8B/" class="next" rel="next" title="Linux进程">Linux进程<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>

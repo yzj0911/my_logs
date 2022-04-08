@@ -5,44 +5,30 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title> - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="" />
-<meta property="og:description" content="Linux中断和异常 Linux中断和异常 中断(interrupt)通常被定义为一个事件，该事件改变处理器执行的指令顺序。这样的事件与CPU芯片内外部硬件电路产生的点信号相对应。
-中断通常分为同步 (synchronous) 中断和异步 (asynchornous) 中断:
- 同步中断是当指令执行时由 CPU 控制单元产生的，之所以称为同步，是因为只有在一条指令终止执行后 CPU 才会发出中断。 异步中断是由其他硬件设备依照 CPU 时钟信号随机产生的。  在 Intel 微处理器中，把同步和异步中断分别称为异常 (exception) 和中断 (interrupt)。
-中断是由间隔定时器和I/O设备产生的，异常是由程序的错误产生的，或者是由内核必须处理的异常条件产生的。
-中断信号的作用 中断信号提供了一种特殊的方式，使处理器转而去运行正常控制流之外的代码。当一个中断信号达到是，CPU 必须停止它当前正在做的事情，并且切换到一个新的活动。所以要在内核态堆栈保存程序计数器的当前值(即eip和cs寄存器的内容)，并把与中断类型相关的一个地址放进程序计数器。
-中断和异常 中断:
- 可屏蔽中断 (maskable interrupt) : I/O 设备发出的所有中断请求(IRQ)都产生可屏蔽中断。可屏蔽中断可以处于两种状态: 屏蔽的 (masked) 或非屏蔽的 (unmasked)；一个屏蔽的中断只要还是屏蔽的，控制单元就忽略它。 非屏蔽中断 (nonmaskable interrupt) : 只有几个危急事件(如硬件故障)才引起非屏蔽中断。非屏蔽中断总是由CPU辨认。  异常:
- 处理器探测异常(processor-detected exception) : 当 CPU 执行指令时探测到一个反常条件所产生的异常。可以进一步分为三组，这取决于CPU控制单元产生异常是保存在内核态堆栈eip寄存器中的值。它们分别是故障(fault)、陷阱(trap) 和异常中止(abort)。 编程异常(programmed exception) : 在编程者发出请求时发生。是由 int 或 int3 指令触发的。当 into(检查溢出)和 bound(检查地址出界)指令查询的条件不为真时，也引起编程异常。控制单元把编程异常作为陷阱来处理。编程异常通常也叫做软中断(software interrupt)。这样的异常有两种常用的用途: 执行系统调用和给调试程序通报一个特定的事件。  处理器探测的异常:" />
+        <title>Linux中断和异常 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="Linux中断和异常" />
+<meta property="og:description" content="Linux中断和异常 中断(interrupt)通常被定义为一个事件，该事件改变处理器执行的指令顺序。这样的事件与CPU芯片内外部硬件电路产生" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="" />
-
-
+<meta property="og:url" content="http://example.org/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-03T10:17:16+08:00" />
+<meta property="article:modified_time" content="2021-12-03T10:17:16+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://example.org/logo.png"/>
 
-<meta name="twitter:title" content=""/>
-<meta name="twitter:description" content="Linux中断和异常 Linux中断和异常 中断(interrupt)通常被定义为一个事件，该事件改变处理器执行的指令顺序。这样的事件与CPU芯片内外部硬件电路产生的点信号相对应。
-中断通常分为同步 (synchronous) 中断和异步 (asynchornous) 中断:
- 同步中断是当指令执行时由 CPU 控制单元产生的，之所以称为同步，是因为只有在一条指令终止执行后 CPU 才会发出中断。 异步中断是由其他硬件设备依照 CPU 时钟信号随机产生的。  在 Intel 微处理器中，把同步和异步中断分别称为异常 (exception) 和中断 (interrupt)。
-中断是由间隔定时器和I/O设备产生的，异常是由程序的错误产生的，或者是由内核必须处理的异常条件产生的。
-中断信号的作用 中断信号提供了一种特殊的方式，使处理器转而去运行正常控制流之外的代码。当一个中断信号达到是，CPU 必须停止它当前正在做的事情，并且切换到一个新的活动。所以要在内核态堆栈保存程序计数器的当前值(即eip和cs寄存器的内容)，并把与中断类型相关的一个地址放进程序计数器。
-中断和异常 中断:
- 可屏蔽中断 (maskable interrupt) : I/O 设备发出的所有中断请求(IRQ)都产生可屏蔽中断。可屏蔽中断可以处于两种状态: 屏蔽的 (masked) 或非屏蔽的 (unmasked)；一个屏蔽的中断只要还是屏蔽的，控制单元就忽略它。 非屏蔽中断 (nonmaskable interrupt) : 只有几个危急事件(如硬件故障)才引起非屏蔽中断。非屏蔽中断总是由CPU辨认。  异常:
- 处理器探测异常(processor-detected exception) : 当 CPU 执行指令时探测到一个反常条件所产生的异常。可以进一步分为三组，这取决于CPU控制单元产生异常是保存在内核态堆栈eip寄存器中的值。它们分别是故障(fault)、陷阱(trap) 和异常中止(abort)。 编程异常(programmed exception) : 在编程者发出请求时发生。是由 int 或 int3 指令触发的。当 into(检查溢出)和 bound(检查地址出界)指令查询的条件不为真时，也引起编程异常。控制单元把编程异常作为陷阱来处理。编程异常通常也叫做软中断(software interrupt)。这样的异常有两种常用的用途: 执行系统调用和给调试程序通报一个特定的事件。  处理器探测的异常:"/>
+<meta name="twitter:title" content="Linux中断和异常"/>
+<meta name="twitter:description" content="Linux中断和异常 中断(interrupt)通常被定义为一个事件，该事件改变处理器执行的指令顺序。这样的事件与CPU芯片内外部硬件电路产生"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/" /><link rel="prev" href="http://example.org/linux%E5%86%85%E5%AD%98/" /><link rel="next" href="http://example.org/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "",
+        "headline": "Linux中断和异常",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8\/"
-        },"genre": "page","wordcount":  78 ,
-        "url": "http:\/\/example.org\/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8\/","publisher": {
+        },"genre": "posts","wordcount":  1301 ,
+        "url": "http:\/\/example.org\/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8\/","datePublished": "2021-12-03T10:17:16+08:00","dateModified": "2021-12-03T10:17:16+08:00","publisher": {
             "@type": "Organization",
             "name": "YZJ"},"author": {
                 "@type": "Person",
@@ -127,8 +113,25 @@
     <div id="search-dropdown-mobile"></div>
 </div>
 <main class="main">
-                <div class="container"><div class="page single special"><h1 class="single-title animated pulse faster"></h1><div class="content" id="content"><h1 id="linux中断和异常">Linux中断和异常</h1>
-<h1 id="linux中断和异常-1">Linux中断和异常</h1>
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Linux中断和异常</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-03">2021-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1301 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#中断信号的作用">中断信号的作用</a></li>
+    <li><a href="#中断和异常">中断和异常</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="linux中断和异常">Linux中断和异常</h1>
 <p>中断(interrupt)通常被定义为一个事件，该事件改变处理器执行的指令顺序。这样的事件与CPU芯片内外部硬件电路产生的点信号相对应。</p>
 <p>中断通常分为同步 (synchronous) 中断和异步 (asynchornous) 中断:</p>
 <ul>
@@ -157,7 +160,35 @@
 <li>异常中止: 发送一个严重的错误，控制单元出了问题，不能在 eip 寄存器中保存引起异常的指令所在的确切位置。异常中止用于报告严重的错误，如硬件故障或系统表中无效的值或不一致的值。由控制单元发送的这个中断信号时紧急信号，用来把控制权切换到相应的异常中止处理程序，这个异常中止处理程序除了强制受影响的进程中止外，没有别的选择。</li>
 </ul>
 <p>每个中断和异常是由0~255之间的一个数来标识。Intel 把这个8位的无符号整数叫做一个向量(vector)。非屏蔽中断的向量和异常的向量是固定的，而可屏蔽中断的向量可以通过对中断控制器的编程来改变。</p>
-</div><div id="comments"></div></div></div>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-12-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/" data-title="Linux中断和异常" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/" data-title="Linux中断和异常" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/" data-title="Linux中断和异常"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/" data-title="Linux中断和异常"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/" data-title="Linux中断和异常" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/" data-title="Linux中断和异常" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/" data-title="Linux中断和异常"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/linux%E5%86%85%E5%AD%98/" class="prev" rel="prev" title="Linux内存"><i class="fas fa-angle-left fa-fw"></i>Linux内存</a>
+            <a href="/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/" class="next" rel="next" title="linux上使用udev创建裸设备">linux上使用udev创建裸设备<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>

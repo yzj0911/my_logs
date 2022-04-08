@@ -4,7 +4,21 @@
         <link>http://example.org/posts/</link>
         <description>所有文章 | YZJ 的博客</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>935669265@qq.com (yzj)</managingEditor>
-            <webMaster>935669265@qq.com (yzj)</webMaster><lastBuildDate>Fri, 03 Dec 2021 10:17:16 &#43;0800</lastBuildDate><atom:link href="http://example.org/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>935669265@qq.com (yzj)</webMaster><lastBuildDate>Fri, 08 Apr 2022 09:49:46 &#43;0800</lastBuildDate><atom:link href="http://example.org/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>微信支付的接口</title>
+    <link>http://example.org/payment/</link>
+    <pubDate>Fri, 08 Apr 2022 09:49:46 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/payment/</guid>
+    <description><![CDATA[微信支付V3 整理整体流程]]></description>
+</item><item>
+    <title>gin 常用中间件</title>
+    <link>http://example.org/gin/</link>
+    <pubDate>Tue, 08 Feb 2022 10:17:16 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/gin/</guid>
+    <description><![CDATA[日志 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 // 日志记录到文件 func (d *Handler) LoggerToFile() gin.HandlerFunc { return func(c *gin.Context)]]></description>
+</item><item>
     <title>Aix添加和删除Iscsi存储卷</title>
     <link>http://example.org/aix1/</link>
     <pubDate>Fri, 03 Dec 2021 10:17:16 &#43;0800</pubDate>
@@ -60,19 +74,5 @@
     <author>作者</author>
     <guid>http://example.org/etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/</guid>
     <description><![CDATA[etcd的使用实例 etcd 有如下的使用场景： 服务发现（Service Discovery） 消息发布与订阅 负载均衡 分布式通知与协调 分布式锁 分布式队列 集]]></description>
-</item><item>
-    <title>Flask与Vue的token认证</title>
-    <link>http://example.org/flask%E4%B8%8Evue%E7%9A%84token%E8%AE%A4%E8%AF%81/</link>
-    <pubDate>Fri, 03 Dec 2021 10:17:16 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://example.org/flask%E4%B8%8Evue%E7%9A%84token%E8%AE%A4%E8%AF%81/</guid>
-    <description><![CDATA[Flask与Vue的token认证 后端使用flask设计基于token认证方式的restful接口，前端使用vue.js全家桶，利用axio]]></description>
-</item><item>
-    <title>Go 结合 etcd</title>
-    <link>http://example.org/go%E7%BB%93%E5%90%88etcd/</link>
-    <pubDate>Fri, 03 Dec 2021 10:17:16 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://example.org/go%E7%BB%93%E5%90%88etcd/</guid>
-    <description><![CDATA[Go 结合 etcd 关于 etcd 的安装和介绍看 这里 。官方的实例可以看 这里 一、连接 首先是关于 golang 如何连接 etcd ，先是简单的连接。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19]]></description>
 </item></channel>
 </rss>

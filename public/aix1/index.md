@@ -1,5 +1,3 @@
-# 
-
 # Aix添加和删除Iscsi存储卷
 
 
@@ -93,6 +91,5 @@ $ vi /etc/iscsi/targets
 ```bash
 $ cfgmgr -l iscsi0
 ```
-
 
 

@@ -1,5 +1,3 @@
-# 
-
 # Flask与Vue的token认证
 
 
@@ -383,7 +381,6 @@ logout() {
 删除`token`并跳转到登录页
 
 > `flask`和`vue`的`token`认证就完成了！！！！
-
 
 
 

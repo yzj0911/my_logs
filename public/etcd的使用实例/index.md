@@ -1,5 +1,3 @@
-# 
-
 # etcd的使用实例
 
 
@@ -892,5 +890,134 @@ func main() {
 同样官方自带示例：详细看 [这里](https://github.com/etcd-io/etcd/blob/master/clientv3/concurrency/example_election_test.go)
 
 
+# 八、etcd常用命令
+## 查询数据
 
+### 按key值查询
 
+```etcdctl get name1```
+
+```
+name1
+james
+```
+
+### 不显示key只限制values
+
+```etcdctl get --print-value-only name1```
+
+```
+james
+```
+
+### 按key前缀查找
+
+```etcdctl get --prefix name```
+```
+name1
+james
+name11
+alice
+name12
+seli
+name2
+jetty
+name3
+tom
+name4
+cris
+```
+### 按key的字节排序的前缀查找 >=
+
+```etcdctl get --from-key name2```
+```
+name2
+jetty
+name3
+tom
+name4
+cris
+```
+
+### 按key的字节排序区间查找 <= value <
+
+```etcdctl get name1 name3```
+```
+name1
+james
+name11
+alice
+name12
+seli
+name2
+jetty
+```
+
+### 查找所有key
+```etcdctl get --from-key ""```
+```
+avg_age
+25
+name1
+james
+name11
+alice
+name12
+seli
+name2
+jetty
+name3
+tom
+name4
+cris
+```
+## 删除数据
+### 删除key name11
+
+```etcdctl del name11```
+
+### 删除key name12时并返回被删除的键值对
+
+```etcdctl del --prev-kv name12```
+```
+1
+name12
+seli
+```
+### 删除指定字节排序起始值后的key
+
+```etcdctl del --prev-kv --from-key name3```
+```
+2
+name3
+tom
+name4
+cris
+```
+### 删除指定前缀的key
+
+```etcdctl del --prev-kv --prefix name```
+```
+2
+name1
+james
+name2
+jetty
+```
+### 删除所有数据
+
+```etcdctl del --prefix ""```
+```
+9
+```
+## 更新数据
+### 直接用put即可
+
+```etcdctl put avg_age 30```
+
+```
+etcdctl get --prefix ""
+
+avg_age
+30
+```

@@ -5,36 +5,30 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title> - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="" />
-<meta property="og:description" content="postgresql 实战一：安装和使用 postgresql 实战一：安装和使用 安装 这里直接使用 docker 安装 postgresql-13
-1  docker run --name postgresql13 -e POSTGRES_PASSWORD=123456 -p 54322:5432 -d postgres:13   安装成功后会绑定主机端口 54322。直接进入 postgresql13 容器，使用 pgsql。
-1 2 3 4 5 6  [root@localhost ~]# docker exec -it 3e3b03e3 /bin/bash root@3e3b03e3e442:/# psql -h localhost -p 5432 -U postgres psql (13.0 (Debian 13.0-1.pgdg100&#43;1)) Type &#34;help&#34; for help. postgres=#   psql 是 pgsql 的客户端命令，使用参数如下：
- -h：指定 pgsql 的地址 -p：指定 pgsql 的绑定端口 -U：指定登录的用户名，默认为 postgres。后面可以紧接 &ldquo;database&rdquo;，直接进入指定的数据库。  数据库的操作 postgresql 支持的数据库操作有 增、删、查、改" />
+        <title>postgresql 实战一：安装和使用 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="postgresql 实战一：安装和使用" />
+<meta property="og:description" content="postgresql 实战一：安装和使用 安装 这里直接使用 docker 安装 postgresql-13 1 docker run --name postgresql13 -e POSTGRES_PASSWORD=123456 -p 54322:5432 -d postgres:13 安装成功后会绑定主机端口 54322。直接进入 postgresql13 容器，使用 pgsql。 1 2 3" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="" />
-
-
+<meta property="og:url" content="http://example.org/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-03T10:17:16+08:00" />
+<meta property="article:modified_time" content="2021-12-03T10:17:16+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://example.org/logo.png"/>
 
-<meta name="twitter:title" content=""/>
-<meta name="twitter:description" content="postgresql 实战一：安装和使用 postgresql 实战一：安装和使用 安装 这里直接使用 docker 安装 postgresql-13
-1  docker run --name postgresql13 -e POSTGRES_PASSWORD=123456 -p 54322:5432 -d postgres:13   安装成功后会绑定主机端口 54322。直接进入 postgresql13 容器，使用 pgsql。
-1 2 3 4 5 6  [root@localhost ~]# docker exec -it 3e3b03e3 /bin/bash root@3e3b03e3e442:/# psql -h localhost -p 5432 -U postgres psql (13.0 (Debian 13.0-1.pgdg100&#43;1)) Type &#34;help&#34; for help. postgres=#   psql 是 pgsql 的客户端命令，使用参数如下：
- -h：指定 pgsql 的地址 -p：指定 pgsql 的绑定端口 -U：指定登录的用户名，默认为 postgres。后面可以紧接 &ldquo;database&rdquo;，直接进入指定的数据库。  数据库的操作 postgresql 支持的数据库操作有 增、删、查、改"/>
+<meta name="twitter:title" content="postgresql 实战一：安装和使用"/>
+<meta name="twitter:description" content="postgresql 实战一：安装和使用 安装 这里直接使用 docker 安装 postgresql-13 1 docker run --name postgresql13 -e POSTGRES_PASSWORD=123456 -p 54322:5432 -d postgres:13 安装成功后会绑定主机端口 54322。直接进入 postgresql13 容器，使用 pgsql。 1 2 3"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" /><link rel="next" href="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" /><link rel="prev" href="http://example.org/bat/" /><link rel="next" href="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "",
+        "headline": "postgresql 实战一：安装和使用",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8\/"
-        },"genre": "page","wordcount":  490 ,
-        "url": "http:\/\/example.org\/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8\/","publisher": {
+        },"genre": "posts","wordcount":  1172 ,
+        "url": "http:\/\/example.org\/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8\/","datePublished": "2021-12-03T10:17:16+08:00","dateModified": "2021-12-03T10:17:16+08:00","publisher": {
             "@type": "Organization",
             "name": "YZJ"},"author": {
                 "@type": "Person",
@@ -119,8 +113,36 @@
     <div id="search-dropdown-mobile"></div>
 </div>
 <main class="main">
-                <div class="container"><div class="page single special"><h1 class="single-title animated pulse faster"></h1><div class="content" id="content"><h1 id="postgresql-实战一安装和使用">postgresql 实战一：安装和使用</h1>
-<h1 id="postgresql-实战一安装和使用-1">postgresql 实战一：安装和使用</h1>
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">postgresql 实战一：安装和使用</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-03">2021-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1172 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#创建数据库">创建数据库</a></li>
+    <li><a href="#查询数据库">查询数据库</a></li>
+    <li><a href="#修改数据库">修改数据库</a></li>
+    <li><a href="#删除数据库">删除数据库</a></li>
+    <li><a href="#选择数据库">选择数据库</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#创建表">创建表</a></li>
+    <li><a href="#查询表">查询表</a></li>
+    <li><a href="#查看表结构">查看表结构</a></li>
+    <li><a href="#修改表结构">修改表结构</a></li>
+    <li><a href="#删除表">删除表</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="postgresql-实战一安装和使用">postgresql 实战一：安装和使用</h1>
 <h1 id="安装">安装</h1>
 <p>这里直接使用 docker 安装 postgresql-13</p>
 <div class="highlight"><div class="chroma">
@@ -672,7 +694,35 @@ Type <span class="s2">&#34;help&#34;</span> <span class="k">for</span> help.
 </span></code></pre></td></tr></table>
 </div>
 </div><p><code>JSONB</code> 支持的其他函数和操作符可以参考 <a href="http://www.postgres.cn/docs/12/functions-json.html#FUNCTIONS-JSONB-OP-TABLE" target="_blank" rel="noopener noreffer">这里</a>。</p>
-</div><div id="comments"></div></div></div>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-12-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" data-title="postgresql 实战一：安装和使用" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" data-title="postgresql 实战一：安装和使用" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" data-title="postgresql 实战一：安装和使用"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" data-title="postgresql 实战一：安装和使用"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" data-title="postgresql 实战一：安装和使用" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" data-title="postgresql 实战一：安装和使用" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" data-title="postgresql 实战一：安装和使用"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/bat/" class="prev" rel="prev" title="Windows Bat总结"><i class="fas fa-angle-left fa-fw"></i>Windows Bat总结</a>
+            <a href="/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" class="next" rel="next" title="Nginx多组代理配置">Nginx多组代理配置<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>

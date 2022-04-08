@@ -1,5 +1,3 @@
-# 
-
 # Containerd源码分析
 
 
@@ -783,7 +781,6 @@ type Registration struct {
 }
 ```
 Registration 包含插件类型，插件ID，配置参数，依赖的其他插件类型，初始化函数。
-
 
 
 

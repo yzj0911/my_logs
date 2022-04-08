@@ -1,5 +1,3 @@
-# 
-
 # Windows Bat总结
 
 
@@ -190,6 +188,5 @@ set a=hello
 set a=!a!
 set a=!a:~1!
 ```
-
 
 

@@ -1,5 +1,3 @@
-# 
-
 # Docker容器和网络架构设计
 
 
@@ -140,5 +138,4 @@ VXLAN:
 - Host
 - Overlay
 - Flannel
-
 

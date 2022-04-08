@@ -1,5 +1,3 @@
-# 
-
 # KVM镜像管理工具libguestfs
 
 
@@ -283,5 +281,4 @@ lvm 分区扩容
 ```bash
 $ virt-resize --expand /dev/sda2 --LV-expand /dev/vg_guest/lv_root olddisk newdisk
 ```
-
 

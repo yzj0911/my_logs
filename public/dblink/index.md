@@ -1,5 +1,3 @@
-# 
-
 # Dblink
 
 
@@ -36,5 +34,4 @@ alter system set open_links_per_instance=0 sid='$sid' scope=spfile;
 alter system set open_links=4 sid='$sid' scope=spfile;
 alter system set open_links_per_instance=4 sid='$sid' scope=spfile;
 ```
-
 
