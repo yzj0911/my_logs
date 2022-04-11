@@ -163,9 +163,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">go get -u github.com/golang/protobuf/<span class="o">{</span>proto,protoc-gen-go<span class="o">}</span>
-go get -u google.golang.org/grpc
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">go get -u github.com/golang/protobuf/<span class="o">{</span>proto,protoc-gen-go<span class="o">}</span>
+</span></span><span class="line"><span class="cl">go get -u google.golang.org/grpc
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果是国内用户无法连接到 google.golang.org 的话可以使用 VPN。或者直接从 github.com 直接下载源代码再编译安装</p>
 <div class="highlight"><div class="chroma">
@@ -174,9 +174,9 @@ go get -u google.golang.org/grpc
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">git clone https://github.com/grpc/grpc-go.git <span class="nv">$GOPATH</span>/src/google.golang.org/grpc
-go get -u google.golang.org/grpc
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone https://github.com/grpc/grpc-go.git <span class="nv">$GOPATH</span>/src/google.golang.org/grpc
+</span></span><span class="line"><span class="cl">go get -u google.golang.org/grpc
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="安装-protoc">安装 protoc</h2>
 <p>golang 要使用 grpc，还需要使用 protoc 工具。因为 golang 不能直接识别 .proto 文件，需要使用 protoc 工具将 .proto 转化成 golang 代码。下面介绍几个平台下安装 protobuf 的方法。</p>
@@ -187,8 +187,8 @@ go get -u google.golang.org/grpc
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">brew install protobuf
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">brew install protobuf
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="linux">linux</h3>
 <p>linux 下需要先从 github.com 下载 protobuf 源码或者二进制文件，<a href="https://github.com/protocolbuffers/protobuf/releases" target="_blank" rel="noopener noreffer">下载地址</a>。二进制安装的话就下载 protobuf-all-*.tar.gz 包，解压后进入生成的目录。之后执行命令：</p>
@@ -197,8 +197,8 @@ go get -u google.golang.org/grpc
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">make <span class="o">&amp;&amp;</span> make install
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">make <span class="o">&amp;&amp;</span> make install
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="windows">windows</h3>
 <p>下载 protobuf.all-*.zip 包，解压后再配置环境变量，将 protobuf\bin 配置到 $PATH 变量中。</p>
@@ -212,10 +212,10 @@ go get -u google.golang.org/grpc
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">../sample
-└── pb
-    └── echo.proto
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">../sample
+</span></span><span class="line"><span class="cl">└── pb
+</span></span><span class="line"><span class="cl">    └── echo.proto
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>echo.proto 的内容为:</p>
 <div class="highlight"><div class="chroma">
@@ -246,31 +246,31 @@ go get -u google.golang.org/grpc
 </span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-protobuf" data-lang="protobuf"><span class="n">syntax</span> <span class="o">=</span> <span class="s">&#34;proto3&#34;</span><span class="p">;</span> <span class="c1">// protobuf 语法版本，默认为 proto2
-</span><span class="c1">// // 这个是注释
-</span><span class="c1">// .proto 所在的包路径
-</span><span class="c1"></span><span class="kn">package</span> <span class="nn">sample</span><span class="o">.</span><span class="n">pb</span><span class="p">;</span><span class="err">
-</span><span class="err"></span><span class="k">option</span> <span class="n">go_package</span> <span class="o">=</span> <span class="s">&#34;pb&#34;</span><span class="p">;</span><span class="err">
-</span><span class="err"></span><span class="c1">// EchoRequest grpc 请求报文格式.
-</span><span class="c1"></span><span class="kd">message</span> <span class="nc">EchoRequest</span> <span class="p">{</span><span class="err">
-</span><span class="err"></span>  <span class="kt">string</span> <span class="kd">message</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="err">
-</span><span class="err"></span><span class="p">}</span><span class="err">
-</span><span class="err"></span><span class="c1">// EchoResponse grpc 响应报文格式.
-</span><span class="c1"></span><span class="kd">message</span> <span class="nc">EchoResponse</span> <span class="p">{</span><span class="err">
-</span><span class="err"></span>  <span class="kt">string</span> <span class="kd">message</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="err">
-</span><span class="err"></span><span class="p">}</span><span class="err">
-</span><span class="err"></span><span class="c1">// 定义 Echo 服务.
-</span><span class="c1"></span><span class="kd">service</span> <span class="n">Echo</span> <span class="p">{</span><span class="err">
-</span><span class="err"></span>  <span class="c1">// UnaryEcho 一元请求.
-</span><span class="c1"></span>  <span class="k">rpc</span> <span class="n">UnaryEcho</span><span class="p">(</span><span class="n">EchoRequest</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">EchoResponse</span><span class="p">)</span> <span class="p">{}</span><span class="err">
-</span><span class="err"></span>  <span class="c1">// ServerStreamingEcho 服务端 stream 请求.
-</span><span class="c1"></span>  <span class="k">rpc</span> <span class="n">ServerStreamingEcho</span><span class="p">(</span><span class="n">EchoRequest</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">stream</span> <span class="n">EchoResponse</span><span class="p">)</span> <span class="p">{}</span><span class="err">
-</span><span class="err"></span>  <span class="c1">// ClientStreamingEcho 客户端 stream 请求.
-</span><span class="c1"></span>  <span class="k">rpc</span> <span class="n">ClientStreamingEcho</span><span class="p">(</span><span class="n">stream</span> <span class="n">EchoRequest</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">EchoResponse</span><span class="p">)</span> <span class="p">{}</span><span class="err">
-</span><span class="err"></span>  <span class="c1">// BidirectionalStreamingEcho 双向 stream.
-</span><span class="c1"></span>  <span class="k">rpc</span> <span class="n">BidirectionalStreamingEcho</span><span class="p">(</span><span class="n">stream</span> <span class="n">EchoRequest</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">stream</span> <span class="n">EchoResponse</span><span class="p">)</span> <span class="p">{}</span><span class="err">
-</span><span class="err"></span><span class="p">}</span><span class="err">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-protobuf" data-lang="protobuf"><span class="line"><span class="cl"><span class="n">syntax</span> <span class="o">=</span> <span class="s">&#34;proto3&#34;</span><span class="p">;</span> <span class="c1">// protobuf 语法版本，默认为 proto2
+</span></span></span><span class="line"><span class="cl"><span class="c1">// // 这个是注释
+</span></span></span><span class="line"><span class="cl"><span class="c1">// .proto 所在的包路径
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kn">package</span> <span class="nn">sample</span><span class="o">.</span><span class="n">pb</span><span class="p">;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">option</span> <span class="n">go_package</span> <span class="o">=</span> <span class="s">&#34;pb&#34;</span><span class="p">;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c1">// EchoRequest grpc 请求报文格式.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">message</span> <span class="nc">EchoRequest</span> <span class="p">{</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="kt">string</span> <span class="kd">message</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c1">// EchoResponse grpc 响应报文格式.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">message</span> <span class="nc">EchoResponse</span> <span class="p">{</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="kt">string</span> <span class="kd">message</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c1">// 定义 Echo 服务.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">service</span> <span class="n">Echo</span> <span class="p">{</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="c1">// UnaryEcho 一元请求.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">rpc</span> <span class="n">UnaryEcho</span><span class="p">(</span><span class="n">EchoRequest</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">EchoResponse</span><span class="p">)</span> <span class="p">{}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="c1">// ServerStreamingEcho 服务端 stream 请求.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">rpc</span> <span class="n">ServerStreamingEcho</span><span class="p">(</span><span class="n">EchoRequest</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">stream</span> <span class="n">EchoResponse</span><span class="p">)</span> <span class="p">{}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="c1">// ClientStreamingEcho 客户端 stream 请求.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">rpc</span> <span class="n">ClientStreamingEcho</span><span class="p">(</span><span class="n">stream</span> <span class="n">EchoRequest</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">EchoResponse</span><span class="p">)</span> <span class="p">{}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="c1">// BidirectionalStreamingEcho 双向 stream.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">rpc</span> <span class="n">BidirectionalStreamingEcho</span><span class="p">(</span><span class="n">stream</span> <span class="n">EchoRequest</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">stream</span> <span class="n">EchoResponse</span><span class="p">)</span> <span class="p">{}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="p">}</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>执行以下命令将  .proto 转化为 golang 代码:</p>
 <div class="highlight"><div class="chroma">
@@ -280,10 +280,10 @@ go get -u google.golang.org/grpc
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> sample
-<span class="c1"># protoc -I&lt;import路径&gt; &lt;...-I$PATH&gt; --go_out=plugins=grpc:&lt;输出路径&gt; *.proto</span>
-protoc -I. --go_out<span class="o">=</span><span class="nv">plugins</span><span class="o">=</span>grpc:. pb/echo.proto
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> sample
+</span></span><span class="line"><span class="cl"><span class="c1"># protoc -I&lt;import路径&gt; &lt;...-I$PATH&gt; --go_out=plugins=grpc:&lt;输出路径&gt; *.proto</span>
+</span></span><span class="line"><span class="cl">protoc -I. --go_out<span class="o">=</span><span class="nv">plugins</span><span class="o">=</span>grpc:. pb/echo.proto
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>简单描述下 protoc 命令的功能。</p>
 <ul>
@@ -298,11 +298,11 @@ protoc -I. --go_out<span class="o">=</span><span class="nv">plugins</span><span 
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">../sample
-└── pb
-    ├── echo.pb.go
-    └── echo.proto
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">../sample
+</span></span><span class="line"><span class="cl">└── pb
+</span></span><span class="line"><span class="cl">    ├── echo.pb.go
+</span></span><span class="line"><span class="cl">    └── echo.proto
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="server">Server</h2>
 <div class="highlight"><div class="chroma">
@@ -388,86 +388,86 @@ protoc -I. --go_out<span class="o">=</span><span class="nv">plugins</span><span 
 </span><span class="lnt">79
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&#34;context&#34;</span>
-	<span class="s">&#34;errors&#34;</span>
-	<span class="s">&#34;google.golang.org/grpc&#34;</span>
-	<span class="s">&#34;io&#34;</span>
-	<span class="s">&#34;log&#34;</span>
-	<span class="s">&#34;mysite/sample/pb&#34;</span>
-	<span class="s">&#34;net&#34;</span>
-<span class="p">)</span>
-<span class="kd">type</span> <span class="nx">server</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">pb</span><span class="p">.</span><span class="nx">EchoServer</span>
-<span class="p">}</span>
-<span class="c1">// 简单请求
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">server</span><span class="p">)</span> <span class="nf">UnaryEcho</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">request</span> <span class="o">*</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoResponse</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoResponse</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34;echo: &#34;</span> <span class="o">+</span> <span class="nx">request</span><span class="p">.</span><span class="nx">Message</span><span class="p">},</span> <span class="kc">nil</span>
-<span class="p">}</span>
-<span class="c1">// 服务端流式
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">server</span><span class="p">)</span> <span class="nf">ServerStreamingEcho</span><span class="p">(</span><span class="nx">request</span> <span class="o">*</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">,</span> <span class="nx">stream</span> <span class="nx">pb</span><span class="p">.</span><span class="nx">Echo_ServerStreamingEchoServer</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
-	<span class="nx">_</span> <span class="p">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoResponse</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34;hello&#34;</span><span class="p">})</span>
-	<span class="nx">_</span> <span class="p">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoResponse</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34; &#34;</span><span class="p">})</span>
-	<span class="nx">_</span> <span class="p">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoResponse</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34;client&#34;</span><span class="p">})</span>
-	<span class="k">return</span> <span class="kc">nil</span>
-<span class="p">}</span>
-<span class="c1">// 客户端流式
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">server</span><span class="p">)</span> <span class="nf">ClientStreamingEcho</span><span class="p">(</span><span class="nx">stream</span> <span class="nx">pb</span><span class="p">.</span><span class="nx">Echo_ClientStreamingEchoServer</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
-	<span class="k">for</span> <span class="p">{</span>
-      <span class="nx">recv</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Recv</span><span class="p">()</span> <span class="c1">// block 直到有数据输出
-</span><span class="c1"></span>      <span class="k">if</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">Is</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">io</span><span class="p">.</span><span class="nx">EOF</span><span class="p">)</span> <span class="p">{</span>
-          <span class="c1">// 表示消息传输完毕
-</span><span class="c1"></span>        <span class="k">break</span>
-      <span class="p">}</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;recv error: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nx">err</span>
-      <span class="p">}</span>
-      <span class="c1">// client 断开连接
-</span><span class="c1"></span>      <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;recv data: %v&#34;</span><span class="p">,</span> <span class="nx">recv</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span>
-	<span class="p">}</span>
-  <span class="c1">// SendAndClose 只存在于客户端 stream 请求
-</span><span class="c1"></span>	<span class="c1">// 发送完关闭 stream
-</span><span class="c1"></span>	<span class="k">return</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">SendAndClose</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoResponse</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34;bye&#34;</span><span class="p">})</span>
-<span class="p">}</span>
-<span class="c1">// 双向流式
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">server</span><span class="p">)</span> <span class="nf">BidirectionalStreamingEcho</span><span class="p">(</span><span class="nx">stream</span> <span class="nx">pb</span><span class="p">.</span><span class="nx">Echo_BidirectionalStreamingEchoServer</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
-	<span class="c1">// 如果服务端 stream 方法退出，客户端请求也直接断开
-</span><span class="c1"></span>	<span class="k">for</span> <span class="p">{</span>
-      <span class="nx">recv</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Recv</span><span class="p">()</span>
-      <span class="k">if</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">Is</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">io</span><span class="p">.</span><span class="nx">EOF</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">break</span>
-      <span class="p">}</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;recv error: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nx">err</span>
-      <span class="p">}</span>
-      <span class="k">if</span> <span class="nx">recv</span><span class="p">.</span><span class="nx">Message</span> <span class="o">==</span> <span class="s">&#34;bye&#34;</span> <span class="p">{</span>
-        <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;client send done!&#34;</span><span class="p">)</span>
-        <span class="k">break</span>
-      <span class="p">}</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoResponse</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34;reply: &#34;</span> <span class="o">+</span> <span class="nx">recv</span><span class="p">.</span><span class="nx">Message</span><span class="p">});</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;send message error: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nx">err</span>
-      <span class="p">}</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="kc">nil</span>
-<span class="p">}</span>
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">addr</span> <span class="o">:=</span> <span class="s">&#34;127.0.0.1:50001&#34;</span>
-	<span class="c1">// grpc 为 http2 请求，传输层协议为 tcp
-</span><span class="c1"></span>	<span class="nx">lis</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nf">Listen</span><span class="p">(</span><span class="s">&#34;tcp&#34;</span><span class="p">,</span> <span class="nx">addr</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-  		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;binding at %v: %v&#34;</span><span class="p">,</span> <span class="nx">addr</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="nx">gRPCServer</span> <span class="o">:=</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">NewServer</span><span class="p">()</span>
-	<span class="nx">pb</span><span class="p">.</span><span class="nf">RegisterEchoServer</span><span class="p">(</span><span class="nx">gRPCServer</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">server</span><span class="p">{})</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">gRPCServer</span><span class="p">.</span><span class="nf">Serve</span><span class="p">(</span><span class="nx">lis</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-  		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;start grpc: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;context&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;errors&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;google.golang.org/grpc&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;io&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;log&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;mysite/sample/pb&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;net&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">server</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">pb</span><span class="p">.</span><span class="nx">EchoServer</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 简单请求
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">server</span><span class="p">)</span> <span class="nf">UnaryEcho</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">request</span> <span class="o">*</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoResponse</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoResponse</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34;echo: &#34;</span> <span class="o">+</span> <span class="nx">request</span><span class="p">.</span><span class="nx">Message</span><span class="p">},</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 服务端流式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">server</span><span class="p">)</span> <span class="nf">ServerStreamingEcho</span><span class="p">(</span><span class="nx">request</span> <span class="o">*</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">,</span> <span class="nx">stream</span> <span class="nx">pb</span><span class="p">.</span><span class="nx">Echo_ServerStreamingEchoServer</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">_</span> <span class="p">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoResponse</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34;hello&#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">_</span> <span class="p">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoResponse</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34; &#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">_</span> <span class="p">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoResponse</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34;client&#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 客户端流式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">server</span><span class="p">)</span> <span class="nf">ClientStreamingEcho</span><span class="p">(</span><span class="nx">stream</span> <span class="nx">pb</span><span class="p">.</span><span class="nx">Echo_ClientStreamingEchoServer</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">recv</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Recv</span><span class="p">()</span> <span class="c1">// block 直到有数据输出
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">if</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">Is</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">io</span><span class="p">.</span><span class="nx">EOF</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="c1">// 表示消息传输完毕
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">break</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;recv error: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// client 断开连接
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;recv data: %v&#34;</span><span class="p">,</span> <span class="nx">recv</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// SendAndClose 只存在于客户端 stream 请求
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 发送完关闭 stream
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">return</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">SendAndClose</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoResponse</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34;bye&#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 双向流式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">server</span><span class="p">)</span> <span class="nf">BidirectionalStreamingEcho</span><span class="p">(</span><span class="nx">stream</span> <span class="nx">pb</span><span class="p">.</span><span class="nx">Echo_BidirectionalStreamingEchoServer</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 如果服务端 stream 方法退出，客户端请求也直接断开
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">recv</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Recv</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">Is</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">io</span><span class="p">.</span><span class="nx">EOF</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;recv error: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="nx">recv</span><span class="p">.</span><span class="nx">Message</span> <span class="o">==</span> <span class="s">&#34;bye&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;client send done!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoResponse</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34;reply: &#34;</span> <span class="o">+</span> <span class="nx">recv</span><span class="p">.</span><span class="nx">Message</span><span class="p">});</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;send message error: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">addr</span> <span class="o">:=</span> <span class="s">&#34;127.0.0.1:50001&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// grpc 为 http2 请求，传输层协议为 tcp
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">lis</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nf">Listen</span><span class="p">(</span><span class="s">&#34;tcp&#34;</span><span class="p">,</span> <span class="nx">addr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;binding at %v: %v&#34;</span><span class="p">,</span> <span class="nx">addr</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">gRPCServer</span> <span class="o">:=</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">NewServer</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">pb</span><span class="p">.</span><span class="nf">RegisterEchoServer</span><span class="p">(</span><span class="nx">gRPCServer</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">server</span><span class="p">{})</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">gRPCServer</span><span class="p">.</span><span class="nf">Serve</span><span class="p">(</span><span class="nx">lis</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;start grpc: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="client">Client</h2>
 <div class="highlight"><div class="chroma">
@@ -580,113 +580,113 @@ protoc -I. --go_out<span class="o">=</span><span class="nv">plugins</span><span 
 </span><span class="lnt">106
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&#34;context&#34;</span>
-	<span class="s">&#34;errors&#34;</span>
-	<span class="s">&#34;fmt&#34;</span>
-	<span class="s">&#34;google.golang.org/grpc&#34;</span>
-	<span class="s">&#34;io&#34;</span>
-	<span class="s">&#34;log&#34;</span>
-	<span class="s">&#34;mysite/sample/pb&#34;</span>
-<span class="p">)</span>
-<span class="c1">// 简单请求
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">unaryEcho</span><span class="p">(</span><span class="nx">cli</span> <span class="nx">pb</span><span class="p">.</span><span class="nx">EchoClient</span><span class="p">,</span> <span class="nx">msg</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">recv</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cli</span><span class="p">.</span><span class="nf">UnaryEcho</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">(),</span> <span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="nx">msg</span><span class="p">})</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-  		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;unaryEcho %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;recv data =&gt; &#34;</span> <span class="o">+</span> <span class="nx">recv</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span>
-<span class="p">}</span>
-<span class="c1">// 服务端流式
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">serverStreamingEcho</span><span class="p">(</span><span class="nx">cli</span> <span class="nx">pb</span><span class="p">.</span><span class="nx">EchoClient</span><span class="p">,</span> <span class="nx">msg</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">stream</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cli</span><span class="p">.</span><span class="nf">ServerStreamingEcho</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">(),</span> <span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="nx">msg</span><span class="p">})</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-  		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;serverStreamingEcho %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="nx">ctx</span> <span class="o">:=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Context</span><span class="p">()</span>
-	<span class="k">for</span> <span class="p">{</span>
-      <span class="k">select</span> <span class="p">{</span>
-          <span class="k">case</span> <span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span>
-            <span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;serverStreamingEcho done!&#34;</span><span class="p">)</span>
-            <span class="k">break</span>
-          <span class="k">default</span><span class="p">:</span>
-      <span class="p">}</span>
-      <span class="nx">msg</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Recv</span><span class="p">()</span>
-      <span class="k">if</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">Is</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">io</span><span class="p">.</span><span class="nx">EOF</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">break</span>
-      <span class="p">}</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;serverStreaming reply =&gt; &#34;</span><span class="p">,</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span>
-      <span class="p">}</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-<span class="c1">// 客户端流式
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">clientStreamingEcho</span><span class="p">(</span><span class="nx">cli</span> <span class="nx">pb</span><span class="p">.</span><span class="nx">EchoClient</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">stream</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cli</span><span class="p">.</span><span class="nf">ClientStreamingEcho</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">())</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-      <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;connect client Streaming: %v\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-      <span class="k">return</span>
-	<span class="p">}</span>
-	<span class="nx">err</span> <span class="p">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34;hello&#34;</span><span class="p">})</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-      <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;clientStreamingEcho send data: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-      <span class="k">return</span>
-	<span class="p">}</span>
-	<span class="nx">err</span> <span class="p">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34; &#34;</span><span class="p">})</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-      <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;clientStreamingEcho send data: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-      <span class="k">return</span>
-	<span class="p">}</span>
-	<span class="nx">err</span> <span class="p">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34;world&#34;</span><span class="p">})</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-      <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;clientStreamingEcho send data: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-      <span class="k">return</span>
-	<span class="p">}</span>
-	<span class="k">if</span> <span class="nx">recv</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">CloseAndRecv</span><span class="p">();</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-  		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;recv data: %v\n&#34;</span><span class="p">,</span> <span class="nx">recv</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-<span class="c1">// 双向流式
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">bidirectionalStreamingEcho</span><span class="p">(</span><span class="nx">cli</span> <span class="nx">pb</span><span class="p">.</span><span class="nx">EchoClient</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">stream</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cli</span><span class="p">.</span><span class="nf">BidirectionalStreamingEcho</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">())</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-  		<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;bidirectionalStreamingEcho error: %v\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-  		<span class="k">return</span>
-	<span class="p">}</span>
-	<span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34;dataset 1&#34;</span><span class="p">})</span>
-	<span class="nx">recv</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Recv</span><span class="p">()</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-  		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;recv from bidirectionalStreamingEcho =&gt; %v\n&#34;</span><span class="p">,</span> <span class="nx">recv</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34;dataset 2&#34;</span><span class="p">})</span>
-	<span class="nx">recv</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Recv</span><span class="p">()</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-  		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;recv from bidirectionalStreamingEcho =&gt; %v\n&#34;</span><span class="p">,</span> <span class="nx">recv</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34;dataset 3&#34;</span><span class="p">})</span>
-	<span class="nx">recv</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Recv</span><span class="p">()</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-  		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;recv from bidirectionalStreamingEcho =&gt; %v\n&#34;</span><span class="p">,</span> <span class="nx">recv</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34;bye&#34;</span><span class="p">})</span>
-	<span class="nx">stream</span><span class="p">.</span><span class="nf">CloseSend</span><span class="p">()</span>
-<span class="p">}</span>
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">addr</span> <span class="o">:=</span> <span class="s">&#34;127.0.0.1:50001&#34;</span>
-	<span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithCancel</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">())</span>
-	<span class="k">defer</span> <span class="nf">cancel</span><span class="p">()</span>
-	<span class="nx">conn</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">DialContext</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">addr</span><span class="p">,</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">WithInsecure</span><span class="p">())</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-  		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;connect %v: %v&#34;</span><span class="p">,</span> <span class="nx">addr</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="nx">cli</span> <span class="o">:=</span> <span class="nx">pb</span><span class="p">.</span><span class="nf">NewEchoClient</span><span class="p">(</span><span class="nx">conn</span><span class="p">)</span>
-	<span class="nf">unaryEcho</span><span class="p">(</span><span class="nx">cli</span><span class="p">,</span> <span class="s">&#34;hello&#34;</span><span class="p">)</span>
-	<span class="nf">serverStreamingEcho</span><span class="p">(</span><span class="nx">cli</span><span class="p">,</span> <span class="s">&#34;hello&#34;</span><span class="p">)</span>
-	<span class="nf">clientStreamingEcho</span><span class="p">(</span><span class="nx">cli</span><span class="p">)</span>
-	<span class="nf">bidirectionalStreamingEcho</span><span class="p">(</span><span class="nx">cli</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;context&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;errors&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;google.golang.org/grpc&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;io&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;log&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;mysite/sample/pb&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 简单请求
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">unaryEcho</span><span class="p">(</span><span class="nx">cli</span> <span class="nx">pb</span><span class="p">.</span><span class="nx">EchoClient</span><span class="p">,</span> <span class="nx">msg</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">recv</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cli</span><span class="p">.</span><span class="nf">UnaryEcho</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">(),</span> <span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="nx">msg</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;unaryEcho %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;recv data =&gt; &#34;</span> <span class="o">+</span> <span class="nx">recv</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 服务端流式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">serverStreamingEcho</span><span class="p">(</span><span class="nx">cli</span> <span class="nx">pb</span><span class="p">.</span><span class="nx">EchoClient</span><span class="p">,</span> <span class="nx">msg</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">stream</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cli</span><span class="p">.</span><span class="nf">ServerStreamingEcho</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">(),</span> <span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="nx">msg</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;serverStreamingEcho %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">ctx</span> <span class="o">:=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Context</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="k">case</span> <span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;serverStreamingEcho done!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">break</span>
+</span></span><span class="line"><span class="cl">          <span class="k">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">msg</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Recv</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">Is</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">io</span><span class="p">.</span><span class="nx">EOF</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;serverStreaming reply =&gt; &#34;</span><span class="p">,</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 客户端流式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">clientStreamingEcho</span><span class="p">(</span><span class="nx">cli</span> <span class="nx">pb</span><span class="p">.</span><span class="nx">EchoClient</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">stream</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cli</span><span class="p">.</span><span class="nf">ClientStreamingEcho</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;connect client Streaming: %v\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">err</span> <span class="p">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34;hello&#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;clientStreamingEcho send data: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">err</span> <span class="p">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34; &#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;clientStreamingEcho send data: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">err</span> <span class="p">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34;world&#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;clientStreamingEcho send data: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">recv</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">CloseAndRecv</span><span class="p">();</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;recv data: %v\n&#34;</span><span class="p">,</span> <span class="nx">recv</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 双向流式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">bidirectionalStreamingEcho</span><span class="p">(</span><span class="nx">cli</span> <span class="nx">pb</span><span class="p">.</span><span class="nx">EchoClient</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">stream</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cli</span><span class="p">.</span><span class="nf">BidirectionalStreamingEcho</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  		<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;bidirectionalStreamingEcho error: %v\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  		<span class="k">return</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34;dataset 1&#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">recv</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Recv</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;recv from bidirectionalStreamingEcho =&gt; %v\n&#34;</span><span class="p">,</span> <span class="nx">recv</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34;dataset 2&#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">recv</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Recv</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;recv from bidirectionalStreamingEcho =&gt; %v\n&#34;</span><span class="p">,</span> <span class="nx">recv</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34;dataset 3&#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">recv</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Recv</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;recv from bidirectionalStreamingEcho =&gt; %v\n&#34;</span><span class="p">,</span> <span class="nx">recv</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34;bye&#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">stream</span><span class="p">.</span><span class="nf">CloseSend</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">addr</span> <span class="o">:=</span> <span class="s">&#34;127.0.0.1:50001&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithCancel</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nf">cancel</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">conn</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">DialContext</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">addr</span><span class="p">,</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">WithInsecure</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;connect %v: %v&#34;</span><span class="p">,</span> <span class="nx">addr</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">cli</span> <span class="o">:=</span> <span class="nx">pb</span><span class="p">.</span><span class="nf">NewEchoClient</span><span class="p">(</span><span class="nx">conn</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">unaryEcho</span><span class="p">(</span><span class="nx">cli</span><span class="p">,</span> <span class="s">&#34;hello&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">serverStreamingEcho</span><span class="p">(</span><span class="nx">cli</span><span class="p">,</span> <span class="s">&#34;hello&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">clientStreamingEcho</span><span class="p">(</span><span class="nx">cli</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">bidirectionalStreamingEcho</span><span class="p">(</span><span class="nx">cli</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
@@ -718,7 +718,7 @@ protoc -I. --go_out<span class="o">=</span><span class="nv">plugins</span><span 
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.97.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
