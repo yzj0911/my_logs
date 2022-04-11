@@ -6,6 +6,9 @@ draft: false
 
 # etcd的使用实例
 
+etcd有两个版本的接口，v2和v3，且两个版本不兼容，v2已经停止了支持，v3性能更好。
+
+注意 ：etcdctl默认使用v2版本，如果想使用v3版本，可通过环境变量ETCDCTL_API=3进行设置
 
 etcd 有如下的使用场景：
 
@@ -20,6 +23,7 @@ etcd 有如下的使用场景：
 
 # 一、服务发现
 ![](https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110140.png)
+
 etcd 的常见使用场景之一就是服务发现。实现思路如下：先准备 etcd 服务端，服务端的程序在第一次启动之后会连接到 etcd 服务器并设置一个格式为 `ip:port` 的键值对，并绑定一个 lease。之后的服务端内部维护一个定时器，每隔一段时间就更新服务端注册中心的 lease 的 TTL。另外一个组件就是服务发现组件，discovery 会 watch 服务端的 key。每次该 key 变化时，discovery 就可以检测到时间并做出对应的操作。代码的实现如下：
 
 ```go

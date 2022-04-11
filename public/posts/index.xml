@@ -73,6 +73,6 @@
     <pubDate>Fri, 03 Dec 2021 10:17:16 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://example.org/etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/</guid>
-    <description><![CDATA[etcd的使用实例 etcd 有如下的使用场景： 服务发现（Service Discovery） 消息发布与订阅 负载均衡 分布式通知与协调 分布式锁 分布式队列 集]]></description>
+    <description><![CDATA[etcd的使用实例 etcd有两个版本的接口，v2和v3，且两个版本不兼容，v2已经停止了支持，v3性能更好。 注意 ：etcdctl默认使用v2]]></description>
 </item></channel>
 </rss>
