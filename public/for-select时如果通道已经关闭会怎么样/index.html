@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>面试题 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="面试题" />
+<meta property="og:description" content="1.for select时，如果通道已经关闭会怎么样？如果select中只有一个case呢？ 答： for循环select时，如果其中一个case通道已经" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/for-select%E6%97%B6%E5%A6%82%E6%9E%9C%E9%80%9A%E9%81%93%E5%B7%B2%E7%BB%8F%E5%85%B3%E9%97%AD%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-11T22:52:11+08:00" />
+<meta property="article:modified_time" content="2022-04-11T22:52:11+08:00" />
+
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="面试题"/>
+<meta name="twitter:description" content="1.for select时，如果通道已经关闭会怎么样？如果select中只有一个case呢？ 答： for循环select时，如果其中一个case通道已经"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/for-select%E6%97%B6%E5%A6%82%E6%9E%9C%E9%80%9A%E9%81%93%E5%B7%B2%E7%BB%8F%E5%85%B3%E9%97%AD%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7/" /><link rel="prev" href="http://example.org/%E9%9B%B6%E6%8B%B7%E8%B4%9D/" /><link rel="next" href="http://example.org/channel/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "面试题",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/for-select%E6%97%B6%E5%A6%82%E6%9E%9C%E9%80%9A%E9%81%93%E5%B7%B2%E7%BB%8F%E5%85%B3%E9%97%AD%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7\/"
+        },"genre": "posts","keywords": "面试","wordcount":  922 ,
+        "url": "http:\/\/example.org\/for-select%E6%97%B6%E5%A6%82%E6%9E%9C%E9%80%9A%E9%81%93%E5%B7%B2%E7%BB%8F%E5%85%B3%E9%97%AD%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7\/","datePublished": "2022-04-11T22:52:11+08:00","dateModified": "2022-04-11T22:52:11+08:00","publisher": {
+            "@type": "Organization",
+            "name": "YZJ"},"author": {
+                "@type": "Person",
+                "name": "yzj"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="YZJ 的博客"> 文章 </a><a class="menu-item" href="/tags/" title="YZJ 的博客"> 标签 </a><a class="menu-item" href="/categories/" title="YZJ 的博客"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="YZJ 的博客">文章</a><a class="menu-item" href="/tags/" title="YZJ 的博客">标签</a><a class="menu-item" href="/categories/" title="YZJ 的博客">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">面试题</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%9D%A2%E8%AF%95/"><i class="far fa-folder fa-fw"></i>面试</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-11">2022-04-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 922 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1for-select时如果通道已经关闭会怎么样如果select中只有一个case呢">1.for select时，如果通道已经关闭会怎么样？如果select中只有一个case呢？</a></li>
+    <li><a href="#2怎么样才能不读关闭后通道">2.怎么样才能不读关闭后通道</a></li>
+    <li><a href="#3如果select里只有一个已经关闭的case会怎么样">3.如果select里只有一个已经关闭的case，会怎么样？</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="1for-select时如果通道已经关闭会怎么样如果select中只有一个case呢">1.for select时，如果通道已经关闭会怎么样？如果select中只有一个case呢？</h2>
+<p>答：</p>
+<ul>
+<li>for循环select时，如果其中一个case通道已经关闭，则每次都会执行到这个case。</li>
+<li>如果select里边只有一个case，而这个case被关闭了，则会出现死循环。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">_for</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;testing&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;time&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//问题：for select时，如果通道已经关闭会怎么样？如果select中只有一个case呢？
+</span></span></span><span class="line"><span class="cl"><span class="c1">//结果：当未有值时，由于缓存为0，&lt;-ch 没数据，则一直走default，当有值输入后，但是在通道关闭后，这个通道一直能读出内容。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">TestForCase</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">ch</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">ch</span> <span class="o">&lt;-</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">		<span class="nb">close</span><span class="p">(</span><span class="nx">ch</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">case</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">ch</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;fmt:%d time:%v  %v \t\n&#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">(),</span> <span class="nx">ok</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">500</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;咩有读出来&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">500</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">结果</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">==</span><span class="p">=</span> <span class="nx">RUN</span>   <span class="nx">TestForCase</span>
+</span></span><span class="line"><span class="cl"><span class="nx">咩有读出来</span>
+</span></span><span class="line"><span class="cl"><span class="nx">咩有读出来</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">:</span><span class="mi">1</span> <span class="nx">time</span><span class="p">:</span><span class="mi">2022</span><span class="o">-</span><span class="mo">04</span><span class="o">-</span><span class="mi">11</span> <span class="mi">23</span><span class="p">:</span><span class="mo">01</span><span class="p">:</span><span class="mf">15.691889</span> <span class="o">+</span><span class="mi">0800</span> <span class="nx">CST</span> <span class="nx">m</span><span class="p">=</span><span class="o">+</span><span class="mf">1.005903641</span>  <span class="kc">true</span> 	
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">:</span><span class="mi">0</span> <span class="nx">time</span><span class="p">:</span><span class="mi">2022</span><span class="o">-</span><span class="mo">04</span><span class="o">-</span><span class="mi">11</span> <span class="mi">23</span><span class="p">:</span><span class="mo">01</span><span class="p">:</span><span class="mf">16.193244</span> <span class="o">+</span><span class="mi">0800</span> <span class="nx">CST</span> <span class="nx">m</span><span class="p">=</span><span class="o">+</span><span class="mf">1.507252014</span>  <span class="kc">false</span> 	
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">:</span><span class="mi">0</span> <span class="nx">time</span><span class="p">:</span><span class="mi">2022</span><span class="o">-</span><span class="mo">04</span><span class="o">-</span><span class="mi">11</span> <span class="mi">23</span><span class="p">:</span><span class="mo">01</span><span class="p">:</span><span class="mf">16.694997</span> <span class="o">+</span><span class="mi">0800</span> <span class="nx">CST</span> <span class="nx">m</span><span class="p">=</span><span class="o">+</span><span class="mf">2.008997910</span>  <span class="kc">false</span> 	
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="2怎么样才能不读关闭后通道">2.怎么样才能不读关闭后通道</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">TestForCase2</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">ch</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">ch</span> <span class="o">&lt;-</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">		<span class="nb">close</span><span class="p">(</span><span class="nx">ch</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">case</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">ch</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;fmt:%d time:%v  %v \t\n&#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">(),</span> <span class="nx">ok</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">500</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">ch</span> <span class="p">=</span> <span class="kc">nil</span> <span class="c1">//把关闭后的通道复值为nil，则select读取则会阻塞
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="k">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;咩有读出来&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">500</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">==</span><span class="p">=</span> <span class="nx">RUN</span>   <span class="nx">TestForCase2</span>
+</span></span><span class="line"><span class="cl"><span class="nx">咩有读出来</span>
+</span></span><span class="line"><span class="cl"><span class="nx">咩有读出来</span>
+</span></span><span class="line"><span class="cl"><span class="nx">咩有读出来</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">:</span><span class="mi">1</span> <span class="nx">time</span><span class="p">:</span><span class="mi">2022</span><span class="o">-</span><span class="mo">04</span><span class="o">-</span><span class="mi">11</span> <span class="mi">23</span><span class="p">:</span><span class="mi">16</span><span class="p">:</span><span class="mf">03.751807</span> <span class="o">+</span><span class="mi">0800</span> <span class="nx">CST</span> <span class="nx">m</span><span class="p">=</span><span class="o">+</span><span class="mf">1.506454927</span>  <span class="kc">true</span> 	
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">:</span><span class="mi">0</span> <span class="nx">time</span><span class="p">:</span><span class="mi">2022</span><span class="o">-</span><span class="mo">04</span><span class="o">-</span><span class="mi">11</span> <span class="mi">23</span><span class="p">:</span><span class="mi">16</span><span class="p">:</span><span class="mf">04.253248</span> <span class="o">+</span><span class="mi">0800</span> <span class="nx">CST</span> <span class="nx">m</span><span class="p">=</span><span class="o">+</span><span class="mf">2.007888277</span>  <span class="kc">false</span> 	
+</span></span><span class="line"><span class="cl"><span class="nx">咩有读出来</span>
+</span></span><span class="line"><span class="cl"><span class="nx">咩有读出来</span>
+</span></span><span class="line"><span class="cl"><span class="nx">咩有读出来</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="3如果select里只有一个已经关闭的case会怎么样">3.如果select里只有一个已经关闭的case，会怎么样？</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">TestForCase2</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">ch</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">ch</span> <span class="o">&lt;-</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">		<span class="nb">close</span><span class="p">(</span><span class="nx">ch</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">case</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">ch</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;fmt:%d time:%v  %v \t\n&#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">(),</span> <span class="nx">ok</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">500</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">ch</span> <span class="p">=</span> <span class="kc">nil</span> <span class="c1">//把关闭后的通道复值为nil，则select读取则会阻塞
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//default:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//	fmt.Println(&#34;咩有读出来&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//	time.Sleep(500 * time.Millisecond)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">==</span><span class="p">=</span> <span class="nx">RUN</span>   <span class="nx">TestForCase2</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">:</span><span class="mi">1</span> <span class="nx">time</span><span class="p">:</span><span class="mi">2022</span><span class="o">-</span><span class="mo">04</span><span class="o">-</span><span class="mi">11</span> <span class="mi">23</span><span class="p">:</span><span class="mi">19</span><span class="p">:</span><span class="mf">03.189441</span> <span class="o">+</span><span class="mi">0800</span> <span class="nx">CST</span> <span class="nx">m</span><span class="p">=</span><span class="o">+</span><span class="mf">1.003139137</span>  <span class="kc">true</span> 	
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">:</span><span class="mi">0</span> <span class="nx">time</span><span class="p">:</span><span class="mi">2022</span><span class="o">-</span><span class="mo">04</span><span class="o">-</span><span class="mi">11</span> <span class="mi">23</span><span class="p">:</span><span class="mi">19</span><span class="p">:</span><span class="mf">03.693051</span> <span class="o">+</span><span class="mi">0800</span> <span class="nx">CST</span> <span class="nx">m</span><span class="p">=</span><span class="o">+</span><span class="mf">1.506741808</span>  <span class="kc">false</span> 	
+</span></span><span class="line"><span class="cl"><span class="nx">fatal</span> <span class="kt">error</span><span class="p">:</span> <span class="nx">all</span> <span class="nx">goroutines</span> <span class="nx">are</span> <span class="nx">asleep</span> <span class="o">-</span> <span class="nx">deadlock</span><span class="p">!</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">goroutine</span> <span class="mi">1</span> <span class="p">[</span><span class="kd">chan</span> <span class="nx">receive</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl"><span class="nx">testing</span><span class="p">.(</span><span class="o">*</span><span class="nx">T</span><span class="p">).</span><span class="nf">Run</span><span class="p">(</span><span class="mh">0xc000001500</span><span class="p">,</span> <span class="mh">0x11a0fe9</span><span class="p">,</span> <span class="mh">0xc</span><span class="p">,</span> <span class="mh">0x11a94f0</span><span class="p">,</span> <span class="mh">0x62544600</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="o">/</span><span class="nx">usr</span><span class="o">/</span><span class="nx">local</span><span class="o">/</span><span class="nx">Cellar</span><span class="o">/</span><span class="k">go</span><span class="o">/</span><span class="mf">1.15.5</span><span class="o">/</span><span class="nx">libexec</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">testing</span><span class="o">/</span><span class="nx">testing</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">1169</span> <span class="o">+</span><span class="mh">0x676</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="总结">总结</h1>
+<ul>
+<li>select中如果任意某个通道有值可读时，它就会被执行，其他被忽略。</li>
+<li>如果没有default字句，select将有可能阻塞，直到某个通道有值可以运行，所以select里最好有一个default，否则将有一直阻塞的风险。</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-04-11</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/for-select%E6%97%B6%E5%A6%82%E6%9E%9C%E9%80%9A%E9%81%93%E5%B7%B2%E7%BB%8F%E5%85%B3%E9%97%AD%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/for-select%E6%97%B6%E5%A6%82%E6%9E%9C%E9%80%9A%E9%81%93%E5%B7%B2%E7%BB%8F%E5%85%B3%E9%97%AD%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7/" data-title="面试题" data-via="xxxx" data-hashtags="面试"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/for-select%E6%97%B6%E5%A6%82%E6%9E%9C%E9%80%9A%E9%81%93%E5%B7%B2%E7%BB%8F%E5%85%B3%E9%97%AD%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7/" data-hashtag="面试"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/for-select%E6%97%B6%E5%A6%82%E6%9E%9C%E9%80%9A%E9%81%93%E5%B7%B2%E7%BB%8F%E5%85%B3%E9%97%AD%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7/" data-title="面试题" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/for-select%E6%97%B6%E5%A6%82%E6%9E%9C%E9%80%9A%E9%81%93%E5%B7%B2%E7%BB%8F%E5%85%B3%E9%97%AD%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7/" data-title="面试题"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/for-select%E6%97%B6%E5%A6%82%E6%9E%9C%E9%80%9A%E9%81%93%E5%B7%B2%E7%BB%8F%E5%85%B3%E9%97%AD%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7/" data-title="面试题"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/for-select%E6%97%B6%E5%A6%82%E6%9E%9C%E9%80%9A%E9%81%93%E5%B7%B2%E7%BB%8F%E5%85%B3%E9%97%AD%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7/" data-title="面试题" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/for-select%E6%97%B6%E5%A6%82%E6%9E%9C%E9%80%9A%E9%81%93%E5%B7%B2%E7%BB%8F%E5%85%B3%E9%97%AD%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7/" data-title="面试题" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/for-select%E6%97%B6%E5%A6%82%E6%9E%9C%E9%80%9A%E9%81%93%E5%B7%B2%E7%BB%8F%E5%85%B3%E9%97%AD%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7/" data-title="面试题"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E9%9D%A2%E8%AF%95/">面试</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E9%9B%B6%E6%8B%B7%E8%B4%9D/" class="prev" rel="prev" title="零拷贝"><i class="fas fa-angle-left fa-fw"></i>零拷贝</a>
+            <a href="/channel/" class="next" rel="next" title="Channel">Channel<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.97.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
