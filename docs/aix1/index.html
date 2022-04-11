@@ -18,9 +18,7 @@
 <meta name="twitter:title" content="Aix添加和删除Iscsi存储卷"/>
 <meta name="twitter:description" content="Aix添加和删除Iscsi存储卷 Aix为6.1版本 使用iscsi存储 首先需要创建一个iscsi target，并共享到IBM Aix上。 检查is"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/aix1/" /><link rel="prev" href="http://example.org/c-%E5%8F%8B%E5%85%83/" /><link rel="next" href="http://example.org/gin/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/aix1/" /><link rel="prev" href="http://example.org/c-%E5%8F%8B%E5%85%83/" /><link rel="next" href="http://example.org/gin/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -43,11 +41,18 @@
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="YZJ 的博客"></a>
+            <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
         </div>
         <div class="menu">
             <div class="menu-inner"><a class="menu-item" href="/posts/" title="YZJ 的博客"> 文章 </a><a class="menu-item" href="/tags/" title="YZJ 的博客"> 标签 </a><a class="menu-item" href="/categories/" title="YZJ 的博客"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
                             <i class="fas fa-search fa-fw"></i>
                         </a>
@@ -67,7 +72,14 @@
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="YZJ 的博客"></a>
+                <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
             </div>
             <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
@@ -75,7 +87,7 @@
         </div>
         <div class="menu" id="menu-mobile"><div class="search-wrapper">
                     <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
                             <i class="fas fa-search fa-fw"></i>
                         </a>
@@ -151,12 +163,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ lslpp -L <span class="p">|</span> grep -i iscsi 
-  devices.common.IBM.iscsi.rte
-                             6.1.5.0    C     F    Common iSCSI Files 
-  devices.iscsi.disk.rte     6.1.5.0    C     F    iSCSI Disk Software 
-  ...
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ lslpp -L <span class="p">|</span> grep -i iscsi 
+</span></span><span class="line"><span class="cl">  devices.common.IBM.iscsi.rte
+</span></span><span class="line"><span class="cl">                             6.1.5.0    C     F    Common iSCSI Files 
+</span></span><span class="line"><span class="cl">  devices.iscsi.disk.rte     6.1.5.0    C     F    iSCSI Disk Software 
+</span></span><span class="line"><span class="cl">  ...
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="配置iscsi">配置iscsi</h2>
 <div class="highlight"><div class="chroma">
@@ -167,11 +179,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ vi /etc/iscsi/targets
-...
-<span class="c1"># 添加target</span>
-172.16.1.169 <span class="m">3260</span> iqn.2018-11.com.howlink.wbrt.portal.backup
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ vi /etc/iscsi/targets
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl"><span class="c1"># 添加target</span>
+</span></span><span class="line"><span class="cl">172.16.1.169 <span class="m">3260</span> iqn.2018-11.com.howlink.wbrt.portal.backup
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="重新扫盘">重新扫盘</h2>
 <div class="highlight"><div class="chroma">
@@ -182,11 +194,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ cfgmgr -l iscsi0
-cfgmgr: 0514-621 WARNING: The following device packages are required <span class="k">for</span>
-        device support but are not currently installed.
-devices.iscsi.array
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ cfgmgr -l iscsi0
+</span></span><span class="line"><span class="cl">cfgmgr: 0514-621 WARNING: The following device packages are required <span class="k">for</span>
+</span></span><span class="line"><span class="cl">        device support but are not currently installed.
+</span></span><span class="line"><span class="cl">devices.iscsi.array
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="查看iscsi盘">查看iscsi盘</h2>
 <div class="highlight"><div class="chroma">
@@ -195,9 +207,9 @@ devices.iscsi.array
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ lsdev -Cc disk <span class="p">|</span> grep iSCSI
-hdisk18     Available          Other iSCSI Disk Drive
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ lsdev -Cc disk <span class="p">|</span> grep iSCSI
+</span></span><span class="line"><span class="cl">hdisk18     Available          Other iSCSI Disk Drive
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="创建物理卷">创建物理卷</h2>
 <div class="highlight"><div class="chroma">
@@ -205,8 +217,8 @@ hdisk18     Available          Other iSCSI Disk Drive
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ chdev -l hdisk18 -a <span class="nv">pv</span><span class="o">=</span>yes
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ chdev -l hdisk18 -a <span class="nv">pv</span><span class="o">=</span>yes
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="创建vg">创建vg</h2>
 <div class="highlight"><div class="chroma">
@@ -214,8 +226,8 @@ hdisk18     Available          Other iSCSI Disk Drive
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ mkvg -y wbrt_portal_bg hdisk18
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ mkvg -y wbrt_portal_bg hdisk18
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="创建lv">创建lv</h2>
 <div class="highlight"><div class="chroma">
@@ -223,8 +235,8 @@ hdisk18     Available          Other iSCSI Disk Drive
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ mklv -t jfs2 -y wbrt_portal_bl wbrt_portal_bg <span class="m">700</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ mklv -t jfs2 -y wbrt_portal_bl wbrt_portal_bg <span class="m">700</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>注:lv的大小可以使用命令
@@ -237,8 +249,8 @@ hdisk18     Available          Other iSCSI Disk Drive
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ mkdir /mnt/iscsi
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ mkdir /mnt/iscsi
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="格式化并挂载">格式化并挂载</h2>
 <div class="highlight"><div class="chroma">
@@ -247,9 +259,9 @@ hdisk18     Available          Other iSCSI Disk Drive
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ crfs -v jfs2 -m /mnt/iscsi -d wbrt_portal_bl
-$ mount /mnt/iscsi
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ crfs -v jfs2 -m /mnt/iscsi -d wbrt_portal_bl
+</span></span><span class="line"><span class="cl">$ mount /mnt/iscsi
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="删除存储盘">删除存储盘</h1>
 <h2 id="卸载磁盘">卸载磁盘</h2>
@@ -258,8 +270,8 @@ $ mount /mnt/iscsi
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ umount /mnt/iscsi
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ umount /mnt/iscsi
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="lv">lv</h2>
 <div class="highlight"><div class="chroma">
@@ -267,8 +279,8 @@ $ mount /mnt/iscsi
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ rmlv wbrt_portal_bl
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ rmlv wbrt_portal_bl
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="删除文件系统">删除文件系统</h2>
 <div class="highlight"><div class="chroma">
@@ -276,8 +288,8 @@ $ mount /mnt/iscsi
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ rmfs -r /dev/wbrt_portal_bl
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ rmfs -r /dev/wbrt_portal_bl
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="删除vg">删除vg</h2>
 <div class="highlight"><div class="chroma">
@@ -285,8 +297,8 @@ $ mount /mnt/iscsi
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ reducevg -d wbrt_portal_bg hdisk18
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ reducevg -d wbrt_portal_bg hdisk18
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="删除物理盘">删除物理盘</h2>
 <div class="highlight"><div class="chroma">
@@ -294,8 +306,8 @@ $ mount /mnt/iscsi
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ rmdev -dl hdisk18 -R
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ rmdev -dl hdisk18 -R
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="删除iscsi-target">删除iscsi target</h2>
 <div class="highlight"><div class="chroma">
@@ -306,11 +318,11 @@ $ mount /mnt/iscsi
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ vi /etc/iscsi/targets
-...
-<span class="c1"># 添加target</span>
-<span class="c1"># 172.16.1.169 3260 iqn.2018-11.com.howlink.wbrt.portal.backup</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ vi /etc/iscsi/targets
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl"><span class="c1"># 添加target</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 172.16.1.169 3260 iqn.2018-11.com.howlink.wbrt.portal.backup</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>重读磁盘</p>
 <div class="highlight"><div class="chroma">
@@ -318,8 +330,8 @@ $ mount /mnt/iscsi
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ cfgmgr -l iscsi0
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ cfgmgr -l iscsi0
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
@@ -351,7 +363,7 @@ $ mount /mnt/iscsi
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.97.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

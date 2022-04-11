@@ -18,9 +18,7 @@
 <meta name="twitter:title" content="CentOS7 安装 qemu-5.2.0"/>
 <meta name="twitter:description" content="CentOS7 安装 qemu-5.2.0 本文介绍在 CentOS7.9 上编译安装 qemu-5.2.0 安装 Python3 编译安装 qemu-5.2.0 依赖 Python3.6 及以上的版本。所以首先安装 Python3.6。这里选择编译安装。 下载 Python3.6.12 从 Python 官网下载 Python3.6.12 源"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/centos7_install_qemu/" /><link rel="prev" href="http://example.org/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/" /><link rel="next" href="http://example.org/c-%E5%8F%8B%E5%85%83/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/centos7_install_qemu/" /><link rel="prev" href="http://example.org/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/" /><link rel="next" href="http://example.org/c-%E5%8F%8B%E5%85%83/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -43,11 +41,18 @@
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="YZJ 的博客"></a>
+            <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
         </div>
         <div class="menu">
             <div class="menu-inner"><a class="menu-item" href="/posts/" title="YZJ 的博客"> 文章 </a><a class="menu-item" href="/tags/" title="YZJ 的博客"> 标签 </a><a class="menu-item" href="/categories/" title="YZJ 的博客"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
                             <i class="fas fa-search fa-fw"></i>
                         </a>
@@ -67,7 +72,14 @@
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="YZJ 的博客"></a>
+                <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
             </div>
             <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
@@ -75,7 +87,7 @@
         </div>
         <div class="menu" id="menu-mobile"><div class="search-wrapper">
                     <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
                             <i class="fas fa-search fa-fw"></i>
                         </a>
@@ -141,8 +153,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">wget https://www.python.org/ftp/python/3.6.12/Python-3.6.12.tar.xz
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget https://www.python.org/ftp/python/3.6.12/Python-3.6.12.tar.xz
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="解压">解压</h2>
 <div class="highlight"><div class="chroma">
@@ -150,8 +162,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">tar -xvf Python-3.6.12.tar.gz 
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">tar -xvf Python-3.6.12.tar.gz 
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="安装-openssl">安装 openssl</h2>
 <p>pip 下载是需要 ssl 支持，所以下载 openssl</p>
@@ -160,8 +172,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">yum install -y openssl openssl-devel zlib-devel bzip2-devel bzip2
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum install -y openssl openssl-devel zlib-devel bzip2-devel bzip2
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="编译安装">编译安装</h2>
 <div class="highlight"><div class="chroma">
@@ -171,10 +183,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> Python-3.6.12
-./configure --prefix<span class="o">=</span>/usr/local/python3 --enable-optimizations
-make -j8 build_all <span class="o">&amp;&amp;</span> make -j8 install
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> Python-3.6.12
+</span></span><span class="line"><span class="cl">./configure --prefix<span class="o">=</span>/usr/local/python3 --enable-optimizations
+</span></span><span class="line"><span class="cl">make -j8 build_all <span class="o">&amp;&amp;</span> make -j8 install
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="设置软链接">设置软链接</h2>
 <div class="highlight"><div class="chroma">
@@ -183,9 +195,9 @@ make -j8 build_all <span class="o">&amp;&amp;</span> make -j8 install
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">ln -s /usr/local/python3/bin/python3 /usr/bin/python3
-ln -s /usr/local/python3/bin/pip3 /usr/bin/pip3
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ln -s /usr/local/python3/bin/python3 /usr/bin/python3
+</span></span><span class="line"><span class="cl">ln -s /usr/local/python3/bin/pip3 /usr/bin/pip3
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="验证">验证</h2>
 <div class="highlight"><div class="chroma">
@@ -197,12 +209,12 @@ ln -s /usr/local/python3/bin/pip3 /usr/bin/pip3
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># python3</span>
-Python 3.6.12 <span class="o">(</span>default, Dec <span class="m">27</span> 2020, 07:52:33<span class="o">)</span>
-<span class="o">[</span>GCC 4.8.5 <span class="m">20150623</span> <span class="o">(</span>Red Hat 4.8.5-44<span class="o">)]</span> on linux
-Type <span class="s2">&#34;help&#34;</span>, <span class="s2">&#34;copyright&#34;</span>, <span class="s2">&#34;credits&#34;</span> or <span class="s2">&#34;license&#34;</span> <span class="k">for</span> more information.
-&gt;&gt;&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># python3</span>
+</span></span><span class="line"><span class="cl">Python 3.6.12 <span class="o">(</span>default, Dec <span class="m">27</span> 2020, 07:52:33<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>GCC 4.8.5 <span class="m">20150623</span> <span class="o">(</span>Red Hat 4.8.5-44<span class="o">)]</span> on linux
+</span></span><span class="line"><span class="cl">Type <span class="s2">&#34;help&#34;</span>, <span class="s2">&#34;copyright&#34;</span>, <span class="s2">&#34;credits&#34;</span> or <span class="s2">&#34;license&#34;</span> <span class="k">for</span> more information.
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="安装-ninja">安装 ninja</h1>
 <p>qemu-5.2.0 编译时使用构建工具 ninja
@@ -214,10 +226,10 @@ Type <span class="s2">&#34;help&#34;</span>, <span class="s2">&#34;copyright&#34
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">git clone git://github.com/ninja-build/ninja.git <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ninja
-./configure.py --bootstrap
-cp ninja /usr/bin/
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone git://github.com/ninja-build/ninja.git <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ninja
+</span></span><span class="line"><span class="cl">./configure.py --bootstrap
+</span></span><span class="line"><span class="cl">cp ninja /usr/bin/
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>使用 <code>ninja --version</code>, 验证 ninja 版本:</p>
 <div class="highlight"><div class="chroma">
@@ -226,9 +238,9 @@ cp ninja /usr/bin/
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ninja --version</span>
-1.10.2.git
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># ninja --version</span>
+</span></span><span class="line"><span class="cl">1.10.2.git
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="编译安装-qemu-520">编译安装 qemu-5.2.0</h1>
 <p>完成以上步骤之后就可以开始安装qemu了。其实可以通过 yum 安装，但是会缺少一些二进制文件。</p>
@@ -242,8 +254,8 @@ cp ninja /usr/bin/
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">yum install -y pkgconfig-devel glib2-devel pixman-devel
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum install -y pkgconfig-devel glib2-devel pixman-devel
+</span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>这里提供的依赖可能补全，编译过程中如果提示缺少依赖，请根据以上给出的提示安装对应依赖。</p>
@@ -255,8 +267,8 @@ cp ninja /usr/bin/
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">wget https://download.qemu.org/qemu-5.2.0.tar.xz
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget https://download.qemu.org/qemu-5.2.0.tar.xz
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="编译安装-1">编译安装</h2>
 <div class="highlight"><div class="chroma">
@@ -267,11 +279,11 @@ cp ninja /usr/bin/
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">tar xvJf qemu-5.2.0.tar.xz
-<span class="nb">cd</span> qemu-5.2.0
-./configure --enable-debug --target-list<span class="o">=</span>x86_64-softmmu --enable-kvm
-make <span class="o">&amp;&amp;</span> make install
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">tar xvJf qemu-5.2.0.tar.xz
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> qemu-5.2.0
+</span></span><span class="line"><span class="cl">./configure --enable-debug --target-list<span class="o">=</span>x86_64-softmmu --enable-kvm
+</span></span><span class="line"><span class="cl">make <span class="o">&amp;&amp;</span> make install
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="验证-1">验证</h2>
 <div class="highlight"><div class="chroma">
@@ -281,10 +293,10 @@ make <span class="o">&amp;&amp;</span> make install
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># qemu-</span>
-qemu-edid            qemu-img             qemu-nbd             qemu-storage-daemon
-qemu-ga              qemu-io              qemu-pr-helper       qemu-system-x86_64
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># qemu-</span>
+</span></span><span class="line"><span class="cl">qemu-edid            qemu-img             qemu-nbd             qemu-storage-daemon
+</span></span><span class="line"><span class="cl">qemu-ga              qemu-io              qemu-pr-helper       qemu-system-x86_64
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
@@ -316,7 +328,7 @@ qemu-ga              qemu-io              qemu-pr-helper       qemu-system-x86_6
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.97.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

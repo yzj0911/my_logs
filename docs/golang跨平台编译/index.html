@@ -18,9 +18,7 @@
 <meta name="twitter:title" content="Golang跨平台编译"/>
 <meta name="twitter:description" content="Golang跨平台编译 golang cgo 到 Windows 的交叉编译 本篇记录在 MaxOS 下 cgo 交叉编译的解决方案。因为在项目中使用 go-sqlite3 ，编译 go-sqlite3 中需要使用到 cgo。在 MacOS 下编译 Go 原生 Linux"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/golang%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91/" /><link rel="prev" href="http://example.org/grpc1/" /><link rel="next" href="http://example.org/golang%E7%9B%91%E6%8E%A7%E8%BF%9B%E7%A8%8B%E6%B5%81%E9%87%8F/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/golang%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91/" /><link rel="prev" href="http://example.org/grpc1/" /><link rel="next" href="http://example.org/golang%E7%9B%91%E6%8E%A7%E8%BF%9B%E7%A8%8B%E6%B5%81%E9%87%8F/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -43,11 +41,18 @@
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="YZJ 的博客"></a>
+            <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
         </div>
         <div class="menu">
             <div class="menu-inner"><a class="menu-item" href="/posts/" title="YZJ 的博客"> 文章 </a><a class="menu-item" href="/tags/" title="YZJ 的博客"> 标签 </a><a class="menu-item" href="/categories/" title="YZJ 的博客"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
                             <i class="fas fa-search fa-fw"></i>
                         </a>
@@ -67,7 +72,14 @@
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="YZJ 的博客"></a>
+                <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
             </div>
             <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
@@ -75,7 +87,7 @@
         </div>
         <div class="menu" id="menu-mobile"><div class="search-wrapper">
                     <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
                             <i class="fas fa-search fa-fw"></i>
                         </a>
@@ -125,11 +137,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 交叉编译到 linux</span>
-<span class="nv">GOOS</span><span class="o">=</span>linux <span class="nv">GOARCH</span><span class="o">=</span>amd64 go build main.go
-<span class="c1"># 交叉编译到 windows</span>
-<span class="nv">GOOS</span><span class="o">=</span>windows <span class="nv">GOARCH</span><span class="o">=</span>amd64 go build -o main.exe main.go 
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 交叉编译到 linux</span>
+</span></span><span class="line"><span class="cl"><span class="nv">GOOS</span><span class="o">=</span>linux <span class="nv">GOARCH</span><span class="o">=</span>amd64 go build main.go
+</span></span><span class="line"><span class="cl"><span class="c1"># 交叉编译到 windows</span>
+</span></span><span class="line"><span class="cl"><span class="nv">GOOS</span><span class="o">=</span>windows <span class="nv">GOARCH</span><span class="o">=</span>amd64 go build -o main.exe main.go 
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果使用 cgo 的话，还需要添加 <code>CGO_ENABLED</code>  参数：</p>
 <div class="highlight"><div class="chroma">
@@ -137,8 +149,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">1</span> <span class="nv">GOOS</span><span class="o">=</span>windows <span class="nv">GOARCH</span><span class="o">=</span>amd64 go build -o main.exe main.go 
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">1</span> <span class="nv">GOOS</span><span class="o">=</span>windows <span class="nv">GOARCH</span><span class="o">=</span>amd64 go build -o main.exe main.go 
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>但是这种编译 go-sqlite3 的代码会出现以下错误：</p>
 <div class="highlight"><div class="chroma">
@@ -147,9 +159,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># runtime/cgo</span>
-gcc_libinit_windows.c:7:10: fatal error: <span class="s1">&#39;windows.h&#39;</span> file not found
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># runtime/cgo</span>
+</span></span><span class="line"><span class="cl">gcc_libinit_windows.c:7:10: fatal error: <span class="s1">&#39;windows.h&#39;</span> file not found
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>因为 Windows 中使用 MinGW，MacOS 下如果交叉编译需要安装 C/C++ 交叉编译工具：</p>
 <div class="highlight"><div class="chroma">
@@ -158,9 +170,9 @@ gcc_libinit_windows.c:7:10: fatal error: <span class="s1">&#39;windows.h&#39;</s
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">brew install FiloSottile/musl-cross/musl-cross
-brew install mingw-w64
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">brew install FiloSottile/musl-cross/musl-cross
+</span></span><span class="line"><span class="cl">brew install mingw-w64
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>安装完工具之后就可以使用命令：</p>
 <div class="highlight"><div class="chroma">
@@ -168,8 +180,8 @@ brew install mingw-w64
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">1</span> <span class="nv">CC</span><span class="o">=</span>x86_64-w64-mingw32-gcc <span class="nv">CXX</span><span class="o">=</span>x86_64-w64-mingw32-g++ <span class="nv">GOOS</span><span class="o">=</span>windows <span class="nv">GOARCH</span><span class="o">=</span>amd64 go build -a -v -o store.exe store/sqlite.exe
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">1</span> <span class="nv">CC</span><span class="o">=</span>x86_64-w64-mingw32-gcc <span class="nv">CXX</span><span class="o">=</span>x86_64-w64-mingw32-g++ <span class="nv">GOOS</span><span class="o">=</span>windows <span class="nv">GOARCH</span><span class="o">=</span>amd64 go build -a -v -o store.exe store/sqlite.exe
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>注意参数： <code>CXX=x86_64-w64-mingw32-g++</code> ，如果缺少这个参数时，可能会出现错误：</p>
 <div class="highlight"><div class="chroma">
@@ -178,9 +190,9 @@ brew install mingw-w64
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># runtime/cgo</span>
-gcc: error: unrecognized <span class="nb">command</span> line option ‘-mthreads’<span class="p">;</span> did you mean ‘-pthread’?
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># runtime/cgo</span>
+</span></span><span class="line"><span class="cl">gcc: error: unrecognized <span class="nb">command</span> line option ‘-mthreads’<span class="p">;</span> did you mean ‘-pthread’?
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
@@ -212,7 +224,7 @@ gcc: error: unrecognized <span class="nb">command</span> line option ‘-mthread
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.97.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
