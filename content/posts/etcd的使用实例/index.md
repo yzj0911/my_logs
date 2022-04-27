@@ -1,6 +1,6 @@
 ---
 title: "etcd的使用实例"
-date: 2021-12-03T10:17:16+08:00
+date: 2022-04-11T10:17:16+08:00
 draft: false
 ---
 
@@ -247,10 +247,430 @@ func main() {
 	}
 }
 ```
+例子2:
+
+```go
+// services1
+package main
+
+import (
+	"context"
+	"fmt"
+	"github.com/coreos/etcd/clientv3"
+	"github.com/gin-gonic/gin"
+	"net/http"
+	"sync"
+	"time"
+)
+
+const (
+	EtcdPrefix   = "/test/server/"
+	ServerSerial = "1"
+	Address      = "http://127.0.0.1:18081/"
+)
+
+var (
+	EtcdAddress = []string{"http://47.99.94.72:2379"}
+	leaseTTL    = 5
+)
+
+type HealthProvider struct {
+	etcdClient *EtcdClient
+}
+
+var (
+	healthProvider     *HealthProvider
+	healthProviderOnce sync.Once
+)
+
+func GetHealthProvider() *HealthProvider {
+	healthProviderOnce.Do(func() {
+		healthProvider = &HealthProvider{
+			etcdClient: NewEtcdClient(),
+		}
+	})
+	return healthProvider
+}
+
+type EtcdClient struct {
+	address  []string
+	username string
+	password string
+	kv       clientv3.KV
+	client   *clientv3.Client
+	ctx      context.Context
+	lease    clientv3.Lease
+	leaseID  clientv3.LeaseID
+	leaseTTL int64
+}
+
+func NewEtcdClient() *EtcdClient {
+	var client = &EtcdClient{
+		ctx:      context.Background(),
+		address:  EtcdAddress,
+		leaseTTL: int64(leaseTTL),
+	}
+	err := client.connect()
+	if err != nil {
+		panic(err)
+	}
+	return client
+}
+
+func (etcdClient *EtcdClient) connect() (err error) {
+	etcdClient.client, err = clientv3.New(clientv3.Config{
+		Endpoints:   etcdClient.address,
+		DialTimeout: 5 * time.Second,
+		TLS:         nil,
+		Username:    etcdClient.username,
+		Password:    etcdClient.password,
+	})
+	if err != nil {
+		return
+	}
+	etcdClient.kv = clientv3.NewKV(etcdClient.client)
+	etcdClient.ctx = context.Background()
+	return
+}
+
+func (etcdClient *EtcdClient) Close() (err error) {
+	return etcdClient.client.Close()
+}
+
+func (etcdClient *EtcdClient) register(address string) (*clientv3.PutResponse, error) {
+	etcdClient.lease = clientv3.NewLease(etcdClient.client)
+	leaseResp, err := etcdClient.lease.Grant(etcdClient.ctx, etcdClient.leaseTTL)
+	if err != nil {
+		return nil, err
+	}
+	etcdClient.leaseID = leaseResp.ID
+	return etcdClient.kv.Put(etcdClient.ctx, EtcdPrefix+ServerSerial, address, clientv3.WithLease(leaseResp.ID))
+}
+
+func (etcdClient *EtcdClient) LeaseKeepAlive() error {
+	if etcdClient.lease == nil {
+		_, err := etcdClient.register(Address)
+		if err != nil {
+			return err
+		}
+	}
+	_, err := etcdClient.lease.KeepAlive(etcdClient.ctx, etcdClient.leaseID)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func healthCheck(provider *HealthProvider) {
+	var tick = time.NewTicker(time.Second)
+	for {
+		select {
+		case <-tick.C:
+			err := provider.etcdClient.LeaseKeepAlive()
+			if err != nil {
+				fmt.Println(err.Error())
+				return
+			}
+		}
+	}
+}
+
+func main() {
+	provider := GetHealthProvider()
+	go healthCheck(provider)
+
+	defer provider.etcdClient.Close()
+
+	engine := gin.Default()
+
+	engine.GET("/ping", func(c *gin.Context) {
+		c.JSON(http.StatusOK, "one")
+	})
+
+	engine.Run(":18081")
+}
+
+```
+
+``` go
+// services2
+package main
+import (
+	"context"
+	"fmt"
+	"github.com/coreos/etcd/clientv3"
+	"github.com/gin-gonic/gin"
+	"net/http"
+	"sync"
+	"time"
+)
+
+const (
+	EtcdPrefix   = "/test/server/"
+	ServerSerial = "2"
+	Address      = "http://127.0.0.1:18082/"
+)
+
+var (
+	EtcdAddress = []string{"http://47.99.94.72:2379"}
+	leaseTTL    = 5
+)
+
+type HealthProvider struct {
+	etcdClient *EtcdClient
+}
+
+var (
+	healthProvider     *HealthProvider
+	healthProviderOnce sync.Once
+)
+
+func GetHealthProvider() *HealthProvider {
+	healthProviderOnce.Do(func() {
+		healthProvider = &HealthProvider{
+			etcdClient: NewEtcdClient(),
+		}
+	})
+	return healthProvider
+}
+
+type EtcdClient struct {
+	address  []string
+	username string
+	password string
+	kv       clientv3.KV
+	client   *clientv3.Client
+	ctx      context.Context
+	lease    clientv3.Lease
+	leaseID  clientv3.LeaseID
+	leaseTTL int64
+}
+
+func NewEtcdClient() *EtcdClient {
+	var client = &EtcdClient{
+		ctx:      context.Background(),
+		address:  EtcdAddress,
+		leaseTTL: int64(leaseTTL),
+	}
+	err := client.connect()
+	if err != nil {
+		panic(err)
+	}
+	return client
+}
+
+func (etcdClient *EtcdClient) connect() (err error) {
+	etcdClient.client, err = clientv3.New(clientv3.Config{
+		Endpoints:   etcdClient.address,
+		DialTimeout: 5 * time.Second,
+		TLS:         nil,
+		Username:    etcdClient.username,
+		Password:    etcdClient.password,
+	})
+	if err != nil {
+		return
+	}
+	etcdClient.kv = clientv3.NewKV(etcdClient.client)
+	etcdClient.ctx = context.Background()
+	return
+}
+
+func (etcdClient *EtcdClient) Close() (err error) {
+	return etcdClient.client.Close()
+}
+
+func (etcdClient *EtcdClient) register(address string) (*clientv3.PutResponse, error) {
+	etcdClient.lease = clientv3.NewLease(etcdClient.client)
+	leaseResp, err := etcdClient.lease.Grant(etcdClient.ctx, etcdClient.leaseTTL)
+	if err != nil {
+		return nil, err
+	}
+	etcdClient.leaseID = leaseResp.ID
+	return etcdClient.kv.Put(etcdClient.ctx, EtcdPrefix+ServerSerial, address, clientv3.WithLease(leaseResp.ID))
+}
+
+func (etcdClient *EtcdClient) LeaseKeepAlive() error {
+	if etcdClient.lease == nil {
+		_, err := etcdClient.register(Address)
+		if err != nil {
+			return err
+		}
+	}
+	_, err := etcdClient.lease.KeepAlive(etcdClient.ctx, etcdClient.leaseID)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func healthCheck(provider *HealthProvider) {
+	var tick = time.NewTicker(time.Second)
+	for {
+		select {
+		case <-tick.C:
+			err := provider.etcdClient.LeaseKeepAlive()
+			if err != nil {
+				fmt.Println(err.Error())
+				return
+			}
+		}
+	}
+}
+
+func main() {
+
+	provider := GetHealthProvider()
+	go healthCheck(provider)
+
+	defer provider.etcdClient.Close()
+
+	engine := gin.Default()
+
+	engine.GET("/ping", func(c *gin.Context) {
+		c.JSON(http.StatusOK, "two")
+	})
+
+	engine.Run(":18082")
+}
+```
+```go
+// client
+package main
+
+import (
+	"context"
+	"fmt"
+	"github.com/coreos/etcd/clientv3"
+	"io/ioutil"
+	"math/rand"
+	"net/http"
+	"time"
+)
+
+var (
+	EtcdAddress  = []string{"http://47.99.94.72:2379"}
+	ServerPrefix = "/test/server/"
+)
+
+type EtcdClient struct {
+	address  []string
+	username string
+	password string
+	kv       clientv3.KV
+	client   *clientv3.Client
+	ctx      context.Context
+	lease    clientv3.Lease
+	leaseID  clientv3.LeaseID
+}
+
+func newEtcdClient() *EtcdClient {
+	var client = &EtcdClient{
+		ctx:     context.Background(),
+		address: EtcdAddress,
+	}
+	err := client.connect()
+	if err != nil {
+		panic(err)
+	}
+	return client
+}
+
+func (etcdClient *EtcdClient) connect() (err error) {
+	etcdClient.client, err = clientv3.New(clientv3.Config{
+		Endpoints:   etcdClient.address,
+		DialTimeout: 5 * time.Second,
+		TLS:         nil,
+		Username:    etcdClient.username,
+		Password:    etcdClient.password,
+	})
+	if err != nil {
+		return
+	}
+	etcdClient.kv = clientv3.NewKV(etcdClient.client)
+	etcdClient.ctx = context.Background()
+	return
+}
+
+func (etcdClient *EtcdClient) list(prefix string) ([]string, error) {
+	resp, err := etcdClient.kv.Get(etcdClient.ctx, prefix, clientv3.WithPrefix())
+	if err != nil {
+		return nil, err
+	}
+	servers := make([]string, 0)
+	for _, value := range resp.Kvs {
+		if value != nil {
+			servers = append(servers, string(value.Value))
+		}
+	}
+	return servers, nil
+}
+
+func (etcdClient *EtcdClient) close() (err error) {
+	return etcdClient.client.Close()
+}
+
+func genRand(num int) int {
+	return int(rand.Int31n(int32(num)))
+}
+
+func getServer(client *EtcdClient) (string, error) {
+	servers, err := client.list(ServerPrefix)
+	if err != nil {
+		return "", err
+	}
+	return servers[genRand(len(servers))], nil
+}
+
+func Get(url string) ([]byte, error) {
+	client := &http.Client{}
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, err
+	}
+	res, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		return nil, err
+	}
+	return body, nil
+}
+
+func main() {
+	client := newEtcdClient()
+	err := client.connect()
+	if err != nil {
+		panic(err)
+	}
+	defer client.close()
+	//循环10次去etcd中读取可用服务
+	for i := 0; i < 10; i++ {
+		address, err := getServer(client)
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
+		data, err := Get(address + "ping")
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		fmt.Println(string(data))
+		time.Sleep(1 * time.Millisecond)
+	}
+}
+```
+
+
 
 
 # 二、消息发布与订阅
 ![](https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110205.png)
+
 消息发布和订阅使用的场景也很多的。利用 etcd 的实现思路也很简单：只要消息的发布者向 etcd 发布一系列相同前缀的key，订阅者 watch 指定的前缀即可。代码如下：
 
 ```go
@@ -321,6 +741,7 @@ func main() {
 
 # 三、负载均衡
 ![](https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110220.png)
+
 etcd 可以配合 grpc 实现负载均衡的功能。可以在服务发现的基础上，利用 grpc 自带的 client 负载均衡实现。首先实现服务发现：
 
 ```go
@@ -694,6 +1115,7 @@ func main() {
 
 # 四、分布式通知与协调
 ![](https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110244.png)
+
 和消息发布与订阅相似，都是用到 etcd 的 watch 机制，通过注册与异步通知机制，实现分布式环境下不同系统之间的通知与协调，从而对数据变更做到实时处理。实现思路如下：不同的系统在 etcd 注册目录，并监控目录下 key 的变化，到检测到变化时，watcher 做出放映。
 
 ```go
@@ -750,6 +1172,7 @@ func main() {
 
 # 五、分布式锁
 ![](https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110301.png)
+
 因为etcd使用Raft算法保持了数据的强一致性，某次操作存储到集群中的值必然是全局一致的，所以很容易实现分布式锁。实现的思路：多个 session 同时使用开启事物抢占同一 key，最先抢到的 session 获得锁，其他 session 等待锁的释放。如果是 trylock，session 在抢不到 session 时不再等待直接报错。在 etcd clientv3的版本中，官方自带锁的实现，支持locks 和 trylock（需要 etcd v3.4.3）示例看 [这里](https://github.com/etcd-io/etcd/blob/master/clientv3/concurrency/example_mutex_test.go)
 
 

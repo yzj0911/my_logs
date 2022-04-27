@@ -10,6 +10,7 @@ draft: false
 
 # GPRC 实战
 
+注意：当项目中使用了etcd的组件，注意版本控制。etcd低版本的需要grpc v1.2.6
 
 
 # GRPC 简介

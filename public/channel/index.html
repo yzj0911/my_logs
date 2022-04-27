@@ -6,7 +6,7 @@
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>Channel - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="Channel" />
-<meta property="og:description" content="对未初始化的的chan进行读写，会怎么样？为什么？ 答： 写未初始化的 chan 1 2 3 4 5 6 7 8 9 10 11 12 13 package main // 写未初始化的chan func main() { var c chan int c &lt;- 1" />
+<meta property="og:description" content="对未初始化的的chan进行读写，会怎么样？为什么？ 答： 写未初始化的 chan 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 package main // 写未初始化的chan func main() { var c chan int c" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/channel/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-04-11T23:07:42+08:00" />
@@ -17,7 +17,7 @@
 <meta name="twitter:image" content="http://example.org/logo.png"/>
 
 <meta name="twitter:title" content="Channel"/>
-<meta name="twitter:description" content="对未初始化的的chan进行读写，会怎么样？为什么？ 答： 写未初始化的 chan 1 2 3 4 5 6 7 8 9 10 11 12 13 package main // 写未初始化的chan func main() { var c chan int c &lt;- 1"/>
+<meta name="twitter:description" content="对未初始化的的chan进行读写，会怎么样？为什么？ 答： 写未初始化的 chan 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 package main // 写未初始化的chan func main() { var c chan int c"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/channel/" /><link rel="prev" href="http://example.org/for-select%E6%97%B6%E5%A6%82%E6%9E%9C%E9%80%9A%E9%81%93%E5%B7%B2%E7%BB%8F%E5%85%B3%E9%97%AD%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7/" /><link rel="next" href="http://example.org/%E7%A9%BA%E5%88%87%E7%89%87%E5%92%8Cnil%E5%88%87%E7%89%87/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/channel\/"
-        },"genre": "posts","keywords": "面试","wordcount":  579 ,
+        },"genre": "posts","keywords": "面试","wordcount":  584 ,
         "url": "http:\/\/example.org\/channel\/","datePublished": "2022-04-11T23:07:42+08:00","dateModified": "2022-04-11T23:07:42+08:00","publisher": {
             "@type": "Organization",
             "name": "YZJ"},"author": {
@@ -119,7 +119,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Channel</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%9D%A2%E8%AF%95/"><i class="far fa-folder fa-fw"></i>面试</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-11">2022-04-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 579 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-11">2022-04-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 584 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="true">
                 <div class="details-summary toc-title">
@@ -147,22 +147,26 @@
 </span><span class="lnt">11
 </span><span class="lnt">12
 </span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl"><span class="c1">// 写未初始化的chan
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">c</span> <span class="kd">chan</span> <span class="kt">int</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">c</span> <span class="o">&lt;-</span> <span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// 输出结果
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">fatal</span> <span class="kt">error</span><span class="p">:</span> <span class="nx">all</span> <span class="nx">goroutines</span> <span class="nx">are</span> <span class="nx">asleep</span> <span class="o">-</span> <span class="nx">deadlock</span><span class="p">!</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">goroutine</span> <span class="mi">1</span> <span class="p">[</span><span class="kd">chan</span> <span class="nf">send</span> <span class="p">(</span><span class="kc">nil</span> <span class="kd">chan</span><span class="p">)]:</span>
-</span></span><span class="line"><span class="cl"><span class="nx">main</span><span class="p">.</span><span class="nf">main</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">        <span class="o">/</span><span class="nx">Users</span><span class="o">/</span><span class="nx">admin18</span><span class="o">/</span><span class="k">go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">code</span><span class="p">.</span><span class="nx">byted</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">linzhaolun</span><span class="o">/</span><span class="nx">repos</span><span class="o">/</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">6</span> <span class="o">+</span><span class="mh">0x36</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+<span class="c1">// 写未初始化的chan
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">c</span> <span class="kd">chan</span> <span class="kt">int</span>
+    <span class="nx">c</span> <span class="o">&lt;-</span> <span class="mi">1</span>
+<span class="p">}</span>
+
+<span class="c1">// 输出结果
+</span><span class="c1"></span><span class="nx">fatal</span> <span class="kt">error</span><span class="p">:</span> <span class="nx">all</span> <span class="nx">goroutines</span> <span class="nx">are</span> <span class="nx">asleep</span> <span class="o">-</span> <span class="nx">deadlock</span><span class="p">!</span>
+
+<span class="nx">goroutine</span> <span class="mi">1</span> <span class="p">[</span><span class="kd">chan</span> <span class="nf">send</span> <span class="p">(</span><span class="kc">nil</span> <span class="kd">chan</span><span class="p">)]:</span>
+<span class="nx">main</span><span class="p">.</span><span class="nf">main</span><span class="p">()</span>
+        <span class="o">/</span><span class="nx">Users</span><span class="o">/</span><span class="nx">admin18</span><span class="o">/</span><span class="k">go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">code</span><span class="p">.</span><span class="nx">byted</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">linzhaolun</span><span class="o">/</span><span class="nx">repos</span><span class="o">/</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">6</span> <span class="o">+</span><span class="mh">0x36</span>
+
+
+</code></pre></td></tr></table>
 </div>
 </div><ol start="2">
 <li>写读未初始化的 chan</li>
@@ -184,24 +188,28 @@
 </span><span class="lnt">13
 </span><span class="lnt">14
 </span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">// 读未初始化的chan
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">c</span> <span class="kd">chan</span> <span class="kt">int</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">num</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">c</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;读chan的协程结束, num=%v, ok=%v\n&#34;</span><span class="p">,</span> <span class="nx">num</span><span class="p">,</span> <span class="nx">ok</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// 输出结果
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">fatal</span> <span class="kt">error</span><span class="p">:</span> <span class="nx">all</span> <span class="nx">goroutines</span> <span class="nx">are</span> <span class="nx">asleep</span> <span class="o">-</span> <span class="nx">deadlock</span><span class="p">!</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">goroutine</span> <span class="mi">1</span> <span class="p">[</span><span class="kd">chan</span> <span class="nf">receive</span> <span class="p">(</span><span class="kc">nil</span> <span class="kd">chan</span><span class="p">)]:</span>
-</span></span><span class="line"><span class="cl"><span class="nx">main</span><span class="p">.</span><span class="nf">main</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">        <span class="o">/</span><span class="nx">Users</span><span class="o">/</span><span class="nx">admin18</span><span class="o">/</span><span class="k">go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">code</span><span class="p">.</span><span class="nx">byted</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">linzhaolun</span><span class="o">/</span><span class="nx">repos</span><span class="o">/</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">6</span> <span class="o">+</span><span class="mh">0x46</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+<span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+<span class="c1">// 读未初始化的chan
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">c</span> <span class="kd">chan</span> <span class="kt">int</span>
+    <span class="nx">num</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">c</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;读chan的协程结束, num=%v, ok=%v\n&#34;</span><span class="p">,</span> <span class="nx">num</span><span class="p">,</span> <span class="nx">ok</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// 输出结果
+</span><span class="c1"></span><span class="nx">fatal</span> <span class="kt">error</span><span class="p">:</span> <span class="nx">all</span> <span class="nx">goroutines</span> <span class="nx">are</span> <span class="nx">asleep</span> <span class="o">-</span> <span class="nx">deadlock</span><span class="p">!</span>
+
+<span class="nx">goroutine</span> <span class="mi">1</span> <span class="p">[</span><span class="kd">chan</span> <span class="nf">receive</span> <span class="p">(</span><span class="kc">nil</span> <span class="kd">chan</span><span class="p">)]:</span>
+<span class="nx">main</span><span class="p">.</span><span class="nf">main</span><span class="p">()</span>
+        <span class="o">/</span><span class="nx">Users</span><span class="o">/</span><span class="nx">admin18</span><span class="o">/</span><span class="k">go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">code</span><span class="p">.</span><span class="nx">byted</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">linzhaolun</span><span class="o">/</span><span class="nx">repos</span><span class="o">/</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">6</span> <span class="o">+</span><span class="mh">0x46</span>
+
+
+</code></pre></td></tr></table>
 </div>
 </div><h1 id="为什么对未初始化的-chan-就会阻塞呢">为什么对未初始化的 chan 就会阻塞呢？</h1>
 <ol>
@@ -223,19 +231,19 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//在 src/runtime/chan.go中
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">chansend</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">hchan</span><span class="p">,</span> <span class="nx">ep</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">,</span> <span class="nx">block</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">callerpc</span> <span class="kt">uintptr</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"> <span class="k">if</span> <span class="nx">c</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="c1">// 不能阻塞，直接返回 false，表示未发送成功
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">if</span> <span class="p">!</span><span class="nx">block</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">false</span>
-</span></span><span class="line"><span class="cl">      <span class="p">}</span>
-</span></span><span class="line"><span class="cl">      <span class="nf">gopark</span><span class="p">(</span><span class="kc">nil</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">waitReasonChanSendNilChan</span><span class="p">,</span> <span class="nx">traceEvGoStop</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">      <span class="nf">throw</span><span class="p">(</span><span class="s">&#34;unreachable&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"> <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">// 省略其他逻辑
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">//在 src/runtime/chan.go中
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">chansend</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">hchan</span><span class="p">,</span> <span class="nx">ep</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">,</span> <span class="nx">block</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">callerpc</span> <span class="kt">uintptr</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+ <span class="k">if</span> <span class="nx">c</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+      <span class="c1">// 不能阻塞，直接返回 false，表示未发送成功
+</span><span class="c1"></span>      <span class="k">if</span> <span class="p">!</span><span class="nx">block</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">false</span>
+      <span class="p">}</span>
+      <span class="nf">gopark</span><span class="p">(</span><span class="kc">nil</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">waitReasonChanSendNilChan</span><span class="p">,</span> <span class="nx">traceEvGoStop</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+      <span class="nf">throw</span><span class="p">(</span><span class="s">&#34;unreachable&#34;</span><span class="p">)</span>
+ <span class="p">}</span>
+  <span class="c1">// 省略其他逻辑
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>未初始化的 chan 此时是等于 nil，当它不能阻塞的情况下，直接返回 false，表示写 chan 失败</li>
@@ -258,21 +266,23 @@
 </span><span class="lnt">10
 </span><span class="lnt">11
 </span><span class="lnt">12
+</span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//在 src/runtime/chan.go中
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">chanrecv</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">hchan</span><span class="p">,</span> <span class="nx">ep</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">,</span> <span class="nx">block</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">(</span><span class="nx">selected</span><span class="p">,</span> <span class="nx">received</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">//省略逻辑...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="nx">c</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">!</span><span class="nx">block</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">          <span class="k">return</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">gopark</span><span class="p">(</span><span class="kc">nil</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">waitReasonChanReceiveNilChan</span><span class="p">,</span> <span class="nx">traceEvGoStop</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">throw</span><span class="p">(</span><span class="s">&#34;unreachable&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">//省略逻辑...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> 
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">//在 src/runtime/chan.go中
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">chanrecv</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">hchan</span><span class="p">,</span> <span class="nx">ep</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">,</span> <span class="nx">block</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">(</span><span class="nx">selected</span><span class="p">,</span> <span class="nx">received</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//省略逻辑...
+</span><span class="c1"></span>    <span class="k">if</span> <span class="nx">c</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">!</span><span class="nx">block</span> <span class="p">{</span>
+          <span class="k">return</span>
+        <span class="p">}</span>
+        <span class="nf">gopark</span><span class="p">(</span><span class="kc">nil</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">waitReasonChanReceiveNilChan</span><span class="p">,</span> <span class="nx">traceEvGoStop</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="nf">throw</span><span class="p">(</span><span class="s">&#34;unreachable&#34;</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="c1">//省略逻辑...
+</span><span class="c1"></span><span class="p">}</span> 
+
+</code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>未初始化的 chan 此时是等于 nil，当它不能阻塞的情况下，直接返回 false，表示读 chan 失败</li>
@@ -308,7 +318,7 @@
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.97.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
