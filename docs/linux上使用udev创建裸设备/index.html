@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>linux上使用udev创建裸设备 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="linux上使用udev创建裸设备" />
+<meta property="og:description" content="linux上使用udev创建裸设备 需求和分析 在一次项目中需要将进行oracle数据库的备份，要求在oracle机器总是能认到备份的块设备的路" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-03T10:17:16+08:00" />
+<meta property="article:modified_time" content="2021-12-03T10:17:16+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="linux上使用udev创建裸设备"/>
+<meta name="twitter:description" content="linux上使用udev创建裸设备 需求和分析 在一次项目中需要将进行oracle数据库的备份，要求在oracle机器总是能认到备份的块设备的路"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/" /><link rel="prev" href="http://example.org/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/" /><link rel="next" href="http://example.org/libguestfs/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "linux上使用udev创建裸设备",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87\/"
+        },"genre": "posts","wordcount":  993 ,
+        "url": "http:\/\/example.org\/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87\/","datePublished": "2021-12-03T10:17:16+08:00","dateModified": "2021-12-03T10:17:16+08:00","publisher": {
+            "@type": "Organization",
+            "name": "YZJ"},"author": {
+                "@type": "Person",
+                "name": "yzj"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="YZJ 的博客"> 文章 </a><a class="menu-item" href="/tags/" title="YZJ 的博客"> 标签 </a><a class="menu-item" href="/categories/" title="YZJ 的博客"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="YZJ 的博客">文章</a><a class="menu-item" href="/tags/" title="YZJ 的博客">标签</a><a class="menu-item" href="/categories/" title="YZJ 的博客">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">linux上使用udev创建裸设备</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-03">2021-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 993 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><h1 id="linux上使用udev创建裸设备">linux上使用udev创建裸设备</h1>
+<p><strong>需求和分析</strong>
+在一次项目中需要将进行oracle数据库的备份，要求在oracle机器总是能认到备份的块设备的路径以保证备份和恢复的正常。同时还需要对磁盘进行修改，转化中asm格式的。
+基于这种情况下，在linux中将磁盘转化成对应的裸设备是一种合适的方法。
+简单的操作就是将配置写入<code>/etc/udev/rule.d/1401-oracle-asmdevice.rules</code>文件中，让udev管理。</p>
+<p><strong>udev 规则的匹配键</strong></p>
+<ul>
+<li>ACTION： 事件 (uevent) 的行为，例如：add( 添加设备 )、remove( 删除设备 )。</li>
+<li>KERNEL： 内核设备名称，例如：sda, cdrom。</li>
+<li>DEVPATH：设备的 devpath 路径。</li>
+<li>SUBSYSTEM： 设备的子系统名称，例如：sda 的子系统为 block。</li>
+<li>BUS： 设备在 devpath 里的总线名称，例如：usb。</li>
+<li>DRIVER： 设备在 devpath 里的设备驱动名称，例如：ide-cdrom。</li>
+<li>ID： 设备在 devpath 里的识别号。</li>
+<li>SYSFS{filename}： 设备的 devpath 路径下，设备的属性文件“filename”里的内容。
+例如：SYSFS{model}==“ST936701SS”表示：如果设备的型号为 ST936701SS，则该设备匹配该 匹配键。
+在一条规则中，可以设定最多五条 SYSFS 的 匹配键。</li>
+<li>ENV{key}： 环境变量。在一条规则中，可以设定最多五条环境变量的 匹配键。</li>
+<li>PROGRAM：调用外部命令。</li>
+<li>RESULT： 外部命令 PROGRAM 的返回结果。</li>
+</ul>
+<p><strong>配置文件</strong>
+这里是CentOS 6的版本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@rac1 ~<span class="o">]</span><span class="c1"># cat /etc/udev/rules.d/99-oracle-asmdevice.rules </span>
+<span class="nv">KERNEL</span><span class="o">==</span><span class="s2">&#34;sd*&#34;</span>,SUBSYSTEM<span class="o">==</span><span class="s2">&#34;block&#34;</span>,PROGRAM<span class="o">==</span><span class="s2">&#34;/sbin/scsi_id --whitelisted --replace-whitespace --device=/dev/</span><span class="nv">$name</span><span class="s2">&#34;</span>,RESULT<span class="o">==</span><span class="s2">&#34;360000000000000000e00000000020fa8&#34;</span>,NAME+<span class="o">=</span><span class="s2">&#34;oracleasm/disks/HL_360000000000000000e00000000020fa8&#34;</span>,OWNER<span class="o">=</span><span class="s2">&#34;grid&#34;</span>,GROUP<span class="o">=</span><span class="s2">&#34;asmadmin&#34;</span>,MODE<span class="o">=</span><span class="s2">&#34;0660&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后加载配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@rac1 ~<span class="o">]</span><span class="c1"># start_udev </span>
+正在启动 udev：                                            <span class="o">[</span>确定<span class="o">]</span>
+<span class="o">[</span>root@rac1 ~<span class="o">]</span><span class="c1"># ll /dev/oracleasm/disks </span>
+总用量 <span class="m">0</span>
+brw-rw---- <span class="m">1</span> grid asmadmin 8, <span class="m">16</span> 1月  <span class="m">23</span> 14:30 HL_360000000000000000e00000000020fa8
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>注意</strong>
+在<code>CentOS6</code>和<code>CentOS7</code>的配置有所不同。
+一个是<code>scsi_id</code>命令，还有是<code>udev</code>规则变化。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">KERNEL</span><span class="o">==</span><span class="s2">&#34;sd*&#34;</span>,SUBSYSTEM<span class="o">==</span><span class="s2">&#34;block&#34;</span>,PROGRAM<span class="o">==</span><span class="s2">&#34;/usr/lib/udev/scsi_id --whitelisted --replace-whitespace --device=/dev/</span><span class="nv">$name</span><span class="s2">&#34;</span>,RESULT<span class="o">==</span><span class="s2">&#34;360000000000000000e00000000160fa8&#34;</span>,RUN+<span class="o">=</span><span class="s2">&#34;/bin/sh -c &#39;mkdir -pv /dev/oracleasm/disks;mknod /dev/oracleasm/disks/HL_360000000000000000e00000000160fa8 b 1 3; chown grid:oinstall /dev/oracleasm/disks/HL_360000000000000000e00000000160fa8; chmod 0660 /dev/oracleasm/disks/HL_360000000000000000e00000000160fa8&#39;&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>scsi_id</code>命令需要安装<code>systemd</code>包，如果知道命令对应的软件包名称，可以使用yum命令查看</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">yum provides &#34;/*/scsi_id&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p><code>udev</code>需要使用<code>RUN</code>来代替<code>NAME</code>，在<code>RUN</code>中能使用linux的命令，使用<code>；</code>分隔多个命令。
+<code>mknod</code>是CentOS7中转化设备的新命令，格式为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mknod /dev/sdb &lt;DEVICE_TYPE&gt; &lt;主设备号&gt; &lt;次设备号&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>同时修改<code>udev</code>的命令也发生了变化。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1">#  /usr/sbin/udevadm trigger --type=devices --action=change</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在同时添加多个设备时，后添加的设备同步较慢。比较好的方法是先全部添加到<code>.rules</code>文件中，最后再执行<code>udevadm trigger</code>加载。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-12-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/" data-title="linux上使用udev创建裸设备" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/" data-title="linux上使用udev创建裸设备" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/" data-title="linux上使用udev创建裸设备"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/" data-title="linux上使用udev创建裸设备"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/" data-title="linux上使用udev创建裸设备" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/" data-title="linux上使用udev创建裸设备" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/" data-title="linux上使用udev创建裸设备"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/" class="prev" rel="prev" title="Linux中断和异常"><i class="fas fa-angle-left fa-fw"></i>Linux中断和异常</a>
+            <a href="/libguestfs/" class="next" rel="next" title="KVM镜像管理工具libguestfs">KVM镜像管理工具libguestfs<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

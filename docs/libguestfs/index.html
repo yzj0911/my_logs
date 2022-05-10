@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>KVM镜像管理工具libguestfs - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="KVM镜像管理工具libguestfs" />
+<meta property="og:description" content="KVM镜像管理工具libguestfs 简介 libguestfs 是一套管理虚拟机镜像的工具。它提供以一系列命令和API来修改和管理虚拟机的镜像。 安装 直接使用 yum 安" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/libguestfs/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-03T10:17:16+08:00" />
+<meta property="article:modified_time" content="2021-12-03T10:17:16+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="KVM镜像管理工具libguestfs"/>
+<meta name="twitter:description" content="KVM镜像管理工具libguestfs 简介 libguestfs 是一套管理虚拟机镜像的工具。它提供以一系列命令和API来修改和管理虚拟机的镜像。 安装 直接使用 yum 安"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/libguestfs/" /><link rel="prev" href="http://example.org/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/" /><link rel="next" href="http://example.org/kvm_detail/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "KVM镜像管理工具libguestfs",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/libguestfs\/"
+        },"genre": "posts","wordcount":  1584 ,
+        "url": "http:\/\/example.org\/libguestfs\/","datePublished": "2021-12-03T10:17:16+08:00","dateModified": "2021-12-03T10:17:16+08:00","publisher": {
+            "@type": "Organization",
+            "name": "YZJ"},"author": {
+                "@type": "Person",
+                "name": "yzj"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="YZJ 的博客"> 文章 </a><a class="menu-item" href="/tags/" title="YZJ 的博客"> 标签 </a><a class="menu-item" href="/categories/" title="YZJ 的博客"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="YZJ 的博客">文章</a><a class="menu-item" href="/tags/" title="YZJ 的博客">标签</a><a class="menu-item" href="/categories/" title="YZJ 的博客">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">KVM镜像管理工具libguestfs</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-03">2021-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1584 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#virt-inspector">virt-inspector</a></li>
+    <li><a href="#virt-watch">virt-watch</a></li>
+    <li><a href="#virt-host-validator">virt-host-validator</a></li>
+    <li><a href="#virt-get-kernel">virt-get-kernel</a></li>
+    <li><a href="#virt-filesystems">virt-filesystems</a></li>
+    <li><a href="#virt-df">virt-df</a></li>
+    <li><a href="#virt-ls">virt-ls</a></li>
+    <li><a href="#virt-cat">virt-cat</a></li>
+    <li><a href="#virt-log">virt-log</a></li>
+    <li><a href="#virt-tail">virt-tail</a></li>
+    <li><a href="#virt-alignment-scan">virt-alignment-scan</a></li>
+    <li><a href="#virt-diff">virt-diff</a></li>
+    <li><a href="#virt-sparisify">virt-sparisify</a></li>
+    <li><a href="#virt-copy-in">virt-copy-in</a></li>
+    <li><a href="#virt-copy-out">virt-copy-out</a></li>
+    <li><a href="#virt-edit">virt-edit</a></li>
+    <li><a href="#virt-make-fs">virt-make-fs</a></li>
+    <li><a href="#virt-tar-in">virt-tar-in</a></li>
+    <li><a href="#virt-tar-out">virt-tar-out</a></li>
+    <li><a href="#guestmount">guestmount</a></li>
+    <li><a href="#guestumount">guestumount</a></li>
+    <li><a href="#virt-rescue">virt-rescue</a></li>
+    <li><a href="#virt-resize">virt-resize</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="kvm镜像管理工具libguestfs">KVM镜像管理工具libguestfs</h1>
+<h1 id="简介">简介</h1>
+<p><a href="https://libguestfs.org/" target="_blank" rel="noopener noreffer"><code>libguestfs</code></a> 是一套管理虚拟机镜像的工具。它提供以一系列命令和API来修改和管理虚拟机的镜像。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210131105105.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210131105105.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210131105105.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210131105105.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210131105105.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210131105105.png" /></p>
+<h1 id="安装">安装</h1>
+<p>直接使用 <code>yum</code> 安装 <code>libguestfs</code> :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">yum install -y libguestfs-tool libguestfs-devel
+</code></pre></td></tr></table>
+</div>
+</div><p>默认不支持修改 windows 镜像，可以安装 <code>libguestfs-winsupport</code> :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">yum install -y libguestfs-winsupport
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="libguestfs-命令">libguestfs 命令</h1>
+<p>libguestfs 的通用参数</p>
+<ul>
+<li>-a|&ndash;add image  : 指定查看的镜像文件路径</li>
+<li>-c|&ndash;connect uri : 指定远程 libvirt 地址</li>
+<li>-d|&ndash;domain guest : 指定 libvirt 上的 domain 名称</li>
+</ul>
+<blockquote>
+<p>注: libguestfs 的命令需要调用 libvirt 所以响应的速度会比较慢。同时，如果命令会修改镜像的内容，需要先关闭域，避免造成数据不同步。</p>
+</blockquote>
+<h2 id="virt-inspector">virt-inspector</h2>
+<p><code>virt-inspector</code> 命令用来查看镜像信息，输出格式为 xml</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ virt-inspector -d centos
+&lt;?xml <span class="nv">version</span><span class="o">=</span><span class="s2">&#34;1.0&#34;</span>?&gt;
+&lt;operatingsystems&gt;
+  &lt;operatingsystem&gt;
+    &lt;root&gt;/dev/centos/root&lt;/root&gt;
+    &lt;name&gt;linux&lt;/name&gt;
+    &lt;arch&gt;x86_64&lt;/arch&gt;
+    &lt;distro&gt;centos&lt;/distro&gt;
+    &lt;product_name&gt;CentOS Linux release 7.6.1810 <span class="o">(</span>Core<span class="o">)</span> &lt;/product_name&gt;
+    &lt;major_version&gt;7&lt;/major_version&gt;
+    &lt;minor_version&gt;6&lt;/minor_version&gt;
+    &lt;package_format&gt;rpm&lt;/package_format&gt;
+    &lt;package_management&gt;yum&lt;/package_management&gt;
+    &lt;hostname&gt;localhost.localdomain&lt;/hostname&gt;
+    &lt;osinfo&gt;centos7.0&lt;/osinfo&gt;
+    &lt;mountpoints&gt;
+      &lt;mountpoint <span class="nv">dev</span><span class="o">=</span><span class="s2">&#34;/dev/centos/root&#34;</span>&gt;/&lt;/mountpoint&gt;
+      &lt;mountpoint <span class="nv">dev</span><span class="o">=</span><span class="s2">&#34;/dev/sda1&#34;</span>&gt;/boot&lt;/mountpoint&gt;
+    &lt;/mountpoints&gt;
+    &lt;filesystems&gt;
+      &lt;filesystem <span class="nv">dev</span><span class="o">=</span><span class="s2">&#34;/dev/centos/root&#34;</span>&gt;
+        &lt;type&gt;xfs&lt;/type&gt;
+        &lt;uuid&gt;12e94e0d-93e6-4714-9c61-116fbe994936&lt;/uuid&gt;
+      &lt;/filesystem&gt;
+      ...
+      ...
+&lt;xml&gt;
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="virt-watch">virt-watch</h2>
+<p><code>virt-watch</code> 查看本机虚拟化环境</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ virt-what
+vmware
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="virt-host-validator">virt-host-validator</h2>
+<p><code>virt-host-validator</code> 检查本地环境是否符合虚拟化</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ virt-host-validate
+  QEMU: 正在检查 <span class="k">for</span> hardware virtualization                                 : PASS
+  QEMU: 正在检查 <span class="k">if</span> device /dev/kvm exists                                   : PASS
+  QEMU: 正在检查 <span class="k">if</span> device /dev/kvm is accessible                            : PASS
+  QEMU: 正在检查 <span class="k">if</span> device /dev/vhost-net exists                             : PASS
+  ...
+  ...
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="virt-get-kernel">virt-get-kernel</h2>
+<p><code>virt-get-kernel</code> 获取镜像的内核文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ virt-get-kernel -d centos
+download: /boot/vmlinuz-3.10.0-957.el7.x86_64 -&gt; ./vmlinuz-3.10.0-957.el7.x86_64
+download: /boot/initramfs-3.10.0-957.el7.x86_64.img -&gt; ./initramfs-3.10.0-957.el7.x86_64.img
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="virt-filesystems">virt-filesystems</h2>
+<p><code>virt-filesystems</code> 查看镜像的文件系统</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ virt-filesystems -d centos
+/dev/sda1
+/dev/centos/root
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="virt-df">virt-df</h2>
+<p><code>virt-df</code> 用来查看镜像的文件系统容量，同 <code>df</code> 命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ virt-df -d centos -h
+文件系统                            大小 已用空间 可用空间 使用百分比%
+centos:/dev/sda1                         1014M       100M       914M   10%
+centos:/dev/centos/root                    17G       974M        16G    6%
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="virt-ls">virt-ls</h2>
+<p><code>virt-ls</code> 查看镜像的文件信息，同 <code>ls</code> 命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ virt-ls -d centos /root/ -l
+total <span class="m">28</span>
+dr-xr-x---.  <span class="m">2</span> root root  <span class="m">135</span> Jan <span class="m">26</span> 15:07 .
+dr-xr-xr-x. <span class="m">17</span> root root  <span class="m">224</span> Jan <span class="m">16</span> 09:56 ..
+-rw-------.  <span class="m">1</span> root root   <span class="m">45</span> Jan <span class="m">26</span> 15:07 .bash_history
+-rw-r--r--.  <span class="m">1</span> root root   <span class="m">18</span> Dec <span class="m">29</span>  <span class="m">2013</span> .bash_logout
+-rw-r--r--.  <span class="m">1</span> root root  <span class="m">176</span> Dec <span class="m">29</span>  <span class="m">2013</span> .bash_profile
+-rw-r--r--.  <span class="m">1</span> root root  <span class="m">176</span> Dec <span class="m">29</span>  <span class="m">2013</span> .bashrc
+-rw-r--r--.  <span class="m">1</span> root root  <span class="m">100</span> Dec <span class="m">29</span>  <span class="m">2013</span> .cshrc
+-rw-r--r--.  <span class="m">1</span> root root  <span class="m">129</span> Dec <span class="m">29</span>  <span class="m">2013</span> .tcshrc
+-rw-------.  <span class="m">1</span> root root <span class="m">1259</span> Jan <span class="m">16</span> 09:57 anaconda-ks.cfg
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="virt-cat">virt-cat</h2>
+<p><code>virt-cat</code> 查看镜像内的文件内容，同 <code>cat</code> 命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ virt-cat -d centos /etc/passwd
+root:xx:0:0:root:/root:/bin/bash
+...
+...
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="virt-log">virt-log</h2>
+<p><code>virt-log</code> 查看镜像的日志信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ virt-log -d centos
+Jan <span class="m">30</span> 20:13:01 localhost rsyslogd: <span class="o">[</span>origin <span class="nv">software</span><span class="o">=</span><span class="s2">&#34;rsyslogd&#34;</span> <span class="nv">swVersion</span><span class="o">=</span><span class="s2">&#34;8.24.0-34.el7&#34;</span> x-pid<span class="o">=</span><span class="s2">&#34;3123&#34;</span> x-info<span class="o">=</span><span class="s2">&#34;http://www.rsyslog.com&#34;</span><span class="o">]</span> rsyslogd was HUPed
+Jan <span class="m">30</span> 20:33:37 localhost qemu-ga: info: guest-shutdown called, mode: powerdown
+Jan <span class="m">30</span> 20:33:37 localhost systemd: Started Delayed Shutdown Service.
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="virt-tail">virt-tail</h2>
+<p><code>virt-tail</code> 监听文件内容，同 <code>tail</code> 命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ virt-tail -d centos /var/log/messages
+
+
+--- /var/log/messages ---
+...
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="virt-alignment-scan">virt-alignment-scan</h2>
+<p><code>virt-alignment-scan</code> 查看镜像分区是否对齐</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ virt-alignment-scan -a centos.qcow2
+/dev/sda1      <span class="m">1048576</span>         1024K   ok
+/dev/sda2   <span class="m">1074790400</span>         1024K   ok
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="virt-diff">virt-diff</h2>
+<p><code>virt-diff</code> 比较镜像间的不同</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ <span class="c1"># virt-diff -a centos.qcow2 -A centos.img</span>
+- d <span class="m">0550</span>        <span class="m">150</span> /root
++ d <span class="m">0550</span>        <span class="m">135</span> /root
+<span class="c1"># changed: st_size</span>
+- - <span class="m">0644</span>          <span class="m">4</span> /root/kvm.txt
+- d <span class="m">1777</span>        <span class="m">187</span> /tmp
++ d <span class="m">1777</span>        <span class="m">172</span> /tmp
+<span class="c1"># changed: st_size</span>
+- - <span class="m">0644</span>          <span class="m">4</span> /tmp/kvm.txt
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="virt-sparisify">virt-sparisify</h2>
+<p><code>virt-sparisify</code> 用来消除镜像内的空洞文件，减少镜像大小</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ virt-sparsify centos.qcow2 -f qcow2 centos2.qcow2
+<span class="o">[</span>   0.0<span class="o">]</span> Create overlay file in /tmp to protect <span class="nb">source</span> disk
+<span class="o">[</span>   0.0<span class="o">]</span> Examine <span class="nb">source</span> disk
+<span class="o">[</span>   3.4<span class="o">]</span> Fill free space in /dev/centos/root with zero
+ 100% ⟦▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒⟧ 00:00
+<span class="o">[</span>  33.5<span class="o">]</span> Clearing Linux swap on /dev/centos/swap
+ 100% ⟦▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒⟧ --:--
+<span class="o">[</span>  36.2<span class="o">]</span> Fill free space in /dev/sda1 with zero
+<span class="o">[</span>  38.5<span class="o">]</span> Copy to destination and make sparse
+<span class="o">[</span>  51.4<span class="o">]</span> Sparsify operation completed with no errors.
+virt-sparsify: Before deleting the old disk, carefully check that the
+target disk boots and works correctly.
+</code></pre></td></tr></table>
+</div>
+</div><p>执行完成后生成 centos2.qcow2 文件:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ ll -h
+总用量 4.0G
+-rw-r--r-- <span class="m">1</span> root root 1.1G 1月  <span class="m">30</span> 23:39 centos2.qcow2
+-rw-r--r-- <span class="m">1</span> root root 1.5G 1月  <span class="m">30</span> 20:33 centos.img
+-rw-r--r-- <span class="m">1</span> root root 1.5G 1月  <span class="m">30</span> 20:43 centos.qcow2
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="virt-copy-in">virt-copy-in</h2>
+<p><code>virt-copy-in</code> 将本地文件复制到镜像中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ virt-copy-in -a centos.qcow2 kvm.txt /tmp/
+$ virt-ls -a centos.qcow2 /tmp/
+kvm.txt
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="virt-copy-out">virt-copy-out</h2>
+<p><code>virt-copy-out</code> 将镜像中的文件复制到本地</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ virt-copy-out -a centos.qcow2 /tmp/kvm.txt .
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="virt-edit">virt-edit</h2>
+<p><code>virt-edit</code> 编译镜像内的文件，默认会打开本地的 Vim 进行编辑</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ virt-edit -a centos.qcow2 /tmp/kvm.txt
+$ virt-cat -a centos.qcow2 /tmp/kvm.txt
+kvm
+kvm11
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="virt-make-fs">virt-make-fs</h2>
+<p><code>virt-make-fs</code> 根据本地的目录创建一个镜像</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ mkdir /input
+$ <span class="nb">echo</span> <span class="s2">&#34;input&#34;</span> &gt; /input/1.txt
+$ virt-make-fs --partition<span class="o">=</span>gpt --type<span class="o">=</span>ntfs --size<span class="o">=</span>1G --format<span class="o">=</span>qcow2 /input sdb.qcow2
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="virt-tar-in">virt-tar-in</h2>
+<p><code>virt-tar-in</code> tar 压缩文件拷贝进虚拟机并解压</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ virt-tar-in -a centos.qcow2 kvm.tar /root/
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="virt-tar-out">virt-tar-out</h2>
+<p><code>virt-tar-out</code> 镜像内指定目录文件拷贝并压缩</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ virt-tar-out -a centos.qcow2 /root root.tar
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="guestmount">guestmount</h2>
+<p><code>guestmount</code> 将镜像中的文件系统分区挂载到本地目录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ guestmount -a centos.qcow2 -m /dev/sda1 /mnt
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="guestumount">guestumount</h2>
+<p><code>guestumount</code> 卸载 <code>guestmount</code> 挂载的目录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ guestumount /mnt
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="virt-rescue">virt-rescue</h2>
+<p><code>virt-rescue</code> 进入救援模式，修复镜像</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ virt-rescue -a centos.qcow2
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="virt-resize">virt-resize</h2>
+<p><code>virt-resize</code> 镜像分区缩容和扩容</p>
+<p>给其中某个分区扩容 5G</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ virt-filesystems --long -h --all -a olddisk
+ 
+$ truncate -r olddisk newdisk
+$ truncate -s +5G newdisk
+ 
+$ virt-resize --expand /dev/sda2 olddisk newdisk
+</code></pre></td></tr></table>
+</div>
+</div><p>/boot 分区扩容 200MB bigger, 剩下的分配给 /dev/sda2:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ virt-resize --resize /dev/sda1<span class="o">=</span>+200M --expand /dev/sda2 olddisk newdisk
+</code></pre></td></tr></table>
+</div>
+</div><p>lvm 分区扩容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ virt-resize --expand /dev/sda2 --LV-expand /dev/vg_guest/lv_root olddisk newdisk
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-12-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/libguestfs/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/libguestfs/" data-title="KVM镜像管理工具libguestfs" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/libguestfs/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/libguestfs/" data-title="KVM镜像管理工具libguestfs" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/libguestfs/" data-title="KVM镜像管理工具libguestfs"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/libguestfs/" data-title="KVM镜像管理工具libguestfs"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/libguestfs/" data-title="KVM镜像管理工具libguestfs" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/libguestfs/" data-title="KVM镜像管理工具libguestfs" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/libguestfs/" data-title="KVM镜像管理工具libguestfs"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/" class="prev" rel="prev" title="linux上使用udev创建裸设备"><i class="fas fa-angle-left fa-fw"></i>linux上使用udev创建裸设备</a>
+            <a href="/kvm_detail/" class="next" rel="next" title="KVM介绍">KVM介绍<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

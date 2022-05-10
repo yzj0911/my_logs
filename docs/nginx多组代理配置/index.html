@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Nginx多组代理配置 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="Nginx多组代理配置" />
+<meta property="og:description" content="Nginx多组代理配置 一、需求 具体实现以下功能：使用 nginx 作为对外的服务机器，让客户端通过访问 nginx 所在的IP&#43;端口的方式能访问内部多个系统，这样一" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-03T10:17:16+08:00" />
+<meta property="article:modified_time" content="2021-12-03T10:17:16+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="Nginx多组代理配置"/>
+<meta name="twitter:description" content="Nginx多组代理配置 一、需求 具体实现以下功能：使用 nginx 作为对外的服务机器，让客户端通过访问 nginx 所在的IP&#43;端口的方式能访问内部多个系统，这样一"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" /><link rel="prev" href="http://example.org/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" /><link rel="next" href="http://example.org/linux%E8%BF%9B%E7%A8%8B/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Nginx多组代理配置",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE\/"
+        },"genre": "posts","wordcount":  1286 ,
+        "url": "http:\/\/example.org\/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE\/","datePublished": "2021-12-03T10:17:16+08:00","dateModified": "2021-12-03T10:17:16+08:00","publisher": {
+            "@type": "Organization",
+            "name": "YZJ"},"author": {
+                "@type": "Person",
+                "name": "yzj"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="YZJ 的博客"> 文章 </a><a class="menu-item" href="/tags/" title="YZJ 的博客"> 标签 </a><a class="menu-item" href="/categories/" title="YZJ 的博客"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="YZJ 的博客">文章</a><a class="menu-item" href="/tags/" title="YZJ 的博客">标签</a><a class="menu-item" href="/categories/" title="YZJ 的博客">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Nginx多组代理配置</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-03">2021-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1286 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><h1 id="nginx多组代理配置">Nginx多组代理配置</h1>
+<h1 id="一需求">一、需求</h1>
+<p>具体实现以下功能：使用 nginx 作为对外的服务机器，让客户端通过访问 nginx 所在的IP+端口的方式能访问内部多个系统，这样一来通过对单台机器作访问控制就可以保证内部系统的访问安全。实现思路如下：在对外的机器上部署 nginx 服务，通过 nginx 虚拟机功能和代理功能相结合实现多组代理。具体场景如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">代理服务器</th>
+<th style="text-align:center">代理服务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">nginx 192.168.10.10:8080</td>
+<td style="text-align:center">192.168.10.11:8080</td>
+</tr>
+<tr>
+<td style="text-align:center">nginx 192.168.10.10:8081</td>
+<td style="text-align:center">192.168.10.11:9000</td>
+</tr>
+</tbody>
+</table>
+<h1 id="二环境">二、环境</h1>
+<p>测试环境如下：</p>
+<ul>
+<li>代理服务器：ip 192.168.10.10；系统 CentOS7 ; </li>
+<li>需要代理的服务：192.168.10.11:8080 nginx ；192.168.10.11:9000 tomcat</li>
+</ul>
+<h1 id="三配置代理">三、配置代理</h1>
+<p>假如有两个服务需要配置代理，一个 web，一个 tomcat。web 运行在 192.168.10.11:8080
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110455.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110455.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110455.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110455.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110455.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110455.png" /></p>
+<p>tomcat 运行在 192.168.10.11:9000
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110507.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110507.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110507.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110507.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110507.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110507.png" /></p>
+<p>现在配置 nginx 代理。
+<strong>1.安装 nginx</strong>先在代理服务器上安装 nginx，使用命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ yum install -y nginx
+</code></pre></td></tr></table>
+</div>
+</div><p>安装成功后就可以尝试启动 nginx 服务器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ systemctl start nginx
+</code></pre></td></tr></table>
+</div>
+</div><p>启动服务成功后，nginx 就运行在 80 端口。
+<strong>2.修改配置文件</strong>安装nginx就可以修改配置文件，配置文件的默认路径为 </p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ ll /etc/nginx/nginx.conf
+-rw-r--r-- <span class="m">1</span> root root <span class="m">1822</span> Nov <span class="m">24</span> 19:30 /etc/nginx/nginx.conf
+</code></pre></td></tr></table>
+</div>
+</div><p>修改 nginx.conf 如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 系统用户</span>
+user nginx<span class="p">;</span>
+<span class="c1"># 工作进程数，配置高的机器可以适当增加</span>
+worker_processes 4<span class="p">;</span>
+<span class="c1"># 错误日志</span>
+error_log /var/log/nginx/error.log<span class="p">;</span>
+<span class="c1"># pid 文件存放目录</span>
+pid /run/nginx.pid<span class="p">;</span>
+
+
+events <span class="o">{</span>
+    <span class="c1"># linux 使用 epoll 事件机制</span>
+    use epoll<span class="p">;</span>
+    <span class="c1"># 连接数</span>
+    worker_connections 1024<span class="p">;</span>
+<span class="o">}</span>
+
+http <span class="o">{</span>
+    log_format  main  <span class="s1">&#39;$remote_addr - $remote_user [$time_local] &#34;$request&#34; &#39;</span>
+                      <span class="s1">&#39;$status $body_bytes_sent &#34;$http_referer&#34; &#39;</span>
+                      <span class="s1">&#39;&#34;$http_user_agent&#34; &#34;$http_x_forwarded_for&#34;&#39;</span><span class="p">;</span>
+
+    access_log  /var/log/nginx/access.log  main<span class="p">;</span>
+
+    sendfile            on<span class="p">;</span>
+    tcp_nopush          on<span class="p">;</span>
+    tcp_nodelay         on<span class="p">;</span>
+    keepalive_timeout   65<span class="p">;</span>
+    types_hash_max_size 2048<span class="p">;</span>
+
+    include             /etc/nginx/mime.types<span class="p">;</span>
+    default_type        application/octet-stream<span class="p">;</span>
+    <span class="c1"># 配置虚拟机，在该目录下配置多个配置文件对应多台需要代理的机器</span>
+    include /etc/nginx/conf.d/*.conf<span class="p">;</span>
+
+<span class="c1"># 配置 https</span>
+<span class="c1"># Settings for a TLS enabled server.</span>
+<span class="c1">#</span>
+<span class="c1">#    server {</span>
+<span class="c1">#        listen       443 ssl http2 default_server;</span>
+<span class="c1">#        listen       [::]:443 ssl http2 default_server;</span>
+<span class="c1">#        server_name  _;</span>
+<span class="c1">#        root         /usr/share/nginx/html;</span>
+<span class="c1">#</span>
+<span class="c1">#        ssl_certificate &#34;/etc/pki/nginx/server.crt&#34;;</span>
+<span class="c1">#        ssl_certificate_key &#34;/etc/pki/nginx/private/server.key&#34;;</span>
+<span class="c1">#        ssl_session_cache shared:SSL:1m;</span>
+<span class="c1">#        ssl_session_timeout  10m;</span>
+<span class="c1">#        ssl_ciphers HIGH:!aNULL:!MD5;</span>
+<span class="c1">#        ssl_prefer_server_ciphers on;</span>
+<span class="c1">#</span>
+<span class="c1">#        # Load configuration files for the default server block.</span>
+<span class="c1">#        include /etc/nginx/default.d/*.conf;</span>
+<span class="c1">#</span>
+<span class="c1">#        location / {</span>
+<span class="c1">#        }</span>
+<span class="c1">#</span>
+<span class="c1">#        error_page 404 /404.html;</span>
+<span class="c1">#            location = /40x.html {</span>
+<span class="c1">#        }</span>
+<span class="c1">#</span>
+<span class="c1">#        error_page 500 502 503 504 /50x.html;</span>
+<span class="c1">#            location = /50x.html {</span>
+<span class="c1">#        }</span>
+<span class="c1">#    }</span>
+
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>注意 23 行的配置：<code>include /etc/nginx/conf.d/*.conf;</code> 这个目录下就是要存放代理的配置文件。一般这个文件默认是存在的，如果目录不存在，就创建并修改权限。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ mkdir /etc/nginx/conf.d
+$ chmod <span class="m">755</span> /etc/nginx/conf.d
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>3.配置代理文件</strong>在这个目录下存放代理服务的文件，最好一个代理对应一个配置文件。我们之前需求上需要代理的服务是两个，直接创建两个代理文件，并修改</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># /etc/nginx/conf.d/nginx.conf </span>
+<span class="c1"># 代理的节点</span>
+<span class="c1"># upstream &lt;代理名称 唯一&gt;</span>
+upstream nginx_server <span class="o">{</span>
+  <span class="c1"># 代理的ip:port,可添加多个ip地址就行负载均衡</span>
+  server 192.168.10.11:8080<span class="p">;</span>
+<span class="o">}</span>
+
+server 
+<span class="o">{</span>
+  <span class="c1"># 监听的地址和端口</span>
+  <span class="c1"># 对应一个代理一个端口</span>
+  listen       192.168.10.10:8080<span class="p">;</span>
+  <span class="c1"># 对外的域名 </span>
+  server_name  aaa.test.com<span class="p">;</span>
+  location / <span class="o">{</span>
+    <span class="c1"># 代理配置，名称和以上的代理名称对应 </span>
+    proxy_pass http://nginx_server<span class="p">;</span>
+    <span class="c1"># 配置使用真实的地址访问，如果不配置此项会导致代理tomcat服务器 400 错误</span>
+    proxy_set_header Host <span class="nv">$host</span><span class="p">;</span>
+  <span class="o">}</span>   
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># cat /etc/nginx/conf.d/tomcat.conf </span>
+upstream tomcat_server <span class="o">{</span>
+  server 192.168.10.11:9000<span class="p">;</span>
+<span class="o">}</span>
+
+server 
+<span class="o">{</span>
+  listen       192.168.10.10:8081<span class="p">;</span> 
+  server_name  bbb.test.com<span class="p">;</span>
+  location / <span class="o">{</span> 
+    proxy_pass http://tomcat_server<span class="p">;</span>
+    proxy_set_header Host <span class="nv">$host</span><span class="p">;</span>
+  <span class="o">}</span>   
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>修改并保存后，使用 nginx 命令来验证文件的语法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ <span class="c1"># nginx -t</span>
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf <span class="nb">test</span> is successful
+</code></pre></td></tr></table>
+</div>
+</div><p>之后就可以重启 nginx 服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ systemctl restart nginx
+$ netstat -tnlp <span class="p">|</span> grep nginx
+tcp        <span class="m">0</span>      <span class="m">0</span> 192.168.10.10:8080      0.0.0.0:*               LISTEN      11643/nginx: master 
+tcp        <span class="m">0</span>      <span class="m">0</span> 192.168.10.10:8081      0.0.0.0:*               LISTEN      11643/nginx: master
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到成功绑定两个端口，代理两个服务。通过浏览器访问8080和8081![image.png]
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110527.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110527.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110527.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110527.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110527.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110527.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110541.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110541.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110541.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110541.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110541.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20201030110541.png" /></p>
+<p>到这里配置就完成了。如果需要再代理，在 /etc/nginx/conf.d 目录下再添加相应的配置文件就可以。如果没有访问成功，请检查各种防火墙和安全策略。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-12-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" data-title="Nginx多组代理配置" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" data-title="Nginx多组代理配置" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" data-title="Nginx多组代理配置"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" data-title="Nginx多组代理配置"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" data-title="Nginx多组代理配置" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" data-title="Nginx多组代理配置" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" data-title="Nginx多组代理配置"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" class="prev" rel="prev" title="postgresql 实战一：安装和使用"><i class="fas fa-angle-left fa-fw"></i>postgresql 实战一：安装和使用</a>
+            <a href="/linux%E8%BF%9B%E7%A8%8B/" class="next" rel="next" title="Linux进程">Linux进程<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

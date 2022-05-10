@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>零拷贝 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="零拷贝" />
+<meta property="og:description" content="零拷贝 传统的I/O操作基本上要分为四步： 磁盘文件读入操作系统 操作系统读到用户进程 用户进程写到操作系统 操作系统写入磁盘文件 零拷贝就是指，传输一" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/%E9%9B%B6%E6%8B%B7%E8%B4%9D/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-11T22:21:21+08:00" />
+<meta property="article:modified_time" content="2022-04-11T22:21:21+08:00" />
+
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="零拷贝"/>
+<meta name="twitter:description" content="零拷贝 传统的I/O操作基本上要分为四步： 磁盘文件读入操作系统 操作系统读到用户进程 用户进程写到操作系统 操作系统写入磁盘文件 零拷贝就是指，传输一"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/%E9%9B%B6%E6%8B%B7%E8%B4%9D/" /><link rel="prev" href="http://example.org/etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/" /><link rel="next" href="http://example.org/for-select%E6%97%B6%E5%A6%82%E6%9E%9C%E9%80%9A%E9%81%93%E5%B7%B2%E7%BB%8F%E5%85%B3%E9%97%AD%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "零拷贝",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/%E9%9B%B6%E6%8B%B7%E8%B4%9D\/"
+        },"genre": "posts","keywords": "面试","wordcount":  1804 ,
+        "url": "http:\/\/example.org\/%E9%9B%B6%E6%8B%B7%E8%B4%9D\/","datePublished": "2022-04-11T22:21:21+08:00","dateModified": "2022-04-11T22:21:21+08:00","publisher": {
+            "@type": "Organization",
+            "name": "YZJ"},"author": {
+                "@type": "Person",
+                "name": "yzj"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="YZJ 的博客"> 文章 </a><a class="menu-item" href="/tags/" title="YZJ 的博客"> 标签 </a><a class="menu-item" href="/categories/" title="YZJ 的博客"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="YZJ 的博客">文章</a><a class="menu-item" href="/tags/" title="YZJ 的博客">标签</a><a class="menu-item" href="/categories/" title="YZJ 的博客">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">零拷贝</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%9D%A2%E8%AF%95/"><i class="far fa-folder fa-fw"></i>面试</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-11">2022-04-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1804 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#当然上面所说存在的两个问题是可以通过其他方法解决的">「当然上面所说存在的两个问题是可以通过其他方法解决的」</a>
+      <ul>
+        <li><a href="#对sigbus捕捉处理">①「对SIGBUS捕捉处理」</a></li>
+        <li><a href="#文件租借锁">②「文件租借锁」</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="零拷贝">零拷贝</h1>
+<p>传统的I/O操作基本上要分为四步：</p>
+<ol>
+<li>磁盘文件读入操作系统</li>
+<li>操作系统读到用户进程</li>
+<li>用户进程写到操作系统</li>
+<li>操作系统写入磁盘文件</li>
+</ol>
+<p>零拷贝就是指，传输一个文件的时候，不需要把文件读到用户进程再处理，而是直接把文件读到操作系统一个内存区，然后再移动到操作系统的另一个内存区，最后写入文件。</p>
+<p>这样一来，步骤变成这样：</p>
+<ol>
+<li>磁盘文件读入操作系统</li>
+<li>操作系统把数据写入操作系统另一个区域</li>
+<li>操作系统写入磁盘文件</li>
+</ol>
+<p>虽然只少了一步，但是这里不仅减少了数据移动的时间损耗，而且减少了系统调用的次数，因此大大缩短了时间。</p>
+<hr>
+<h1 id="数据拷贝">数据拷贝</h1>
+<hr>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/%e6%95%b0%e6%8d%ae%e6%8b%b7%e8%b4%9d.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/%e6%95%b0%e6%8d%ae%e6%8b%b7%e8%b4%9d.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/%e6%95%b0%e6%8d%ae%e6%8b%b7%e8%b4%9d.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/%e6%95%b0%e6%8d%ae%e6%8b%b7%e8%b4%9d.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/数据拷贝.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/数据拷贝.png" /></p>
+<p>数据拷贝的模式，每一次拷贝我都打上了序号</p>
+<ol>
+<li>DMA控制器将数据从磁盘拷贝到内核缓冲区，这是第1次拷贝（DMA拷贝）</li>
+<li>CPU将数据从内核缓冲区复制到应用程序缓冲区，这是第2次拷贝（CPU拷贝）（内核态=&gt;用户态）</li>
+<li>CPU将数据从应用程序缓冲区复制到Socket缓冲区，这是第3次拷贝（CPU拷贝）</li>
+<li>DMA控制器将数据从Socket缓冲区拷贝到网卡，这是第4次拷贝（DMA拷贝）（用户态=&gt;内核态）</li>
+</ol>
+<p>由上述信息可得：一共经历了四次拷贝，其中两次是CPU拷贝，两次是DMA拷贝;经历了两次的状态切换（我就拷贝个数据怎么这么麻烦）</p>
+<h1 id="mmap">MMAP</h1>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/MMAP.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/MMAP.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/MMAP.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/MMAP.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/MMAP.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/MMAP.png" /></p>
+<p>mmap主要是 <code>内存映射</code>
+这项技术的出现，下面这段关于内存映射的介绍摘自网络</p>
+<p>内存映射文件技术是操作系统提供的一种新的文件数据存取机制，利用内存映射文件技术，系统可以在内存空间中为文件保留一部分空间，并将文件映射到这块保留空间，一旦文件被映射后，操作系统将管理页映射缓冲以及高速缓冲等任务，而不需要调用分配、释放内存块和文件输入/输出的API函数，也不需要自己提供任何缓冲算法。</p>
+<p>使用内存映射文件处理存储于磁盘上的文件时，将不必再对文件执行I/O 操作，这意味着在对文件进行处理时将不必再为文件申请并分配缓存，所有的文件缓存操作均由系统直接管理，由于取消了将文件数据加载到内存、数据从内存到文件的回写以及释放内存块等步骤，使得内存映射文件在处理大数据量的文件时能起到相当重要的作用。</p>
+<p>通过mmap这项技术，我们可以实现了避免将数据拷贝出内核空间了，但是仍然存在一次CPU拷贝，CPU是非常珍贵的资源，并且这个mmap的模式除了CPU这次拷贝之外（其实在mmap出现的时候还是很棒的，不过我们现在有了新的认知了），还存在着另外一个问题，就是可能出现碎片问题跟多进程下同时操作文件时可能产生引发coredump的signal。</p>
+<p>碎片问题主要是体现在，拷贝的时候，可能是小文件，如果是大文件就会大大降低这种碎片问题的出现。（碎片问题主要是我们查内存还有很多，但是申请大内存会有申请失败的情况出现，原理可以自行查看，主要是顺序分配内存与整块分配内存相关的）</p>
+<p>当对文件进行了内存映射，然后调用 write() 系统调用，如果此时其他的进程截断了这个文件，那么 write() 系统调用将会被总线错误信号 SIGBUS 中断，因为此时正在执行的是一个错误的存储访问。该信号的默认行为是杀死进程和转储核心。（源于操作系统对于进程的内存保护机制）</p>
+<h2 id="当然上面所说存在的两个问题是可以通过其他方法解决的">「当然上面所说存在的两个问题是可以通过其他方法解决的」</h2>
+<h3 id="对sigbus捕捉处理">①「对SIGBUS捕捉处理」</h3>
+<p>对SIGBUS 信号进行简单处理并返回，这样，write() 系统调用在它被中断之前就返回已经写入的字节数目，errno 会被设置成 success。（说白了就是让程序不会出现coredump）「缺点」：它不能反映出产生这个问题的根源所在，因为 BIGBUS 信号只是显示某进程发生了一些很严重的错误。</p>
+<h3 id="文件租借锁">②「文件租借锁」</h3>
+<p>当进程尝试打开一个被租借锁保护的文件时，该进程会被阻塞，同时，在一定时间内拥有该文件租借锁的进程会收到一个信号。收到信号之后，拥有该文件租借锁的进程会首先更新文件，从而保证了文件内容的一致性，接着，该进程释放这个租借锁。如果拥有租借锁的进程在一定的时间间隔内没有完成工作，内核就会自动删除这个租借锁或者将该锁进行降级，从而允许被阻塞的进程继续工作。「注意」：文件租借锁需要在对文件进行内存映射之前设置。</p>
+<h1 id="sendfile">sendfile</h1>
+<hr>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/sendFile.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/sendFile.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/sendFile.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/sendFile.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/sendFile.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/sendFile.png" /></p>
+<p>前面几次到Socket当中我们都是把完整的数据拷贝带Socket缓冲区当中，但是经过思考，反正数据是最终拷贝到网卡当中，也就是Socket缓冲区又是一个中间者而已，我们何不想个方法，能把数据直接拷贝到网卡，这个就是我们的sendfile了，我们拷贝去socket缓冲区只拷贝了文件描述符跟数据长度，然后直接采用DMA收集拷贝内核缓冲区的数据到网卡当中。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-04-11</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E9%9B%B6%E6%8B%B7%E8%B4%9D/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/%E9%9B%B6%E6%8B%B7%E8%B4%9D/" data-title="零拷贝" data-via="xxxx" data-hashtags="面试"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/%E9%9B%B6%E6%8B%B7%E8%B4%9D/" data-hashtag="面试"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/%E9%9B%B6%E6%8B%B7%E8%B4%9D/" data-title="零拷贝" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/%E9%9B%B6%E6%8B%B7%E8%B4%9D/" data-title="零拷贝"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/%E9%9B%B6%E6%8B%B7%E8%B4%9D/" data-title="零拷贝"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/%E9%9B%B6%E6%8B%B7%E8%B4%9D/" data-title="零拷贝" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/%E9%9B%B6%E6%8B%B7%E8%B4%9D/" data-title="零拷贝" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/%E9%9B%B6%E6%8B%B7%E8%B4%9D/" data-title="零拷贝"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E9%9D%A2%E8%AF%95/">面试</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/" class="prev" rel="prev" title="etcd的使用实例"><i class="fas fa-angle-left fa-fw"></i>etcd的使用实例</a>
+            <a href="/for-select%E6%97%B6%E5%A6%82%E6%9E%9C%E9%80%9A%E9%81%93%E5%B7%B2%E7%BB%8F%E5%85%B3%E9%97%AD%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7/" class="next" rel="next" title="面试题">面试题<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

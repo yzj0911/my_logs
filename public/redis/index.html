@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Redis - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="Redis" />
+<meta property="og:description" content="redis 简介：Redis ，全称 Remote Dictionary Server ，是一个基于内存的高性能 Key-Value 数据库。 脚本自动安装任意版本 sh redis-install.sh 4.0.10 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/redis/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-05-09T13:23:30+08:00" />
+<meta property="article:modified_time" content="2022-05-09T13:23:30+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="Redis"/>
+<meta name="twitter:description" content="redis 简介：Redis ，全称 Remote Dictionary Server ，是一个基于内存的高性能 Key-Value 数据库。 脚本自动安装任意版本 sh redis-install.sh 4.0.10 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/redis/" /><link rel="prev" href="http://example.org/mysql/" /><link rel="next" href="http://example.org/%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Redis",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/redis\/"
+        },"genre": "posts","wordcount":  2961 ,
+        "url": "http:\/\/example.org\/redis\/","datePublished": "2022-05-09T13:23:30+08:00","dateModified": "2022-05-09T13:23:30+08:00","publisher": {
+            "@type": "Organization",
+            "name": "YZJ"},"author": {
+                "@type": "Person",
+                "name": "yzj"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="YZJ 的博客"> 文章 </a><a class="menu-item" href="/tags/" title="YZJ 的博客"> 标签 </a><a class="menu-item" href="/categories/" title="YZJ 的博客"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="YZJ 的博客">文章</a><a class="menu-item" href="/tags/" title="YZJ 的博客">标签</a><a class="menu-item" href="/categories/" title="YZJ 的博客">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Redis</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-09">2022-05-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2961 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#redis-有哪些数据结构">Redis 有哪些数据结构？</a></li>
+    <li><a href="#redis-的线程模型">Redis 的线程模型</a>
+      <ul>
+        <li><a href="#redis-single-thread-model">redis-single-thread-model</a></li>
+      </ul>
+    </li>
+    <li><a href="#redis-单线程模型也能效率这么高">Redis 单线程模型也能效率这么高？</a></li>
+    <li><a href="#redis-是单线程的如何提高多核-cpu-的利用率">Redis 是单线程的，如何提高多核 CPU 的利用率？</a></li>
+    <li><a href="#redis-有几种持久化方式">Redis 有几种持久化方式？</a></li>
+    <li><a href="#有哪几种数据淘汰策略">有哪几种数据“淘汰”策略？</a></li>
+    <li><a href="#理解回收进程如何工作是非常重要的">理解回收进程如何工作是非常重要的：</a></li>
+    <li><a href="#如果大量的-key-过期时间设置的过于集中到过期的那个时间点redis可能会出现短暂的卡顿现象">如果大量的 key 过期时间设置的过于集中，到过期的那个时间点，Redis可能会出现短暂的卡顿现象。</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="redis">redis</h1>
+<p>简介：Redis ，全称 Remote Dictionary Server ，是一个基于内存的高性能 Key-Value 数据库。</p>
+<p>脚本自动安装任意版本 sh redis-install.sh 4.0.10</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#! /usr/bin/bash
+</span><span class="cp"></span><span class="c1">##redis任何版本全程自动化源码编译安装</span>
+<span class="c1">##用法：sh redis-install.sh 4.0.10 （后面跟的是你需要的版本号，需要什么版本就写什么版本），我这里安装的4.0.10</span>
+<span class="nv">version</span><span class="o">=</span><span class="nv">$1</span>
+usage<span class="o">(){</span>
+<span class="nb">echo</span> <span class="s2">&#34;usage: </span><span class="nv">$0</span><span class="s2"> version&#34;</span>
+<span class="o">}</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$#</span> -ne <span class="m">1</span> <span class="o">]</span>
+<span class="k">then</span>
+usage
+<span class="nb">exit</span> -1
+<span class="k">fi</span>
+
+<span class="c1">#Redis安装包下载</span>
+<span class="nb">cd</span> /usr/local/src
+<span class="k">if</span> <span class="o">[</span> ! -f redis-<span class="si">${</span><span class="nv">version</span><span class="si">}</span>.tar.gz <span class="o">]</span>
+<span class="k">then</span>
+curl -o /usr/local/src/redis-<span class="si">${</span><span class="nv">version</span><span class="si">}</span>.tar.gz http://download.redis.io/releases/redis-<span class="si">${</span><span class="nv">version</span><span class="si">}</span>.tar.gz
+<span class="k">fi</span>
+
+<span class="c1">#Redis依赖包安装</span>
+yum clean all
+yum makecache fast
+yum -y install gcc gcc-c++ tcl
+
+<span class="c1">#编译Redis所需要的gcc</span>
+yum -y install centos-release-scl
+yum -y install devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils
+<span class="nb">source</span> /opt/rh/devtoolset-9/enable
+<span class="nb">echo</span> <span class="s2">&#34;source /opt/rh/devtoolset-9/enable&#34;</span> &gt;&gt;/etc/profile
+gcc --version
+
+<span class="c1">##内系统参数核优化</span>
+cat &gt;&gt; /etc/rc.d/rc.local &lt;&lt; <span class="s2">&#34;EOF&#34;</span>
+
+<span class="c1">##关闭Linux的THP（内存管理系统）通过使用更大的内存页面，来减少具有大量内存的计算机上的TLB的开销</span>
+<span class="k">if</span> <span class="o">[</span> -f /sys/kernel/mm/transparent_hugepage/enabled <span class="o">]</span>
+<span class="k">then</span>
+<span class="nb">echo</span> never &gt; /sys/kernel/mm/transparent_hugepage/enabled
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> -f /sys/kernel/mm/transparent_hugepage/defrag <span class="o">]</span>
+<span class="k">then</span>
+<span class="nb">echo</span> never &gt; /sys/kernel/mm/transparent_hugepage/defrag
+<span class="k">fi</span>
+EOF
+chmod u+x /etc/rc.d/rc.local
+
+<span class="k">if</span> <span class="o">[</span> -f /sys/kernel/mm/transparent_hugepage/enabled <span class="o">]</span>
+<span class="k">then</span>
+<span class="nb">echo</span> never &gt; /sys/kernel/mm/transparent_hugepage/enabled
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> -f /sys/kernel/mm/transparent_hugepage/defrag <span class="o">]</span>
+<span class="k">then</span>
+<span class="nb">echo</span> never &gt; /sys/kernel/mm/transparent_hugepage/defrag
+<span class="k">fi</span>
+
+cat &gt;&gt; /etc/sysctl.conf &lt;&lt; <span class="s2">&#34;EOF&#34;</span>
+
+<span class="c1">#Linux系统内核参数优化</span>
+net.core.somaxconn <span class="o">=</span> <span class="m">2048</span>
+net.ipv4.tcp_max_syn_backlog <span class="o">=</span> <span class="m">2048</span>
+vm.overcommit_memory <span class="o">=</span> <span class="m">1</span>
+EOF
+sysctl -p
+
+cat &gt; /etc/security/limits.conf &lt;&lt; <span class="s2">&#34;EOF&#34;</span>
+root soft nofile <span class="m">65535</span>
+root hard nofile <span class="m">65535</span>
+* soft nofile <span class="m">65535</span>
+* hard nofile <span class="m">65535</span>
+EOF
+
+<span class="c1">#Redis编译安装</span>
+<span class="nb">cd</span> /usr/local/src
+tar -zxvf redis-<span class="si">${</span><span class="nv">version</span><span class="si">}</span>.tar.gz
+<span class="nb">cd</span> /usr/local/src/redis-<span class="si">${</span><span class="nv">version</span><span class="si">}</span>
+make
+make <span class="nv">PREFIX</span><span class="o">=</span>/usr/local/redis install
+
+<span class="c1">#Redis基础配置</span>
+mkdir -p /usr/local/redis/<span class="o">{</span>etc,logs,data<span class="o">}</span>
+egrep -v <span class="s2">&#34;^</span>$<span class="s2">|^#&#34;</span> /usr/local/src/redis-<span class="si">${</span><span class="nv">version</span><span class="si">}</span>/redis.conf &gt; /usr/local/redis/etc/redis.conf
+<span class="c1">#sed -i &#34;s/bind 127.0.0.1/bind 0.0.0.0/g&#34; /usr/local/redis/etc/redis.conf</span>
+sed -i <span class="s2">&#34;s/protected-mode yes/protected-mode no/g&#34;</span> /usr/local/redis/etc/redis.conf
+sed -i <span class="s2">&#34;s/daemonize no/daemonize yes/g&#34;</span> /usr/local/redis/etc/redis.conf
+sed -i <span class="s2">&#34;s/pidfile \/var\/run\/redis_6379.pid/pidfile \/usr\/local\/redis\/redis.pid/g&#34;</span> /usr/local/redis/etc/redis.conf
+sed -i <span class="s2">&#34;s/dir \.\//dir \/usr\/local\/redis\/data/g&#34;</span> /usr/local/redis/etc/redis.conf
+sed -i <span class="s2">&#34;s/logfile \&#34;\&#34;/logfile \&#34;\/usr\/local\/redis\/logs\/redis.log\&#34;/g&#34;</span> /usr/local/redis/etc/redis.conf
+sed -i <span class="s2">&#34;s/dbfilename dump.rdb/dbfilename dump.rdb/g&#34;</span> /usr/local/redis/etc/redis.conf
+sed -i <span class="s2">&#34;s/appendfilename \&#34;appendonly.aof\&#34;/appendfilename \&#34;appendonly.aof\&#34;/g&#34;</span> /usr/local/redis/etc/redis.conf
+
+<span class="c1">#PATH配置</span>
+<span class="nb">echo</span> <span class="s2">&#34;export PATH=</span><span class="si">${</span><span class="nv">PATH</span><span class="si">}</span><span class="s2">:/usr/local/redis/bin&#34;</span> &gt;&gt;/etc/profile
+<span class="nb">source</span> /etc/profile
+<span class="c1">#启动redis服务</span>
+/usr/local/redis/bin/redis-server /usr/local/redis/etc/redis.conf
+<span class="c1">#查看redis监听端口</span>
+netstat -tanp<span class="p">|</span>grep redis
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="redis-有哪些数据结构">Redis 有哪些数据结构？</h2>
+<p>如果你是 <code>Redis</code> 普通玩家，可能你的回答是如下五种数据结构：</p>
+<ul>
+<li>字符串 String</li>
+<li>字典 Hash</li>
+<li>列表 List</li>
+<li>集合 Set</li>
+<li>有序集合 SortedSet</li>
+</ul>
+<p>如果你是 Redis 中级玩家，还需要加上下面几种数据结构：</p>
+<ul>
+<li>HyperLogLog</li>
+<li>Geo</li>
+<li>Bitmap</li>
+</ul>
+<p>如果你是 Redis 高端玩家，你可能玩过 Redis Module ，可以再加上下面几种数据结构：</p>
+<ul>
+<li>BloomFilter</li>
+<li>RedisSearch</li>
+<li>Redis-ML</li>
+<li>JSON</li>
+</ul>
+<p>另外，在 Redis 5.0 增加了 Stream 功能，一个新的强大的支持多播的可持久化的消息队列，提供类似 Kafka 的功能。</p>
+<h2 id="redis-的线程模型">Redis 的线程模型</h2>
+<p>redis 内部使用文件事件处理器 file event handler，这个文件事件处理器是单线程的，所以 Redis 才叫做单线程的模型。它采用 IO 多路复用机制同时监听多个 Socket，根据 Socket 上的事件来选择对应的事件处理器进行处理。</p>
+<p>文件事件处理器的结构包含 4 个部分：</p>
+<ul>
+<li>多个 Socket 。</li>
+<li>IO 多路复用程序。</li>
+<li>文件事件分派器。</li>
+<li>事件处理器（连接应答处理器、命令请求处理器、命令回复处理器）。</li>
+</ul>
+<p>多个 Socket 可能会并发产生不同的操作，每个操作对应不同的文件事件，但是 IO 多路复用程序会监听多个 socket，会将 socket 产生的事件放入队列中排队，事件分派器每次从队列中取出一个事件，把该事件交给对应的事件处理器进行处理。</p>
+<p>来看客户端与 redis 的一次通信过程：
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20200509Redis1.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20200509Redis1.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20200509Redis1.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20200509Redis1.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20200509Redis1.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20200509Redis1.png" /></p>
+<h3 id="redis-single-thread-model">redis-single-thread-model</h3>
+<p>客户端 <code>Socket01</code> 向 <code>Redis</code> 的 <code>Server Socket</code> 请求建立连接，此时 <code>Server Socket</code> 会产生一个 <code>AE_READABLE</code> 事件，IO 多路复用程序监听到 <code>server socket</code> 产生的事件后，将该事件压入队列中。文件事件分派器从队列中获取该事件，交给连接应答处理器。连接应答处理器会创建一个能与客户端通信的 <code>Socket01</code>，并将该 <code>Socket01</code> 的 <code>AE_READABLE </code>事件与命令请求处理器关联。</p>
+<p>假设此时客户端发送了一个 <code>set key value</code> 请求，此时 <code>Redis</code> 中的 <code>Socket01</code> 会产生 AE_READABLE 事件，IO 多路复用程序将事件压入队列，此时事件分派器从队列中获取到该事件，由于前面 <code>Socket01</code> 的 AE_READABLE 事件已经与命令请求处理器关联，因此事件分派器将事件交给命令请求处理器来处理。命令请求处理器读取 <code>Scket01</code> 的 <code>set key value</code> 并在自己内存中完成 set key value 的设置。操作完成后，它会将 <code>Scket01</code> 的 <code>AE_WRITABLE</code> 事件与令回复处理器关联。</p>
+<p>如果此时客户端准备好接收返回结果了，那么 <code>Redis</code> 中的 <code>Socket01</code> 会产生一个 AE_WRITABLE 事件，同样压入队列中，事件分派器找到相关联的命令回复处理器，由命令回复处理器对 <code>socket01</code> 输入本次操作的一个结果，比如 ok，之后解除 <code>Socket01</code> 的 AE_WRITABLE 事件与命令回复处理器的关联。
+这样便完成了一次通信。</p>
+<hr>
+<h2 id="redis-单线程模型也能效率这么高">Redis 单线程模型也能效率这么高？</h2>
+<ol>
+<li>
+<p>C 语言实现。</p>
+<p>我们都知道，C 语言的执行速度非常快。</p>
+</li>
+<li>
+<p>纯内存操作。</p>
+<p>Redis 为了达到最快的读写速度，将数据都读到内存中，并通过异步的方式将数据写入磁盘。所以 Redis 具有快速和数据持久化的特征。</p>
+<p>如果不将数据放在内存中，磁盘 I/O 速度为严重影响 Redis 的性能。</p>
+</li>
+<li>
+<p>基于非阻塞的 IO 多路复用机制。</p>
+</li>
+<li>
+<p>单线程，避免了多线程的频繁上下文切换问题。</p>
+<p>Redis 利用队列技术，将并发访问变为串行访问，消除了传统数据库串行控制的开销。</p>
+<p>实际上，Redis 4.0 开始，也开始有了一些异步线程，用于处理一些耗时操作。例如说，异步线程，实现惰性删除（解决大 KEY 删除，阻塞主线程）和异步 AOF （解决磁盘 IO 紧张时，fsync 执行一次很慢）等等。</p>
+</li>
+<li>
+<p>丰富的数据结构。</p>
+<p>Redis 全程使用 hash 结构，读取速度快，还有一些特殊的数据结构，对数据存储进行了优化。例如，压缩表，对短数据进行压缩存储；再再如，跳表，使用有序的数据结构加快读取的速度。
+也因为 Redis 是单线程的，所以可以实现丰富的数据结构，无需考虑并发的问题。</p>
+</li>
+</ol>
+<hr>
+<h2 id="redis-是单线程的如何提高多核-cpu-的利用率">Redis 是单线程的，如何提高多核 CPU 的利用率？</h2>
+<p>可以在同一个服务器部署多个 Redis 的实例，并把他们当作不同的服务器来使用，在某些时候，无论如何一个服务器是不够的， 所以，如果你想使用多个 CPU ，你可以考虑一下分区。</p>
+<hr>
+<h2 id="redis-有几种持久化方式">Redis 有几种持久化方式？</h2>
+<p>Redis 提供了两种方式，实现数据的持久化到硬盘。</p>
+<ul>
+<li>1、【全量】<code>RDB</code> 持久化，是指在指定的时间间隔内将内存中的数据集快照写入磁盘。实际操作过程是，fork 一个子进程，先将数据集写入临时文件，写入成功后，再替换之前的文件，用二进制压缩存储。</li>
+<li>2、【增量】<code>AOF</code>持久化，以日志的形式记录服务器所处理的每一个写、删除操作，查询操作不会记录，以文本的方式记录，可以打开文件看到详细的操作记录。</li>
+</ul>
+<hr>
+<h2 id="有哪几种数据淘汰策略">有哪几种数据“淘汰”策略？</h2>
+<p>Redis 内存数据集大小上升到一定大小的时候，就会进行数据淘汰策略。</p>
+<p>Redis 提供了 6 种数据淘汰策略：</p>
+<ul>
+<li>volatile-lru</li>
+<li>volatile-ttl</li>
+<li>volatile-random</li>
+<li>allkeys-lru</li>
+<li>allkeys-random</li>
+<li>【默认策略】no-enviction</li>
+</ul>
+<p>具体的每种数据淘汰策略的定义，和如何选择讨论策略，可见 《Redis实战（二） 内存淘汰机制》 。</p>
+<p>在 Redis 4.0 后，基于 LFU（Least Frequently Used）最近最少使用算法，增加了 2 种淘汰策略：</p>
+<ul>
+<li>volatile-lfu</li>
+<li>allkeys-lfu</li>
+</ul>
+<p>🦅 Redis LRU 算法</p>
+<p>另外，Redis 的 LRU 算法，并不是一个严格的 LRU 实现。这意味着 Redis 不能选择最佳候选键来回收，也就是最久未被访问的那些键。相反，Redis 会尝试执行一个近似的 LRU 算法，通过采样一小部分键，然后在采样键中回收最适合(拥有最久未被访问时间)的那个。</p>
+<p>Redis 没有使用真正实现严格的 LRU 算是的原因是，因为消耗更多的内存。然而对于使用 Redis 的应用来说，使用近似的 LRU 算法，事实上是等价的。</p>
+<hr>
+<h2 id="理解回收进程如何工作是非常重要的">理解回收进程如何工作是非常重要的：</h2>
+<ul>
+<li>一个客户端运行了新的写命令，添加了新的数据。</li>
+<li>Redis 检查内存使用情况，如果大于 maxmemory 的限制, 则根据设定好的策略进行回收。</li>
+<li>Redis 执行新命令。</li>
+</ul>
+<p>所以我们不断地穿越内存限制的边界，通过不断达到边界然后不断地回收回到边界以下（跌宕起伏）。</p>
+<hr>
+<h2 id="如果大量的-key-过期时间设置的过于集中到过期的那个时间点redis可能会出现短暂的卡顿现象">如果大量的 key 过期时间设置的过于集中，到过期的那个时间点，Redis可能会出现短暂的卡顿现象。</h2>
+<ol>
+<li>
+<p>一般需要在时间上加一个随机值，使得过期时间分散一些。</p>
+</li>
+<li>
+<p>是调大 hz 参数，每次过期的 key 更多，从而最终达到避免一次过期过多。</p>
+<p>这个定期的频率，由配置文件中的 hz 参数决定，代表了一秒钟内，后台任务期望被调用的次数。Redis 3.0.0 中的默认值是 10 ，代表每秒钟调用 10 次后台任务。</p>
+<p>hz 调大将会提高 Redis 主动淘汰的频率，如果你的 Redis 存储中包含很多冷数据占用内存过大的话，可以考虑将这个值调大，但 Redis 作者建议这个值不要超过 100 。我们实际线上将这个值调大到 100 ，观察到 CPU 会增加 2% 左右，但对冷数据的内存释放速度确实有明显的提高（通过观察 keyspace 个数和 used_memory 大小）。</p>
+</li>
+</ol>
+<hr>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-05-09</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/redis/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/redis/" data-title="Redis" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/redis/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/redis/" data-title="Redis" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/redis/" data-title="Redis"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/redis/" data-title="Redis"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/redis/" data-title="Redis" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/redis/" data-title="Redis" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/redis/" data-title="Redis"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/mysql/" class="prev" rel="prev" title="Mysql"><i class="fas fa-angle-left fa-fw"></i>Mysql</a>
+            <a href="/%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8/" class="next" rel="next" title="内存逃逸">内存逃逸<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

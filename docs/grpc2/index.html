@@ -1,0 +1,2103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>GPRC 进阶 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="GPRC 进阶" />
+<meta property="og:description" content="GPRC 进阶 grpc 除了提供四种请求类型之外，还支持很多高级功能：keepalive、请求重试、负载均衡、用户验证等。接下来一一介绍。 GRPC 进阶功能 每个gr" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/grpc2/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-03T10:17:16+08:00" />
+<meta property="article:modified_time" content="2021-12-03T10:17:16+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="GPRC 进阶"/>
+<meta name="twitter:description" content="GPRC 进阶 grpc 除了提供四种请求类型之外，还支持很多高级功能：keepalive、请求重试、负载均衡、用户验证等。接下来一一介绍。 GRPC 进阶功能 每个gr"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/grpc2/" /><link rel="prev" href="http://example.org/iscsi%E5%85%B1%E4%BA%AB%E7%A3%81%E7%9B%98%E6%9C%8D%E5%8A%A1/" /><link rel="next" href="http://example.org/grpc1/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "GPRC 进阶",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/grpc2\/"
+        },"genre": "posts","wordcount":  5629 ,
+        "url": "http:\/\/example.org\/grpc2\/","datePublished": "2021-12-03T10:17:16+08:00","dateModified": "2021-12-03T10:17:16+08:00","publisher": {
+            "@type": "Organization",
+            "name": "YZJ"},"author": {
+                "@type": "Person",
+                "name": "yzj"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="YZJ 的博客"> 文章 </a><a class="menu-item" href="/tags/" title="YZJ 的博客"> 标签 </a><a class="menu-item" href="/categories/" title="YZJ 的博客"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="YZJ 的博客">文章</a><a class="menu-item" href="/tags/" title="YZJ 的博客">标签</a><a class="menu-item" href="/categories/" title="YZJ 的博客">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">GPRC 进阶</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-03">2021-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5629 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 12 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#keepalive">Keepalive</a></li>
+    <li><a href="#请求重试">请求重试</a></li>
+    <li><a href="#负载均衡">负载均衡</a></li>
+    <li><a href="#grpc-加密传输">grpc 加密传输</a>
+      <ul>
+        <li><a href="#tls-证书">TLS 证书</a></li>
+        <li><a href="#ca-tls-证书">CA TLS 证书</a></li>
+      </ul>
+    </li>
+    <li><a href="#拦截器">拦截器</a></li>
+    <li><a href="#grpc-添加-pprof-接口">grpc 添加 pprof 接口</a></li>
+    <li><a href="#grpc-请求断开处理">grpc 请求断开处理</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="gprc-进阶">GPRC 进阶</h1>
+<p>grpc 除了提供四种请求类型之外，还支持很多高级功能：keepalive、请求重试、负载均衡、用户验证等。接下来一一介绍。</p>
+<h1 id="grpc-进阶功能">GRPC 进阶功能</h1>
+<blockquote>
+<p>每个grpc请求都是 stream。</p>
+</blockquote>
+<h2 id="keepalive">Keepalive</h2>
+<p>Keepalive 能够让 grpc 的每个 stream 保持长连接状态，适合一些执行时间长的请求。Keepalive 支持在服务端和客户端配置，且只有服务端配置后，客户端的配置才会真正有效。先给出实例的代码在来说明 grpc keepalive 的使用情况：server 实现：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// ...
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">kaep</span> <span class="p">=</span> <span class="nx">keepalive</span><span class="p">.</span><span class="nx">EnforcementPolicy</span><span class="p">{</span>
+	<span class="nx">MinTime</span><span class="p">:</span>             <span class="mi">5</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span> <span class="c1">// If a client pings more than once every 5 seconds, terminate the connection
+</span><span class="c1"></span>	<span class="nx">PermitWithoutStream</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>            <span class="c1">// Allow pings even when there are no active streams
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">kasp</span> <span class="p">=</span> <span class="nx">keepalive</span><span class="p">.</span><span class="nx">ServerParameters</span><span class="p">{</span>
+	<span class="nx">MaxConnectionIdle</span><span class="p">:</span>     <span class="mi">15</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span> <span class="c1">// If a client is idle for 15 seconds, send a GOAWAY
+</span><span class="c1"></span>	<span class="nx">MaxConnectionAge</span><span class="p">:</span>      <span class="mi">30</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span> <span class="c1">// If any connection is alive for more than 30 seconds, send a GOAWAY
+</span><span class="c1"></span>	<span class="nx">MaxConnectionAgeGrace</span><span class="p">:</span> <span class="mi">5</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span>  <span class="c1">// Allow 5 seconds for pending RPCs to complete before forcibly closing connections
+</span><span class="c1"></span>	<span class="nx">Time</span><span class="p">:</span>                  <span class="mi">5</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span>  <span class="c1">// Ping the client if it is idle for 5 seconds to ensure the connection is still active
+</span><span class="c1"></span>	<span class="nx">Timeout</span><span class="p">:</span>               <span class="mi">1</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span>  <span class="c1">// Wait 1 second for the ping ack before assuming the connection is dead
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="c1">// server implements EchoServer.
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">server</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">pb</span><span class="p">.</span><span class="nx">UnimplementedEchoServer</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">server</span><span class="p">)</span> <span class="nf">UnaryEcho</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">req</span> <span class="o">*</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoResponse</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoResponse</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">Message</span><span class="p">},</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">address</span> <span class="o">:=</span> <span class="s">&#34;50001&#34;</span>
+	<span class="nx">lis</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nf">Listen</span><span class="p">(</span><span class="s">&#34;tcp&#34;</span><span class="p">,</span> <span class="nx">address</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;failed to listen: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+  <span class="c1">// 创建 grpc server 时配置服务端的 keepalive
+</span><span class="c1"></span>	<span class="nx">s</span> <span class="o">:=</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">NewServer</span><span class="p">(</span><span class="nx">grpc</span><span class="p">.</span><span class="nf">KeepaliveEnforcementPolicy</span><span class="p">(</span><span class="nx">kaep</span><span class="p">),</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">KeepaliveParams</span><span class="p">(</span><span class="nx">kasp</span><span class="p">))</span>
+	<span class="nx">pb</span><span class="p">.</span><span class="nf">RegisterEchoServer</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">server</span><span class="p">{})</span>
+
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Serve</span><span class="p">(</span><span class="nx">lis</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;failed to serve: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>client 端实现：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// ...
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">kacp</span> <span class="p">=</span> <span class="nx">keepalive</span><span class="p">.</span><span class="nx">ClientParameters</span><span class="p">{</span>
+	<span class="nx">Time</span><span class="p">:</span>                <span class="mi">10</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span> <span class="c1">// send pings every 10 seconds if there is no activity
+</span><span class="c1"></span>	<span class="nx">Timeout</span><span class="p">:</span>             <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span>      <span class="c1">// wait 1 second for ping ack before considering the connection dead
+</span><span class="c1"></span>	<span class="nx">PermitWithoutStream</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>             <span class="c1">// send pings even without active streams
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">conn</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">Dial</span><span class="p">(</span><span class="s">&#34;50001&#34;</span><span class="p">,</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">WithInsecure</span><span class="p">(),</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">WithKeepaliveParams</span><span class="p">(</span><span class="nx">kacp</span><span class="p">))</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;did not connect: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">defer</span> <span class="nx">conn</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+
+	<span class="nx">c</span> <span class="o">:=</span> <span class="nx">pb</span><span class="p">.</span><span class="nf">NewEchoClient</span><span class="p">(</span><span class="nx">conn</span><span class="p">)</span>
+
+	<span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithTimeout</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">(),</span> <span class="mi">3</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Minute</span><span class="p">)</span>
+	<span class="k">defer</span> <span class="nf">cancel</span><span class="p">()</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Performing unary request&#34;</span><span class="p">)</span>
+	<span class="nx">res</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nf">UnaryEcho</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34;keepalive demo&#34;</span><span class="p">})</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;unexpected error from UnaryEcho: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;RPC response:&#34;</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>keepalive 的实现核心在于 <code>keepalive.EnforcementPolicy</code> 和 <code>keepalive.ServerParameters</code>。首先是 <code>keepalive.ServerParameters</code>。它包含几个属性：</p>
+<ul>
+<li>MaxConnectionIdle : 最大空闲连接时间，默认为无限制。这段时间为客户端 stream 请求为0 或者建立连接。超出这段时间后，serve 会发送一个 <code>GoWay</code>，强制 client stream 断开。</li>
+<li>MaxConnectionAge：最大连接时间，默认为无限制。stream 连接超出这个值是发送一个 <code>GoWay</code>。</li>
+<li>MaxConnectionAgeGrace ：超出<code>MaxConnectionAge</code>之后的宽限时长，默认无限制，最小为 1s。</li>
+<li>Time ：如果一段时间客户端存活但没有 pings 请求，服务端发送一次 ping 请求，默认是 2hour。</li>
+<li>Timeout：服务端发送 ping 请求超时的时间，默认20s。</li>
+</ul>
+<p><code>keepalive.EnforcementPolicy</code>在服务端强制执行策略，如果客户端违反改策略则断开连接。它有两个属性：</p>
+<ul>
+<li>MinTime : 如果在指定时间内收到 pings 请求大于一次，强制断开连接，默认 5min。</li>
+<li>PermitWithoutStream：没有活动的 stream 也允许pings。默认关闭。</li>
+</ul>
+<p><code>keepalive.ClientParameters</code>是在客户端这侧使用的 keepalive 配置：</p>
+<ul>
+<li>Time ：pings 请求间隔时间，默认无限制，最小为 10s。</li>
+<li>Timeout ：pings 超时时间，默认是 20s。</li>
+<li>PermitWithoutStream：没有活动的 stream 也允许pings。默认关闭。</li>
+</ul>
+<h2 id="请求重试">请求重试</h2>
+<p>grpc 支持请求重试，在客户端配置好规则之后，客户端会在请求失败之后尝试重新发起请求。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="p">(</span>
+	<span class="nx">retryPolicy</span> <span class="p">=</span> <span class="s">`{
+</span><span class="s">		&#34;methodConfig&#34;: [{
+</span><span class="s">		  &#34;name&#34;: [{&#34;service&#34;: &#34;mysite.pb.Echo&#34;}],
+</span><span class="s">		  &#34;waitForReady&#34;: true,
+</span><span class="s">		  &#34;retryPolicy&#34;: {
+</span><span class="s">			  &#34;MaxAttempts&#34;: 3,
+</span><span class="s">			  &#34;InitialBackoff&#34;: &#34;.01s&#34;,
+</span><span class="s">			  &#34;MaxBackoff&#34;: &#34;1s&#34;,
+</span><span class="s">			  &#34;BackoffMultiplier&#34;: 2.0,
+</span><span class="s">			  &#34;RetryableStatusCodes&#34;: [ &#34;UNAVAILABLE&#34; ]
+</span><span class="s">		  }
+</span><span class="s">		}]}`</span>
+<span class="p">)</span>
+
+<span class="c1">// use grpc.WithDefaultServiceConfig() to set service config
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">retryDial</span><span class="p">()</span> <span class="p">(</span><span class="o">*</span><span class="nx">grpc</span><span class="p">.</span><span class="nx">ClientConn</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">Dial</span><span class="p">(</span><span class="o">*</span><span class="nx">addr</span><span class="p">,</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">WithInsecure</span><span class="p">(),</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">WithDefaultServiceConfig</span><span class="p">(</span><span class="nx">retryPolicy</span><span class="p">))</span>
+<span class="p">}</span>
+<span class="c1">// ...
+</span></code></pre></td></tr></table>
+</div>
+</div><p>retry 配置只需要在客户端设置即可生效。主要是配置ServerConfig，格式为<a href="https://github.com/grpc/grpc-proto/blob/master/grpc/service_config/service_config.proto" target="_blank" rel="noopener noreffer">该链接</a></p>
+<ul>
+<li>MaxAttempts ：重试的最大次数，最大值是5。</li>
+<li>InitialBackoff : 初始化重试间隔时间，第一次重试去 <code>Randon(0,initialBackoff)</code>。</li>
+<li>MaxBackoff : 最大重试间隔时间，多次重试是，间隔时间取 <code>random(0,min(initial_backoff*backoff_multiplier**(n-1), max_backoff))</code>。</li>
+<li>RetryableStatusCodes : 设置需要重试的状态码。</li>
+</ul>
+<h2 id="负载均衡">负载均衡</h2>
+<p>grpc 支持客户端负载均衡策略，负载均衡在 grpc name_resolver 的基础上实现：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">const</span> <span class="p">(</span>
+	<span class="nx">exampleScheme</span>      <span class="p">=</span> <span class="s">&#34;example&#34;</span>
+	<span class="nx">exampleServiceName</span> <span class="p">=</span> <span class="s">&#34;lb.example.grpc.io&#34;</span>
+<span class="p">)</span>
+<span class="c1">// ...
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// ...
+</span><span class="c1"></span>	<span class="c1">// round_robin 指定负载均衡策略为轮询策略
+</span><span class="c1"></span>	<span class="nx">roundrobinConn</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">Dial</span><span class="p">(</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%s:///%s&#34;</span><span class="p">,</span> <span class="nx">exampleScheme</span><span class="p">,</span> <span class="nx">exampleServiceName</span><span class="p">),</span>
+		<span class="nx">grpc</span><span class="p">.</span><span class="nf">WithBalancerName</span><span class="p">(</span><span class="s">&#34;round_robin&#34;</span><span class="p">),</span> <span class="c1">// This sets the initial balancing policy.
+</span><span class="c1"></span>		<span class="nx">grpc</span><span class="p">.</span><span class="nf">WithInsecure</span><span class="p">(),</span>
+		<span class="nx">grpc</span><span class="p">.</span><span class="nf">WithBlock</span><span class="p">(),</span>
+	<span class="p">)</span>
+  <span class="c1">// ...
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="c1">// 配置 name resolver
+</span><span class="c1"></span>
+<span class="kd">type</span> <span class="nx">exampleResolverBuilder</span> <span class="kd">struct</span><span class="p">{}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="o">*</span><span class="nx">exampleResolverBuilder</span><span class="p">)</span> <span class="nf">Build</span><span class="p">(</span><span class="nx">target</span> <span class="nx">resolver</span><span class="p">.</span><span class="nx">Target</span><span class="p">,</span> <span class="nx">cc</span> <span class="nx">resolver</span><span class="p">.</span><span class="nx">ClientConn</span><span class="p">,</span> <span class="nx">opts</span> <span class="nx">resolver</span><span class="p">.</span><span class="nx">BuildOptions</span><span class="p">)</span> <span class="p">(</span><span class="nx">resolver</span><span class="p">.</span><span class="nx">Resolver</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">r</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">exampleResolver</span><span class="p">{</span>
+		<span class="nx">target</span><span class="p">:</span> <span class="nx">target</span><span class="p">,</span>
+		<span class="nx">cc</span><span class="p">:</span>     <span class="nx">cc</span><span class="p">,</span>
+		<span class="nx">addrsStore</span><span class="p">:</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">][]</span><span class="kt">string</span><span class="p">{</span>
+			<span class="nx">exampleServiceName</span><span class="p">:</span> <span class="nx">addrs</span><span class="p">,</span>
+		<span class="p">},</span>
+	<span class="p">}</span>
+	<span class="nx">r</span><span class="p">.</span><span class="nf">start</span><span class="p">()</span>
+	<span class="k">return</span> <span class="nx">r</span><span class="p">,</span> <span class="kc">nil</span>
+<span class="p">}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="o">*</span><span class="nx">exampleResolverBuilder</span><span class="p">)</span> <span class="nf">Scheme</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">exampleScheme</span> <span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">exampleResolver</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">target</span>     <span class="nx">resolver</span><span class="p">.</span><span class="nx">Target</span>
+	<span class="nx">cc</span>         <span class="nx">resolver</span><span class="p">.</span><span class="nx">ClientConn</span>
+	<span class="nx">addrsStore</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">][]</span><span class="kt">string</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">exampleResolver</span><span class="p">)</span> <span class="nf">start</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">addrStrs</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">addrsStore</span><span class="p">[</span><span class="nx">r</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">Endpoint</span><span class="p">]</span>
+	<span class="nx">addrs</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="nx">resolver</span><span class="p">.</span><span class="nx">Address</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">addrStrs</span><span class="p">))</span>
+	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">s</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">addrStrs</span> <span class="p">{</span>
+		<span class="nx">addrs</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">resolver</span><span class="p">.</span><span class="nx">Address</span><span class="p">{</span><span class="nx">Addr</span><span class="p">:</span> <span class="nx">s</span><span class="p">}</span>
+	<span class="p">}</span>
+	<span class="nx">r</span><span class="p">.</span><span class="nx">cc</span><span class="p">.</span><span class="nf">UpdateState</span><span class="p">(</span><span class="nx">resolver</span><span class="p">.</span><span class="nx">State</span><span class="p">{</span><span class="nx">Addresses</span><span class="p">:</span> <span class="nx">addrs</span><span class="p">})</span>
+<span class="p">}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="o">*</span><span class="nx">exampleResolver</span><span class="p">)</span> <span class="nf">ResolveNow</span><span class="p">(</span><span class="nx">o</span> <span class="nx">resolver</span><span class="p">.</span><span class="nx">ResolveNowOptions</span><span class="p">)</span> <span class="p">{}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="o">*</span><span class="nx">exampleResolver</span><span class="p">)</span> <span class="nf">Close</span><span class="p">()</span>                                  <span class="p">{}</span>
+
+<span class="kd">func</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">resolver</span><span class="p">.</span><span class="nf">Register</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">exampleResolverBuilder</span><span class="p">{})</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>主要是要实现 <code>resolver.Builder</code>接口</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Builder creates a resolver that will be used to watch name resolution updates.
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Builder</span> <span class="kd">interface</span> <span class="p">{</span>
+	<span class="c1">// Build creates a new resolver for the given target.
+</span><span class="c1"></span>	<span class="c1">//
+</span><span class="c1"></span>	<span class="c1">// gRPC dial calls Build synchronously, and fails if the returned error is
+</span><span class="c1"></span>	<span class="c1">// not nil.
+</span><span class="c1"></span>	<span class="nf">Build</span><span class="p">(</span><span class="nx">target</span> <span class="nx">Target</span><span class="p">,</span> <span class="nx">cc</span> <span class="nx">ClientConn</span><span class="p">,</span> <span class="nx">opts</span> <span class="nx">BuildOptions</span><span class="p">)</span> <span class="p">(</span><span class="nx">Resolver</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+	<span class="c1">// Scheme returns the scheme supported by this resolver.
+</span><span class="c1"></span>	<span class="c1">// Scheme is defined at &lt;https://github.com/grpc/grpc/blob/master/doc/naming.md&gt;.
+</span><span class="c1"></span>	<span class="nf">Scheme</span><span class="p">()</span> <span class="kt">string</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>上面的实现方式不支持动态增减服务端地址，可以使用 etcd 实现负载均衡：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">etcdBuilder</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">prefix</span>    <span class="kt">string</span>
+	<span class="nx">endpoints</span> <span class="p">[]</span><span class="kt">string</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">ETCDBuilder</span><span class="p">(</span><span class="nx">prefix</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">endpoints</span> <span class="p">[]</span><span class="kt">string</span><span class="p">)</span> <span class="nx">resolver</span><span class="p">.</span><span class="nx">Builder</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">etcdBuilder</span><span class="p">{</span><span class="nx">prefix</span><span class="p">,</span> <span class="nx">endpoints</span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">etcdBuilder</span><span class="p">)</span> <span class="nf">Build</span><span class="p">(</span><span class="nx">target</span> <span class="nx">resolver</span><span class="p">.</span><span class="nx">Target</span><span class="p">,</span> <span class="nx">cc</span> <span class="nx">resolver</span><span class="p">.</span><span class="nx">ClientConn</span><span class="p">,</span> <span class="nx">opts</span> <span class="nx">resolver</span><span class="p">.</span><span class="nx">BuildOptions</span><span class="p">)</span> <span class="p">(</span><span class="nx">resolver</span><span class="p">.</span><span class="nx">Resolver</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">cli</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
+		<span class="nx">Endpoints</span><span class="p">:</span>   <span class="nx">b</span><span class="p">.</span><span class="nx">endpoints</span><span class="p">,</span>
+		<span class="nx">DialTimeout</span><span class="p">:</span> <span class="mi">3</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span>
+	<span class="p">})</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;connect to etcd endpoints error&#34;</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithCancel</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">())</span>
+	<span class="nx">rlv</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">etcdResolver</span><span class="p">{</span>
+		<span class="nx">cc</span><span class="p">:</span>             <span class="nx">cc</span><span class="p">,</span>
+		<span class="nx">cli</span><span class="p">:</span>            <span class="nx">cli</span><span class="p">,</span>
+		<span class="nx">ctx</span><span class="p">:</span>            <span class="nx">ctx</span><span class="p">,</span>
+		<span class="nx">cancel</span><span class="p">:</span>         <span class="nx">cancel</span><span class="p">,</span>
+		<span class="nx">watchKeyPrefix</span><span class="p">:</span> <span class="nx">b</span><span class="p">.</span><span class="nx">prefix</span><span class="p">,</span>
+		<span class="nx">freq</span><span class="p">:</span>           <span class="mi">5</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span>
+		<span class="nx">t</span><span class="p">:</span>              <span class="nx">time</span><span class="p">.</span><span class="nf">NewTimer</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+		<span class="nx">rn</span><span class="p">:</span>             <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{},</span> <span class="mi">1</span><span class="p">),</span>
+		<span class="nx">im</span><span class="p">:</span>             <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="p">[]</span><span class="nx">resolver</span><span class="p">.</span><span class="nx">Address</span><span class="p">),</span>
+		<span class="nx">wg</span><span class="p">:</span>             <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">{},</span>
+	<span class="p">}</span>
+
+	<span class="nx">rlv</span><span class="p">.</span><span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nx">rlv</span><span class="p">.</span><span class="nf">watcher</span><span class="p">()</span>
+	<span class="k">go</span> <span class="nx">rlv</span><span class="p">.</span><span class="nf">FetchBackendsWithWatch</span><span class="p">()</span>
+
+	<span class="k">return</span> <span class="nx">rlv</span><span class="p">,</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">etcdBuilder</span><span class="p">)</span> <span class="nf">Scheme</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="s">&#34;etcd&#34;</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">etcdResolver</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">retry</span>  <span class="kt">int</span>
+	<span class="nx">freq</span>   <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span>
+	<span class="nx">ctx</span>    <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span>
+	<span class="nx">cancel</span> <span class="nx">context</span><span class="p">.</span><span class="nx">CancelFunc</span>
+	<span class="nx">cc</span>     <span class="nx">resolver</span><span class="p">.</span><span class="nx">ClientConn</span>
+	<span class="nx">cli</span>    <span class="o">*</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">Client</span>
+	<span class="nx">t</span>      <span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Timer</span>
+
+	<span class="nx">watchKeyPrefix</span> <span class="kt">string</span>
+
+	<span class="nx">rn</span> <span class="kd">chan</span> <span class="kd">struct</span><span class="p">{}</span>
+	<span class="nx">im</span> <span class="kd">chan</span> <span class="p">[]</span><span class="nx">resolver</span><span class="p">.</span><span class="nx">Address</span>
+
+	<span class="nx">wg</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">etcdResolver</span><span class="p">)</span> <span class="nf">ResolveNow</span><span class="p">(</span><span class="nx">opt</span> <span class="nx">resolver</span><span class="p">.</span><span class="nx">ResolveNowOptions</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">select</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="nx">r</span><span class="p">.</span><span class="nx">rn</span> <span class="o">&lt;-</span> <span class="kd">struct</span><span class="p">{}{}:</span>
+        <span class="k">default</span><span class="p">:</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">etcdResolver</span><span class="p">)</span> <span class="nf">Close</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">r</span><span class="p">.</span><span class="nf">cancel</span><span class="p">()</span>
+	<span class="nx">r</span><span class="p">.</span><span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
+	<span class="nx">r</span><span class="p">.</span><span class="nx">t</span><span class="p">.</span><span class="nf">Stop</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">etcdResolver</span><span class="p">)</span> <span class="nf">watcher</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">defer</span> <span class="nx">r</span><span class="p">.</span><span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
+
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="k">select</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">r</span><span class="p">.</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span>
+			<span class="k">return</span>
+		<span class="k">case</span> <span class="nx">addrs</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">r</span><span class="p">.</span><span class="nx">im</span><span class="p">:</span>
+			<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">addrs</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+				<span class="nx">r</span><span class="p">.</span><span class="nx">retry</span> <span class="p">=</span> <span class="mi">0</span>
+				<span class="nx">r</span><span class="p">.</span><span class="nx">t</span><span class="p">.</span><span class="nf">Reset</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">freq</span><span class="p">)</span>
+				<span class="nx">r</span><span class="p">.</span><span class="nx">cc</span><span class="p">.</span><span class="nf">UpdateState</span><span class="p">(</span><span class="nx">resolver</span><span class="p">.</span><span class="nx">State</span><span class="p">{</span><span class="nx">Addresses</span><span class="p">:</span> <span class="nx">addrs</span><span class="p">})</span>
+				<span class="k">continue</span>
+			<span class="p">}</span>
+		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">r</span><span class="p">.</span><span class="nx">t</span><span class="p">.</span><span class="nx">C</span><span class="p">:</span>
+		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">r</span><span class="p">.</span><span class="nx">rn</span><span class="p">:</span>
+		<span class="p">}</span>
+
+		<span class="nx">result</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nf">FetchBackends</span><span class="p">()</span>
+
+		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+			<span class="nx">r</span><span class="p">.</span><span class="nx">retry</span><span class="o">++</span>
+			<span class="nx">r</span><span class="p">.</span><span class="nx">t</span><span class="p">.</span><span class="nf">Reset</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">freq</span><span class="p">)</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="nx">r</span><span class="p">.</span><span class="nx">retry</span> <span class="p">=</span> <span class="mi">0</span>
+			<span class="nx">r</span><span class="p">.</span><span class="nx">t</span><span class="p">.</span><span class="nf">Reset</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">freq</span><span class="p">)</span>
+		<span class="p">}</span>
+
+		<span class="nx">r</span><span class="p">.</span><span class="nx">cc</span><span class="p">.</span><span class="nf">UpdateState</span><span class="p">(</span><span class="nx">resolver</span><span class="p">.</span><span class="nx">State</span><span class="p">{</span><span class="nx">Addresses</span><span class="p">:</span> <span class="nx">result</span><span class="p">})</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">etcdResolver</span><span class="p">)</span> <span class="nf">FetchBackendsWithWatch</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">defer</span> <span class="nx">r</span><span class="p">.</span><span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
+
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="k">select</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">r</span><span class="p">.</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span>
+			<span class="k">return</span>
+		<span class="k">case</span> <span class="nx">_</span> <span class="p">=</span> <span class="o">&lt;-</span><span class="nx">r</span><span class="p">.</span><span class="nx">cli</span><span class="p">.</span><span class="nf">Watch</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">r</span><span class="p">.</span><span class="nx">watchKeyPrefix</span><span class="p">,</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nf">WithPrefix</span><span class="p">()):</span>
+			<span class="nx">result</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nf">FetchBackends</span><span class="p">()</span>
+			<span class="nx">r</span><span class="p">.</span><span class="nx">im</span> <span class="o">&lt;-</span> <span class="nx">result</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">etcdResolver</span><span class="p">)</span> <span class="nf">FetchBackends</span><span class="p">()</span> <span class="p">[]</span><span class="nx">resolver</span><span class="p">.</span><span class="nx">Address</span> <span class="p">{</span>
+	<span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithTimeout</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">(),</span> <span class="mi">3</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+	<span class="k">defer</span> <span class="nf">cancel</span><span class="p">()</span>
+
+	<span class="nx">result</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="nx">resolver</span><span class="p">.</span><span class="nx">Address</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+	<span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">cli</span><span class="p">.</span><span class="nf">Get</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">r</span><span class="p">.</span><span class="nx">watchKeyPrefix</span><span class="p">,</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nf">WithPrefix</span><span class="p">())</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">result</span>
+	<span class="p">}</span>
+
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">kv</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Kvs</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">TrimSpace</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">kv</span><span class="p">.</span><span class="nx">Value</span><span class="p">))</span> <span class="o">==</span> <span class="s">&#34;&#34;</span> <span class="p">{</span>
+			<span class="k">continue</span>
+		<span class="p">}</span>
+		<span class="nx">result</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="nx">resolver</span><span class="p">.</span><span class="nx">Address</span><span class="p">{</span><span class="nx">Addr</span><span class="p">:</span> <span class="nb">string</span><span class="p">(</span><span class="nx">kv</span><span class="p">.</span><span class="nx">Value</span><span class="p">)})</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">result</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="grpc-加密传输">grpc 加密传输</h2>
+<p>以上的请求中，grpc 都是通过明文传输数据。但这种方式是很容易泄露数据内容的，grpc 支持 TLS 格式的加密通讯，来保存数据传输的安全性。</p>
+<h3 id="tls-证书">TLS 证书</h3>
+<p>我们首先来生成 TLS 证书</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">openssl ecparam -genkey -name secp384r1 -out server.key
+openssl req -new -x509 -sha256 -key server.key -out server.pem -days <span class="m">3650</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里需要填写相关信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">Country Name <span class="o">(</span><span class="m">2</span> letter code<span class="o">)</span> <span class="o">[]</span>:
+State or Province Name <span class="o">(</span>full name<span class="o">)</span> <span class="o">[]</span>:
+Locality Name <span class="o">(</span>eg, city<span class="o">)</span> <span class="o">[]</span>:
+Organization Name <span class="o">(</span>eg, company<span class="o">)</span> <span class="o">[]</span>:
+Organizational Unit Name <span class="o">(</span>eg, section<span class="o">)</span> <span class="o">[]</span>:
+Common Name <span class="o">(</span>eg, fully qualified host name<span class="o">)</span> <span class="o">[]</span>: mysite
+Email Address <span class="o">[]</span>:
+</code></pre></td></tr></table>
+</div>
+</div><p>填写完成后就生成对应的证书：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">ssl
+├── server.key
+└── server.pem
+</code></pre></td></tr></table>
+</div>
+</div><p>服务端实现</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// ...
+</span><span class="c1"></span><span class="kd">const</span> <span class="nx">PORT</span> <span class="p">=</span> <span class="s">&#34;50001&#34;</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// 通过 credentials 加载服务端的TLS证书
+</span><span class="c1"></span>    <span class="nx">c</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">credentials</span><span class="p">.</span><span class="nf">NewServerTLSFromFile</span><span class="p">(</span><span class="s">&#34;../ssl/server.pem&#34;</span><span class="p">,</span> <span class="s">&#34;../ssl/server.key&#34;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;credentials.NewServerTLSFromFile err: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+    <span class="p">}</span>
+		
+  	<span class="c1">// 添加 credentials 配置
+</span><span class="c1"></span>    <span class="nx">server</span> <span class="o">:=</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">NewServer</span><span class="p">(</span><span class="nx">grpc</span><span class="p">.</span><span class="nf">Creds</span><span class="p">(</span><span class="nx">c</span><span class="p">))</span>
+    <span class="nx">pb</span><span class="p">.</span><span class="nf">RegisterSearchServiceServer</span><span class="p">(</span><span class="nx">server</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">SearchService</span><span class="p">{})</span>
+
+    <span class="nx">lis</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nf">Listen</span><span class="p">(</span><span class="s">&#34;tcp&#34;</span><span class="p">,</span> <span class="s">&#34;:&#34;</span><span class="o">+</span><span class="nx">PORT</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;net.Listen err: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="nx">server</span><span class="p">.</span><span class="nf">Serve</span><span class="p">(</span><span class="nx">lis</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>客户端实现</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">const</span> <span class="nx">PORT</span> <span class="p">=</span> <span class="s">&#34;9001&#34;</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// 添加 credentials 配置
+</span><span class="c1"></span>    <span class="nx">c</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">credentials</span><span class="p">.</span><span class="nf">NewClientTLSFromFile</span><span class="p">(</span><span class="s">&#34;../ssl/server.pem&#34;</span><span class="p">,</span> <span class="s">&#34;mysite&#34;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;credentials.NewClientTLSFromFile err: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+    <span class="p">}</span>
+
+  	<span class="c1">// 客户端开启证书验证
+</span><span class="c1"></span>    <span class="nx">conn</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">Dial</span><span class="p">(</span><span class="s">&#34;:&#34;</span><span class="o">+</span><span class="nx">PORT</span><span class="p">,</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">WithTransportCredentials</span><span class="p">(</span><span class="nx">c</span><span class="p">))</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;grpc.Dial err: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">defer</span> <span class="nx">conn</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+
+    <span class="nx">client</span> <span class="o">:=</span> <span class="nx">pb</span><span class="p">.</span><span class="nf">NewSearchServiceClient</span><span class="p">(</span><span class="nx">conn</span><span class="p">)</span>
+    <span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">client</span><span class="p">.</span><span class="nf">Search</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">(),</span> <span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">SearchRequest</span><span class="p">{</span>
+        <span class="nx">Request</span><span class="p">:</span> <span class="s">&#34;gRPC&#34;</span><span class="p">,</span>
+    <span class="p">})</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;client.Search err: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;resp: %s&#34;</span><span class="p">,</span> <span class="nx">resp</span><span class="p">.</span><span class="nf">GetResponse</span><span class="p">())</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="ca-tls-证书">CA TLS 证书</h3>
+<p>TLS 证书的安全性还不够高，特别在证书生成之后，<code>server.key</code>文件的传输就成为一个问题。所以 CA 来签发 TLS 证书来解决这个问题。使用开源工具 <a href="https://github.com/cloudflare/cfssl/releases" target="_blank" rel="noopener noreffer">cfssl</a> 生成对应的证书：<a href="http://1.ca/" target="_blank" rel="noopener noreffer">1.ca</a> 配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cat <span class="s">&lt;&lt; EOF | tee ca-config.json
+</span><span class="s">{
+</span><span class="s">  &#34;signing&#34;: {
+</span><span class="s">    &#34;default&#34;: {
+</span><span class="s">      &#34;expiry&#34;: &#34;87600h&#34;
+</span><span class="s">    },
+</span><span class="s">    &#34;profiles&#34;: {
+</span><span class="s">      &#34;mysite&#34;: {
+</span><span class="s">         &#34;expiry&#34;: &#34;87600h&#34;,
+</span><span class="s">         &#34;usages&#34;: [
+</span><span class="s">            &#34;signing&#34;,
+</span><span class="s">            &#34;key encipherment&#34;,
+</span><span class="s">            &#34;server auth&#34;,
+</span><span class="s">            &#34;client auth&#34;
+</span><span class="s">        ]
+</span><span class="s">      }
+</span><span class="s">    }
+</span><span class="s">  }}
+</span><span class="s">EOF</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>配置 mysite 机构证书可以进行服务端和客户端双向验证。<a href="http://2.ca/" target="_blank" rel="noopener noreffer">2.ca</a> 证书</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cat <span class="s">&lt;&lt; EOF | tee ca-csr.json
+</span><span class="s">{
+</span><span class="s">    &#34;CN&#34;: &#34;mysite CA&#34;,
+</span><span class="s">    &#34;key&#34;: {
+</span><span class="s">        &#34;algo&#34;: &#34;rsa&#34;,
+</span><span class="s">        &#34;size&#34;: 2048
+</span><span class="s">    },
+</span><span class="s">    &#34;names&#34;: [
+</span><span class="s">        {
+</span><span class="s">            &#34;C&#34;: &#34;CN&#34;,
+</span><span class="s">            &#34;L&#34;: &#34;Beijing&#34;,
+</span><span class="s">            &#34;ST&#34;: &#34;Beijing&#34;
+</span><span class="s">        }
+</span><span class="s">    ]}
+</span><span class="s">EOF</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>3.服务端证书</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cat <span class="s">&lt;&lt; EOF | tee server-csr.json
+</span><span class="s">{
+</span><span class="s">    &#34;CN&#34;: &#34;mysite&#34;,
+</span><span class="s">    &#34;hosts&#34;: [
+</span><span class="s">        &#34;127.0.0.1&#34;
+</span><span class="s">    ],
+</span><span class="s">    &#34;key&#34;: {
+</span><span class="s">        &#34;algo&#34;: &#34;rsa&#34;,
+</span><span class="s">        &#34;size&#34;: 2048
+</span><span class="s">    },
+</span><span class="s">    &#34;names&#34;: [
+</span><span class="s">        {
+</span><span class="s">            &#34;C&#34;: &#34;CN&#34;,
+</span><span class="s">            &#34;L&#34;: &#34;Beijing&#34;,
+</span><span class="s">            &#34;ST&#34;: &#34;Beijing&#34;
+</span><span class="s">        }
+</span><span class="s">    ]}
+</span><span class="s">EOF</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>生成 mysite ca 证书和私钥，初始化 ca</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cfssl gencert -initca ca-csr.json <span class="p">|</span> cfssljson -bare ca
+</code></pre></td></tr></table>
+</div>
+</div><p>生成server证书</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cfssl gencert -ca<span class="o">=</span>ca.pem -ca-key<span class="o">=</span>ca-key.pem -config<span class="o">=</span>ca-config.json -profile<span class="o">=</span>mysite -hostname<span class="o">=</span>mysite server-csr.json <span class="p">|</span> cfssljson -bare server
+</code></pre></td></tr></table>
+</div>
+</div><p>最后的结果为:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">../ssl
+├── ca-config.json
+├── ca-csr.json
+├── ca-key.pem
+├── ca.csr
+├── ca.pem
+├── server-csr.json
+├── server-key.pem
+├── server.csr
+└── server.pem
+</code></pre></td></tr></table>
+</div>
+</div><p>接下来是代码实现，先是服务端：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// ...
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">ecServer</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">pb</span><span class="p">.</span><span class="nx">UnimplementedEchoServer</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">ecServer</span><span class="p">)</span> <span class="nf">UnaryEcho</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">req</span> <span class="o">*</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoResponse</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoResponse</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">Message</span><span class="p">},</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">lis</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nf">Listen</span><span class="p">(</span><span class="s">&#34;tcp&#34;</span><span class="p">,</span> <span class="s">&#34;127.0.0.1:50001&#34;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;failed to listen: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="c1">// Create tls based credential.
+</span><span class="c1"></span>	<span class="nx">cert</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">tls</span><span class="p">.</span><span class="nf">LoadX509KeyPair</span><span class="p">(</span><span class="s">&#34;ssl/server.pem&#34;</span><span class="p">,</span> <span class="s">&#34;ssl/server-key.pem&#34;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;tls.LoadX509KeyPair err: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="nx">certPool</span> <span class="o">:=</span> <span class="nx">x509</span><span class="p">.</span><span class="nf">NewCertPool</span><span class="p">()</span>
+	<span class="nx">ca</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadFile</span><span class="p">(</span><span class="s">&#34;ssl/ca.pem&#34;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;ioutil.ReadFile err: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">if</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">certPool</span><span class="p">.</span><span class="nf">AppendCertsFromPEM</span><span class="p">(</span><span class="nx">ca</span><span class="p">);</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;certPool.AppendCertsFromPEM err&#34;</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="nx">creds</span> <span class="o">:=</span> <span class="nx">credentials</span><span class="p">.</span><span class="nf">NewTLS</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">tls</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
+		<span class="nx">Certificates</span><span class="p">:</span> <span class="p">[]</span><span class="nx">tls</span><span class="p">.</span><span class="nx">Certificate</span><span class="p">{</span><span class="nx">cert</span><span class="p">},</span>
+		<span class="nx">ClientAuth</span><span class="p">:</span>   <span class="nx">tls</span><span class="p">.</span><span class="nx">RequireAndVerifyClientCert</span><span class="p">,</span>
+		<span class="nx">ClientCAs</span><span class="p">:</span>    <span class="nx">certPool</span><span class="p">,</span>
+	<span class="p">})</span>
+
+	<span class="nx">s</span> <span class="o">:=</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">NewServer</span><span class="p">(</span><span class="nx">grpc</span><span class="p">.</span><span class="nf">Creds</span><span class="p">(</span><span class="nx">creds</span><span class="p">))</span>
+
+	<span class="c1">// Register EchoServer on the server.
+</span><span class="c1"></span>	<span class="nx">pb</span><span class="p">.</span><span class="nf">RegisterEchoServer</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">ecServer</span><span class="p">{})</span>
+
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;server start&#34;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Serve</span><span class="p">(</span><span class="nx">lis</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;failed to serve: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后是客户端：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// ...
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">callUnaryEcho</span><span class="p">(</span><span class="nx">client</span> <span class="nx">pb</span><span class="p">.</span><span class="nx">EchoClient</span><span class="p">,</span> <span class="nx">message</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithTimeout</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">(),</span> <span class="mi">10</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+	<span class="k">defer</span> <span class="nf">cancel</span><span class="p">()</span>
+	<span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">client</span><span class="p">.</span><span class="nf">UnaryEcho</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="nx">message</span><span class="p">})</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;client.UnaryEcho(_) = _, %v: &#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;UnaryEcho: &#34;</span><span class="p">,</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="c1">// Create tls based credential.
+</span><span class="c1"></span>	<span class="nx">cert</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">tls</span><span class="p">.</span><span class="nf">LoadX509KeyPair</span><span class="p">(</span><span class="s">&#34;ssl/server.pem&#34;</span><span class="p">,</span> <span class="s">&#34;ssl/server-key.pem&#34;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;tls.LoadX509KeyPair err: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="nx">certPool</span> <span class="o">:=</span> <span class="nx">x509</span><span class="p">.</span><span class="nf">NewCertPool</span><span class="p">()</span>
+	<span class="nx">ca</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadFile</span><span class="p">(</span><span class="s">&#34;ssl/ca.pem&#34;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;ioutil.ReadFile err: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">if</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">certPool</span><span class="p">.</span><span class="nf">AppendCertsFromPEM</span><span class="p">(</span><span class="nx">ca</span><span class="p">);</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;certPool.AppendCertsFromPEM err&#34;</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="nx">creds</span> <span class="o">:=</span> <span class="nx">credentials</span><span class="p">.</span><span class="nf">NewTLS</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">tls</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
+		<span class="nx">Certificates</span><span class="p">:</span> <span class="p">[]</span><span class="nx">tls</span><span class="p">.</span><span class="nx">Certificate</span><span class="p">{</span><span class="nx">cert</span><span class="p">},</span>
+		<span class="nx">ServerName</span><span class="p">:</span>   <span class="s">&#34;mysite&#34;</span><span class="p">,</span>
+		<span class="nx">RootCAs</span><span class="p">:</span>      <span class="nx">certPool</span><span class="p">,</span>
+	<span class="p">})</span>
+
+	<span class="c1">// Set up a connection to the server.
+</span><span class="c1"></span>	<span class="nx">conn</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">Dial</span><span class="p">(</span><span class="s">&#34;127.0.0.1:50001&#34;</span><span class="p">,</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">WithTransportCredentials</span><span class="p">(</span><span class="nx">creds</span><span class="p">))</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;did not connect: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">defer</span> <span class="nx">conn</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+
+	<span class="c1">// Make a echo client and send an RPC.
+</span><span class="c1"></span>	<span class="nx">rgc</span> <span class="o">:=</span> <span class="nx">pb</span><span class="p">.</span><span class="nf">NewEchoClient</span><span class="p">(</span><span class="nx">conn</span><span class="p">)</span>
+	<span class="nf">callUnaryEcho</span><span class="p">(</span><span class="nx">rgc</span><span class="p">,</span> <span class="s">&#34;hello world&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="拦截器">拦截器</h2>
+<p>grpc 支持服务端和客户端的拦截器，可以在请求发起或返回前进行处理，而不用修改原来的代码。接下来来看服务端和客户端各自怎么使用拦截器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// unary 请求拦截器
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">UnaryInterceptor</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span>
+	<span class="nx">req</span> <span class="kd">interface</span><span class="p">{},</span>
+	<span class="nx">info</span> <span class="o">*</span><span class="nx">grpc</span><span class="p">.</span><span class="nx">UnaryServerInfo</span><span class="p">,</span>
+	<span class="nx">handler</span> <span class="nx">grpc</span><span class="p">.</span><span class="nx">UnaryHandler</span><span class="p">,</span>
+<span class="p">)</span> <span class="p">(</span><span class="nx">resp</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">ip</span> <span class="kt">string</span>
+	<span class="nx">p</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">peer</span><span class="p">.</span><span class="nf">FromContext</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">ok</span> <span class="p">{</span>
+		<span class="nx">ip</span> <span class="p">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">Addr</span><span class="p">.</span><span class="nf">String</span><span class="p">()</span>
+	<span class="p">}</span>
+	<span class="nx">md</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">metadata</span><span class="p">.</span><span class="nf">FromIncomingContext</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+	<span class="nx">start</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+	<span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nf">handler</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">req</span><span class="p">)</span>
+	<span class="nx">end</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%10s | %14s | %10v | md=%v | reply = %v&#34;</span><span class="p">,</span> <span class="nx">ip</span><span class="p">,</span> <span class="nx">info</span><span class="p">.</span><span class="nx">FullMethod</span><span class="p">,</span> <span class="nx">end</span><span class="p">.</span><span class="nf">Sub</span><span class="p">(</span><span class="nx">start</span><span class="p">),</span> <span class="nx">md</span><span class="p">,</span> <span class="nx">resp</span><span class="p">)</span>
+	<span class="k">return</span>
+<span class="p">}</span>
+
+<span class="c1">// stream 请求拦截器
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">StreamInterceptor</span><span class="p">(</span><span class="nx">srv</span> <span class="kd">interface</span><span class="p">{},</span>
+	<span class="nx">ss</span> <span class="nx">grpc</span><span class="p">.</span><span class="nx">ServerStream</span><span class="p">,</span>
+	<span class="nx">info</span> <span class="o">*</span><span class="nx">grpc</span><span class="p">.</span><span class="nx">StreamServerInfo</span><span class="p">,</span>
+	<span class="nx">handler</span> <span class="nx">grpc</span><span class="p">.</span><span class="nx">StreamHandler</span><span class="p">,</span>
+<span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">ip</span> <span class="kt">string</span>
+	<span class="nx">p</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">peer</span><span class="p">.</span><span class="nf">FromContext</span><span class="p">(</span><span class="nx">ss</span><span class="p">.</span><span class="nf">Context</span><span class="p">())</span>
+	<span class="k">if</span> <span class="nx">ok</span> <span class="p">{</span>
+		<span class="nx">ip</span> <span class="p">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">Addr</span><span class="p">.</span><span class="nf">String</span><span class="p">()</span>
+	<span class="p">}</span>
+	<span class="nx">err</span> <span class="p">=</span> <span class="nf">handler</span><span class="p">(</span><span class="nx">srv</span><span class="p">,</span> <span class="nx">ss</span><span class="p">)</span>
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;stream %v | %v | %s\\n&#34;</span><span class="p">,</span> <span class="nx">srv</span><span class="p">,</span> <span class="nx">ip</span><span class="p">,</span> <span class="nx">info</span><span class="p">.</span><span class="nx">FullMethod</span><span class="p">)</span>
+	<span class="k">return</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">server</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">pb</span><span class="p">.</span><span class="nx">UnimplementedEchoServer</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">server</span><span class="p">)</span> <span class="nf">UnaryEcho</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">request</span> <span class="o">*</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoResponse</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoResponse</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="nx">request</span><span class="p">.</span><span class="nx">Message</span><span class="p">},</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">server</span><span class="p">)</span> <span class="nf">BidirectionalStreamingEcho</span><span class="p">(</span><span class="nx">stream</span> <span class="nx">pb</span><span class="p">.</span><span class="nx">Echo_BidirectionalStreamingEchoServer</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+	<span class="nx">ctx</span> <span class="o">:=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Context</span><span class="p">()</span>
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="k">select</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span>
+			<span class="k">break</span>
+		<span class="k">default</span><span class="p">:</span>
+		<span class="p">}</span>
+
+		<span class="nx">msg</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Recv</span><span class="p">()</span>
+		<span class="k">if</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">Is</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">io</span><span class="p">.</span><span class="nx">EOF</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">break</span>
+		<span class="p">}</span>
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;recv failed: %v\\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+		<span class="p">}</span>
+
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoResponse</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34;reply: &#34;</span> <span class="o">+</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">Message</span><span class="p">});</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;send to client: %v\\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">addr</span> <span class="o">:=</span> <span class="s">&#34;127.0.0.1:50001&#34;</span>
+
+	<span class="nx">lis</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nf">Listen</span><span class="p">(</span><span class="s">&#34;tcp&#34;</span><span class="p">,</span> <span class="nx">addr</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;network at %v: %v\\n&#34;</span><span class="p">,</span> <span class="nx">addr</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="nx">s</span> <span class="o">:=</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">NewServer</span><span class="p">(</span><span class="nx">grpc</span><span class="p">.</span><span class="nf">ChainUnaryInterceptor</span><span class="p">(</span><span class="nx">UnaryInterceptor</span><span class="p">),</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">ChainStreamInterceptor</span><span class="p">(</span><span class="nx">StreamInterceptor</span><span class="p">))</span>
+	<span class="nx">pb</span><span class="p">.</span><span class="nf">RegisterEchoServer</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">server</span><span class="p">{})</span>
+
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Serve</span><span class="p">(</span><span class="nx">lis</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;start server at %v: %v\\n&#34;</span><span class="p">,</span> <span class="nx">addr</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>grpc 中的拦截器分两种，一元请求的拦截器和流式请求的拦截器。其中流式请求的连接器同时作用于服务端流式、客户端流式和双向流式三种请求模式。
+接下来是客户端：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">clientUnaryInterceptor</span><span class="p">(</span>
+	<span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span>
+	<span class="nx">method</span> <span class="kt">string</span><span class="p">,</span>
+	<span class="nx">req</span><span class="p">,</span> <span class="nx">reply</span> <span class="kd">interface</span><span class="p">{},</span>
+	<span class="nx">cc</span> <span class="o">*</span><span class="nx">grpc</span><span class="p">.</span><span class="nx">ClientConn</span><span class="p">,</span>
+	<span class="nx">invoker</span> <span class="nx">grpc</span><span class="p">.</span><span class="nx">UnaryInvoker</span><span class="p">,</span>
+	<span class="nx">opts</span> <span class="o">...</span><span class="nx">grpc</span><span class="p">.</span><span class="nx">CallOption</span><span class="p">,</span>
+<span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+
+	<span class="nx">ctx</span> <span class="p">=</span> <span class="nx">metadata</span><span class="p">.</span><span class="nf">AppendToOutgoingContext</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="s">&#34;username&#34;</span><span class="p">,</span> <span class="s">&#34;OOB&#34;</span><span class="p">)</span>
+	<span class="nx">err</span> <span class="p">=</span> <span class="nf">invoker</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">method</span><span class="p">,</span> <span class="nx">req</span><span class="p">,</span> <span class="nx">reply</span><span class="p">,</span> <span class="nx">cc</span><span class="p">,</span> <span class="nx">opts</span><span class="o">...</span><span class="p">)</span>
+	<span class="k">return</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">clientStreamInterceptor</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span>
+	<span class="nx">desc</span> <span class="o">*</span><span class="nx">grpc</span><span class="p">.</span><span class="nx">StreamDesc</span><span class="p">,</span>
+	<span class="nx">cc</span> <span class="o">*</span><span class="nx">grpc</span><span class="p">.</span><span class="nx">ClientConn</span><span class="p">,</span>
+	<span class="nx">method</span> <span class="kt">string</span><span class="p">,</span>
+	<span class="nx">streamer</span> <span class="nx">grpc</span><span class="p">.</span><span class="nx">Streamer</span><span class="p">,</span>
+	<span class="nx">opts</span> <span class="o">...</span><span class="nx">grpc</span><span class="p">.</span><span class="nx">CallOption</span><span class="p">,</span>
+<span class="p">)</span> <span class="p">(</span><span class="nx">stream</span> <span class="nx">grpc</span><span class="p">.</span><span class="nx">ClientStream</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+
+	<span class="c1">// before stream
+</span><span class="c1"></span>	<span class="nx">stream</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nf">streamer</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">desc</span><span class="p">,</span> <span class="nx">cc</span><span class="p">,</span> <span class="nx">method</span><span class="p">,</span> <span class="nx">opts</span><span class="o">...</span><span class="p">)</span>
+	<span class="c1">// after stream
+</span><span class="c1"></span>	<span class="k">return</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">callUnaryEcho</span><span class="p">(</span><span class="nx">cc</span> <span class="nx">pb</span><span class="p">.</span><span class="nx">EchoClient</span><span class="p">,</span> <span class="nx">msg</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">reply</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cc</span><span class="p">.</span><span class="nf">UnaryEcho</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">(),</span> <span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="nx">msg</span><span class="p">})</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;reply =&gt; %v\\n&#34;</span><span class="p">,</span> <span class="nx">reply</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">callBidirectionalEcho</span><span class="p">(</span><span class="nx">cc</span> <span class="nx">pb</span><span class="p">.</span><span class="nx">EchoClient</span><span class="p">,</span> <span class="nx">msg</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">stream</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cc</span><span class="p">.</span><span class="nf">BidirectionalStreamingEcho</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">TODO</span><span class="p">())</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;call BidirectionalEcho: %v\\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="nx">_</span> <span class="p">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="nx">msg</span><span class="p">})</span>
+	<span class="nx">_</span> <span class="p">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">CloseSend</span><span class="p">()</span>
+	<span class="nx">ctx</span> <span class="o">:=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Context</span><span class="p">()</span>
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="k">select</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span>
+			<span class="k">break</span>
+		<span class="k">default</span><span class="p">:</span>
+		<span class="p">}</span>
+
+		<span class="nx">reply</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Recv</span><span class="p">()</span>
+		<span class="k">if</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">Is</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">io</span><span class="p">.</span><span class="nx">EOF</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">break</span>
+		<span class="p">}</span>
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;stream recv: %v\\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+		<span class="p">}</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;stream reply =&gt; %v\\n&#34;</span><span class="p">,</span> <span class="nx">reply</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">addr</span> <span class="o">:=</span> <span class="s">&#34;127.0.0.1:50001&#34;</span>
+
+	<span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithCancel</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">())</span>
+	<span class="k">defer</span> <span class="nf">cancel</span><span class="p">()</span>
+	<span class="nx">conn</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">DialContext</span><span class="p">(</span>
+		<span class="nx">ctx</span><span class="p">,</span>
+		<span class="nx">addr</span><span class="p">,</span>
+		<span class="nx">grpc</span><span class="p">.</span><span class="nf">WithInsecure</span><span class="p">(),</span>
+		<span class="nx">grpc</span><span class="p">.</span><span class="nf">WithChainUnaryInterceptor</span><span class="p">(</span><span class="nx">clientUnaryInterceptor</span><span class="p">),</span>
+		<span class="nx">grpc</span><span class="p">.</span><span class="nf">WithChainStreamInterceptor</span><span class="p">(</span><span class="nx">clientStreamInterceptor</span><span class="p">))</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;connect %v: %v\\n&#34;</span><span class="p">,</span> <span class="nx">addr</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="nx">cc</span> <span class="o">:=</span> <span class="nx">pb</span><span class="p">.</span><span class="nf">NewEchoClient</span><span class="p">(</span><span class="nx">conn</span><span class="p">)</span>
+
+	<span class="nf">callUnaryEcho</span><span class="p">(</span><span class="nx">cc</span><span class="p">,</span> <span class="s">&#34;unary&#34;</span><span class="p">)</span>
+
+	<span class="nf">callBidirectionalEcho</span><span class="p">(</span><span class="nx">cc</span><span class="p">,</span> <span class="s">&#34;start&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>grpc 的拦截器同时支持单个拦截器和链式拦截器。</p>
+<h2 id="grpc-添加-pprof-接口">grpc 添加 pprof 接口</h2>
+<p>grpc 本身是使用 http2 作为底层协议，所以它也能和 golang 的 pprof 结合提供 pprof 接口。下面给出代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">server</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">pb</span><span class="p">.</span><span class="nx">UnimplementedEchoServer</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">server</span><span class="p">)</span> <span class="nf">UnaryEcho</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">request</span> <span class="o">*</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoResponse</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoResponse</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="nx">request</span><span class="p">.</span><span class="nx">Message</span><span class="p">},</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">server</span><span class="p">)</span> <span class="nf">BidirectionalStreamingEcho</span><span class="p">(</span><span class="nx">stream</span> <span class="nx">pb</span><span class="p">.</span><span class="nx">Echo_BidirectionalStreamingEchoServer</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+	<span class="nx">ctx</span> <span class="o">:=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Context</span><span class="p">()</span>
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="k">select</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span>
+			<span class="k">break</span>
+		<span class="k">default</span><span class="p">:</span>
+		<span class="p">}</span>
+
+		<span class="nx">msg</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Recv</span><span class="p">()</span>
+		<span class="k">if</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">Is</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">io</span><span class="p">.</span><span class="nx">EOF</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">break</span>
+		<span class="p">}</span>
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;recv failed: %v\\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+		<span class="p">}</span>
+
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoResponse</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="s">&#34;reply: &#34;</span> <span class="o">+</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">Message</span><span class="p">});</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;send to client: %v\\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">addr</span> <span class="o">:=</span> <span class="s">&#34;127.0.0.1:50001&#34;</span>
+
+  <span class="c1">// 这里可以添加服务段启动配置和各种拦截器
+</span><span class="c1"></span>	<span class="nx">s</span> <span class="o">:=</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">NewServer</span><span class="p">()</span> 
+	<span class="nx">pb</span><span class="p">.</span><span class="nf">RegisterEchoServer</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">server</span><span class="p">{})</span>
+
+	<span class="nx">mux</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">NewServeMux</span><span class="p">()</span>
+	<span class="nx">mux</span><span class="p">.</span><span class="nf">HandleFunc</span><span class="p">(</span><span class="s">&#34;/debug/pprof/&#34;</span><span class="p">,</span> <span class="nx">pprof</span><span class="p">.</span><span class="nx">Index</span><span class="p">)</span>
+	<span class="nx">mux</span><span class="p">.</span><span class="nf">HandleFunc</span><span class="p">(</span><span class="s">&#34;/debug/pprof/cmdline&#34;</span><span class="p">,</span> <span class="nx">pprof</span><span class="p">.</span><span class="nx">Cmdline</span><span class="p">)</span>
+	<span class="nx">mux</span><span class="p">.</span><span class="nf">HandleFunc</span><span class="p">(</span><span class="s">&#34;/debug/pprof/profile&#34;</span><span class="p">,</span> <span class="nx">pprof</span><span class="p">.</span><span class="nx">Profile</span><span class="p">)</span>
+	<span class="nx">mux</span><span class="p">.</span><span class="nf">HandleFunc</span><span class="p">(</span><span class="s">&#34;/debug/pprof/symbol&#34;</span><span class="p">,</span> <span class="nx">pprof</span><span class="p">.</span><span class="nx">Symbol</span><span class="p">)</span>
+	<span class="nx">mux</span><span class="p">.</span><span class="nf">HandleFunc</span><span class="p">(</span><span class="s">&#34;/debug/pprof/trace&#34;</span><span class="p">,</span> <span class="nx">pprof</span><span class="p">.</span><span class="nx">Trace</span><span class="p">)</span>
+  <span class="c1">// 启动 http2 服务，golang http 启动时添加证书会自动转化为 http2 服务。
+</span><span class="c1"></span>  <span class="c1">// 将 Content-Type 为 application/grpc 请求转交给 grpc 即可。
+</span><span class="c1"></span>	<span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">ListenAndServeTLS</span><span class="p">(</span>
+		<span class="nx">addr</span><span class="p">,</span>
+		<span class="s">&#34;ssl/server.pem&#34;</span><span class="p">,</span>
+		<span class="s">&#34;ssl/server-key.pem&#34;</span><span class="p">,</span>
+		<span class="nx">http</span><span class="p">.</span><span class="nf">HandlerFunc</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">rw</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">ProtoMajor</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Contains</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">Header</span><span class="p">.</span><span class="nf">Get</span><span class="p">(</span><span class="s">&#34;Content-Type&#34;</span><span class="p">),</span> <span class="s">&#34;application/grpc&#34;</span><span class="p">)</span> <span class="p">{</span>
+			<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;call grpc service&#34;</span><span class="p">)</span>
+			<span class="nx">s</span><span class="p">.</span><span class="nf">ServeHTTP</span><span class="p">(</span><span class="nx">rw</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="nx">mux</span><span class="p">.</span><span class="nf">ServeHTTP</span><span class="p">(</span><span class="nx">rw</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="p">}))</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;start server at %v: %v&#34;</span><span class="p">,</span> <span class="nx">addr</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="grpc-请求断开处理">grpc 请求断开处理</h2>
+<p>grpc 的请求没有自己设置请求的超时时间，而是将这部分的处理交给 golang 的 context 包。通过 context 的功能实现客户端的登录超时，请求超时。服务端代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">server</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">pb</span><span class="p">.</span><span class="nx">UnimplementedEchoServer</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">server</span><span class="p">)</span> <span class="nf">BidirectionalStreamingEcho</span><span class="p">(</span><span class="nx">stream</span> <span class="nx">pb</span><span class="p">.</span><span class="nx">Echo_BidirectionalStreamingEchoServer</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+	<span class="c1">// 该函数内是 stream 的整个生命周期，该函数退出后，stream 的上下文结束
+</span><span class="c1"></span>	<span class="c1">// 每个stream函数相互独立
+</span><span class="c1"></span>	<span class="c1">// 服务端的 stream 不能直接发起请求终止，但可以通过提前结束该函数，停止该 stream
+</span><span class="c1"></span>	<span class="k">for</span> <span class="p">{</span>
+		<span class="nx">in</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Recv</span><span class="p">()</span>
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;server: error receiving from stream: %v\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+			<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="nx">io</span><span class="p">.</span><span class="nx">EOF</span> <span class="p">{</span>
+				<span class="k">return</span> <span class="kc">nil</span>
+			<span class="p">}</span>
+			<span class="k">return</span> <span class="nx">err</span>
+		<span class="p">}</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;echoing message %q\n&#34;</span><span class="p">,</span> <span class="nx">in</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span>
+		<span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoResponse</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="nx">in</span><span class="p">.</span><span class="nx">Message</span><span class="p">})</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">lis</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nf">Listen</span><span class="p">(</span><span class="s">&#34;tcp&#34;</span><span class="p">,</span> <span class="s">&#34;127.0.0.1:10050&#34;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;failed to listen: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;server listening at port %v\n&#34;</span><span class="p">,</span> <span class="nx">lis</span><span class="p">.</span><span class="nf">Addr</span><span class="p">())</span>
+	<span class="nx">s</span> <span class="o">:=</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">NewServer</span><span class="p">()</span>
+	<span class="nx">pb</span><span class="p">.</span><span class="nf">RegisterEchoServer</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">server</span><span class="p">{})</span>
+	<span class="nx">s</span><span class="p">.</span><span class="nf">Serve</span><span class="p">(</span><span class="nx">lis</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>客户端:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">sendMessage</span><span class="p">(</span><span class="nx">stream</span> <span class="nx">pb</span><span class="p">.</span><span class="nx">Echo_BidirectionalStreamingEchoClient</span><span class="p">,</span> <span class="nx">msg</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;sending message %q\n&#34;</span><span class="p">,</span> <span class="nx">msg</span><span class="p">)</span>
+	<span class="k">return</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">EchoRequest</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span> <span class="nx">msg</span><span class="p">})</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">recvMessage</span><span class="p">(</span><span class="nx">stream</span> <span class="nx">pb</span><span class="p">.</span><span class="nx">Echo_BidirectionalStreamingEchoClient</span><span class="p">,</span> <span class="nx">wantErrCode</span> <span class="nx">codes</span><span class="p">.</span><span class="nx">Code</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">res</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">stream</span><span class="p">.</span><span class="nf">Recv</span><span class="p">()</span>
+	<span class="k">if</span> <span class="nx">status</span><span class="p">.</span><span class="nf">Code</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="o">!=</span> <span class="nx">wantErrCode</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;stream.Recv() = %v, %v; want _, status.Code(err)=%v&#34;</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">wantErrCode</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;stream.Recv() returned expected error %v\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;received message %q\n&#34;</span><span class="p">,</span> <span class="nx">res</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">addr</span> <span class="o">:=</span> <span class="s">&#34;127.0.0.1:10050&#34;</span>
+	<span class="c1">// 建立连接
+</span><span class="c1"></span>	<span class="c1">// 建立连接的 ctx 和请求的 ctx 是独立的
+</span><span class="c1"></span>	<span class="nx">conn</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">DialContext</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">(),</span> <span class="nx">addr</span><span class="p">,</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">WithInsecure</span><span class="p">())</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;did not connect: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">defer</span> <span class="nx">conn</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+
+	<span class="nx">c</span> <span class="o">:=</span> <span class="nx">pb</span><span class="p">.</span><span class="nf">NewEchoClient</span><span class="p">(</span><span class="nx">conn</span><span class="p">)</span>
+
+	<span class="c1">// Initiate the stream with a context that supports cancellation.
+</span><span class="c1"></span>	<span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithTimeout</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">(),</span> <span class="mi">10</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+	<span class="nx">stream</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nf">BidirectionalStreamingEcho</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;error creating stream: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="c1">// Send some test messages.
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">sendMessage</span><span class="p">(</span><span class="nx">stream</span><span class="p">,</span> <span class="s">&#34;hello&#34;</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;error sending on stream: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">sendMessage</span><span class="p">(</span><span class="nx">stream</span><span class="p">,</span> <span class="s">&#34;world&#34;</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;error sending on stream: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="c1">// Ensure the RPC is working.
+</span><span class="c1"></span>	<span class="nf">recvMessage</span><span class="p">(</span><span class="nx">stream</span><span class="p">,</span> <span class="nx">codes</span><span class="p">.</span><span class="nx">OK</span><span class="p">)</span>
+	<span class="nf">recvMessage</span><span class="p">(</span><span class="nx">stream</span><span class="p">,</span> <span class="nx">codes</span><span class="p">.</span><span class="nx">OK</span><span class="p">)</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;cancelling context&#34;</span><span class="p">)</span>
+	<span class="nf">cancel</span><span class="p">()</span>
+
+	<span class="c1">// This Send may or may not return an error, depending on whether the
+</span><span class="c1"></span>	<span class="c1">// monitored context detects cancellation before the call is made.
+</span><span class="c1"></span>	<span class="nf">sendMessage</span><span class="p">(</span><span class="nx">stream</span><span class="p">,</span> <span class="s">&#34;closed&#34;</span><span class="p">)</span>
+
+	<span class="c1">// This Recv should never succeed.
+</span><span class="c1"></span>	<span class="nf">recvMessage</span><span class="p">(</span><span class="nx">stream</span><span class="p">,</span> <span class="nx">codes</span><span class="p">.</span><span class="nx">Canceled</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="grpc-性能优化">GRPC 性能优化</h1>
+<p>虽然 grpc 的官方自诩是高性能的框架，但是 grpc 内部使用大量的反射，使得 grpc 在性能上并不算很好，所以还是有必要优化。grpc 的优化思路比较简单，不需要直接修改源码，只需要在 protoc 命令生成 golang 代码是，将 golang/protobuf 换成第三方的 <a href="https://github.com/gogo/protobuf" target="_blank" rel="noopener noreffer">gogo/protobuf</a> 。gogo库基于官方库开发，增加了很多的功能，包括：</p>
+<ul>
+<li>快速的序列化和反序列化</li>
+<li>更规范的Go数据结构</li>
+<li>goprotobuf兼容</li>
+<li>可选择的产生一些辅助方法，减少使用中的代码输入</li>
+<li>可以选择产生测试代码和benchmark代码</li>
+<li>其它序列化格式</li>
+</ul>
+<p>比如etcd、k8s、dgraph、docker swarmkit都使用它。基于速度和定制化的考虑，gogo有三种产生代码的方式</p>
+<ul>
+<li><code>gofast</code>: 速度优先，不支持其它gogoprotobuf extensions。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">go get github.com/gogo/protobuf/protoc-gen-gofast
+protoc --gofast_out<span class="o">=</span>. myproto.proto
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>gogofast</code>类似<code>gofast</code>,但是会导入gogoprotobuf</li>
+<li><code>gogofaster</code>类似<code>gogofast</code>, 不会产生<code>XXX_unrecognized</code>指针字段，可以减少垃圾回收时间。</li>
+<li><code>gogoslick</code>类似<code>gogofaster</code>,但是可以增加一些额外的方法<code>gostring</code>和<code>equal</code>等等。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">go get github.com/gogo/protobuf/proto
+go get github.com/gogo/protobuf/<span class="o">{</span>binary<span class="o">}</span> //protoc-gen-gogofast、protoc-gen-gogofaster 、protoc-gen-gogoslick 
+go get github.com/gogo/protobuf/gogoproto
+protoc -I<span class="o">=</span>. -I<span class="o">=</span><span class="nv">$GOPATH</span>/src -I<span class="o">=</span><span class="nv">$GOPATH</span>/src/github.com/gogo/protobuf/protobuf --<span class="o">{</span>binary<span class="o">}</span><span class="nv">_out</span><span class="o">=</span>. myproto.proto
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>protoc-gen-gogo</code>: 最快的速度，最多的可定制化</li>
+</ul>
+<p>你可以通过扩展定制序列化: <a href="https://github.com/gogo/protobuf/blob/master/extensions.md" target="_blank" rel="noopener noreffer">扩展</a>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">go get github.com/gogo/protobuf/proto
+go get github.com/gogo/protobuf/jsonpb
+go get github.com/gogo/protobuf/protoc-gen-gogo
+go get github.com/gogo/protobuf/gogoproto
+</code></pre></td></tr></table>
+</div>
+</div><p>gogo同样支持grpc: <code>protoc --gofast_out=plugins=grpc:. my.proto</code>。同时还有 protobuf 对应的<a href="https://colobu.com/2019/10/03/protobuf-ultimate-tutorial-in-go/" target="_blank" rel="noopener noreffer">教程</a> 。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-12-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/grpc2/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/grpc2/" data-title="GPRC 进阶" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/grpc2/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/grpc2/" data-title="GPRC 进阶" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/grpc2/" data-title="GPRC 进阶"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/grpc2/" data-title="GPRC 进阶"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/grpc2/" data-title="GPRC 进阶" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/grpc2/" data-title="GPRC 进阶" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/grpc2/" data-title="GPRC 进阶"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/iscsi%E5%85%B1%E4%BA%AB%E7%A3%81%E7%9B%98%E6%9C%8D%E5%8A%A1/" class="prev" rel="prev" title="iscsi共享磁盘服务"><i class="fas fa-angle-left fa-fw"></i>iscsi共享磁盘服务</a>
+            <a href="/grpc1/" class="next" rel="next" title="GPRC 实战">GPRC 实战<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

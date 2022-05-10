@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Linux内核同步 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="Linux内核同步" />
+<meta property="og:description" content="Linux内核同步 内核抢占 抢占内核的主要特点是: 一个在内核态运行的进程，可能在执行内核函数期间被另外一个进程取代。 用实例来说明抢占内核和非抢" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-03T10:17:16+08:00" />
+<meta property="article:modified_time" content="2021-12-03T10:17:16+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="Linux内核同步"/>
+<meta name="twitter:description" content="Linux内核同步 内核抢占 抢占内核的主要特点是: 一个在内核态运行的进程，可能在执行内核函数期间被另外一个进程取代。 用实例来说明抢占内核和非抢"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" /><link rel="prev" href="http://example.org/linux%E8%BF%9B%E7%A8%8B/" /><link rel="next" href="http://example.org/linux%E5%86%85%E5%AD%98/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Linux内核同步",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5\/"
+        },"genre": "posts","wordcount":  4957 ,
+        "url": "http:\/\/example.org\/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5\/","datePublished": "2021-12-03T10:17:16+08:00","dateModified": "2021-12-03T10:17:16+08:00","publisher": {
+            "@type": "Organization",
+            "name": "YZJ"},"author": {
+                "@type": "Person",
+                "name": "yzj"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="YZJ 的博客"> 文章 </a><a class="menu-item" href="/tags/" title="YZJ 的博客"> 标签 </a><a class="menu-item" href="/categories/" title="YZJ 的博客"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="YZJ 的博客">文章</a><a class="menu-item" href="/tags/" title="YZJ 的博客">标签</a><a class="menu-item" href="/categories/" title="YZJ 的博客">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Linux内核同步</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-03">2021-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4957 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#内核抢占">内核抢占</a></li>
+    <li><a href="#同步原语">同步原语</a>
+      <ul>
+        <li><a href="#每cpu变量">每CPU变量</a></li>
+        <li><a href="#原子操作">原子操作</a></li>
+        <li><a href="#优化和内存屏障">优化和内存屏障</a></li>
+        <li><a href="#自旋锁">自旋锁</a>
+          <ul>
+            <li><a href="#读写自旋锁">读/写自旋锁</a></li>
+            <li><a href="#顺序锁">顺序锁</a></li>
+            <li><a href="#读-拷贝-更新rcu">读-拷贝-更新(RCU)</a></li>
+          </ul>
+        </li>
+        <li><a href="#信号量">信号量</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="linux内核同步">Linux内核同步</h1>
+<h2 id="内核抢占">内核抢占</h2>
+<p>抢占内核的主要特点是: 一个在内核态运行的进程，可能在执行内核函数期间被另外一个进程取代。</p>
+<p>用实例来说明抢占内核和非抢占内核的区别:</p>
+<p>在进程A执行异常处理程序时，一个具有较高优先级的进程B变为可执行状态。这种情况是有可能出现的，例如，发生了中断请求而且相应的处理程序唤醒了进程B。如果内核是抢占的，就会发生强制性进程切换，让进程B取代进程A。异常处理程序的执行被暂停，直到调度程序再次选择进程A时才恢复它的执行。相反，如果内核是非抢占的，在进程A完成异常处理程序的执行之前，是不会发生进程切换的，除非进程A自动放弃CPU。</p>
+<p>一个执行异常处理程序的进程已经用完了它的时间配额，如果内核是抢占的，进程可能会立即被取代，但如果内核是非抢占的，进程继续运行直到它执行完异常处理程序或自动放弃CPU。</p>
+<p>使内核可抢占的目的是减少用户态进程的分派延迟(dispatch letency)，即从进程变为可执行状态到它实际开始运行之间的时间间隔。</p>
+<blockquote>
+<p>只有当内核正在执行异常处理程序(尤其是系统调用)，而且内核抢占没有显式地禁用时，才可能抢占内核。</p>
+</blockquote>
+<h2 id="同步原语">同步原语</h2>
+<table>
+<thead>
+<tr>
+<th>技术</th>
+<th>说明</th>
+<th>适用范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>每CPU变量</td>
+<td>在CPU之间复制数据结构</td>
+<td>所有CPU</td>
+</tr>
+<tr>
+<td>原子操作</td>
+<td>对一个计数器原子地&quot;读-修改-写&quot;的指令</td>
+<td>所有CPU</td>
+</tr>
+<tr>
+<td>内存屏障</td>
+<td>避免指令重新排序</td>
+<td>本地CPU或所有CPU</td>
+</tr>
+<tr>
+<td>自旋锁</td>
+<td>加锁时忙等</td>
+<td>所有CPU</td>
+</tr>
+<tr>
+<td>信号量</td>
+<td>加锁时阻塞等待(睡眠)</td>
+<td>所有CPU</td>
+</tr>
+<tr>
+<td>顺序锁</td>
+<td>基于访问计数器的锁</td>
+<td>所有CPU</td>
+</tr>
+<tr>
+<td>本地中断的禁止</td>
+<td>禁止单个CPU上的中断处理</td>
+<td>本地CPU</td>
+</tr>
+<tr>
+<td>本地软中断的禁止</td>
+<td>禁止单个CPU上的可延迟函数处理</td>
+<td>本地CPU</td>
+</tr>
+<tr>
+<td>读-拷贝-更新(RCU)</td>
+<td>通过指正而不是锁来访问共享数据结构</td>
+<td>所有CPU</td>
+</tr>
+</tbody>
+</table>
+<h3 id="每cpu变量">每CPU变量</h3>
+<p>最简单也是最重要的同步技术包括把内核变量声明为每CPU变量(per-cpu variable)。每CPU变量主要是数据结构的数组变量主要是技术结构的数组，系统的每个CPU对应数组的一个元素。</p>
+<p>虽然每CPU变量为来自不同CPU的并发访问提供保护，但对来自异步函数(中断处理程序和可延迟函数)的访问不提供保护，在这种情况下需要另外的同步原语。</p>
+<p>此外，在单处理器和多处理器系统中，内核抢占都可能是每CPU变量产生竞争条件。总的原则是内核控制路径应该在禁用抢占的情况下访问每CPU变量。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101161518.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101161518.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101161518.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101161518.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101161518.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101161518.png" /></p>
+<h3 id="原子操作">原子操作</h3>
+<p>通过原子操作指令完成。</p>
+<p>80x86 指令:</p>
+<ul>
+<li>进行零次或一次对齐内存访问的汇编指令是原子的。</li>
+<li>如果在读操作之后，写操作之前没有其他处理器占用内存总线，那么从内存中读取数据，更新数组并把更新后数组写回内存中的这些&quot;读-修改-写&quot;汇编语言指令(例如inc或dec)是原子的。当然，在单处理器系统中，永远都不会发生内存总线窃用的情况。</li>
+<li>操作吗前缀是 lock 字节(0xf0)的&quot;读-修改-写&quot;汇编语言指令即使在多处理器系统中也是原子的。当控制单元检测到这个前缀时，就&quot;锁定&quot;内存总线，知道这条指令执行完成为止。因此，当加锁的指令执行时，其他处理器不能访问这个内存单元。</li>
+<li>操作码前缀是一个rep字节(0xf2,0xf3)的汇编语言执行不是原子的，这条指令强行让控制单元多次重复执行相同的指令。控制单元在执行新的循环之前要检查挂起的中断。</li>
+</ul>
+<p>Linux 内核提供了一个专门的 <code>atomic_t</code> 类型(一个原子访问计数器)和一些专门的函数和宏，这些函数和宏作用于 <code>atomic_t</code> 类型的变量，并当作单独的、原子的汇编语言指令来使用。在多处理器系统中，每条这样的指令都有一个 lock 字节的前缀。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162753.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162753.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162753.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162753.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162753.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162753.png" /></p>
+<p>另一类原子函数操作作用于位掩码</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162847.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162847.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162847.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162847.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162847.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162847.png" />
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162904.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162904.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162904.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162904.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162904.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101162904.png" /></p>
+<h3 id="优化和内存屏障">优化和内存屏障</h3>
+<p>当使用优化的编译器时，编译器可能重新安排汇编语言指令已使寄存器以最优的方式使用。此外，现代CPU通常并行地执行若干条指令，且可能重新安排内存访问。然而，当处理同步时，必须避免指令重新排序。</p>
+<p>优化屏障(optimization barrier) 原语保证编译程序不会混淆放在原语操作之前的汇编语言指令和放在原语操作之后的汇编语言指令，这些汇编语言指令在C中都有对应的语句。在Linux中，优化屏障就是 <code>barrier()</code> 宏，它展开 <code>asm volatile(&quot;&quot;:::&quot;memory&quot;)</code> 。指令 asm 告诉编译程序要插入汇编语言片段(这种情况下为空)。volatile 关键字禁止编译器把asm指令与程序中的其他指令重新组合。memory 关键字强制编译器假定RAM中的所有内存单元已经被汇编语言指令修改。</p>
+<p>内存屏障(memory barrier)原语确保，在原语之后的操作开始执行之前，原语之前的操作已经完成。因此，内存屏障类似于防火墙，让任何汇编语言指令都不能通过。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101193945.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101193945.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101193945.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101193945.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101193945.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20211101193945.png" /></p>
+<h3 id="自旋锁">自旋锁</h3>
+<p>自旋锁(spin lock)是用来在多处理器环境中工作的一种特殊的锁。如果内核控制路径发现自旋锁&quot;开着&quot;，就获取锁并继续自己的执行。相反，如果内核控制路径发现锁由运行在另一个CPU上的内核控制路径&quot;锁着&quot;，就在周围&quot;旋转&quot;，反复执行一条紧凑的循环指令，直到锁被释放。</p>
+<p>自旋锁的循环指令表示&quot;忙等&quot;。即使等待的内核控制路径无事可做，它也在CPU上保持运行。不过，自旋锁通常非常方便，因为很多内核资源只锁1毫秒的时间片段；所以说，释放CPU和随后有获得CPU都不会消耗多少时间。</p>
+<p>一般来说，由自旋锁保护的每个临界区都是禁止内核抢占的。在单处理器系统上，这中锁本身并不起锁的作用，自旋锁原语仅仅是禁止或启用内核抢占。需要注意的是，自旋转忙等期间，内核抢占还是有效的，因此，等待自旋锁释放的进程有可能被更高优先级的进程替代。</p>
+<h4 id="读写自旋锁">读/写自旋锁</h4>
+<p>读/写自旋锁的引入是为了增加是内核的并发能力。只要没有内核控制路径对数据结构进行修改，读/写自旋锁就允许多个内核控制路径同时读同一数据结构。如果一个内核控制路径想对这个结构进行写操作，那么它必须首先获取读/写锁的写锁，写锁授权独占访问这个资源。当然，允许对数据结构并发读可以提高系统性能。</p>
+<h4 id="顺序锁">顺序锁</h4>
+<p>Linux 2.6 中引入顺序锁(seqlock)，它与读/写自旋锁非常相似，只是它为写者赋予了较高的优先级；事实上，即使在读者正在读的时候，也允许写者继续运行。这种策略的好处是写者永远不会等待(除非另外一个写者正在写)，缺点是有些时候读者不得不反复多次读相同的数据直到它获得有效的副本。</p>
+<p>每个读者都必须在读数据前后两次读顺序计数器，并检查零次读到的值是否相同，如果不相同，说明新的写者已经开始写并增加了顺序计数器，因此暗示读者刚读到的数据是无效的。</p>
+<p>一般来说，必须在满足下述条件是才能使用顺序锁:</p>
+<ul>
+<li>被保护的数据结构不包括被写者修改和被读者间接引用的指针。</li>
+<li>读者的临界代码没有副作用。</li>
+</ul>
+<h4 id="读-拷贝-更新rcu">读-拷贝-更新(RCU)</h4>
+<p>读-拷贝-更新(RCU)是为了保护在多数情况下被多个CPU读的数据结构而设计的零一种同步技术。RCU允许多个读者和写者并发执行(相对于只允许一个写者执行的顺序锁有了改进)。而且，RCU是不使用锁的，就是说，它不使用被所有CPU共享的锁或计数器，在这一点上与读/写自旋锁和顺序锁(由于高速缓存行窃用和失效有很高的开销)相比，RCU 具有更大的优势。</p>
+<p>RCU 是如何不是用共享数据结构而令人惊讶地实现多个CPU同步呢？其关键的思想包括限制RCU的范围，如下所述:</p>
+<ul>
+<li>RCU 只保护被动态分配并通过指针引用的数据结构。</li>
+<li>在被 RCU 保护的临界区中，任何内核控制路径都不能睡眠。</li>
+</ul>
+<p>当内核控制路径要读取 RCU 保护的数据结构时，执行 <code>rcu_read_lock()</code>，它等同于 <code>preempt_disable()</code>。接下来，读者间接引用该数据结构指针所对应的内存单元并开始读这个数据结构。正如在前面所强调的，读者在完成对数据结构的读操作之前，是不能睡眠的。用等同于 <code>preempt_enable()</code> 的宏 <code>rcu_read_unlock()</code> 标记临界区的结束。</p>
+<p>由于读者几乎不做任何事情来防止竞争条件的出现，所以写者不得不做得更多一些。事实上，当写者要更新数据结构是，它间接引用指针并生成整个数据结构的副本。接下来，写者修改这个副本。一旦修改完毕，写者改变指向数据结构的指针，以使它指向被修改后的副本。由于修改指针值的操作是一个原子操作，所以旧副本和新副本对每个读者或写者都是可见的，在数据结构中不会出现数据崩溃。尽管如此，还需要内存屏障来保证: 只有在数据结构被修改之后，已更新的指针对其他CPU才是可见的，如果把自旋锁与RCU结合起来以禁止写者的并发执行，就隐含地引入了这样的内存屏障。</p>
+<p>然而，使用 RCU 技术的真正困难在于: 写者修改指针时不能立即释放数据结构的就副本。实际上，写者开始修改时，正在访问数据结构的读者可能还在读副本。只有在CPU上所有(潜在的)读者都执行完宏 <code>rcu_read_unlock()</code> 之后，才可以释放就副本。内核要求每个潜在的读者在下面的操作之前执行 <code>rcu_read_unlock()</code> 宏:</p>
+<ul>
+<li>CPU 执行进程切换</li>
+<li>CPU 开始在用户态执行</li>
+<li>CPU 执行空循环</li>
+</ul>
+<p>对上述每种情况，我们说CPU已经过了静止状态(quiescent state)。</p>
+<p>写者调用函数 <code>call_rcu()</code> 来释放数据结构的就副本。当所有的 CPU 都通过静止状态之后，<code>call_rcu()</code> 接受 rcu_head 描述符的地址和将要调用的回调函数的地址作为参数。一旦回调函数被执行，它通常释放数据结构的就副本。</p>
+<p>函数 <code>call_rcu()</code> 把回调函数和其参数的地址存放在 <code>rcu_head</code> 描述符中，然后把描述符插入回调函数的每个 CPU (per-CPU) 链表中。内核每经过一个时钟滴答就周期性地检查本地CPU是否进过了一个静止状态。如果所有CPU都经过了静止状态，本地 tasklet (它的描述符存放在每CPU变量 rcu_tasklet 中)就执行链表中的所有回调函数。</p>
+<p>RCU 是 Linux 2.6 中新加的功能，用在网络层和虚拟文件系统中。</p>
+<h3 id="信号量">信号量</h3>
+<p>Linux 提供两种<a href="https://zh.wikipedia.org/wiki/%E4%BF%A1%E5%8F%B7%E9%87%8F" target="_blank" rel="noopener noreffer">信号量</a> :</p>
+<ul>
+<li>内核信号量，由内核控制路径使用。</li>
+<li>System V IPC 信号量，由用户态进程使用。</li>
+</ul>
+<p>内核信号量类似于自旋锁，因为当锁关闭着时，它不允许内核控制路径继续进行。然而，当内核控制路径试图获取内核信号量所保护的忙资源时，相应的进程被挂起。只有在资源被释放时，进程才再次变为可运行的。因此，只有可以睡眠的函数才能获取内核信号量；中断处理程序和可延迟函数都不能使用内核信号量。</p>
+<p>内核信号量是 <code>struct semaphore</code> 类型的对象，包含下面这些字段:</p>
+<ul>
+<li>count: 存放 atomic_t 类型的一个值。如果该值大于 0，那么资源就是空闲的，也就是说，该资源现在可以使用。相反，如果 count 等于0。那么信号量是忙的，但没有进程等待这个被保护的资源。最后，如果 count 为负数，则资源时不可用的，并至少有一个进程等待资源。</li>
+<li>wait: 存放等待队列链表的地址，当前等待资源的所有睡眠进程都放在这个链表中。当然，如果 count 大于或等于 0，等待队列就为空。</li>
+<li>sleepers: 存放一个标志，表示是否有一些进程在信号量上睡眠。</li>
+</ul>
+<p>可以用 <code>init_MUTEX()</code> 和 <code>init_MUTEX_LOCKED()</code> 函数来初始化互斥访问所需的信号量。</p>
+<p>当进程希望释放内核信号量锁时，就调用 <code>up()</code> 函数。相反，当进程希望获取内核信号获取内核信号量锁时，就调用 <code>down()</code> 函数。</p>
+<p>读/写信号量类似于&quot;读/写自旋锁&quot;，不同的是：在信号量再次变为打开之前，等待进程挂起而不是自旋。</p>
+<p>很多内核控制路径为读可以并发地获取读/写信号量。但是，任何写者内核控制路径必须有被保护资源的互斥访问。因此，只有在没有内核控制路径为读访问或写访问持有信号量时，才可以为写获取信号量。读/写信号量可以提供内核中的并发度，并改善了这个系统的性能。</p>
+<p>内核以严格的FIFO顺序处理等待读/写信号量的所有进程。如果读者或写者进程发现信号量关闭，这些进程就被插入到信号量等待队列链表的末尾。当信号量被释放时，就检查处于等待队列链表第一个位置的进程。第一个进程常被唤醒。如果是一个写者进程，等待队列上其他的进程就继续睡眠。如果是一个读者进程，那么紧跟第一个进程的其他所有读者进程也被唤醒并获得锁。不过，在写者进程之后排队的读者进程继续睡眠。</p>
+<p>每个读/写信号量都是由 <code>rw_semaphore</code> 结构描述的，它包含下列字段:</p>
+<ul>
+<li>count: 存放两个16位计数器。其中最高16位计数器以二进制补码形式存放非等待写者进程的总数(0或1)和等待的写内核控制路径数。最低16位计数器存放非等待的读者和写者的总数。</li>
+<li>wait_list: 指向等待进程的链表。链表中的每个元素多是一个 <code>rwsem_waiter</code> 结构，该结构包含一个指针和一个标志，指针指向睡眠进程的描述符，标志表示进程是为读需要信号量还是为需要信号量。</li>
+<li>wait_lock: 一个自旋锁，用户保护等待队列链表和 <code>rw_semphore</code> 结构本身。</li>
+</ul>
+<p><code>down_read()</code> 和 <code>down_write()</code> 函数分别为读或写获取读/写信号量。同样，<code>up_read()</code> 和 <code>up_write()</code> 函数为读或写释放以前获取的读/写信号量。 <code>down_read_trylock()</code> 和 <code>down_write_trylock()</code> 函数分别类似于 <code>down_read()</code> 和 <code>down_write()</code> 函数，但是，在信号量忙的情况下，它们不阻塞进程。最后，函数 <code>downgrade_write()</code> 自动把写锁转换成读锁。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-12-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" data-title="Linux内核同步" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" data-title="Linux内核同步" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" data-title="Linux内核同步"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" data-title="Linux内核同步"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" data-title="Linux内核同步" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" data-title="Linux内核同步" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/" data-title="Linux内核同步"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/linux%E8%BF%9B%E7%A8%8B/" class="prev" rel="prev" title="Linux进程"><i class="fas fa-angle-left fa-fw"></i>Linux进程</a>
+            <a href="/linux%E5%86%85%E5%AD%98/" class="next" rel="next" title="Linux内存">Linux内存<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
