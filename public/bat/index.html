@@ -150,9 +150,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">set</span> <span class="nv">a</span><span class="o">=</span><span class="s2">&#34;hello world&#34;</span>
-<span class="nb">echo</span> %a%
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">set</span> <span class="nv">a</span><span class="o">=</span><span class="s2">&#34;hello world&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> %a%
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>从上面的脚本中可以知道，使用<code>set</code>来设置变量，语法为<code>set var=&lt;值&gt;</code>。如果要引用这个变量的话就使用<code>%var%</code>。</p>
 <blockquote>
@@ -166,10 +166,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">set</span> /p <span class="nv">a</span><span class="o">=</span><span class="s2">&#34;Input a number:&#34;</span>
-
-<span class="nb">echo</span> %a%
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">set</span> /p <span class="nv">a</span><span class="o">=</span><span class="s2">&#34;Input a number:&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> %a%
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>支持算术：</p>
 <div class="highlight"><div class="chroma">
@@ -184,15 +184,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">set</span> /a <span class="nv">a</span><span class="o">=</span>1+2
-<span class="nb">echo</span> %a%
-<span class="nb">set</span> /a a-<span class="o">=</span><span class="m">1</span>
-<span class="nb">echo</span> %a%
-<span class="nb">set</span> /a a*<span class="o">=</span><span class="m">3</span>
-<span class="nb">echo</span> %a%
-<span class="nb">set</span> /a a/<span class="o">=</span><span class="m">3</span>
-<span class="nb">echo</span> %a%
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">set</span> /a <span class="nv">a</span><span class="o">=</span>1+2
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> %a%
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> /a a-<span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> %a%
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> /a a*<span class="o">=</span><span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> %a%
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> /a a/<span class="o">=</span><span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> %a%
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这个关键在于<code>set /a</code>
 还有字符串的修改和截取：</p>
@@ -214,21 +214,21 @@
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">:::::::::: 字符串的截取 ::::::::::
-<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>Hello Windows Bat
-:: 截取所有
-<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>%a:~0%
-:: 截取指定的
-<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>%a:~1,-1%
-<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>%a:~2,4%
-
-
-:::::::::: 字符串的替换 ::::::::::
-<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>Hello Windows
-
-:: 将Windows替换成Linux
-<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>%a:Windows<span class="o">=</span>Linux%
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">:::::::::: 字符串的截取 ::::::::::
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>Hello Windows Bat
+</span></span><span class="line"><span class="cl">:: 截取所有
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>%a:~0%
+</span></span><span class="line"><span class="cl">:: 截取指定的
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>%a:~1,-1%
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>%a:~2,4%
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">:::::::::: 字符串的替换 ::::::::::
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>Hello Windows
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">:: 将Windows替换成Linux
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>%a:Windows<span class="o">=</span>Linux%
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="注释">注释</h2>
 <p>bat 中能实现注释功能的有两个<code>::</code>和<code>rem</code>。
@@ -250,14 +250,14 @@ bat 遇到以冒号 &ldquo;:&rdquo; 开头的行时（忽略冒号前的空格�
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">set</span> <span class="nv">a</span><span class="o">=</span><span class="m">1</span>
-
-<span class="k">if</span> %a%<span class="o">==</span><span class="m">1</span> <span class="o">(</span>
-    <span class="nb">echo</span> OK
-<span class="o">)</span> <span class="k">else</span> <span class="o">(</span>
-    <span class="nb">echo</span> ERROR
-<span class="o">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">set</span> <span class="nv">a</span><span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> %a%<span class="o">==</span><span class="m">1</span> <span class="o">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> OK
+</span></span><span class="line"><span class="cl"><span class="o">)</span> <span class="k">else</span> <span class="o">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> ERROR
+</span></span><span class="line"><span class="cl"><span class="o">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果时判断字符串使用为空时,可以这样处理:</p>
 <div class="highlight"><div class="chroma">
@@ -271,14 +271,14 @@ bat 遇到以冒号 &ldquo;:&rdquo; 开头的行时（忽略冒号前的空格�
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">set</span> <span class="nv">a</span><span class="o">=</span><span class="s2">&#34;hello&#34;</span>
-
-<span class="k">if</span> <span class="o">(</span>%a%<span class="o">)==()</span> <span class="o">(</span>
-    <span class="nb">echo</span> OK
-<span class="o">)</span> <span class="k">else</span> <span class="o">(</span>
-    <span class="nb">echo</span> ERROR
-<span class="o">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">set</span> <span class="nv">a</span><span class="o">=</span><span class="s2">&#34;hello&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span>%a%<span class="o">)==()</span> <span class="o">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> OK
+</span></span><span class="line"><span class="cl"><span class="o">)</span> <span class="k">else</span> <span class="o">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> ERROR
+</span></span><span class="line"><span class="cl"><span class="o">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="循环语句">循环语句</h2>
 <p>bat 中的循环有些不同。关键字也是<code>for</code>。还是先来看一个例子：</p>
@@ -290,11 +290,11 @@ bat 遇到以冒号 &ldquo;:&rdquo; 开头的行时（忽略冒号前的空格�
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> /f <span class="s2">&#34;delims=: tokens=1,2,3&#34;</span> %%i in <span class="o">(</span> <span class="s2">&#34;2018:04:11&#34;</span> <span class="o">)</span> <span class="k">do</span> <span class="o">(</span>
-    <span class="nb">echo</span> %%i
-    <span class="nb">echo</span> %%j
-<span class="o">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">for</span> /f <span class="s2">&#34;delims=: tokens=1,2,3&#34;</span> %%i in <span class="o">(</span> <span class="s2">&#34;2018:04:11&#34;</span> <span class="o">)</span> <span class="k">do</span> <span class="o">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> %%i
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> %%j
+</span></span><span class="line"><span class="cl"><span class="o">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这段脚本中需要注意的点是：<code>delims=:</code>表示使用 &ldquo;:&rdquo; 来分割字符串，而<code>tokens=1,2,3</code>则表示取出分割后的字符串的部分，从1开始。<code>%%i</code>是循环中的每个项。输出时<code>%%i</code>和<code>%%j</code>分别对应的就是截取的字段1和2。如果还需要输出第三个，也是使用<code>%%k</code>表示，依次类推。</p>
 <p>但 bat 中的<code>for</code>会存在延迟赋值的情况，先来看一段脚本:</p>
@@ -307,12 +307,12 @@ bat 遇到以冒号 &ldquo;:&rdquo; 开头的行时（忽略冒号前的空格�
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> /f <span class="s2">&#34;delims=: tokens=2&#34;</span> %%i in <span class="o">(</span> <span class="s1">&#39;ipconfig /all ^| findstr /i &#34;ipv4&#34; &#39;</span> <span class="o">)</span> <span class="k">do</span> <span class="o">(</span>
-    <span class="nb">echo</span> %%i
-    <span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>%%i
-    <span class="nb">echo</span> %a%
-<span class="o">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">for</span> /f <span class="s2">&#34;delims=: tokens=2&#34;</span> %%i in <span class="o">(</span> <span class="s1">&#39;ipconfig /all ^| findstr /i &#34;ipv4&#34; &#39;</span> <span class="o">)</span> <span class="k">do</span> <span class="o">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> %%i
+</span></span><span class="line"><span class="cl">    <span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>%%i
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> %a%
+</span></span><span class="line"><span class="cl"><span class="o">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>输出结果:</p>
 <div class="highlight"><div class="chroma">
@@ -325,13 +325,13 @@ bat 遇到以冒号 &ldquo;:&rdquo; 开头的行时（忽略冒号前的空格�
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">IPv4 地址 . . . . . . . . . . . . : 192.168.168.1(首选)
-IPv4 地址 . . . . . . . . . . . . : 192.168.2.160(首选
-IPv4 地址 . . . . . . . . . . . . : 192.168.157.1(首选)
-IPv4 地址 . . . . . . . . . . . . : 192.168.2.160(首选
-IPv4 地址 . . . . . . . . . . . . : 192.168.2.160(首选)
-IPv4 地址 . . . . . . . . . . . . : 192.168.2.160(首选
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">IPv4 地址 . . . . . . . . . . . . : 192.168.168.1(首选)
+</span></span><span class="line"><span class="cl">IPv4 地址 . . . . . . . . . . . . : 192.168.2.160(首选
+</span></span><span class="line"><span class="cl">IPv4 地址 . . . . . . . . . . . . : 192.168.157.1(首选)
+</span></span><span class="line"><span class="cl">IPv4 地址 . . . . . . . . . . . . : 192.168.2.160(首选
+</span></span><span class="line"><span class="cl">IPv4 地址 . . . . . . . . . . . . : 192.168.2.160(首选)
+</span></span><span class="line"><span class="cl">IPv4 地址 . . . . . . . . . . . . : 192.168.2.160(首选
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>%a%</code>的值一直等于最后一项。</p>
 <h2 id="函数">函数</h2>
@@ -348,15 +348,15 @@ IPv4 地址 . . . . . . . . . . . . : 192.168.2.160(首选
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">call :test Hello World
-
-goto EXIT
-
-:test
-    <span class="nb">echo</span> %1 %2
-
-:EXIT
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">call :test Hello World
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">goto EXIT
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">:test
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> %1 %2
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">:EXIT
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>脚本中的<code>goto</code>用来跳转退出，而且函数要放在脚本的尾部，存在多个函数时还需要使用<code>goto</code>直接跳转，因为脚本是会按顺序执行下去的。</p>
 <h1 id="实战操作">实战操作</h1>
@@ -416,59 +416,59 @@ goto EXIT
 </span><span class="lnt">52
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">@echo off
-
-<span class="nb">set</span> <span class="nv">option</span><span class="o">=</span>%1
-<span class="nb">set</span> <span class="nv">address</span><span class="o">=</span>%2
-
-<span class="k">if</span> <span class="o">(</span>%option%<span class="o">)</span> <span class="o">==</span> <span class="o">()</span> <span class="o">(</span>
-    <span class="nb">echo</span> <span class="s2">&#34;Usage: connectIscsi.bat &lt;start|stop&gt; &lt;address&gt;&#34;</span>
-    goto EXIT
-<span class="o">)</span>
-
-<span class="k">if</span> <span class="o">(</span>%address%<span class="o">)</span> <span class="o">==</span> <span class="o">()</span> <span class="o">(</span>
-    <span class="nb">echo</span> <span class="s2">&#34;Usage: connectIscsi.bat &lt;start|stop&gt; &lt;address&gt;&#34;</span>
-    goto EXIT
-<span class="o">)</span>
-
-<span class="k">if</span> %option% <span class="o">==</span> start <span class="o">(</span>
-    call :start %address%
-<span class="o">)</span> <span class="k">else</span> <span class="k">if</span> %option% <span class="o">==</span> stop <span class="o">(</span>
-    call :stop %address%
-<span class="o">)</span> <span class="k">else</span> <span class="o">(</span>
-    <span class="nb">echo</span> <span class="s2">&#34;Usage: connectIscsi.bat &lt;start|stop&gt; &lt;address&gt;&#34;</span>
-    goto EXIT
-<span class="o">)</span>
-
-::sc config msiscsi <span class="nv">start</span><span class="o">=</span>auto
-::net start msiscsi
-
-goto EXIT
-
-:: 连接iscsi服务器
-:start
-    iscsicli QAddTargetPortal %1
-    <span class="k">for</span> /f <span class="s2">&#34;delims= tokens=1&#34;</span> %%i in <span class="o">(</span> <span class="s1">&#39;iscsicli ListTargets t ^| findstr /i &#34;iqn.2018-11&#34; &#39;</span> <span class="o">)</span> <span class="k">do</span> <span class="o">(</span>
-        iscsicli qlogintarget %%i
-    <span class="o">)</span>
-    goto EXIT
-
-:: 断开iscsi服务器
-:stop
-	<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>
-    <span class="k">for</span> /f <span class="s2">&#34;delims=: tokens=2&#34;</span> %%i in <span class="o">(</span><span class="s1">&#39;iscsicli SessionList ^| findstr /i &#34;fffffa8&#34;&#39;</span><span class="o">)</span> <span class="k">do</span> <span class="o">(</span>
-        <span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>%%i
-		goto <span class="k">return</span>
-    <span class="o">)</span>
-	:return
-	<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>%a: <span class="o">=</span>0x%
-	<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>%a:-<span class="o">=</span>-0x%
-	iscsicli LogoutTarget %a%
-    iscsicli RemoveTargetPortal %1 <span class="m">3260</span>
-    goto EXIT
-
-:EXIT
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">@echo off
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="nv">option</span><span class="o">=</span>%1
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="nv">address</span><span class="o">=</span>%2
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span>%option%<span class="o">)</span> <span class="o">==</span> <span class="o">()</span> <span class="o">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;Usage: connectIscsi.bat &lt;start|stop&gt; &lt;address&gt;&#34;</span>
+</span></span><span class="line"><span class="cl">    goto EXIT
+</span></span><span class="line"><span class="cl"><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span>%address%<span class="o">)</span> <span class="o">==</span> <span class="o">()</span> <span class="o">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;Usage: connectIscsi.bat &lt;start|stop&gt; &lt;address&gt;&#34;</span>
+</span></span><span class="line"><span class="cl">    goto EXIT
+</span></span><span class="line"><span class="cl"><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> %option% <span class="o">==</span> start <span class="o">(</span>
+</span></span><span class="line"><span class="cl">    call :start %address%
+</span></span><span class="line"><span class="cl"><span class="o">)</span> <span class="k">else</span> <span class="k">if</span> %option% <span class="o">==</span> stop <span class="o">(</span>
+</span></span><span class="line"><span class="cl">    call :stop %address%
+</span></span><span class="line"><span class="cl"><span class="o">)</span> <span class="k">else</span> <span class="o">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;Usage: connectIscsi.bat &lt;start|stop&gt; &lt;address&gt;&#34;</span>
+</span></span><span class="line"><span class="cl">    goto EXIT
+</span></span><span class="line"><span class="cl"><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">::sc config msiscsi <span class="nv">start</span><span class="o">=</span>auto
+</span></span><span class="line"><span class="cl">::net start msiscsi
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">goto EXIT
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">:: 连接iscsi服务器
+</span></span><span class="line"><span class="cl">:start
+</span></span><span class="line"><span class="cl">    iscsicli QAddTargetPortal %1
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> /f <span class="s2">&#34;delims= tokens=1&#34;</span> %%i in <span class="o">(</span> <span class="s1">&#39;iscsicli ListTargets t ^| findstr /i &#34;iqn.2018-11&#34; &#39;</span> <span class="o">)</span> <span class="k">do</span> <span class="o">(</span>
+</span></span><span class="line"><span class="cl">        iscsicli qlogintarget %%i
+</span></span><span class="line"><span class="cl">    <span class="o">)</span>
+</span></span><span class="line"><span class="cl">    goto EXIT
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">:: 断开iscsi服务器
+</span></span><span class="line"><span class="cl">:stop
+</span></span><span class="line"><span class="cl">	<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> /f <span class="s2">&#34;delims=: tokens=2&#34;</span> %%i in <span class="o">(</span><span class="s1">&#39;iscsicli SessionList ^| findstr /i &#34;fffffa8&#34;&#39;</span><span class="o">)</span> <span class="k">do</span> <span class="o">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>%%i
+</span></span><span class="line"><span class="cl">		goto <span class="k">return</span>
+</span></span><span class="line"><span class="cl">    <span class="o">)</span>
+</span></span><span class="line"><span class="cl">	:return
+</span></span><span class="line"><span class="cl">	<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>%a: <span class="o">=</span>0x%
+</span></span><span class="line"><span class="cl">	<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>%a:-<span class="o">=</span>-0x%
+</span></span><span class="line"><span class="cl">	iscsicli LogoutTarget %a%
+</span></span><span class="line"><span class="cl">    iscsicli RemoveTargetPortal %1 <span class="m">3260</span>
+</span></span><span class="line"><span class="cl">    goto EXIT
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">:EXIT
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这个脚本是用来连接和断开iscsi服务器的。脚本有两个入参，option 和 address。连接和断开iscsi服务器。脚本的思路很简单，开始判断输入参数是否正确。然后根据 option 选择执行对应的函数。特别在<code>:stop</code>中，因为延时复制的关系，所以循环体中只放简单的复制，处理部分在外面进行处理。</p>
 <h1 id="后记">后记</h1>
@@ -483,12 +483,12 @@ goto EXIT
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">SETLOCAL ENABLEDELAYEDEXPANSION
-
-<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>hello
-<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>!a!
-<span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>!a:~1!
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">SETLOCAL ENABLEDELAYEDEXPANSION
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>hello
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>!a!
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="nv">a</span><span class="o">=</span>!a:~1!
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
@@ -520,7 +520,7 @@ goto EXIT
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.97.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

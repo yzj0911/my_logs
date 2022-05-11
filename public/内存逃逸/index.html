@@ -18,7 +18,7 @@
 <meta name="twitter:title" content="内存逃逸"/>
 <meta name="twitter:description" content="内存逃逸 暂时性内存泄漏 获取长字符串中的一段导致长字符串未被释放 获取长slice中的一段导致长slice未被释放 在长slice中新建slice"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8/" /><link rel="prev" href="http://example.org/redis/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8/" /><link rel="prev" href="http://example.org/redis/" /><link rel="next" href="http://example.org/map%E5%92%8Cslice%E5%8E%9F%E7%90%86%E5%BA%95%E5%B1%82/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8\/"
-        },"genre": "posts","wordcount":  436 ,
+        },"genre": "posts","wordcount":  538 ,
         "url": "http:\/\/example.org\/%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8\/","datePublished": "2022-05-10T09:33:31+08:00","dateModified": "2022-05-10T09:33:31+08:00","publisher": {
             "@type": "Organization",
             "name": "YZJ"},"author": {
@@ -118,8 +118,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">内存逃逸</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-10">2022-05-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 436 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-10">2022-05-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 538 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="true">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -133,6 +133,8 @@
         <li><a href="#永久性内存泄漏">永久性内存泄漏</a></li>
       </ul>
     </li>
+    <li><a href="#常见的内存逃逸">常见的内存逃逸</a></li>
+    <li><a href="#小总结">小总结</a></li>
     <li><a href="#堆与栈">堆与栈</a></li>
     <li><a href="#常见的逃逸现象">常见的逃逸现象</a></li>
   </ul>
@@ -151,6 +153,31 @@
 <li>Finalizer导致泄漏</li>
 <li>Deferring Function Call导致泄漏</li>
 </ul>
+<hr>
+<h2 id="常见的内存逃逸">常见的内存逃逸</h2>
+<ol>
+<li>指针逃逸</li>
+<li>栈空间不足</li>
+<li>变量大小不确定</li>
+<li>动态类型</li>
+<li>闭包引用对象</li>
+</ol>
+<h2 id="小总结">小总结</h2>
+<ol>
+<li>
+<p>栈上分配内存比在堆中分配内存效率更高</p>
+</li>
+<li>
+<p>栈上分配的内存不需要 GC 处理，而堆需要</p>
+</li>
+<li>
+<p>逃逸分析目的是决定内分配地址是栈还是堆</p>
+</li>
+<li>
+<p>逃逸分析在编译阶段完成</p>
+</li>
+</ol>
+<hr>
 <h2 id="堆与栈">堆与栈</h2>
 <p><img
         class="lazyload"
@@ -182,24 +209,24 @@
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
-
-<span class="kn">import</span> <span class="s">&#34;fmt&#34;</span> 
-
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>    
-   <span class="nx">name</span> <span class="o">:=</span> <span class="nf">test</span><span class="p">()</span>    
-   <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">name</span><span class="p">())</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="nf">test</span><span class="p">()</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>    
-   <span class="k">return</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span> <span class="c1">//name 从原来的栈上，逃逸到堆上
-</span><span class="c1"></span>          <span class="k">return</span> <span class="s">&#34;公众号-后端时光&#34;</span>     
-   <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="c1">// go build -gcflags=&#34;-m -l&#34; eee.go 
-</span><span class="c1">// -m：表示内存分析  -l：表示防止内联优化
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>    
+</span></span><span class="line"><span class="cl">   <span class="nx">name</span> <span class="o">:=</span> <span class="nf">test</span><span class="p">()</span>    
+</span></span><span class="line"><span class="cl">   <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">name</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">test</span><span class="p">()</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>    
+</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span> <span class="c1">//name 从原来的栈上，逃逸到堆上
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="k">return</span> <span class="s">&#34;公众号-后端时光&#34;</span>     
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// go build -gcflags=&#34;-m -l&#34; eee.go 
+</span></span></span><span class="line"><span class="cl"><span class="c1">// -m：表示内存分析  -l：表示防止内联优化
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>原因是 <code>go/src/fmt/print.go</code> 文件中 <code>Println</code> 方法传参数类型 <code>interface{}</code>, 编译器对传入的变量类型未知，所有统一处理分配到了堆上面去了。</p>
 <h1 id="pprof排查">pprof排查</h1>
@@ -223,21 +250,21 @@
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
-
-<span class="kn">import</span> <span class="p">(</span>
-    <span class="s">&#34;fmt&#34;</span>
-    <span class="s">&#34;net/http&#34;</span>
-    <span class="nx">_</span> <span class="s">&#34;net/http/pprof&#34;</span>
-<span class="p">)</span>
-
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">ip</span> <span class="o">:=</span> <span class="s">&#34;127.0.0.1:6069&#34;</span>
-    <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">ListenAndServe</span><span class="p">(</span><span class="nx">ip</span><span class="p">,</span> <span class="kc">nil</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;start pprof failed on %s\n&#34;</span><span class="p">,</span> <span class="nx">ip</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;net/http&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">_</span> <span class="s">&#34;net/http/pprof&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ip</span> <span class="o">:=</span> <span class="s">&#34;127.0.0.1:6069&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">ListenAndServe</span><span class="p">(</span><span class="nx">ip</span><span class="p">,</span> <span class="kc">nil</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;start pprof failed on %s\n&#34;</span><span class="p">,</span> <span class="nx">ip</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
@@ -264,11 +291,12 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/redis/" class="prev" rel="prev" title="Redis"><i class="fas fa-angle-left fa-fw"></i>Redis</a></div>
+    <div class="post-nav"><a href="/redis/" class="prev" rel="prev" title="Redis"><i class="fas fa-angle-left fa-fw"></i>Redis</a>
+            <a href="/map%E5%92%8Cslice%E5%8E%9F%E7%90%86%E5%BA%95%E5%B1%82/" class="next" rel="next" title="Map和slice原理底层">Map和slice原理底层<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.97.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

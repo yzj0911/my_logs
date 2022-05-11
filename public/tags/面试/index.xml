@@ -10,7 +10,7 @@
     <pubDate>Mon, 11 Apr 2022 23:24:19 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://example.org/%E7%A9%BA%E5%88%87%E7%89%87%E5%92%8Cnil%E5%88%87%E7%89%87/</guid>
-    <description><![CDATA[空切片和nil切片 问题： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 package main import ( &#34;fmt&#34; &#34;reflect&#34; &#34;unsafe&#34; ) func main() { var s1 []int // nil切片 s2 := make([]int,0) // 空切片 s4 := make([]int,0) // 空切片 fmt.Printf(&#34;s1 pointer:%+v, s2 pointer:%+v, s4]]></description>
+    <description><![CDATA[空切片和nil切片 问题： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 package main import ( &#34;fmt&#34; &#34;reflect&#34; &#34;unsafe&#34; ) func main() { var s1 []int // nil切片 s2 := make([]int,0) // 空切片 s4 := make([]int,0) // 空切片 fmt.Printf(&#34;s1 pointer:%+v, s2 pointer:%+v, s4 pointer:%+v,]]></description>
 </item><item>
     <title>Channel</title>
     <link>http://example.org/channel/</link>

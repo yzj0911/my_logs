@@ -179,8 +179,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ yum install -y nginx
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ yum install -y nginx
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>安装成功后就可以尝试启动 nginx 服务器：</p>
 <div class="highlight"><div class="chroma">
@@ -188,8 +188,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ systemctl start nginx
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ systemctl start nginx
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>启动服务成功后，nginx 就运行在 80 端口。
 <strong>2.修改配置文件</strong>安装nginx就可以修改配置文件，配置文件的默认路径为 </p>
@@ -199,9 +199,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ ll /etc/nginx/nginx.conf
--rw-r--r-- <span class="m">1</span> root root <span class="m">1822</span> Nov <span class="m">24</span> 19:30 /etc/nginx/nginx.conf
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ ll /etc/nginx/nginx.conf
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root <span class="m">1822</span> Nov <span class="m">24</span> 19:30 /etc/nginx/nginx.conf
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>修改 nginx.conf 如下</p>
 <div class="highlight"><div class="chroma">
@@ -275,74 +275,74 @@
 </span><span class="lnt">67
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 系统用户</span>
-user nginx<span class="p">;</span>
-<span class="c1"># 工作进程数，配置高的机器可以适当增加</span>
-worker_processes 4<span class="p">;</span>
-<span class="c1"># 错误日志</span>
-error_log /var/log/nginx/error.log<span class="p">;</span>
-<span class="c1"># pid 文件存放目录</span>
-pid /run/nginx.pid<span class="p">;</span>
-
-
-events <span class="o">{</span>
-    <span class="c1"># linux 使用 epoll 事件机制</span>
-    use epoll<span class="p">;</span>
-    <span class="c1"># 连接数</span>
-    worker_connections 1024<span class="p">;</span>
-<span class="o">}</span>
-
-http <span class="o">{</span>
-    log_format  main  <span class="s1">&#39;$remote_addr - $remote_user [$time_local] &#34;$request&#34; &#39;</span>
-                      <span class="s1">&#39;$status $body_bytes_sent &#34;$http_referer&#34; &#39;</span>
-                      <span class="s1">&#39;&#34;$http_user_agent&#34; &#34;$http_x_forwarded_for&#34;&#39;</span><span class="p">;</span>
-
-    access_log  /var/log/nginx/access.log  main<span class="p">;</span>
-
-    sendfile            on<span class="p">;</span>
-    tcp_nopush          on<span class="p">;</span>
-    tcp_nodelay         on<span class="p">;</span>
-    keepalive_timeout   65<span class="p">;</span>
-    types_hash_max_size 2048<span class="p">;</span>
-
-    include             /etc/nginx/mime.types<span class="p">;</span>
-    default_type        application/octet-stream<span class="p">;</span>
-    <span class="c1"># 配置虚拟机，在该目录下配置多个配置文件对应多台需要代理的机器</span>
-    include /etc/nginx/conf.d/*.conf<span class="p">;</span>
-
-<span class="c1"># 配置 https</span>
-<span class="c1"># Settings for a TLS enabled server.</span>
-<span class="c1">#</span>
-<span class="c1">#    server {</span>
-<span class="c1">#        listen       443 ssl http2 default_server;</span>
-<span class="c1">#        listen       [::]:443 ssl http2 default_server;</span>
-<span class="c1">#        server_name  _;</span>
-<span class="c1">#        root         /usr/share/nginx/html;</span>
-<span class="c1">#</span>
-<span class="c1">#        ssl_certificate &#34;/etc/pki/nginx/server.crt&#34;;</span>
-<span class="c1">#        ssl_certificate_key &#34;/etc/pki/nginx/private/server.key&#34;;</span>
-<span class="c1">#        ssl_session_cache shared:SSL:1m;</span>
-<span class="c1">#        ssl_session_timeout  10m;</span>
-<span class="c1">#        ssl_ciphers HIGH:!aNULL:!MD5;</span>
-<span class="c1">#        ssl_prefer_server_ciphers on;</span>
-<span class="c1">#</span>
-<span class="c1">#        # Load configuration files for the default server block.</span>
-<span class="c1">#        include /etc/nginx/default.d/*.conf;</span>
-<span class="c1">#</span>
-<span class="c1">#        location / {</span>
-<span class="c1">#        }</span>
-<span class="c1">#</span>
-<span class="c1">#        error_page 404 /404.html;</span>
-<span class="c1">#            location = /40x.html {</span>
-<span class="c1">#        }</span>
-<span class="c1">#</span>
-<span class="c1">#        error_page 500 502 503 504 /50x.html;</span>
-<span class="c1">#            location = /50x.html {</span>
-<span class="c1">#        }</span>
-<span class="c1">#    }</span>
-
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 系统用户</span>
+</span></span><span class="line"><span class="cl">user nginx<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 工作进程数，配置高的机器可以适当增加</span>
+</span></span><span class="line"><span class="cl">worker_processes 4<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 错误日志</span>
+</span></span><span class="line"><span class="cl">error_log /var/log/nginx/error.log<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># pid 文件存放目录</span>
+</span></span><span class="line"><span class="cl">pid /run/nginx.pid<span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">events <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># linux 使用 epoll 事件机制</span>
+</span></span><span class="line"><span class="cl">    use epoll<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 连接数</span>
+</span></span><span class="line"><span class="cl">    worker_connections 1024<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">http <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    log_format  main  <span class="s1">&#39;$remote_addr - $remote_user [$time_local] &#34;$request&#34; &#39;</span>
+</span></span><span class="line"><span class="cl">                      <span class="s1">&#39;$status $body_bytes_sent &#34;$http_referer&#34; &#39;</span>
+</span></span><span class="line"><span class="cl">                      <span class="s1">&#39;&#34;$http_user_agent&#34; &#34;$http_x_forwarded_for&#34;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    access_log  /var/log/nginx/access.log  main<span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    sendfile            on<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    tcp_nopush          on<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    tcp_nodelay         on<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    keepalive_timeout   65<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    types_hash_max_size 2048<span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    include             /etc/nginx/mime.types<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    default_type        application/octet-stream<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 配置虚拟机，在该目录下配置多个配置文件对应多台需要代理的机器</span>
+</span></span><span class="line"><span class="cl">    include /etc/nginx/conf.d/*.conf<span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 配置 https</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Settings for a TLS enabled server.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    server {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        listen       443 ssl http2 default_server;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        listen       [::]:443 ssl http2 default_server;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        server_name  _;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        root         /usr/share/nginx/html;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        ssl_certificate &#34;/etc/pki/nginx/server.crt&#34;;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        ssl_certificate_key &#34;/etc/pki/nginx/private/server.key&#34;;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        ssl_session_cache shared:SSL:1m;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        ssl_session_timeout  10m;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        ssl_ciphers HIGH:!aNULL:!MD5;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        ssl_prefer_server_ciphers on;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        # Load configuration files for the default server block.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        include /etc/nginx/default.d/*.conf;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        location / {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        }</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        error_page 404 /404.html;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#            location = /40x.html {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        }</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        error_page 500 502 503 504 /50x.html;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#            location = /50x.html {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        }</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    }</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>注意 23 行的配置：<code>include /etc/nginx/conf.d/*.conf;</code> 这个目录下就是要存放代理的配置文件。一般这个文件默认是存在的，如果目录不存在，就创建并修改权限。</p>
 <div class="highlight"><div class="chroma">
@@ -351,9 +351,9 @@ http <span class="o">{</span>
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ mkdir /etc/nginx/conf.d
-$ chmod <span class="m">755</span> /etc/nginx/conf.d
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ mkdir /etc/nginx/conf.d
+</span></span><span class="line"><span class="cl">$ chmod <span class="m">755</span> /etc/nginx/conf.d
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>3.配置代理文件</strong>在这个目录下存放代理服务的文件，最好一个代理对应一个配置文件。我们之前需求上需要代理的服务是两个，直接创建两个代理文件，并修改</p>
 <div class="highlight"><div class="chroma">
@@ -382,29 +382,29 @@ $ chmod <span class="m">755</span> /etc/nginx/conf.d
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># /etc/nginx/conf.d/nginx.conf </span>
-<span class="c1"># 代理的节点</span>
-<span class="c1"># upstream &lt;代理名称 唯一&gt;</span>
-upstream nginx_server <span class="o">{</span>
-  <span class="c1"># 代理的ip:port,可添加多个ip地址就行负载均衡</span>
-  server 192.168.10.11:8080<span class="p">;</span>
-<span class="o">}</span>
-
-server 
-<span class="o">{</span>
-  <span class="c1"># 监听的地址和端口</span>
-  <span class="c1"># 对应一个代理一个端口</span>
-  listen       192.168.10.10:8080<span class="p">;</span>
-  <span class="c1"># 对外的域名 </span>
-  server_name  aaa.test.com<span class="p">;</span>
-  location / <span class="o">{</span>
-    <span class="c1"># 代理配置，名称和以上的代理名称对应 </span>
-    proxy_pass http://nginx_server<span class="p">;</span>
-    <span class="c1"># 配置使用真实的地址访问，如果不配置此项会导致代理tomcat服务器 400 错误</span>
-    proxy_set_header Host <span class="nv">$host</span><span class="p">;</span>
-  <span class="o">}</span>   
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># /etc/nginx/conf.d/nginx.conf </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 代理的节点</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># upstream &lt;代理名称 唯一&gt;</span>
+</span></span><span class="line"><span class="cl">upstream nginx_server <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># 代理的ip:port,可添加多个ip地址就行负载均衡</span>
+</span></span><span class="line"><span class="cl">  server 192.168.10.11:8080<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">server 
+</span></span><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># 监听的地址和端口</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># 对应一个代理一个端口</span>
+</span></span><span class="line"><span class="cl">  listen       192.168.10.10:8080<span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># 对外的域名 </span>
+</span></span><span class="line"><span class="cl">  server_name  aaa.test.com<span class="p">;</span>
+</span></span><span class="line"><span class="cl">  location / <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 代理配置，名称和以上的代理名称对应 </span>
+</span></span><span class="line"><span class="cl">    proxy_pass http://nginx_server<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 配置使用真实的地址访问，如果不配置此项会导致代理tomcat服务器 400 错误</span>
+</span></span><span class="line"><span class="cl">    proxy_set_header Host <span class="nv">$host</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>   
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -424,21 +424,21 @@ server
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># cat /etc/nginx/conf.d/tomcat.conf </span>
-upstream tomcat_server <span class="o">{</span>
-  server 192.168.10.11:9000<span class="p">;</span>
-<span class="o">}</span>
-
-server 
-<span class="o">{</span>
-  listen       192.168.10.10:8081<span class="p">;</span> 
-  server_name  bbb.test.com<span class="p">;</span>
-  location / <span class="o">{</span> 
-    proxy_pass http://tomcat_server<span class="p">;</span>
-    proxy_set_header Host <span class="nv">$host</span><span class="p">;</span>
-  <span class="o">}</span>   
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># cat /etc/nginx/conf.d/tomcat.conf </span>
+</span></span><span class="line"><span class="cl">upstream tomcat_server <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  server 192.168.10.11:9000<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">server 
+</span></span><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl">  listen       192.168.10.10:8081<span class="p">;</span> 
+</span></span><span class="line"><span class="cl">  server_name  bbb.test.com<span class="p">;</span>
+</span></span><span class="line"><span class="cl">  location / <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    proxy_pass http://tomcat_server<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    proxy_set_header Host <span class="nv">$host</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>   
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>修改并保存后，使用 nginx 命令来验证文件的语法：</p>
 <div class="highlight"><div class="chroma">
@@ -448,10 +448,10 @@ server
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ <span class="c1"># nginx -t</span>
-nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-nginx: configuration file /etc/nginx/nginx.conf <span class="nb">test</span> is successful
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="c1"># nginx -t</span>
+</span></span><span class="line"><span class="cl">nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+</span></span><span class="line"><span class="cl">nginx: configuration file /etc/nginx/nginx.conf <span class="nb">test</span> is successful
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>之后就可以重启 nginx 服务</p>
 <div class="highlight"><div class="chroma">
@@ -462,11 +462,11 @@ nginx: configuration file /etc/nginx/nginx.conf <span class="nb">test</span> is 
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ systemctl restart nginx
-$ netstat -tnlp <span class="p">|</span> grep nginx
-tcp        <span class="m">0</span>      <span class="m">0</span> 192.168.10.10:8080      0.0.0.0:*               LISTEN      11643/nginx: master 
-tcp        <span class="m">0</span>      <span class="m">0</span> 192.168.10.10:8081      0.0.0.0:*               LISTEN      11643/nginx: master
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ systemctl restart nginx
+</span></span><span class="line"><span class="cl">$ netstat -tnlp <span class="p">|</span> grep nginx
+</span></span><span class="line"><span class="cl">tcp        <span class="m">0</span>      <span class="m">0</span> 192.168.10.10:8080      0.0.0.0:*               LISTEN      11643/nginx: master 
+</span></span><span class="line"><span class="cl">tcp        <span class="m">0</span>      <span class="m">0</span> 192.168.10.10:8081      0.0.0.0:*               LISTEN      11643/nginx: master
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以看到成功绑定两个端口，代理两个服务。通过浏览器访问8080和8081![image.png]
 <img
@@ -516,7 +516,7 @@ tcp        <span class="m">0</span>      <span class="m">0</span> 192.168.10.10:
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.97.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
