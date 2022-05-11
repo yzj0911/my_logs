@@ -6,7 +6,7 @@
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>Mysql - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="Mysql" />
-<meta property="og:description" content="Mysql Mysql面试 什么是MySQL MySQL是一个关系型数据库管理系统，由瑞典MySQL AB 公司开发，属于 Oracle 旗下产品。MySQL 是最流行的关系型" />
+<meta property="og:description" content="Mysql面试 什么是MySQL MySQL是一个关系型数据库管理系统，由瑞典MySQL AB 公司开发，属于 Oracle 旗下产品。MySQL 是最流行的关系型数" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/mysql/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-04-26T14:04:35+08:00" />
@@ -16,7 +16,7 @@
 <meta name="twitter:image" content="http://example.org/logo.png"/>
 
 <meta name="twitter:title" content="Mysql"/>
-<meta name="twitter:description" content="Mysql Mysql面试 什么是MySQL MySQL是一个关系型数据库管理系统，由瑞典MySQL AB 公司开发，属于 Oracle 旗下产品。MySQL 是最流行的关系型"/>
+<meta name="twitter:description" content="Mysql面试 什么是MySQL MySQL是一个关系型数据库管理系统，由瑞典MySQL AB 公司开发，属于 Oracle 旗下产品。MySQL 是最流行的关系型数"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/mysql/" /><link rel="prev" href="http://example.org/100%E9%A2%98/" /><link rel="next" href="http://example.org/redis/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/mysql\/"
-        },"genre": "posts","wordcount":  23783 ,
+        },"genre": "posts","wordcount":  24234 ,
         "url": "http:\/\/example.org\/mysql\/","datePublished": "2022-04-26T14:04:35+08:00","dateModified": "2022-04-26T14:04:35+08:00","publisher": {
             "@type": "Organization",
             "name": "YZJ"},"author": {
@@ -118,8 +118,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Mysql</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-26">2022-04-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 23783 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 48 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-26">2022-04-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 24234 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 49 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="true">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -254,8 +254,7 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>Mysql</p>
-<h1 id="mysql面试">Mysql面试</h1>
+            </div><div class="content" id="content"><h1 id="mysql面试">Mysql面试</h1>
 <h2 id="什么是mysql">什么是MySQL</h2>
 <p>MySQL是一个关系型数据库管理系统，由瑞典MySQL AB 公司开发，属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件之一。在Java企业级开发中非常常用，因为 MySQL 是开源免费的，并且方便扩展。</p>
 <h2 id="数据库三大范式是什么">数据库三大范式是什么</h2>
@@ -376,10 +375,22 @@
 </ul>
 <h2 id="innodb引擎的4大特性">InnoDB引擎的4大特性</h2>
 <ul>
-<li>插入缓冲（insert buffer)</li>
-<li>二次写(double write)</li>
-<li>自适应哈希索引(ahi)</li>
-<li>预读(read ahead)</li>
+<li>
+<p>插入缓冲（insert buffer)</p>
+<p>insert buffer是一种特殊的数据结构（B+ tree）并不是缓存的一部分，而是物理页，当受影响的索引页不在buffer pool时缓存 secondary index pages的变化，当buffer page读入buffer pool时，进行合并操作，这些操作可以是 INSERT, UPDATE, or DELETE operations (DML)</p>
+</li>
+<li>
+<p>二次写(double write)</p>
+<p>当数据库正在从内存想磁盘写一个数据页是，数据库宕机，从而导致这个页只写了部分数据，这就是部分写失效，它会导致数据丢失。这时是无法通过重做日志恢复的，因为重做日志记录的是对页的物理修改，如果页本身已经损坏，重做日志也无能为力。</p>
+</li>
+<li>
+<p>自适应哈希索引(ahi)</p>
+<p>Innodb存储引擎会监控对表上二级索引的查找，如果发现某二级索引被频繁访问，二级索引成为热数据，建立哈希索引可以带来速度的提升</p>
+</li>
+<li>
+<p>预读(read ahead)</p>
+<p>用于异步将磁盘的页读取到buffer pool中，预料这些页会马上被读取到。预读请求的所有页集中在一个范围内</p>
+</li>
 </ul>
 <h2 id="存储引擎选择">存储引擎选择</h2>
 <p>如果没有特别的需求，使用默认的<code>Innodb</code>即可。</p>
@@ -391,6 +402,10 @@
 <h2 id="索引有哪些优缺点">索引有哪些优缺点</h2>
 <p>索引的优点</p>
 <ul>
+<li>通过创建唯一索引可以保证数据库表中每一行数据的唯一性。</li>
+<li>可以给所有的 MySQL 列类型设置索引。</li>
+<li>在实现数据的参考完整性方面可以加速表与表之间的连接。</li>
+<li>在使用分组和排序子句进行数据查询时也可以显著减少查询中分组和排序的时间</li>
 <li>可以大大加快数据的检索速度,这也是创建索引的最主要的原因。</li>
 <li>通过使用索引,可以在查询的过程中,使用优化隐藏器,提高系统的性能。</li>
 </ul>

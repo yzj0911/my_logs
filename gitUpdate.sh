@@ -1,5 +1,5 @@
 #!/bin/bash
-
+git pull
 hugo 
 # hugo -d docs
 hugo -D
