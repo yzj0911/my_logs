@@ -2,6 +2,9 @@
 title: "Redis"
 date: 2022-05-09T13:23:30+08:00
 draft: true
+tags: ["面试"]
+series: [""]
+categories: ["面试"]
 ---
 
 # redis

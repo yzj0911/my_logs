@@ -2,6 +2,9 @@
 title: "Mysql"
 date: 2022-04-26T14:04:35+08:00
 draft: true
+tags: ["面试"]
+series: [""]
+categories: ["面试"]
 ---
 
 
