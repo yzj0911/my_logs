@@ -18,7 +18,7 @@
 <meta name="twitter:title" content="Map和slice原理底层"/>
 <meta name="twitter:description" content="slice 切片 切片是基于数组实现的，它的底层是数组，可以理解为对 底层数组的抽象。 切片不是线程安全的 源码包中src/runtime/slice.go 定"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/map%E5%92%8Cslice%E5%8E%9F%E7%90%86%E5%BA%95%E5%B1%82/" /><link rel="prev" href="http://example.org/%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/map%E5%92%8Cslice%E5%8E%9F%E7%90%86%E5%BA%95%E5%B1%82/" /><link rel="prev" href="http://example.org/%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8/" /><link rel="next" href="http://example.org/io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -142,12 +142,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">slice</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">array</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">//底层指针
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">len</span>   <span class="kt">int</span> <span class="c1">//长度
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">cap</span>   <span class="kt">int</span> <span class="c1">//预存空间
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">slice</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">array</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">//底层指针
+</span><span class="c1"></span>    <span class="nx">len</span>   <span class="kt">int</span> <span class="c1">//长度
+</span><span class="c1"></span>    <span class="nx">cap</span>   <span class="kt">int</span> <span class="c1">//预存空间
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>slice：占用24个字节</p>
 <p>array：指向底层数组的指针，占用8个字节</p>
@@ -170,20 +170,20 @@
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"> <span class="nx">slice有4种初始化方式</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// 初始化方式1：直接声明
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">slice1</span> <span class="p">[]</span><span class="kt">int</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// 初始化方式2：使用字面量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">slice2</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// 初始化方式3：使用make创建slice
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">slice3</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>         
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// 初始化方式4: 从切片或数组“截取”
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">slcie4</span> <span class="o">:=</span> <span class="nx">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"> <span class="nx">slice有4种初始化方式</span>
+
+<span class="c1">// 初始化方式1：直接声明
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">slice1</span> <span class="p">[]</span><span class="kt">int</span>
+
+<span class="c1">// 初始化方式2：使用字面量
+</span><span class="c1"></span><span class="nx">slice2</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">}</span>
+
+<span class="c1">// 初始化方式3：使用make创建slice
+</span><span class="c1"></span><span class="nx">slice3</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>         
+
+<span class="c1">// 初始化方式4: 从切片或数组“截取”
+</span><span class="c1"></span><span class="nx">slcie4</span> <span class="o">:=</span> <span class="nx">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>通过一个简单程序，看下slice初始化调用的底层函数</p>
 <div class="highlight"><div class="chroma">
@@ -199,16 +199,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">slice</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">slice</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">slice</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">slice</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">slice</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">slice</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">slice</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="nx">slice</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">slice</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">slice</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">slice</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">slice</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>通过 <code>go tool compile -S test.go | grep CALL </code>得到汇编代码</p>
 <div class="highlight"><div class="chroma">
@@ -224,16 +224,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="mh">0x0042</span> <span class="mo">00066</span> <span class="p">(</span><span class="nx">test</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">6</span><span class="p">)</span>        <span class="nx">CALL</span>    <span class="nx">runtime</span><span class="p">.</span><span class="nf">makeslice</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="mh">0x006d</span> <span class="mo">0010</span><span class="mi">9</span> <span class="p">(</span><span class="nx">test</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>        <span class="nx">CALL</span>    <span class="nx">runtime</span><span class="p">.</span><span class="nf">growslice</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="mh">0x00a4</span> <span class="mo">00164</span> <span class="p">(</span><span class="nx">test</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">8</span><span class="p">)</span>        <span class="nx">CALL</span>    <span class="nx">runtime</span><span class="p">.</span><span class="nf">convTslice</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="mh">0x00c0</span> <span class="mo">001</span><span class="mi">92</span> <span class="p">(</span><span class="nx">test</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">8</span><span class="p">)</span>        <span class="nx">CALL</span>    <span class="nx">runtime</span><span class="p">.</span><span class="nf">convT64</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="mh">0x00d8</span> <span class="mo">00216</span> <span class="p">(</span><span class="nx">test</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">8</span><span class="p">)</span>        <span class="nx">CALL</span>    <span class="nx">runtime</span><span class="p">.</span><span class="nf">convT64</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="mh">0x0166</span> <span class="mo">0035</span><span class="mi">8</span> <span class="p">(</span><span class="err">$</span><span class="nx">GOROOT</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">fmt</span><span class="o">/</span><span class="nx">print</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">274</span><span class="p">)</span>     <span class="nx">CALL</span>    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprintln</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="mh">0x0180</span> <span class="mo">003</span><span class="mi">84</span> <span class="p">(</span><span class="nx">test</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">5</span><span class="p">)</span>        <span class="nx">CALL</span>    <span class="nx">runtime</span><span class="p">.</span><span class="nf">morestack_noctxt</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="mh">0x0079</span> <span class="mo">00121</span> <span class="p">(&lt;</span><span class="nx">autogenerated</span><span class="p">&gt;:</span><span class="mi">1</span><span class="p">)</span>        <span class="nx">CALL</span>    <span class="nx">runtime</span><span class="p">.</span><span class="nf">efaceeq</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="mh">0x00a0</span> <span class="mo">00160</span> <span class="p">(&lt;</span><span class="nx">autogenerated</span><span class="p">&gt;:</span><span class="mi">1</span><span class="p">)</span>        <span class="nx">CALL</span>    <span class="nx">runtime</span><span class="p">.</span><span class="nf">morestack_noctxt</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="mh">0x0042</span> <span class="mo">00066</span> <span class="p">(</span><span class="nx">test</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">6</span><span class="p">)</span>        <span class="nx">CALL</span>    <span class="nx">runtime</span><span class="p">.</span><span class="nf">makeslice</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
+<span class="mh">0x006d</span> <span class="mo">0010</span><span class="mi">9</span> <span class="p">(</span><span class="nx">test</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>        <span class="nx">CALL</span>    <span class="nx">runtime</span><span class="p">.</span><span class="nf">growslice</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
+<span class="mh">0x00a4</span> <span class="mo">00164</span> <span class="p">(</span><span class="nx">test</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">8</span><span class="p">)</span>        <span class="nx">CALL</span>    <span class="nx">runtime</span><span class="p">.</span><span class="nf">convTslice</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
+<span class="mh">0x00c0</span> <span class="mo">001</span><span class="mi">92</span> <span class="p">(</span><span class="nx">test</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">8</span><span class="p">)</span>        <span class="nx">CALL</span>    <span class="nx">runtime</span><span class="p">.</span><span class="nf">convT64</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
+<span class="mh">0x00d8</span> <span class="mo">00216</span> <span class="p">(</span><span class="nx">test</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">8</span><span class="p">)</span>        <span class="nx">CALL</span>    <span class="nx">runtime</span><span class="p">.</span><span class="nf">convT64</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
+<span class="mh">0x0166</span> <span class="mo">0035</span><span class="mi">8</span> <span class="p">(</span><span class="err">$</span><span class="nx">GOROOT</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">fmt</span><span class="o">/</span><span class="nx">print</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">274</span><span class="p">)</span>     <span class="nx">CALL</span>    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprintln</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
+<span class="mh">0x0180</span> <span class="mo">003</span><span class="mi">84</span> <span class="p">(</span><span class="nx">test</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">5</span><span class="p">)</span>        <span class="nx">CALL</span>    <span class="nx">runtime</span><span class="p">.</span><span class="nf">morestack_noctxt</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
+<span class="mh">0x0079</span> <span class="mo">00121</span> <span class="p">(&lt;</span><span class="nx">autogenerated</span><span class="p">&gt;:</span><span class="mi">1</span><span class="p">)</span>        <span class="nx">CALL</span>    <span class="nx">runtime</span><span class="p">.</span><span class="nf">efaceeq</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
+<span class="mh">0x00a0</span> <span class="mo">00160</span> <span class="p">(&lt;</span><span class="nx">autogenerated</span><span class="p">&gt;:</span><span class="mi">1</span><span class="p">)</span>        <span class="nx">CALL</span>    <span class="nx">runtime</span><span class="p">.</span><span class="nf">morestack_noctxt</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>初始化slice调用的是runtime.makeslice，makeslice函数的工作主要就是计算slice所需内存大小，然后调用mallocgc进行内存的分配</p>
 <p>所需内存大小 = 切片中元素大小 * 切片的容量</p>
@@ -258,24 +258,24 @@
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">makeslice</span><span class="p">(</span><span class="nx">et</span> <span class="o">*</span><span class="nx">_type</span><span class="p">,</span> <span class="nx">len</span><span class="p">,</span> <span class="nx">cap</span> <span class="kt">int</span><span class="p">)</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">mem</span><span class="p">,</span> <span class="nx">overflow</span> <span class="o">:=</span> <span class="nx">math</span><span class="p">.</span><span class="nf">MulUintptr</span><span class="p">(</span><span class="nx">et</span><span class="p">.</span><span class="nx">size</span><span class="p">,</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">cap</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">overflow</span> <span class="o">||</span> <span class="nx">mem</span> <span class="p">&gt;</span> <span class="nx">maxAlloc</span> <span class="o">||</span> <span class="nx">len</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">len</span> <span class="p">&gt;</span> <span class="nx">cap</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">// NOTE: Produce a len out of range error instead of a
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// cap out of range error when someone does make([]T, bignumber).
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// cap out of range is true too, but since the cap is only being
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// supplied implicitly, saying len is clearer.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// See golang.org/issue/4085.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">mem</span><span class="p">,</span> <span class="nx">overflow</span> <span class="o">:=</span> <span class="nx">math</span><span class="p">.</span><span class="nf">MulUintptr</span><span class="p">(</span><span class="nx">et</span><span class="p">.</span><span class="nx">size</span><span class="p">,</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">len</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">overflow</span> <span class="o">||</span> <span class="nx">mem</span> <span class="p">&gt;</span> <span class="nx">maxAlloc</span> <span class="o">||</span> <span class="nx">len</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nf">panicmakeslicelen</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">panicmakeslicecap</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">mallocgc</span><span class="p">(</span><span class="nx">mem</span><span class="p">,</span> <span class="nx">et</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">makeslice</span><span class="p">(</span><span class="nx">et</span> <span class="o">*</span><span class="nx">_type</span><span class="p">,</span> <span class="nx">len</span><span class="p">,</span> <span class="nx">cap</span> <span class="kt">int</span><span class="p">)</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="p">{</span>
+    <span class="nx">mem</span><span class="p">,</span> <span class="nx">overflow</span> <span class="o">:=</span> <span class="nx">math</span><span class="p">.</span><span class="nf">MulUintptr</span><span class="p">(</span><span class="nx">et</span><span class="p">.</span><span class="nx">size</span><span class="p">,</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">cap</span><span class="p">))</span>
+    <span class="k">if</span> <span class="nx">overflow</span> <span class="o">||</span> <span class="nx">mem</span> <span class="p">&gt;</span> <span class="nx">maxAlloc</span> <span class="o">||</span> <span class="nx">len</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">len</span> <span class="p">&gt;</span> <span class="nx">cap</span> <span class="p">{</span>
+        <span class="c1">// NOTE: Produce a len out of range error instead of a
+</span><span class="c1"></span>        <span class="c1">// cap out of range error when someone does make([]T, bignumber).
+</span><span class="c1"></span>        <span class="c1">// cap out of range is true too, but since the cap is only being
+</span><span class="c1"></span>        <span class="c1">// supplied implicitly, saying len is clearer.
+</span><span class="c1"></span>        <span class="c1">// See golang.org/issue/4085.
+</span><span class="c1"></span>        <span class="nx">mem</span><span class="p">,</span> <span class="nx">overflow</span> <span class="o">:=</span> <span class="nx">math</span><span class="p">.</span><span class="nf">MulUintptr</span><span class="p">(</span><span class="nx">et</span><span class="p">.</span><span class="nx">size</span><span class="p">,</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">len</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nx">overflow</span> <span class="o">||</span> <span class="nx">mem</span> <span class="p">&gt;</span> <span class="nx">maxAlloc</span> <span class="o">||</span> <span class="nx">len</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
+            <span class="nf">panicmakeslicelen</span><span class="p">()</span>
+        <span class="p">}</span>
+        <span class="nf">panicmakeslicecap</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nf">mallocgc</span><span class="p">(</span><span class="nx">mem</span><span class="p">,</span> <span class="nx">et</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><h1 id="数组和切片slice的区别">数组和切片slice的区别</h1>
 <p>1） 数组长度不同</p>
@@ -326,29 +326,29 @@
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// A header for a Go map.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">hmap</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">count</span>     <span class="kt">int</span> 
-</span></span><span class="line"><span class="cl">    <span class="c1">// 代表哈希表中的元素个数，调用len(map)时，返回的就是该字段值。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">flags</span>     <span class="kt">uint8</span> 
-</span></span><span class="line"><span class="cl">    <span class="c1">// 状态标志（是否处于正在写入的状态等）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">B</span>         <span class="kt">uint8</span>  
-</span></span><span class="line"><span class="cl">    <span class="c1">// buckets（桶）的对数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 如果B=5，则buckets数组的长度 = 2^B=32，意味着有32个桶
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">noverflow</span> <span class="kt">uint16</span> 
-</span></span><span class="line"><span class="cl">    <span class="c1">// 溢出桶的数量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">hash0</span>     <span class="kt">uint32</span> 
-</span></span><span class="line"><span class="cl">    <span class="c1">// 生成hash的随机数种子
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">buckets</span>    <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> 
-</span></span><span class="line"><span class="cl">    <span class="c1">// 指向buckets数组的指针，数组大小为2^B，如果元素个数为0，它为nil。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">oldbuckets</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> 
-</span></span><span class="line"><span class="cl">    <span class="c1">// 如果发生扩容，oldbuckets是指向老的buckets数组的指针，老的buckets数组大小是新的buckets的1/2;非扩容状态下，它为nil。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">nevacuate</span>  <span class="kt">uintptr</span>        
-</span></span><span class="line"><span class="cl">    <span class="c1">// 表示扩容进度，小于此地址的buckets代表已搬迁完成。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">extra</span> <span class="o">*</span><span class="nx">mapextra</span> 
-</span></span><span class="line"><span class="cl">    <span class="c1">// 存储溢出桶，这个字段是为了优化GC扫描而设计的，下面详细介绍
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// A header for a Go map.
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">hmap</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">count</span>     <span class="kt">int</span> 
+    <span class="c1">// 代表哈希表中的元素个数，调用len(map)时，返回的就是该字段值。
+</span><span class="c1"></span>    <span class="nx">flags</span>     <span class="kt">uint8</span> 
+    <span class="c1">// 状态标志（是否处于正在写入的状态等）
+</span><span class="c1"></span>    <span class="nx">B</span>         <span class="kt">uint8</span>  
+    <span class="c1">// buckets（桶）的对数
+</span><span class="c1"></span>    <span class="c1">// 如果B=5，则buckets数组的长度 = 2^B=32，意味着有32个桶
+</span><span class="c1"></span>    <span class="nx">noverflow</span> <span class="kt">uint16</span> 
+    <span class="c1">// 溢出桶的数量
+</span><span class="c1"></span>    <span class="nx">hash0</span>     <span class="kt">uint32</span> 
+    <span class="c1">// 生成hash的随机数种子
+</span><span class="c1"></span>    <span class="nx">buckets</span>    <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> 
+    <span class="c1">// 指向buckets数组的指针，数组大小为2^B，如果元素个数为0，它为nil。
+</span><span class="c1"></span>    <span class="nx">oldbuckets</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> 
+    <span class="c1">// 如果发生扩容，oldbuckets是指向老的buckets数组的指针，老的buckets数组大小是新的buckets的1/2;非扩容状态下，它为nil。
+</span><span class="c1"></span>    <span class="nx">nevacuate</span>  <span class="kt">uintptr</span>        
+    <span class="c1">// 表示扩容进度，小于此地址的buckets代表已搬迁完成。
+</span><span class="c1"></span>    <span class="nx">extra</span> <span class="o">*</span><span class="nx">mapextra</span> 
+    <span class="c1">// 存储溢出桶，这个字段是为了优化GC扫描而设计的，下面详细介绍
+</span><span class="c1"></span> <span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>bmap结构体</p>
 <p>bmap 就是我们常说的“桶”，一个桶里面会最多装 8 个 key，这些 key 之所以会落入同一个桶，是因为它们经过哈希计算后，哈希结果的低B位是相同的，关于key的定位我们在map的查询中详细说明。在桶内，又会根据 key 计算出来的 hash 值的高 8 位来决定 key 到底落入桶内的哪个位置（一个桶内最多有8个位置)。</p>
@@ -363,14 +363,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// A bucket for a Go map.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">bmap</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">tophash</span> <span class="p">[</span><span class="nx">bucketCnt</span><span class="p">]</span><span class="kt">uint8</span>        
-</span></span><span class="line"><span class="cl">    <span class="c1">// len为8的数组
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 用来快速定位key是否在这个bmap中
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 一个桶最多8个槽位，如果key所在的tophash值在tophash中，则代表该key在这个桶中
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// A bucket for a Go map.
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">bmap</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">tophash</span> <span class="p">[</span><span class="nx">bucketCnt</span><span class="p">]</span><span class="kt">uint8</span>        
+    <span class="c1">// len为8的数组
+</span><span class="c1"></span>    <span class="c1">// 用来快速定位key是否在这个bmap中
+</span><span class="c1"></span>    <span class="c1">// 一个桶最多8个槽位，如果key所在的tophash值在tophash中，则代表该key在这个桶中
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>上面bmap结构是静态结构，在编译过程中runtime.bmap会拓展成以下结构体：</p>
 <div class="highlight"><div class="chroma">
@@ -386,16 +386,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">bmap</span> <span class="kd">struct</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">tophash</span> <span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="kt">uint8</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">keys</span> <span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="nx">keytype</span> 
-</span></span><span class="line"><span class="cl">    <span class="c1">// keytype 由编译器编译时候确定
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">values</span> <span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="nx">elemtype</span> 
-</span></span><span class="line"><span class="cl">    <span class="c1">// elemtype 由编译器编译时候确定
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">overflow</span> <span class="kt">uintptr</span> 
-</span></span><span class="line"><span class="cl">    <span class="c1">// overflow指向下一个bmap，overflow是uintptr而不是*bmap类型，保证bmap完全不含指针，是为了减少gc，溢出桶存储到extra字段中
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">bmap</span> <span class="kd">struct</span><span class="p">{</span>
+    <span class="nx">tophash</span> <span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="kt">uint8</span>
+    <span class="nx">keys</span> <span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="nx">keytype</span> 
+    <span class="c1">// keytype 由编译器编译时候确定
+</span><span class="c1"></span>    <span class="nx">values</span> <span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="nx">elemtype</span> 
+    <span class="c1">// elemtype 由编译器编译时候确定
+</span><span class="c1"></span>    <span class="nx">overflow</span> <span class="kt">uintptr</span> 
+    <span class="c1">// overflow指向下一个bmap，overflow是uintptr而不是*bmap类型，保证bmap完全不含指针，是为了减少gc，溢出桶存储到extra字段中
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>tophash就是用于实现快速定位key的位置，在实现过程中会使用key的hash值的高8位作为tophash值，存放在bmap的tophash字段中</p>
 <p>tophash字段不仅存储key哈希值的高8位，还会存储一些状态值，用来表明当前桶单元状态，这些状态值都是小于minTopHash的</p>
@@ -418,21 +418,21 @@
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">emptyRest</span>      <span class="p">=</span> <span class="mi">0</span> <span class="c1">// 表明此桶单元为空，且更高索引的单元也是空
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">emptyOne</span>       <span class="p">=</span> <span class="mi">1</span> <span class="c1">// 表明此桶单元为空
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">evacuatedX</span>     <span class="p">=</span> <span class="mi">2</span> <span class="c1">// 用于表示扩容迁移到新桶前半段区间
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">evacuatedY</span>     <span class="p">=</span> <span class="mi">3</span> <span class="c1">// 用于表示扩容迁移到新桶后半段区间
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">evacuatedEmpty</span> <span class="p">=</span> <span class="mi">4</span> <span class="c1">// 用于表示此单元已迁移
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">minTopHash</span>     <span class="p">=</span> <span class="mi">5</span> <span class="c1">// key的tophash值与桶状态值分割线值，小于此值的一定代表着桶单元的状态，大于此值的一定是key对应的tophash值
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">tophash</span><span class="p">(</span><span class="nx">hash</span> <span class="kt">uintptr</span><span class="p">)</span> <span class="kt">uint8</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">top</span> <span class="o">:=</span> <span class="nb">uint8</span><span class="p">(</span><span class="nx">hash</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="nx">goarch</span><span class="p">.</span><span class="nx">PtrSize</span><span class="o">*</span><span class="mi">8</span> <span class="o">-</span> <span class="mi">8</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">top</span> <span class="p">&lt;</span> <span class="nx">minTopHash</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">top</span> <span class="o">+=</span> <span class="nx">minTopHash</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">top</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nx">emptyRest</span>      <span class="p">=</span> <span class="mi">0</span> <span class="c1">// 表明此桶单元为空，且更高索引的单元也是空
+</span><span class="c1"></span><span class="nx">emptyOne</span>       <span class="p">=</span> <span class="mi">1</span> <span class="c1">// 表明此桶单元为空
+</span><span class="c1"></span><span class="nx">evacuatedX</span>     <span class="p">=</span> <span class="mi">2</span> <span class="c1">// 用于表示扩容迁移到新桶前半段区间
+</span><span class="c1"></span><span class="nx">evacuatedY</span>     <span class="p">=</span> <span class="mi">3</span> <span class="c1">// 用于表示扩容迁移到新桶后半段区间
+</span><span class="c1"></span><span class="nx">evacuatedEmpty</span> <span class="p">=</span> <span class="mi">4</span> <span class="c1">// 用于表示此单元已迁移
+</span><span class="c1"></span><span class="nx">minTopHash</span>     <span class="p">=</span> <span class="mi">5</span> <span class="c1">// key的tophash值与桶状态值分割线值，小于此值的一定代表着桶单元的状态，大于此值的一定是key对应的tophash值
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">tophash</span><span class="p">(</span><span class="nx">hash</span> <span class="kt">uintptr</span><span class="p">)</span> <span class="kt">uint8</span> <span class="p">{</span>
+    <span class="nx">top</span> <span class="o">:=</span> <span class="nb">uint8</span><span class="p">(</span><span class="nx">hash</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="nx">goarch</span><span class="p">.</span><span class="nx">PtrSize</span><span class="o">*</span><span class="mi">8</span> <span class="o">-</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="k">if</span> <span class="nx">top</span> <span class="p">&lt;</span> <span class="nx">minTopHash</span> <span class="p">{</span>
+        <span class="nx">top</span> <span class="o">+=</span> <span class="nx">minTopHash</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">top</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>mapextra结构体</p>
 <p>当map的key和value都不是指针类型时候，bmap将完全不包含指针，那么gc时候就不用扫描bmap。bmap指向溢出桶的字段overflow是uintptr类型，为了防止这些overflow桶被gc掉，所以需要mapextra.overflow将它保存起来。如果bmap的overflow是*bmap类型，那么gc扫描的是一个个拉链表，效率明显不如直接扫描一段内存(hmap.mapextra.overflow)</p>
@@ -448,15 +448,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">mapextra</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">overflow</span>    <span class="o">*</span><span class="p">[]</span><span class="o">*</span><span class="nx">bmap</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// overflow 包含的是 hmap.buckets 的 overflow 的 buckets
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">oldoverflow</span> <span class="o">*</span><span class="p">[]</span><span class="o">*</span><span class="nx">bma</span>
-</span></span><span class="line"><span class="cl">   <span class="c1">// oldoverflow 包含扩容时 hmap.oldbuckets 的 overflow 的 bucket
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">nextOverflow</span> <span class="o">*</span><span class="nx">bmap</span> 
-</span></span><span class="line"><span class="cl">     <span class="c1">// 指向空闲的 overflow bucket 的指针
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">mapextra</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">overflow</span>    <span class="o">*</span><span class="p">[]</span><span class="o">*</span><span class="nx">bmap</span>
+    <span class="c1">// overflow 包含的是 hmap.buckets 的 overflow 的 buckets
+</span><span class="c1"></span>    <span class="nx">oldoverflow</span> <span class="o">*</span><span class="p">[]</span><span class="o">*</span><span class="nx">bma</span>
+   <span class="c1">// oldoverflow 包含扩容时 hmap.oldbuckets 的 overflow 的 bucket
+</span><span class="c1"></span>    <span class="nx">nextOverflow</span> <span class="o">*</span><span class="nx">bmap</span> 
+     <span class="c1">// 指向空闲的 overflow bucket 的指针
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="总结">总结</h2>
 <p>bmap（bucket）内存数据结构可视化如下:</p>
@@ -494,11 +494,12 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8/" class="prev" rel="prev" title="内存逃逸"><i class="fas fa-angle-left fa-fw"></i>内存逃逸</a></div>
+    <div class="post-nav"><a href="/%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8/" class="prev" rel="prev" title="内存逃逸"><i class="fas fa-angle-left fa-fw"></i>内存逃逸</a>
+            <a href="/io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" class="next" rel="next" title="Io多路复用">Io多路复用<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.97.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

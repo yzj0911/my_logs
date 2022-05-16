@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Io多路复用 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="Io多路复用" />
+<meta property="og:description" content="select 第一种是select。 我们可以设置要等待的描述符，也可以设置等待超时时间。如果有准备好的fd，或达到指定超时时间，select函数就会返回" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-05-16T15:10:34+08:00" />
+<meta property="article:modified_time" content="2022-05-16T15:10:34+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="Io多路复用"/>
+<meta name="twitter:description" content="select 第一种是select。 我们可以设置要等待的描述符，也可以设置等待超时时间。如果有准备好的fd，或达到指定超时时间，select函数就会返回"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" /><link rel="prev" href="http://example.org/map%E5%92%8Cslice%E5%8E%9F%E7%90%86%E5%BA%95%E5%B1%82/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Io多路复用",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8\/"
+        },"genre": "posts","wordcount":  1357 ,
+        "url": "http:\/\/example.org\/io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8\/","datePublished": "2022-05-16T15:10:34+08:00","dateModified": "2022-05-16T15:10:34+08:00","publisher": {
+            "@type": "Organization",
+            "name": "YZJ"},"author": {
+                "@type": "Person",
+                "name": "yzj"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="YZJ 的博客"> 文章 </a><a class="menu-item" href="/tags/" title="YZJ 的博客"> 标签 </a><a class="menu-item" href="/categories/" title="YZJ 的博客"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="YZJ 的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/posts/images/avatar.webp"
+        data-srcset="/posts/images/avatar.webp, /posts/images/avatar.webp 1.5x, /posts/images/avatar.webp 2x"
+        data-sizes="auto"
+        alt="/posts/images/avatar.webp"
+        title="/posts/images/avatar.webp" />YZj 的个人博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="请输入搜索文章" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="YZJ 的博客">文章</a><a class="menu-item" href="/tags/" title="YZJ 的博客">标签</a><a class="menu-item" href="/categories/" title="YZJ 的博客">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Io多路复用</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-16">2022-05-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1357 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><h1 id="select">select</h1>
+<p>第一种是select。
+我们可以设置要等待的描述符，也可以设置等待超时时间。如果有准备好的fd，或达到指定超时时间，select函数就会返回。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/select1.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/select1.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/select1.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/select1.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/select1.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/select1.png" /></p>
+<p>从函数签名来看，它支持监听可读、可写、异常三类事件。
+因为这个fd_set是个unsigned long型的数组。共16个元素，每一位对应一个fd，最多可以监听1024个，这就有点少了。
+而且每次调用select都要传递所有的监听集合。这就需要频繁的从用户态到内核拷贝数据。除此之外，即便有fd就绪了，也需要遍历整个监听集合，来判断哪个fd是可操作的。这些都会影响性能。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/select2.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/select2.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/select2.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/select2.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/select2.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/select2.png" /></p>
+<h1 id="poll">poll</h1>
+<p>第二种IO多路复用的实现方式是poll。
+虽然支持的fd数目，等于最多可以打开的文件描述符个数。但是另外两个问题依然存在。</p>
+<h1 id="epoll">epoll</h1>
+<p>而epoll就没有这些问题了，它提供三个接口。</p>
+<p>epoll_create1用于创建一个epoll，并获取一个句柄。
+epoll_ctl用于添加或删除fd与对应的事件信息。
+除了指定fd和要监听的事件类型，还可以传入一个event data，通常会按需定义一个数据结构，用于处理对应的fd。可以看到，每次都只需传入要操作对的一个fd，无需传入所有监听集合，而且只需要注册这一次。通过epoll_wait得到的fd集合都是以及就绪的，逐个处理即可，无需遍历所有监听集合。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/epllo1.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/epllo1.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/epllo1.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/epllo1.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/epllo1.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/epllo1.png" /></p>
+<p>通过IO多路复用，线程再也不用为等待某一个socket，而阻塞或空耗CPU。并发处理能力因而大幅提升。</p>
+<p>IO多路复用结合协程</p>
+<p>但是IO多路复用也并非没有问题，例如：一个socket可读了，但是这回只读到了半条请求，也就是说需要再次等待这个socket可读。在继续处理下一个socket之前，需要记录下这个socket的处理状态。下一次这个socket可读时，也需要恢复上次保存的现场，才好继续处理。
+也就是说，在IO多路复用中实现业务逻辑时，我们需要随着事件的等待和就绪，而频繁的保存和恢复现场，这并不符合常规的开发习惯。如果业务逻辑比较简单还好，若是比较复杂的业务场景，就有些悲剧了。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/202205161.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/202205161.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/202205161.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/202205161.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/202205161.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/202205161.png" /></p>
+<p>既然业务处理过程中，要等待事件时，需要保存现场并切换到下一个就绪的fd。而事件就绪时，又需要恢复现场继续处理。那岂不是很适合使用协程？</p>
+<p>在IO多路复用这里，事件循环依然存在，依然要在循环中逐个处理就绪的fd，但处理过程却不是围绕具体业务，而是面向协程调度。
+如果是用于监听端口的fd就绪了，就建立连接创建一个新的fd，交给一个协程来负责, 协程执行入口就指向业务处理函数入口，业务处理过程中，需要等待时就注册IO事件，然后让出，这样，执行权就会回到切换到该协程的地方继续执行。如果是其它等待IO事件的fd就绪了，只需要恢复关联的协程即可。</p>
+<p>协程拥有自己的栈，要保存和恢复现场都很容易实现。这样，IO多路复用这一层的事件循环，就和具体业务逻辑解耦了。</p>
+<p>可以把read、write、connect等可能会发生等待的函数包装一下，在其中实现IO事件注册与主动让出。这样在业务逻辑层面，就可以使用这些包装函数，按照常规的顺序编程方式，来实现业务逻辑了。</p>
+<p>这些包装函数在需要等待时，就会注册IO事件，然后让出协程，这样我们在实现业务逻辑时，就完全不用担心保存与恢复现场的问题了。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/202205162.png"
+        data-srcset="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/202205162.png, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/202205162.png 1.5x, https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/202205162.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/202205162.png"
+        title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/202205162.png" /></p>
+<p>协程和IO多路复用之间的合作，不仅保留了IO多路复用的高并发性能，还解放了业务逻辑的实现。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-05-16</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" data-title="Io多路复用" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" data-title="Io多路复用" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" data-title="Io多路复用"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" data-title="Io多路复用"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" data-title="Io多路复用" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" data-title="Io多路复用" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" data-title="Io多路复用"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/map%E5%92%8Cslice%E5%8E%9F%E7%90%86%E5%BA%95%E5%B1%82/" class="prev" rel="prev" title="Map和slice原理底层"><i class="fas fa-angle-left fa-fw"></i>Map和slice原理底层</a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

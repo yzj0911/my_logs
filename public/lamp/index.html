@@ -167,8 +167,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget http://mirrors.sohu.com/mysql/MySQL-5.1/mysql-5.1.73-linux-i686-glibc23.tar.gz
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">wget http://mirrors.sohu.com/mysql/MySQL-5.1/mysql-5.1.73-linux-i686-glibc23.tar.gz
+</code></pre></td></tr></table>
 </div>
 </div><p>这个版本有点低，可以自己选择合适版本</p>
 <h2 id="解压">解压</h2>
@@ -177,8 +177,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">tar -zxvf tar -zxvf mysql-5.1.73-linux-i686-glibc23.tar.gz
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">tar -zxvf tar -zxvf mysql-5.1.73-linux-i686-glibc23.tar.gz
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="移动到指定目录">移动到指定目录</h2>
 <div class="highlight"><div class="chroma">
@@ -186,8 +186,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mv mysql-5.1.73-linux-i686-glibc23 /usr/local/mysql
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mv mysql-5.1.73-linux-i686-glibc23 /usr/local/mysql
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="创建mysql用户但不允许登录不创建家目录">创建mysql用户，但不允许登录，不创建家目录</h2>
 <div class="highlight"><div class="chroma">
@@ -195,8 +195,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">useradd -s /sbin/nologin -M mysql
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">useradd -s /sbin/nologin -M mysql
+</code></pre></td></tr></table>
 </div>
 </div><p><code>-s</code>表示指定bash，这里出于安全性考虑设置不允许登录，<code>-M</code>不创建家目录</p>
 <h2 id="创建数据库目录并改为mysql属主">创建数据库目录，并改为mysql属主</h2>
@@ -206,9 +206,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir /data/mysql -pv
-</span></span><span class="line"><span class="cl">chown -R mysql：mysql /data/mysql
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir /data/mysql -pv
+chown -R mysql：mysql /data/mysql
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="初始化mysql">初始化mysql</h2>
 <div class="highlight"><div class="chroma">
@@ -217,9 +217,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /usr/local/mysql
-</span></span><span class="line"><span class="cl">./scripts/mysql_install_db --user<span class="o">=</span>mysql --datadir<span class="o">=</span>/data/mysql
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /usr/local/mysql
+./scripts/mysql_install_db --user<span class="o">=</span>mysql --datadir<span class="o">=</span>/data/mysql
+</code></pre></td></tr></table>
 </div>
 </div><p><code>--user=*</code>是指定用户mysql，<code>--datadir=*</code>是指定数据库目录。可以使用<code>echo $?</code>验证命令执行结果是否正确，0为正确。</p>
 <h2 id="mysql配置文件">mysql配置文件</h2>
@@ -234,14 +234,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cp /usr/local/mysql/support-files/my-large.cnf /etc/my.cnf
-</span></span><span class="line"><span class="cl">vim /etc/my.cnf
-</span></span><span class="line"><span class="cl">......
-</span></span><span class="line"><span class="cl"><span class="nv">port</span>            <span class="o">=</span> <span class="m">3306</span>        <span class="c1">#监听端口</span>
-</span></span><span class="line"><span class="cl"><span class="nv">socket</span>          <span class="o">=</span> /tmp/mysql.sock  <span class="c1">#socket</span>
-</span></span><span class="line"><span class="cl">.....
-</span></span><span class="line"><span class="cl">log-bin<span class="o">=</span>mysql-bin   <span class="c1">#修改mysql数据库时，记录日志</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cp /usr/local/mysql/support-files/my-large.cnf /etc/my.cnf
+vim /etc/my.cnf
+......
+<span class="nv">port</span>            <span class="o">=</span> <span class="m">3306</span>        <span class="c1">#监听端口</span>
+<span class="nv">socket</span>          <span class="o">=</span> /tmp/mysql.sock  <span class="c1">#socket</span>
+.....
+log-bin<span class="o">=</span>mysql-bin   <span class="c1">#修改mysql数据库时，记录日志</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="mysql启动脚本">mysql启动脚本</h2>
 <div class="highlight"><div class="chroma">
@@ -253,12 +253,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cp /usr/local/mysql/mysql.server /etc/init.d/mysqld
-</span></span><span class="line"><span class="cl">vim /etc/init.d/mysqld
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">basedir</span><span class="o">=</span>/usr/local/mysql   <span class="c1">#指定安装目录</span>
-</span></span><span class="line"><span class="cl"><span class="nv">datadir</span><span class="o">=</span>/data/mysql          <span class="c1">#指定数据库目录</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cp /usr/local/mysql/mysql.server /etc/init.d/mysqld
+vim /etc/init.d/mysqld
+
+<span class="nv">basedir</span><span class="o">=</span>/usr/local/mysql   <span class="c1">#指定安装目录</span>
+<span class="nv">datadir</span><span class="o">=</span>/data/mysql          <span class="c1">#指定数据库目录</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="设置开机启动">设置开机启动</h2>
 <div class="highlight"><div class="chroma">
@@ -266,8 +266,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">chkconfig --add mysqld；chkconfig mysqld on 开机启动
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">chkconfig --add mysqld；chkconfig mysqld on 开机启动
+</code></pre></td></tr></table>
 </div>
 </div><p>编译安装mysql时编译参数记录在<code>cat /usr/local/mysql/bin/mysqlbug |grep -i configure</code></p>
 <h1 id="安装httpd">安装httpd</h1>
@@ -278,8 +278,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget http://mirrors.cnnic.cn/apache/httpd/httpd-2.2.31.tar.gz
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">wget http://mirrors.cnnic.cn/apache/httpd/httpd-2.2.31.tar.gz
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="解压-1">解压</h2>
 <div class="highlight"><div class="chroma">
@@ -287,8 +287,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">tar -zxvf httpd-2.2.31.tar.gz
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">tar -zxvf httpd-2.2.31.tar.gz
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="编译安装">编译安装</h2>
 <div class="highlight"><div class="chroma">
@@ -308,20 +308,20 @@
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 编译</span>
-</span></span><span class="line"><span class="cl">./configure --prefix<span class="o">=</span>/usr/local/apache <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>&gt;-with-include-apr --enable-so <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>&gt;--enable-deflate<span class="o">=</span>shared <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>&gt;--enable-rewrite<span class="o">=</span>shared <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>&gt;--enable-expires<span class="o">=</span>shared <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>&gt;-with-pcre <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>&gt;-with-mpm<span class="o">=</span>prefork
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">make
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 安装</span>
-</span></span><span class="line"><span class="cl">make install
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 编译</span>
+./configure --prefix<span class="o">=</span>/usr/local/apache <span class="se">\
+</span><span class="se"></span>&gt;-with-include-apr --enable-so <span class="se">\
+</span><span class="se"></span>&gt;--enable-deflate<span class="o">=</span>shared <span class="se">\
+</span><span class="se"></span>&gt;--enable-rewrite<span class="o">=</span>shared <span class="se">\
+</span><span class="se"></span>&gt;--enable-expires<span class="o">=</span>shared <span class="se">\
+</span><span class="se"></span>&gt;-with-pcre <span class="se">\
+</span><span class="se"></span>&gt;-with-mpm<span class="o">=</span>prefork
+
+make
+
+<span class="c1"># 安装</span>
+make install
+</code></pre></td></tr></table>
 </div>
 </div><p>编译选项记录在<code>/usr/local/apache/build/config.nice</code> 中</p>
 <h2 id="启动httpd">启动httpd</h2>
@@ -330,8 +330,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/usr/local/apache/bin/apachectl start
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">/usr/local/apache/bin/apachectl start
+</code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>/usr/local/apache/bin/apachectl -M ：查看各种库</li>
@@ -351,9 +351,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">httpd: apr_sockaddr_info_get<span class="o">()</span> failed <span class="k">for</span> 【linux】
-</span></span><span class="line"><span class="cl">httpd: Could not reliably determine the server<span class="err">&#39;</span>s fully qualified domain name, using 127.0.0.1 <span class="k">for</span> ServerName
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">httpd: apr_sockaddr_info_get<span class="o">()</span> failed <span class="k">for</span> 【linux】
+httpd: Could not reliably determine the server<span class="err">&#39;</span>s fully qualified domain name, using 127.0.0.1 <span class="k">for</span> ServerName
+</code></pre></td></tr></table>
 </div>
 </div><p>解决方法(问题在于主机名不匹配)
 警告1 ：在/etc/hosts中的127.0.0.1行后添加linux
@@ -371,14 +371,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cp /usr/local/apache/bin/apachectl /etc/init.d/httpd
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">vim /etc/init.d/httpd
-</span></span><span class="line"><span class="cl">在#!/bin/bash下加入
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#chkconfig:345 61 61</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#description:Apache httpd</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cp /usr/local/apache/bin/apachectl /etc/init.d/httpd
+
+vim /etc/init.d/httpd
+在#!/bin/bash下加入
+
+<span class="c1">#chkconfig:345 61 61</span>
+<span class="c1">#description:Apache httpd</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>设置开机启动</p>
 <div class="highlight"><div class="chroma">
@@ -387,9 +387,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">chkconfig --add httpd
-</span></span><span class="line"><span class="cl">chkconfig --level <span class="m">345</span> httpd on
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">chkconfig --add httpd
+chkconfig --level <span class="m">345</span> httpd on
+</code></pre></td></tr></table>
 </div>
 </div><h1 id="安装php">安装php</h1>
 <h2 id="下载php">下载php</h2>
@@ -398,8 +398,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget http://cn2.php.net/get/php-5.4.45.tar.bz2/from/this/mirror
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">wget http://cn2.php.net/get/php-5.4.45.tar.bz2/from/this/mirror
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="解压-2">解压</h2>
 <div class="highlight"><div class="chroma">
@@ -408,9 +408,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mv mirror php-5.4.45.tar.bz2
-</span></span><span class="line"><span class="cl">tar -jxvf php-5.4.45.tar.bz2
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mv mirror php-5.4.45.tar.bz2
+tar -jxvf php-5.4.45.tar.bz2
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="编译安装-1">编译安装</h2>
 <div class="highlight"><div class="chroma">
@@ -438,28 +438,28 @@
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> php-5.4.45
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">./configure --prefix<span class="o">=</span>/usr/local/php --with-apxs2<span class="o">=</span>/usr/local/apache/bin/apxs --with-config-file-path<span class="o">=</span>/usr/local/php/etc --with-mysql<span class="o">=</span>/usr/local/mysql --with-libxml-dir --with-gd --with-jpeg-dir --with-png-dir --with-freetype-dir  --with-iconv-dir --with-zlib-dir --with-bz2 --with-openssl --with-mcrypt --enable-soap  --enable-gd-native-ttf --enable-mbstring --enable-sockets --enable-exif  --disable-ipv6
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#出现错误：</span>
-</span></span><span class="line"><span class="cl">configure: error: jpeglib.h not found.
-</span></span><span class="line"><span class="cl">	
-</span></span><span class="line"><span class="cl"><span class="c1"># 解决方法：</span>
-</span></span><span class="line"><span class="cl">yum install -y libjpeg-devel
-</span></span><span class="line"><span class="cl">	
-</span></span><span class="line"><span class="cl"><span class="c1">#出现错误：</span>
-</span></span><span class="line"><span class="cl">configure: error: mcrypt.h not found.
-</span></span><span class="line"><span class="cl">	
-</span></span><span class="line"><span class="cl"><span class="c1">#解决方法：</span>
-</span></span><span class="line"><span class="cl">wget http://www.lishiming.net/data/attachment/forum/epel-release-6-8_32.noarch.rpm <span class="c1">#CentOS的yum扩展源</span>
-</span></span><span class="line"><span class="cl">rpm -ivh epel-release-6-8_32.noarch.rpm
-</span></span><span class="line"><span class="cl">yum install -y libmcrypt-devel
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">make
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">make install
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> php-5.4.45
+
+./configure --prefix<span class="o">=</span>/usr/local/php --with-apxs2<span class="o">=</span>/usr/local/apache/bin/apxs --with-config-file-path<span class="o">=</span>/usr/local/php/etc --with-mysql<span class="o">=</span>/usr/local/mysql --with-libxml-dir --with-gd --with-jpeg-dir --with-png-dir --with-freetype-dir  --with-iconv-dir --with-zlib-dir --with-bz2 --with-openssl --with-mcrypt --enable-soap  --enable-gd-native-ttf --enable-mbstring --enable-sockets --enable-exif  --disable-ipv6
+
+<span class="c1">#出现错误：</span>
+configure: error: jpeglib.h not found.
+	
+<span class="c1"># 解决方法：</span>
+yum install -y libjpeg-devel
+	
+<span class="c1">#出现错误：</span>
+configure: error: mcrypt.h not found.
+	
+<span class="c1">#解决方法：</span>
+wget http://www.lishiming.net/data/attachment/forum/epel-release-6-8_32.noarch.rpm <span class="c1">#CentOS的yum扩展源</span>
+rpm -ivh epel-release-6-8_32.noarch.rpm
+yum install -y libmcrypt-devel
+
+make
+
+make install
+</code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>/usr/local/php/bin/php -m :查看静态模块</li>
@@ -485,22 +485,22 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cp /usr/src/php-5.4.45/php.ini-production /usr/local/php/etc/php.ini
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">vim /usr/local/apache/conf/httpd.conf
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">在
-</span></span><span class="line"><span class="cl">AddType application/x-compress .Z
-</span></span><span class="line"><span class="cl">AddType application/x-gzip .gz .tgz
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">两行下加入
-</span></span><span class="line"><span class="cl">AddType application/x-httpd-php .php
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">将
-</span></span><span class="line"><span class="cl">DirectoryIndex index.html
-</span></span><span class="line"><span class="cl">后添加 1.php
-</span></span><span class="line"><span class="cl">DirectoryIndex index.html 1.php
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cp /usr/src/php-5.4.45/php.ini-production /usr/local/php/etc/php.ini
+
+vim /usr/local/apache/conf/httpd.conf
+
+在
+AddType application/x-compress .Z
+AddType application/x-gzip .gz .tgz
+
+两行下加入
+AddType application/x-httpd-php .php
+
+将
+DirectoryIndex index.html
+后添加 1.php
+DirectoryIndex index.html 1.php
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="测试">测试</h2>
 <p>在Apache的安装文件中添加php文件
@@ -513,10 +513,10 @@ vim 1.php</p>
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php5" data-lang="php5"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
-</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s2">&#34;Welcome to 1.php&#34;</span> <span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
-</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-php5" data-lang="php5"><span class="o">&lt;?</span><span class="nx">php</span>
+    <span class="k">echo</span> <span class="s2">&#34;Welcome to 1.php&#34;</span> <span class="p">;</span>
+<span class="cp">?&gt;</span><span class="err">
+</span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
@@ -548,7 +548,7 @@ vim 1.php</p>
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.97.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

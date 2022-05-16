@@ -137,11 +137,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 交叉编译到 linux</span>
-</span></span><span class="line"><span class="cl"><span class="nv">GOOS</span><span class="o">=</span>linux <span class="nv">GOARCH</span><span class="o">=</span>amd64 go build main.go
-</span></span><span class="line"><span class="cl"><span class="c1"># 交叉编译到 windows</span>
-</span></span><span class="line"><span class="cl"><span class="nv">GOOS</span><span class="o">=</span>windows <span class="nv">GOARCH</span><span class="o">=</span>amd64 go build -o main.exe main.go 
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 交叉编译到 linux</span>
+<span class="nv">GOOS</span><span class="o">=</span>linux <span class="nv">GOARCH</span><span class="o">=</span>amd64 go build main.go
+<span class="c1"># 交叉编译到 windows</span>
+<span class="nv">GOOS</span><span class="o">=</span>windows <span class="nv">GOARCH</span><span class="o">=</span>amd64 go build -o main.exe main.go 
+</code></pre></td></tr></table>
 </div>
 </div><p>如果使用 cgo 的话，还需要添加 <code>CGO_ENABLED</code>  参数：</p>
 <div class="highlight"><div class="chroma">
@@ -149,8 +149,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">1</span> <span class="nv">GOOS</span><span class="o">=</span>windows <span class="nv">GOARCH</span><span class="o">=</span>amd64 go build -o main.exe main.go 
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">1</span> <span class="nv">GOOS</span><span class="o">=</span>windows <span class="nv">GOARCH</span><span class="o">=</span>amd64 go build -o main.exe main.go 
+</code></pre></td></tr></table>
 </div>
 </div><p>但是这种编译 go-sqlite3 的代码会出现以下错误：</p>
 <div class="highlight"><div class="chroma">
@@ -159,9 +159,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># runtime/cgo</span>
-</span></span><span class="line"><span class="cl">gcc_libinit_windows.c:7:10: fatal error: <span class="s1">&#39;windows.h&#39;</span> file not found
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># runtime/cgo</span>
+gcc_libinit_windows.c:7:10: fatal error: <span class="s1">&#39;windows.h&#39;</span> file not found
+</code></pre></td></tr></table>
 </div>
 </div><p>因为 Windows 中使用 MinGW，MacOS 下如果交叉编译需要安装 C/C++ 交叉编译工具：</p>
 <div class="highlight"><div class="chroma">
@@ -170,9 +170,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">brew install FiloSottile/musl-cross/musl-cross
-</span></span><span class="line"><span class="cl">brew install mingw-w64
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">brew install FiloSottile/musl-cross/musl-cross
+brew install mingw-w64
+</code></pre></td></tr></table>
 </div>
 </div><p>安装完工具之后就可以使用命令：</p>
 <div class="highlight"><div class="chroma">
@@ -180,8 +180,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">1</span> <span class="nv">CC</span><span class="o">=</span>x86_64-w64-mingw32-gcc <span class="nv">CXX</span><span class="o">=</span>x86_64-w64-mingw32-g++ <span class="nv">GOOS</span><span class="o">=</span>windows <span class="nv">GOARCH</span><span class="o">=</span>amd64 go build -a -v -o store.exe store/sqlite.exe
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">1</span> <span class="nv">CC</span><span class="o">=</span>x86_64-w64-mingw32-gcc <span class="nv">CXX</span><span class="o">=</span>x86_64-w64-mingw32-g++ <span class="nv">GOOS</span><span class="o">=</span>windows <span class="nv">GOARCH</span><span class="o">=</span>amd64 go build -a -v -o store.exe store/sqlite.exe
+</code></pre></td></tr></table>
 </div>
 </div><p>注意参数： <code>CXX=x86_64-w64-mingw32-g++</code> ，如果缺少这个参数时，可能会出现错误：</p>
 <div class="highlight"><div class="chroma">
@@ -190,9 +190,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># runtime/cgo</span>
-</span></span><span class="line"><span class="cl">gcc: error: unrecognized <span class="nb">command</span> line option ‘-mthreads’<span class="p">;</span> did you mean ‘-pthread’?
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># runtime/cgo</span>
+gcc: error: unrecognized <span class="nb">command</span> line option ‘-mthreads’<span class="p">;</span> did you mean ‘-pthread’?
+</code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
@@ -224,7 +224,7 @@
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.97.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

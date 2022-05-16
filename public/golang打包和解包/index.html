@@ -193,68 +193,68 @@
 </span><span class="lnt">61
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="c1">// 打包
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">Compress</span><span class="p">(</span><span class="nx">destPath</span><span class="p">,</span> <span class="nx">srcDir</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">// 压缩文件路径
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">fw</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Create</span><span class="p">(</span><span class="nx">destPath</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">err</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nx">fw</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">// gzip writer
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">gw</span> <span class="o">:=</span> <span class="nx">gzip</span><span class="p">.</span><span class="nf">NewWriter</span><span class="p">(</span><span class="nx">fw</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nx">gw</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">// tar writer
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">tw</span> <span class="o">:=</span> <span class="nx">tar</span><span class="p">.</span><span class="nf">NewWriter</span><span class="p">(</span><span class="nx">gw</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nx">tw</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">// 读取要压缩的目录
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">dir</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="nx">srcDir</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">err</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nx">dir</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">// 读取目录内容
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">files</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">dir</span><span class="p">.</span><span class="nf">Readdir</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">err</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">file</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">files</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">file</span><span class="p">.</span><span class="nf">IsDir</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="k">continue</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="c1">// 路径补全
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">filePath</span> <span class="o">:=</span> <span class="nx">path</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">dir</span><span class="p">.</span><span class="nf">Name</span><span class="p">(),</span> <span class="nx">file</span><span class="p">.</span><span class="nf">Name</span><span class="p">())</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="nx">fread</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="nx">filePath</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="k">continue</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="c1">// 获取文件头部信息
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">h</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">tar</span><span class="p">.</span><span class="nx">Header</span><span class="p">{}</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">h</span><span class="p">.</span><span class="nx">Name</span> <span class="p">=</span> <span class="nx">file</span><span class="p">.</span><span class="nf">Name</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">h</span><span class="p">.</span><span class="nx">Size</span> <span class="p">=</span> <span class="nx">file</span><span class="p">.</span><span class="nf">Size</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">h</span><span class="p">.</span><span class="nx">Mode</span> <span class="p">=</span> <span class="nb">int64</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nf">Mode</span><span class="p">())</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">h</span><span class="p">.</span><span class="nx">ModTime</span> <span class="p">=</span> <span class="nx">file</span><span class="p">.</span><span class="nf">ModTime</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="nx">err</span> <span class="p">=</span> <span class="nx">tw</span><span class="p">.</span><span class="nf">WriteHeader</span><span class="p">(</span><span class="nx">h</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="c1">// 开始压缩，这里等于忽略错误
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="nx">io</span><span class="p">.</span><span class="nf">Copy</span><span class="p">(</span><span class="nx">tw</span><span class="p">,</span> <span class="nx">fread</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="c1">// 记得关闭文件
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">fread</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="kc">nil</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="c1">// 打包
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Compress</span><span class="p">(</span><span class="nx">destPath</span><span class="p">,</span> <span class="nx">srcDir</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+	<span class="c1">// 压缩文件路径
+</span><span class="c1"></span>	<span class="nx">fw</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Create</span><span class="p">(</span><span class="nx">destPath</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">err</span>
+	<span class="p">}</span>
+	<span class="k">defer</span> <span class="nx">fw</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+
+	<span class="c1">// gzip writer
+</span><span class="c1"></span>	<span class="nx">gw</span> <span class="o">:=</span> <span class="nx">gzip</span><span class="p">.</span><span class="nf">NewWriter</span><span class="p">(</span><span class="nx">fw</span><span class="p">)</span>
+	<span class="k">defer</span> <span class="nx">gw</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+
+	<span class="c1">// tar writer
+</span><span class="c1"></span>	<span class="nx">tw</span> <span class="o">:=</span> <span class="nx">tar</span><span class="p">.</span><span class="nf">NewWriter</span><span class="p">(</span><span class="nx">gw</span><span class="p">)</span>
+	<span class="k">defer</span> <span class="nx">tw</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+
+	<span class="c1">// 读取要压缩的目录
+</span><span class="c1"></span>	<span class="nx">dir</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="nx">srcDir</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">err</span>
+	<span class="p">}</span>
+	<span class="k">defer</span> <span class="nx">dir</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+
+	<span class="c1">// 读取目录内容
+</span><span class="c1"></span>	<span class="nx">files</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">dir</span><span class="p">.</span><span class="nf">Readdir</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">err</span>
+	<span class="p">}</span>
+
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">file</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">files</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">file</span><span class="p">.</span><span class="nf">IsDir</span><span class="p">()</span> <span class="p">{</span>
+			<span class="k">continue</span>
+		<span class="p">}</span>
+
+		<span class="c1">// 路径补全
+</span><span class="c1"></span>		<span class="nx">filePath</span> <span class="o">:=</span> <span class="nx">path</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">dir</span><span class="p">.</span><span class="nf">Name</span><span class="p">(),</span> <span class="nx">file</span><span class="p">.</span><span class="nf">Name</span><span class="p">())</span>
+
+		<span class="nx">fread</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="nx">filePath</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="k">continue</span>
+		<span class="p">}</span>
+
+		<span class="c1">// 获取文件头部信息
+</span><span class="c1"></span>		<span class="nx">h</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">tar</span><span class="p">.</span><span class="nx">Header</span><span class="p">{}</span>
+		<span class="nx">h</span><span class="p">.</span><span class="nx">Name</span> <span class="p">=</span> <span class="nx">file</span><span class="p">.</span><span class="nf">Name</span><span class="p">()</span>
+		<span class="nx">h</span><span class="p">.</span><span class="nx">Size</span> <span class="p">=</span> <span class="nx">file</span><span class="p">.</span><span class="nf">Size</span><span class="p">()</span>
+		<span class="nx">h</span><span class="p">.</span><span class="nx">Mode</span> <span class="p">=</span> <span class="nb">int64</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nf">Mode</span><span class="p">())</span>
+		<span class="nx">h</span><span class="p">.</span><span class="nx">ModTime</span> <span class="p">=</span> <span class="nx">file</span><span class="p">.</span><span class="nf">ModTime</span><span class="p">()</span>
+
+		<span class="nx">err</span> <span class="p">=</span> <span class="nx">tw</span><span class="p">.</span><span class="nf">WriteHeader</span><span class="p">(</span><span class="nx">h</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="c1">// 开始压缩，这里等于忽略错误
+</span><span class="c1"></span>			<span class="nx">io</span><span class="p">.</span><span class="nf">Copy</span><span class="p">(</span><span class="nx">tw</span><span class="p">,</span> <span class="nx">fread</span><span class="p">)</span>
+		<span class="p">}</span>
+		<span class="c1">// 记得关闭文件
+</span><span class="c1"></span>		<span class="nx">fread</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="kc">nil</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><h1 id="解包">解包</h1>
 <div class="highlight"><div class="chroma">
@@ -306,52 +306,52 @@
 </span><span class="lnt">45
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="c1">// 解压
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">DeCompress</span><span class="p">(</span><span class="nx">srcPath</span><span class="p">,</span> <span class="nx">destDir</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">// 解压包的路径
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">fread</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="nx">srcPath</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">err</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nx">fread</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">// 检测目标路径是否存在
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Stat</span><span class="p">(</span><span class="nx">destDir</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">err</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">// gzip reader
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">gr</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">gzip</span><span class="p">.</span><span class="nf">NewReader</span><span class="p">(</span><span class="nx">fread</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">err</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nx">gr</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">// tr reader
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">tr</span> <span class="o">:=</span> <span class="nx">tar</span><span class="p">.</span><span class="nf">NewReader</span><span class="p">(</span><span class="nx">gr</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="c1">// 获取下一个文件
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">h</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">tr</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="c1">// 读取完毕
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="nx">io</span><span class="p">.</span><span class="nx">EOF</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="k">break</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="k">continue</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="nx">fw</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">OpenFile</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">destDir</span><span class="p">,</span> <span class="nx">h</span><span class="p">.</span><span class="nx">Name</span><span class="p">),</span> <span class="nx">os</span><span class="p">.</span><span class="nx">O_CREATE</span><span class="p">|</span><span class="nx">os</span><span class="p">.</span><span class="nx">O_WRONLY</span><span class="p">,</span> <span class="mo">0644</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="nx">io</span><span class="p">.</span><span class="nf">Copy</span><span class="p">(</span><span class="nx">fw</span><span class="p">,</span> <span class="nx">tr</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">			<span class="nx">fw</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="kc">nil</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="c1">// 解压
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">DeCompress</span><span class="p">(</span><span class="nx">srcPath</span><span class="p">,</span> <span class="nx">destDir</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+	<span class="c1">// 解压包的路径
+</span><span class="c1"></span>	<span class="nx">fread</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="nx">srcPath</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">err</span>
+	<span class="p">}</span>
+	<span class="k">defer</span> <span class="nx">fread</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+
+	<span class="c1">// 检测目标路径是否存在
+</span><span class="c1"></span>	<span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Stat</span><span class="p">(</span><span class="nx">destDir</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">err</span>
+	<span class="p">}</span>
+
+	<span class="c1">// gzip reader
+</span><span class="c1"></span>	<span class="nx">gr</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">gzip</span><span class="p">.</span><span class="nf">NewReader</span><span class="p">(</span><span class="nx">fread</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">err</span>
+	<span class="p">}</span>
+	<span class="k">defer</span> <span class="nx">gr</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+
+	<span class="c1">// tr reader
+</span><span class="c1"></span>	<span class="nx">tr</span> <span class="o">:=</span> <span class="nx">tar</span><span class="p">.</span><span class="nf">NewReader</span><span class="p">(</span><span class="nx">gr</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="c1">// 获取下一个文件
+</span><span class="c1"></span>		<span class="nx">h</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">tr</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span>
+
+		<span class="c1">// 读取完毕
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="nx">io</span><span class="p">.</span><span class="nx">EOF</span> <span class="p">{</span>
+			<span class="k">break</span>
+		<span class="p">}</span>
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="k">continue</span>
+		<span class="p">}</span>
+
+		<span class="nx">fw</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">OpenFile</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">destDir</span><span class="p">,</span> <span class="nx">h</span><span class="p">.</span><span class="nx">Name</span><span class="p">),</span> <span class="nx">os</span><span class="p">.</span><span class="nx">O_CREATE</span><span class="p">|</span><span class="nx">os</span><span class="p">.</span><span class="nx">O_WRONLY</span><span class="p">,</span> <span class="mo">0644</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="nx">io</span><span class="p">.</span><span class="nf">Copy</span><span class="p">(</span><span class="nx">fw</span><span class="p">,</span> <span class="nx">tr</span><span class="p">)</span>
+			<span class="nx">fw</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="kc">nil</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
@@ -383,7 +383,7 @@
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.97.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
