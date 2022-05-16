@@ -2,6 +2,9 @@
 title: "GMP"
 date: 2022-04-12T21:26:15+08:00
 draft: true
+tags: ["面试"]
+series: [""]
+categories: ["面试"]
 ---
 
 # GMP模型
