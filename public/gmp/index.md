@@ -241,6 +241,129 @@ func mcall(fn func(*g))
 这里函数fn的参数g指的是在调用mcall之前正在运行的协程。
 
 我们前面说到，```mcall```的主要作用是协程切换，它将当前正在执行的协程状态保存起来，然后在`m->g0` 的堆栈上调用新的函数。 在新的函数内会将之前运行的协程放弃，然后调用一次`schedule()`来挑选新的协程运行。 ( 也就是在fn函数里面会调用一次`schedule()`函数进行一次scheduler的重新调度，让m去运行其余的goroutine )
+```go 
+package runtime
+// One round of scheduler: find a runnable goroutine and execute it.
+// Never returns.
+func schedule() {
+	_g_ := getg()
+
+	if _g_.m.locks != 0 {
+		throw("schedule: holding locks")
+	}
+
+	if _g_.m.lockedg != 0 {
+		stoplockedm()
+		execute(_g_.m.lockedg.ptr(), false) // Never returns.
+	}
+
+	// We should not schedule away from a g that is executing a cgo call,
+	// since the cgo call is using the m's g0 stack.
+	if _g_.m.incgo {
+		throw("schedule: in cgo")
+	}
+
+top:
+	pp := _g_.m.p.ptr()
+	pp.preempt = false
+
+	if sched.gcwaiting != 0 {
+		gcstopm()
+		goto top
+	}
+	if pp.runSafePointFn != 0 {
+		runSafePointFn()
+	}
+
+	// Sanity check: if we are spinning, the run queue should be empty.
+	// Check this before calling checkTimers, as that might call
+	// goready to put a ready goroutine on the local run queue.
+	if _g_.m.spinning && (pp.runnext != 0 || pp.runqhead != pp.runqtail) {
+		throw("schedule: spinning with local work")
+	}
+
+	checkTimers(pp, 0)
+
+	var gp *g
+	var inheritTime bool
+
+	// Normal goroutines will check for need to wakeP in ready,
+	// but GCworkers and tracereaders will not, so the check must
+	// be done here instead.
+	tryWakeP := false
+	if trace.enabled || trace.shutdown {
+		gp = traceReader()
+		if gp != nil {
+			casgstatus(gp, _Gwaiting, _Grunnable)
+			traceGoUnpark(gp, 0)
+			tryWakeP = true
+		}
+	}
+	if gp == nil && gcBlackenEnabled != 0 {
+		gp = gcController.findRunnableGCWorker(_g_.m.p.ptr())
+		if gp != nil {
+			tryWakeP = true
+		}
+	}
+	if gp == nil {
+		// Check the global runnable queue once in a while to ensure fairness.
+		// Otherwise two goroutines can completely occupy the local runqueue
+		// by constantly respawning each other.
+		if _g_.m.p.ptr().schedtick%61 == 0 && sched.runqsize > 0 {
+			lock(&sched.lock)
+			gp = globrunqget(_g_.m.p.ptr(), 1)
+			unlock(&sched.lock)
+		}
+	}
+	if gp == nil {
+		gp, inheritTime = runqget(_g_.m.p.ptr())
+		// We can see gp != nil here even if the M is spinning,
+		// if checkTimers added a local goroutine via goready.
+	}
+	if gp == nil {
+		gp, inheritTime = findrunnable() // blocks until work is available
+	}
+
+	// This thread is going to run a goroutine and is not spinning anymore,
+	// so if it was marked as spinning we need to reset it now and potentially
+	// start a new spinning M.
+	if _g_.m.spinning {
+		resetspinning()
+	}
+
+	if sched.disable.user && !schedEnabled(gp) {
+		// Scheduling of this goroutine is disabled. Put it on
+		// the list of pending runnable goroutines for when we
+		// re-enable user scheduling and look again.
+		lock(&sched.lock)
+		if schedEnabled(gp) {
+			// Something re-enabled scheduling while we
+			// were acquiring the lock.
+			unlock(&sched.lock)
+		} else {
+			sched.disable.runnable.pushBack(gp)
+			sched.disable.n++
+			unlock(&sched.lock)
+			goto top
+		}
+	}
+
+	// If about to schedule a not-normal goroutine (a GCworker or tracereader),
+	// wake a P if there is one.
+	if tryWakeP {
+		wakep()
+	}
+	if gp.lockedm != 0 {
+		// Hands off own p to the locked m,
+		// then blocks waiting for a new p.
+		startlockedm(gp)
+		goto top
+	}
+
+	execute(gp, inheritTime)
+}
+```
+
 
 mcall函数是通过汇编实现的，在asm_amd64.s里面有64位机的实现，源码如下：
 
