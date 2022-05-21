@@ -15,9 +15,12 @@ categories: ["面试"]
 
     目的是增强Golang开发中并发控制技术
 
-    简单来讲当一个服务启动时,可能由此服务派生出多个多层级的 goroutine , 但是本质上来讲每个层级的 goroutine 都是平行调度使用,不存在goroutine ‘父子’ 关系 , 当其中一个 goroutine 执行的任务被取消了或者处理超时了,那么其他被启动起来的Goroutine 都应该迅速退出,另外多个多层的Goroutine 想传递请求域的数据该如何处理?
+    简单来讲当一个服务启动时,可能由此服务派生出多个多层级的 goroutine , 但是本质上来讲每个层级的 goroutine 
+	都是平行调度使用,不存在goroutine ‘父子’ 关系 , 当其中一个 goroutine 执行的任务被取消了或者处理超时了,
+	那么其他被启动起来的Goroutine 都应该迅速退出,另外多个多层的Goroutine 想传递请求域的数据该如何处理?
 
-    如果单个请求的Goroutine 结构比较简单,或者处理起来也不麻烦,但是如果启动的Goroutine 是多个并且结构层次很深那么光是保障每个Goroutine 正常退出也不很容易了
+    如果单个请求的Goroutine 结构比较简单,或者处理起来也不麻烦,但是如果启动的Goroutine 是多个并且结构层次很深
+	那么光是保障每个Goroutine 正常退出也不很容易了
 
 **为此Go1.7以来提供了 context 来解决类似的问题 , context 可以跟踪 Goroutine 的调用, 在调用内部维护一个调用树,通过这个调用树可以在传递超时或者退出通知,还能在调用树中传递元数据**
 
@@ -106,9 +109,13 @@ func TODO() Context {
 	return todo
 }
 ```
-    我们看到 emptyCtx 实现了Context 接口,但是其实现的方法都是空nil 那么我们就可以知道其实emptyCtx 是不具备任何实际功能的,那么它存在的目的是什么呢?
+    我们看到 emptyCtx 实现了Context 接口,但是其实现的方法都是空nil 那么我们就可以知道其实emptyCtx 是不具备任何
+	实际功能的,那么它存在的目的是什么呢?
 
-    emptyCtx 存在的意义是作为 Context 对象树根节点 root节点 , 在context.go 包中提供 Background() 和 TODO() 两个函数 ,这两个函数都是返回的都是 emptyCtx 实例 ,通常我们使用他们来构建Context的根节点 , 有了root根节点之后就可同事 context.go 包中提供的其他的包装函数创建具有意义的context 实例 ,并且没有context 实例的创建都是以上一个 context 实例对象作为参数的(所以必须有一个根节点) ,最终形成一个树状的管理结构
+    emptyCtx 存在的意义是作为 Context 对象树根节点 root节点 , 在context.go 包中提供 Background() 和 TODO() 
+	两个函数 ,这两个函数都是返回的都是 emptyCtx 实例 ,通常我们使用他们来构建Context的根节点 , 有了root根节点之后
+	就可同事 context.go 包中提供的其他的包装函数创建具有意义的context 实例 ,并且没有context 实例的创建都是以上一
+	个 context 实例对象作为参数的(所以必须有一个根节点) ,最终形成一个树状的管理结构
 
 3.  cancelCtx
 
