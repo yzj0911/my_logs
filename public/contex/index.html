@@ -5,31 +5,31 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Context2 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="Context2" />
+        <title>Context - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="Context" />
 <meta property="og:description" content="context Golang 中的context 是Go语言在 golang1.7 发布时新增的标准包 目的是增强Golang开发中并发控制技术 简单来讲当一个服务启动时,可能由此服务派生出多" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/context2/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-05-21T14:52:20+08:00" />
-<meta property="article:modified_time" content="2022-05-21T14:52:20+08:00" />
+<meta property="og:url" content="http://example.org/contex/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-05-21T23:07:42+08:00" />
+<meta property="article:modified_time" content="2022-05-21T23:07:42+08:00" />
 
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://example.org/logo.png"/>
 
-<meta name="twitter:title" content="Context2"/>
+<meta name="twitter:title" content="Context"/>
 <meta name="twitter:description" content="context Golang 中的context 是Go语言在 golang1.7 发布时新增的标准包 目的是增强Golang开发中并发控制技术 简单来讲当一个服务启动时,可能由此服务派生出多"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/context2/" /><link rel="prev" href="http://example.org/io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" /><link rel="next" href="http://example.org/contex/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/contex/" /><link rel="prev" href="http://example.org/context2/" /><link rel="next" href="http://example.org/kafka/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "Context2",
+        "headline": "Context",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "http:\/\/example.org\/context2\/"
+            "@id": "http:\/\/example.org\/contex\/"
         },"genre": "posts","keywords": "面试","wordcount":  3176 ,
-        "url": "http:\/\/example.org\/context2\/","datePublished": "2022-05-21T14:52:20+08:00","dateModified": "2022-05-21T14:52:20+08:00","publisher": {
+        "url": "http:\/\/example.org\/contex\/","datePublished": "2022-05-21T23:07:42+08:00","dateModified": "2022-05-21T23:07:42+08:00","publisher": {
             "@type": "Organization",
             "name": "YZJ"},"author": {
                 "@type": "Person",
@@ -117,7 +117,7 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">Context2</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animated flipInX">Context</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%9D%A2%E8%AF%95/"><i class="far fa-folder fa-fw"></i>面试</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-21">2022-05-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3176 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
@@ -137,12 +137,9 @@
 
 目的是增强Golang开发中并发控制技术
 
-简单来讲当一个服务启动时,可能由此服务派生出多个多层级的 goroutine , 但是本质上来讲每个层级的 goroutine 
-都是平行调度使用,不存在goroutine ‘父子’ 关系 , 当其中一个 goroutine 执行的任务被取消了或者处理超时了,
-那么其他被启动起来的Goroutine 都应该迅速退出,另外多个多层的Goroutine 想传递请求域的数据该如何处理?
+简单来讲当一个服务启动时,可能由此服务派生出多个多层级的 goroutine , 但是本质上来讲每个层级的 goroutine 都是平行调度使用,不存在goroutine ‘父子’ 关系 , 当其中一个 goroutine 执行的任务被取消了或者处理超时了,那么其他被启动起来的Goroutine 都应该迅速退出,另外多个多层的Goroutine 想传递请求域的数据该如何处理?
 
-如果单个请求的Goroutine 结构比较简单,或者处理起来也不麻烦,但是如果启动的Goroutine 是多个并且结构层次很深
-那么光是保障每个Goroutine 正常退出也不很容易了
+如果单个请求的Goroutine 结构比较简单,或者处理起来也不麻烦,但是如果启动的Goroutine 是多个并且结构层次很深那么光是保障每个Goroutine 正常退出也不很容易了
 </code></pre>
 <p><strong>为此Go1.7以来提供了 context 来解决类似的问题 , context 可以跟踪 Goroutine 的调用, 在调用内部维护一个调用树,通过这个调用树可以在传递超时或者退出通知,还能在调用树中传递元数据</strong></p>
 <p>context的中文翻译是<code>上下文</code> ,我们可以理解为 <code>context</code> 管理了一组呈现树状结构的 <code>Goroutine</code> ,让每个<code>Goroutine</code> 都拥有相同的上下文,并且可以在这个上下文中传递数据</p>
@@ -316,13 +313,9 @@
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><pre><code>我们看到 emptyCtx 实现了Context 接口,但是其实现的方法都是空nil 那么我们就可以知道其实emptyCtx 是不具备任何
-实际功能的,那么它存在的目的是什么呢?
+</div><pre><code>我们看到 emptyCtx 实现了Context 接口,但是其实现的方法都是空nil 那么我们就可以知道其实emptyCtx 是不具备任何实际功能的,那么它存在的目的是什么呢?
 
-emptyCtx 存在的意义是作为 Context 对象树根节点 root节点 , 在context.go 包中提供 Background() 和 TODO() 
-两个函数 ,这两个函数都是返回的都是 emptyCtx 实例 ,通常我们使用他们来构建Context的根节点 , 有了root根节点之后
-就可同事 context.go 包中提供的其他的包装函数创建具有意义的context 实例 ,并且没有context 实例的创建都是以上一
-个 context 实例对象作为参数的(所以必须有一个根节点) ,最终形成一个树状的管理结构
+emptyCtx 存在的意义是作为 Context 对象树根节点 root节点 , 在context.go 包中提供 Background() 和 TODO() 两个函数 ,这两个函数都是返回的都是 emptyCtx 实例 ,通常我们使用他们来构建Context的根节点 , 有了root根节点之后就可同事 context.go 包中提供的其他的包装函数创建具有意义的context 实例 ,并且没有context 实例的创建都是以上一个 context 实例对象作为参数的(所以必须有一个根节点) ,最终形成一个树状的管理结构
 </code></pre>
 <ol start="3">
 <li>
@@ -1215,10 +1208,10 @@ emptyCtx 存在的意义是作为 Context 对象树根节点 root节点 , 在con
         </div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/context2/index.md" target="_blank">阅读原始文档</a>
+                            <a class="link-to-markdown" href="/contex/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/context2/" data-title="Context2" data-via="xxxx" data-hashtags="面试"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/context2/" data-hashtag="面试"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/context2/" data-title="Context2" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/context2/" data-title="Context2"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/context2/" data-title="Context2"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/context2/" data-title="Context2" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/context2/" data-title="Context2" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/context2/" data-title="Context2"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/contex/" data-title="Context" data-via="xxxx" data-hashtags="面试"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/contex/" data-hashtag="面试"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/contex/" data-title="Context" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/contex/" data-title="Context"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/contex/" data-title="Context"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/contex/" data-title="Context" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/contex/" data-title="Context" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/contex/" data-title="Context"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
@@ -1230,8 +1223,8 @@ emptyCtx 存在的意义是作为 Context 对象树根节点 root节点 , 在con
         </section>
     </div>
 
-    <div class="post-nav"><a href="/io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" class="prev" rel="prev" title="Io多路复用"><i class="fas fa-angle-left fa-fw"></i>Io多路复用</a>
-            <a href="/contex/" class="next" rel="next" title="Context">Context<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/context2/" class="prev" rel="prev" title="Context2"><i class="fas fa-angle-left fa-fw"></i>Context2</a>
+            <a href="/kafka/" class="next" rel="next" title="Kafka">Kafka<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
