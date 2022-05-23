@@ -114,29 +114,29 @@
         alt="/posts/images/avatar.webp"
         title="/posts/images/avatar.webp" /></a></div><h1 class="home-title">Yzj0911 博客</h1><h2 class="home-subtitle"><div id="id-1" class="typeit"></div></h2><div class="links"><a href="https://github.com//yzj0911" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github-alt fa-fw"></i></a><a href="https://twitter.com/xxxx" title="Twitter" target="_blank" rel="noopener noreffer me"><i class="fab fa-twitter fa-fw"></i></a><a href="https://www.instagram.com/xxxx" title="Instagram" target="_blank" rel="noopener noreffer me"><i class="fab fa-instagram fa-fw"></i></a><a href="https://facebook.com/xxxx" title="facebook" target="_blank" rel="noopener noreffer me"><i class="fab fa-facebook fa-fw"></i></a><a href="https://t.me/xxxx" title="Telegram" target="_blank" rel="noopener noreffer me"><i class="fab fa-telegram-plane fa-fw"></i></a><a href="mailto:935669265@qq.com" title="Email" rel=" me"><i class="far fa-envelope fa-fw"></i></a><a href="/index.xml" title="RSS" target="_blank" rel="noopener noreffer me"><i class="fas fa-rss fa-fw"></i></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/">CentOS下kvm安装</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-12-03">2021-12-03</time></span></div><div class="content">CentOS下kvm安装 注：运行kvm保证机器支持虚拟化且在bios中开启。 准备工作 清除iptables规则 1 2 3 4 # CentOS6 service iptables stop; service iptables save # CentOS7 systemctl stop</div><div class="post-footer">
-        <a href="/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/">阅读全文</a></div>
+        <a href="/linux%E5%86%85%E5%AD%98/">Linux内存</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-12-03">2021-12-03</time></span></div><div class="content">Linux内存 内存概论 虚拟内存 虚拟内存(virtual memory)是 Unix 系统中一种对内存的抽象。虚拟内存作为一种逻辑层，处于应用程序的内存请</div><div class="post-footer">
+        <a href="/linux%E5%86%85%E5%AD%98/">阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/containerd%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Containerd源码分析</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-12-03">2021-12-03</time></span></div><div class="content">Containerd源码分析 从 Kubernetes 1.22 开始，k8s 的容器运行是默认替换成 containerd。有必要深入了解 containerd 的内部实现原理。本篇通过分析 containerd 的代</div><div class="post-footer">
-        <a href="/containerd%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">阅读全文</a></div>
+        <a href="/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/">Linux内核同步</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-12-03">2021-12-03</time></span></div><div class="content">Linux内核同步 内核抢占 抢占内核的主要特点是: 一个在内核态运行的进程，可能在执行内核函数期间被另外一个进程取代。 用实例来说明抢占内核和非抢</div><div class="post-footer">
+        <a href="/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/">阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/dblink/">Dblink</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-12-03">2021-12-03</time></span></div><div class="content">Dblink 查询所有触发器 1 select*fromuser_triggers; 根据名称禁用触发器 1 altertriggerLOGMNRGGC_TRIGGERdisable; 查询所有 job 1 select*fromuser_jobs; 根据 id 禁用 job 1 BEGINdbms_job.broken(4001,true);END; 禁用 oracle dblink 1 2 altersystemsetopen_links=0sid=&#39;$sid&#39;scope=spfile;altersystemsetopen_links_per_instance=0sid=&#39;$sid&#39;scope=spfile; 启用 oracle dblink 1 2 altersystemsetopen_links=4sid=&#39;$sid&#39;scope=spfile;altersystemsetopen_links_per_instance=4sid=&#39;$sid&#39;scope=spfile;</div><div class="post-footer">
-        <a href="/dblink/">阅读全文</a></div>
+        <a href="/linux%E8%BF%9B%E7%A8%8B/">Linux进程</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-12-03">2021-12-03</time></span></div><div class="content">Linux进程 进程时程序执行的一个实例，可以把它看作充分描述程序已经执行到何种程度的数据结构的汇集。在 Linux 源代码中，常把进程称为任务(task</div><div class="post-footer">
+        <a href="/linux%E8%BF%9B%E7%A8%8B/">阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/docker%E5%AE%B9%E5%99%A8%E5%92%8C%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">Docker容器和网络架构设计</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-12-03">2021-12-03</time></span></div><div class="content">Docker容器和网络架构设计 常用的容器化技术 Chroot 特点: 改变正在运行的进程和它的子进程根目录。 经chroot设置根目录的程序，不能够对这个指定</div><div class="post-footer">
-        <a href="/docker%E5%AE%B9%E5%99%A8%E5%92%8C%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">阅读全文</a></div>
+        <a href="/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/">Nginx多组代理配置</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-12-03">2021-12-03</time></span></div><div class="content">Nginx多组代理配置 一、需求 具体实现以下功能：使用 nginx 作为对外的服务机器，让客户端通过访问 nginx 所在的IP+端口的方式能访问内部多个系统，这样一</div><div class="post-footer">
+        <a href="/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/">阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/flask%E4%B8%8Evue%E7%9A%84token%E8%AE%A4%E8%AF%81/">Flask与Vue的token认证</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-12-03">2021-12-03</time></span></div><div class="content">Flask与Vue的token认证 后端使用flask设计基于token认证方式的restful接口，前端使用vue.js全家桶，利用axio</div><div class="post-footer">
-        <a href="/flask%E4%B8%8Evue%E7%9A%84token%E8%AE%A4%E8%AF%81/">阅读全文</a></div>
+        <a href="/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/">postgresql 实战一：安装和使用</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-12-03">2021-12-03</time></span></div><div class="content">postgresql 实战一：安装和使用 安装 这里直接使用 docker 安装 postgresql-13 1 docker run --name postgresql13 -e POSTGRES_PASSWORD=123456 -p 54322:5432 -d postgres:13 安装成功后会绑定主机端口 54322。直接进入 postgresql13 容器，使用 pgsql。 1 2 3</div><div class="post-footer">
+        <a href="/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/">阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/go%E7%BB%93%E5%90%88etcd/">Go 结合 etcd</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-12-03">2021-12-03</time></span></div><div class="content">Go 结合 etcd 关于 etcd 的安装和介绍看 这里 。官方的实例可以看 这里 一、连接 首先是关于 golang 如何连接 etcd ，先是简单的连接。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19</div><div class="post-footer">
-        <a href="/go%E7%BB%93%E5%90%88etcd/">阅读全文</a></div>
+        <a href="/bat/">Windows Bat总结</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-12-03">2021-12-03</time></span></div><div class="content">Windows Bat总结 最近项目需要再 windows 上做开发，而且一些自动化的处理需要使用 windows 的的脚本。所以做些记录，防止遗忘。 基本的语法 首先从基础开始吧，之前都是使</div><div class="post-footer">
+        <a href="/bat/">阅读全文</a></div>
 </article><ul class="pagination"><li class="page-item ">
                     <span class="page-link">
                         <a href="/">1</a>
@@ -158,16 +158,6 @@
                 </li><li class="page-item ">
                     <span class="page-link">
                         <a href="/page/6/">6</a>
-                    </span>
-                </li><li class="page-item ">
-                    <span class="page-link">
-                        <a href="/page/7/">7</a>
-                    </span>
-                </li><li class="page-item ">
-                    <span class="page-link" aria-hidden="true">&hellip;</span>
-                </li><li class="page-item ">
-                    <span class="page-link">
-                        <a href="/page/9/">9</a>
                     </span>
                 </li></ul></div></div>
             </main><footer class="footer">
