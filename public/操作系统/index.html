@@ -5,31 +5,30 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>微信支付的接口 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="微信支付的接口" />
-<meta property="og:description" content="微信支付V3 整理整体流程" />
+        <title>操作系统 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="操作系统" />
+<meta property="og:description" content="操作系统 进程和线程的区别 进程是对程序的封装,是系统进行资源调度和分配的基本单位,实现了操作系统的并发; 线程是进程的子任务,是CPU调度和分派" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/payment/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-04-08T09:49:46+08:00" />
-<meta property="article:modified_time" content="2022-04-08T09:49:46+08:00" />
-
+<meta property="og:url" content="http://example.org/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-05-23T14:19:10+08:00" />
+<meta property="article:modified_time" content="2022-05-23T14:19:10+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://example.org/logo.png"/>
 
-<meta name="twitter:title" content="微信支付的接口"/>
-<meta name="twitter:description" content="微信支付V3 整理整体流程"/>
+<meta name="twitter:title" content="操作系统"/>
+<meta name="twitter:description" content="操作系统 进程和线程的区别 进程是对程序的封装,是系统进行资源调度和分配的基本单位,实现了操作系统的并发; 线程是进程的子任务,是CPU调度和分派"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/payment/" /><link rel="prev" href="http://example.org/gin/" /><link rel="next" href="http://example.org/mangodb%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" /><link rel="prev" href="http://example.org/http/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "微信支付的接口",
+        "headline": "操作系统",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "http:\/\/example.org\/payment\/"
-        },"genre": "posts","keywords": "HS","wordcount":  12 ,
-        "url": "http:\/\/example.org\/payment\/","datePublished": "2022-04-08T09:49:46+08:00","dateModified": "2022-04-08T09:49:46+08:00","publisher": {
+            "@id": "http:\/\/example.org\/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F\/"
+        },"genre": "posts","wordcount":  1178 ,
+        "url": "http:\/\/example.org\/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F\/","datePublished": "2022-05-23T14:19:10+08:00","dateModified": "2022-05-23T14:19:10+08:00","publisher": {
             "@type": "Organization",
             "name": "YZJ"},"author": {
                 "@type": "Person",
@@ -117,44 +116,110 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">微信支付的接口</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/"><i class="far fa-folder fa-fw"></i>微信支付</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-08">2022-04-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 12 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">操作系统</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-23">2022-05-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1178 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="true">
                 <div class="details-summary toc-title">
                     <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
-            </div><div class="content" id="content"><h1 id="微信支付v3-整理整体流程">微信支付V3 整理整体流程</h1>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#进程和线程的区别">进程和线程的区别</a></li>
+    <li><a href="#进程间的通信方式">进程间的通信方式</a></li>
+    <li><a href="#线程同步的方式">线程同步的方式</a></li>
+    <li><a href="#什么是死锁死锁产生的条件">什么是死锁?死锁产生的条件?</a></li>
+    <li><a href="#进程有哪几种状态">进程有哪几种状态</a></li>
+    <li><a href="#heading"></a>
+      <ul>
+        <li><a href="#分页和分段有什么区别内存管理">分页和分段有什么区别（内存管理）？</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="操作系统">操作系统</h1>
+<h2 id="进程和线程的区别">进程和线程的区别</h2>
+<ul>
+<li>进程是对程序的封装,是系统进行资源调度和分配的基本单位,实现了操作系统的并发;</li>
+<li>线程是进程的子任务,是CPU调度和分派的基本单位,用于保证程序的实时性,实现进程内部的并发;</li>
+<li>一个程序至少有一个进程,一个进程至少有一个线程,线程依赖于进程而存在;</li>
+<li>进程在执行过程中有独立的内存单元,而多个线程共享进程的内存</li>
+</ul>
+<h2 id="进程间的通信方式">进程间的通信方式</h2>
+<ul>
+<li>管道及命名管道</li>
+<li>信号</li>
+<li>消息队列</li>
+<li>共享内存</li>
+<li>信号量</li>
+<li>套接字</li>
+</ul>
+<h2 id="线程同步的方式">线程同步的方式</h2>
+<ul>
+<li>互斥量</li>
+<li>信号量</li>
+<li>事件</li>
+</ul>
+<h2 id="什么是死锁死锁产生的条件">什么是死锁?死锁产生的条件?</h2>
+<ol>
+<li>死锁的概念</li>
+</ol>
+<p>在两个或者多个并发进程中,如果进程持有某种资源而又等待其它进程释放它或它们现在保持着的资源,在未改变这种状态之前都不能向前前进,称这一组进程产生了死锁。</p>
+<ol start="2">
+<li>死锁产生的必要条件</li>
+</ol>
+<ul>
+<li>互斥:至少有一个资源必须属于非共享模式,即一次只能被一个进程使用;若其他申请使用该资源,那么申请进程必须等到该资源被释放为止;</li>
+<li>占有并等待:一个进程必须占有至少一个资源,并等待另一个资源,而该资源为其他进程所占有;</li>
+<li>非抢占: 进程不能被抢占,即资源只能被进程在完成任务后资源释放</li>
+<li>循环等待:若干进程之间形成一种头尾相接的环形等待资源关系</li>
+</ul>
+<h2 id="进程有哪几种状态">进程有哪几种状态</h2>
+<ul>
+<li>就绪态</li>
+<li>运行态</li>
+<li>阻塞态</li>
+</ul>
+<h2 id="heading"></h2>
+<h3 id="分页和分段有什么区别内存管理">分页和分段有什么区别（内存管理）？</h3>
+<p>　　段式存储管理是一种符合用户视角的内存分配管理方案。在段式存储管理中，将程序的地址空间划分为若干段（segment），如代码段，数据段，堆栈段；这样每个进程有一个二维地址空间，相互独立，互不干扰。段式管理的优点是：没有内碎片（因为段大小可变，改变段大小来消除内碎片）。但段换入换出时，会产生外碎片（比如4k的段换5k的段，会产生1k的外碎片）</p>
+<p>　　页式存储管理方案是一种用户视角内存与物理内存相分离的内存分配管理方案。在页式存储管理中，将程序的逻辑地址划分为固定大小的页（page），而物理内存划分为同样大小的帧，程序加载时，可以将任意一页放入内存中任意一个帧，这些帧不必连续，从而实现了离散分离。页式存储管理的优点是：没有外碎片（因为页的大小固定），但会产生内碎片（一个页可能填充不满）</p>
+<p><em><strong>*两者的不同点：*</strong></em></p>
+<ul>
+<li>目的不同：分页是由于系统管理的需要而不是用户的需要，它是信息的物理单位；分段的目的是为了能更好地满足用户的需要，它是信息的逻辑单位，它含有一组其意义相对完整的信息；</li>
+<li>大小不同：页的大小固定且由系统决定，而段的长度却不固定，由其所完成的功能决定；</li>
+<li>地址空间不同： 段向用户提供二维地址空间；页向用户提供的是一维地址空间；</li>
+<li>信息共享：段是信息的逻辑单位，便于存储保护和信息的共享，页的保护和共享受到限制；</li>
+<li>内存碎片：页式存储管理的优点是没有外碎片（因为页的大小固定），但会产生内碎片（一个页可能填充不满）；而段式管理的优点是没有内碎片（因为段大小可变，改变段大小来消除内碎片）。但段换入换出时，会产生外碎片（比如4k的段换5k的段，会产生1k的外碎片）。</li>
+</ul>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2022-04-08</span>
+                <span>更新于 2022-05-23</span>
             </div>
             <div class="post-info-license"></div>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/payment/index.md" target="_blank">阅读原始文档</a>
+                            <a class="link-to-markdown" href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/payment/" data-title="微信支付的接口" data-via="xxxx" data-hashtags="HS"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/payment/" data-hashtag="HS"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/payment/" data-title="微信支付的接口" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/payment/" data-title="微信支付的接口"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/payment/" data-title="微信支付的接口"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/payment/" data-title="微信支付的接口" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/payment/" data-title="微信支付的接口" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/payment/" data-title="微信支付的接口"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" data-title="操作系统" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" data-title="操作系统" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" data-title="操作系统"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" data-title="操作系统"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" data-title="操作系统" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" data-title="操作系统" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" data-title="操作系统"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/hs/">HS</a></section>
+        <section class="post-tags"></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/gin/" class="prev" rel="prev" title="gin 常用中间件"><i class="fas fa-angle-left fa-fw"></i>gin 常用中间件</a>
-            <a href="/mangodb%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" class="next" rel="next" title="Mangodb的基础使用">Mangodb的基础使用<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/http/" class="prev" rel="prev" title="Http"><i class="fas fa-angle-left fa-fw"></i>Http</a></div>
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">

@@ -6,7 +6,7 @@
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>100题 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="100题" />
-<meta property="og:description" content="Golang精编100题 能力模型 级别 模型 初级 primary: 熟悉基本语法，能够看懂代码的意图； 在他人指导下能够完成用户故事的开发，编写的代码符合Clean" />
+<meta property="og:description" content="xorm 和 gorm 的不同点 相同性： 1.主流数据库都支持（mysql、postgres） 2. 支持事务性，链式查询，支持原生sql操作 不同点： xorm 支持批量查询处" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/100%E9%A2%98/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-04-20T13:48:23+08:00" />
@@ -17,7 +17,7 @@
 <meta name="twitter:image" content="http://example.org/logo.png"/>
 
 <meta name="twitter:title" content="100题"/>
-<meta name="twitter:description" content="Golang精编100题 能力模型 级别 模型 初级 primary: 熟悉基本语法，能够看懂代码的意图； 在他人指导下能够完成用户故事的开发，编写的代码符合Clean"/>
+<meta name="twitter:description" content="xorm 和 gorm 的不同点 相同性： 1.主流数据库都支持（mysql、postgres） 2. 支持事务性，链式查询，支持原生sql操作 不同点： xorm 支持批量查询处"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/100%E9%A2%98/" /><link rel="prev" href="http://example.org/interface/" /><link rel="next" href="http://example.org/mysql/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/100%E9%A2%98\/"
-        },"genre": "posts","keywords": "面试","wordcount":  13105 ,
+        },"genre": "posts","keywords": "面试","wordcount":  13210 ,
         "url": "http:\/\/example.org\/100%E9%A2%98\/","datePublished": "2022-04-20T13:48:23+08:00","dateModified": "2022-04-20T13:48:23+08:00","publisher": {
             "@type": "Organization",
             "name": "YZJ"},"author": {
@@ -119,7 +119,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">100题</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%9D%A2%E8%AF%95/"><i class="far fa-folder fa-fw"></i>面试</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-20">2022-04-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 13105 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-20">2022-04-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 13210 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 27 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="true">
                 <div class="details-summary toc-title">
@@ -131,7 +131,14 @@
     <li><a href="#选择题">选择题</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>Golang精编100题</p>
+            </div><div class="content" id="content"><p>xorm 和 gorm 的不同点
+相同性： 1.主流数据库都支持（mysql、postgres）
+2. 支持事务性，链式查询，支持原生sql操作
+不同点： xorm 支持批量查询处理
+xorm支持主从式读写分离
+gorm 支持热加载 （部分更新）
+文档全面性： gorm &gt; xorm</p>
+<p>Golang精编100题</p>
 <p>能力模型</p>
 <p>级别</p>
 <p>模型</p>
