@@ -141,6 +141,15 @@ netstat -tanp|grep redis
 
 另外，在 Redis 5.0 增加了 Stream 功能，一个新的强大的支持多播的可持久化的消息队列，提供类似 Kafka 的功能。
 
+(1)字符串类型:在Redis里面采用的是SDS来封装char[]的，这个也是redis的最小存储单元。RedisObject是redis的基本数据类型，对照C#中的Object对象。而字符串类型就是在RedisObject基础上封装的代码。
+
+(2)列表类型:List类型按照插入顺序排序，最常用作消息队列，常用的就四个方法LPOP,LPUSH,RPOP,RPUSH。我们可将能够异步处理的请求放到消息队列中去。
+
+(3)哈希类型:Redis中的哈希类型，可以用来存放对象了，类似与C#中的Dictionary以键值对的形式存放数据
+
+(4)集合类型:集合类型是哈希类型的“简易版”，它比Dictionary节省很多内存消耗，类似C#的HashSet类型。底层数据结构和哈希类型类似，只是value为null，所以key不能重复，且无序。
+
+(5)有序集合类型:有序集合和哈希类型的最大区别就是范围查找时它的时间复杂度为O(logN) + M，后者为O(N)。它的每一个字符串元素都会关联到score，里面的元素总是通过score进行排序。
 
 
 ##  Redis 的线程模型
@@ -258,3 +267,293 @@ Redis 没有使用真正实现严格的 LRU 算是的原因是，因为消耗更
     hz 调大将会提高 Redis 主动淘汰的频率，如果你的 Redis 存储中包含很多冷数据占用内存过大的话，可以考虑将这个值调大，但 Redis 作者建议这个值不要超过 100 。我们实际线上将这个值调大到 100 ，观察到 CPU 会增加 2% 左右，但对冷数据的内存释放速度确实有明显的提高（通过观察 keyspace 个数和 used_memory 大小）。
 
 ---
+
+
+## reids 集群 的哨兵模式
+
+### 哨兵模式概述
+（自动选主机的方式）
+
+    主从切换技术：
+        当主机宕机后，需要手动把一台从（slave）服务器切换为主服务器，这就需要人工干预，费时费力，还回造成一段时间内服务不可用，所以推荐哨兵架构（Sentinel）来解决这个问题。
+
+哨兵模式是一种特殊的模式，首先Redis提供了哨兵的命令，哨兵是一个独立的进程，作为进程，它独立运行。其原理是哨兵通过发送命令，等待Redis服务器响应，从而监控运行的多个Redis实例。
+
+这里哨兵模式有两个作用：
+1. 通过发送命令，让Redis服务器返回监控其运行状态，包括主服务器和从服务器
+2. 当哨兵监测到Redis主机宕机，会自动将slave切换成master，然后通过发布订阅模式通知其他服务器，修改配置文件，让他们换主机
+3. 当一个哨兵进程对Redis服务器进行监控，可能会出现问题，为此可以使用哨兵进行监控， 各个哨兵之间还会进行监控，这就形成了多哨兵模式。
+
+
+Redis 的 Sentinel 系统用于管理多个 Redis 服务器（instance）， 该系统执行以下三个任务：
+
+- 监控（Monitoring）： Sentinel 会不断地检查你的主服务器和从服务器是否运作正常。-
+- 提醒（Notification）： 当被监控的某个 Redis 服务器出现问题时， Sentinel 可以通过 API 向管理员或者其他应用程序发送通知。-
+- 自动故障迁移（Automatic failover）： 当一个主服务器不能正常工作时， Sentinel 会开始一次自动故障迁移操作， 它会将失效主服务器的其中一个从服务器升级为新的主服务器， 并让失效主服务器的其他从服务器改为复制新的主服务器； 当客户端试图连接失效的主服务器时， 集群也会向客户端返回新主服务器的地址， 使得集群可以使用新主服务器代替失效服务器。-
+
+**Redis Sentinel** 是一个分布式系统， 你可以在一个架构中运行多个 Sentinel 进程（progress）， 这些进程使用流言协议（gossip protocols)来接收关于主服务器是否下线的信息， 并使用投票协议（agreement protocols）来决定是否执行自动故障迁移， 以及选择哪个从服务器作为新的主服务器。这个投票协议的参数可以通过配置文件来更改，也就是说你可以通过更改配置文件来指定哪个从机成为新的主机。
+
+虽然 Redis Sentinel 释出为一个单独的可执行文件 redis-sentinel ， 但实际上它只是一个运行在特殊模式下的 Redis 服务器， 你可以在启动一个普通 Redis 服务器时通过给定 –sentinel 选项来启动 Redis Sentinel 。
+
+## 什么是缓存穿透？如何避免？什么是缓存雪崩？何如避免？
+
+### 缓存穿透
+
+    一般的缓存系统，都是按照 key 去缓存查询，如果不存在对应的 value，就应该去后端系统查找（比如DB）。一些恶意的请求会故意查询不存在的 key,请求量很大，就会对后端系统造成很大的压力。这就叫做缓存穿透。
+
+    如何避免？
+
+    1. 对查询结果为空的情况也进行缓存，缓存时间设置短一点，或者该 key 对应的数据 insert 了之后清理缓存。
+
+    2. 对一定不存在的 key 进行过滤。可以把所有的可能存在的 key 放到一个大的 Bitmap 中，查询时通过该 bitmap 过滤。
+
+
+### 缓存雪崩
+
+    当缓存服务器重启或者大量缓存集中在某一个时间段失效，这样在失效的时候，会给后端系统带来很大压力。导致系统崩溃。
+
+    如何避免？
+
+    1. 在缓存失效后，通过加锁或者队列来控制读数据库写缓存的线程数量。比如对某个 key 只允许一个线程查询数据和写缓存，其他线程等待。
+
+    2. 做二级缓存，A1 为原始缓存，A2 为拷贝缓存，A1 失效时，可以访问 A2，A1 缓存失效时间设置为短期，A2 设置为长期
+
+    3. 不同的 key，设置不同的过期时间，让缓存失效的时间点尽量均匀
+
+### 缓存击穿
+大并发集中对一个热点的 Key 进行访问，突然间这个 Key 失效了，导致大并发全部打在数据库上，导致数据库压力剧增。
+
+解决方法:
+
+1. 如果业务允许的话，对于热点的 key 可以设置永不过期的 key
+使用互斥锁。如果缓存失效的情况，只有拿到锁才可以查询数据库，降低了在同一时刻打在数据库上的请求，防止数据库打死。当然这样会导致系统的性能变差。
+
+2. ***singleflight***
+
+    模拟场景，请求先走 Redis, 发现没有 key, 全部都走到了数据库:
+```go
+package main
+
+import (
+	"context"
+	"errors"
+	"log"
+	"sync"
+	"time"
+)
+
+var errorNotExist = errors.New("not exist")
+
+func main() {
+	// 模拟透传ctx 设定超时时间
+	ctx, cancel := context.WithTimeout(context.TODO(), time.Second*3)
+	defer cancel()
+	//模拟10个并发
+	var wg sync.WaitGroup
+	wg.Add(10)
+	for i := 0; i < 10; i++ {
+		go func() {
+			defer wg.Done()
+			data, err := fetchData(ctx, "key")
+			if err != nil {
+				log.Print(err)
+				return
+			}
+			log.Println(data)
+		}()
+	}
+	wg.Wait()
+}
+
+// 获取数据
+func fetchData(ctx context.Context, key string) (string, error) {
+	data, err := fetchDataFromCache(key)
+	if err == errorNotExist {
+		data, err = fetchDataFromDB(key)
+		if err != nil {
+			log.Println(err)
+			return "", err
+		}
+
+		//TOOD: set cache
+	} else if err != nil {
+		return "", err
+	}
+	return data, nil
+}
+
+// 模拟从缓存中获取值,缓存中无该值
+func fetchDataFromCache(key string) (string, error) {
+	return "", errorNotExist
+}
+
+// 模拟从数据库中获取值
+func fetchDataFromDB(key string) (string, error) {
+	log.Printf("get %s from database", key)
+	return "data", nil
+}
+
+// 执行输出
+2021/10/19 14:04:36 get key from database
+2021/10/19 14:04:36 data
+2021/10/19 14:04:36 get key from database
+2021/10/19 14:04:36 get key from database
+2021/10/19 14:04:36 get key from database
+2021/10/19 14:04:36 get key from database
+2021/10/19 14:04:36 get key from database
+2021/10/19 14:04:36 get key from database
+2021/10/19 14:04:36 get key from database
+2021/10/19 14:04:36 get key from database
+2021/10/19 14:04:36 get key from database
+2021/10/19 14:04:36 data
+2021/10/19 14:04:36 data
+2021/10/19 14:04:36 data
+2021/10/19 14:04:36 data
+2021/10/19 14:04:36 data
+2021/10/19 14:04:36 data
+2021/10/19 14:04:36 data
+2021/10/19 14:04:36 data
+2021/10/19 14:04:36 data
+```
+从以上出书可以看出，并发请求先到缓存，发现没有值，于是都打到了数据库，假设在真实业务场景中，并发量非常大，数据库可能会瞬间宕机。因此我们需要想办法将并发的请求减少：
+
+改动 fetchData, 增加 singleflight, 如果并发请求查询某个热点 key, 缓存库没有则首次请求打到数据库，其他请求阻塞，直接取首次请求的返回值即可。
+```go
+import "golang.org/x/sync/singleflight"
+
+var sfg singleflight.Group
+
+// 获取数据
+func fetchData(ctx context.Context, key string) (string, error) {
+	data, err := fetchDataFromCache(key)
+	if err == errorNotExist {
+		v, err, _ := sfg.Do(key, func() (interface{}, error) {
+			return fetchDataFromDB(key)
+			//set cache
+		})
+		if err != nil {
+			log.Println(err)
+			return "", err
+		}
+
+		//TOOD: set cache
+		data = v.(string)
+	} else if err != nil {
+		return "", err
+	}
+	return data, nil
+}
+
+// 输出
+2021/10/19 14:09:25 get key from database
+2021/10/19 14:09:25 data
+2021/10/19 14:09:25 data
+2021/10/19 14:09:25 data
+2021/10/19 14:09:25 data
+2021/10/19 14:09:25 data
+2021/10/19 14:09:25 data
+2021/10/19 14:09:25 data
+2021/10/19 14:09:25 data
+2021/10/19 14:09:25 data
+2021/10/19 14:09:25 data
+```
+可以看到此时只有一个请求进入数据库，其他的请求也正常返回了值，从而保护了后端 DB。但是这样是否真正合理呢？
+
+模拟首次请求 `hang` 住，则所有请求都会 `hang` 住，程序报错退出:
+```go
+// 获取数据
+func fetchData(ctx context.Context, key string) (string, error) {
+	data, err := fetchDataFromCache(key)
+	if err == errorNotExist {
+		v, err, _ := sfg.Do(key, func() (interface{}, error) {
+			select {}
+			return fetchDataFromDB(key)
+			//set cache
+		})
+		if err != nil {
+			log.Println(err)
+			return "", err
+		}
+
+		//TOOD: set cache
+		data = v.(string)
+	} else if err != nil {
+		return "", err
+	}
+	return data, nil
+}
+程序报错，发生死锁:
+
+fatal error: all goroutines are asleep - deadlock!
+
+goroutine 1 [semacquire]:
+sync.runtime_Semacquire(0x0)
+        D:/Program Files/Go/src/runtime/sema.go:56 +0x25
+sync.(*WaitGroup).Wait(0xa80bf0)
+        D:/Program Files/Go/src/sync/waitgroup.go:130 +0x71
+main.main()
+        D:/Go/src/github.com/test/main.go:34 +0x10f
+
+goroutine 19 [select (no cases)]:
+main.fetchData.func1()
+        D:/Go/src/github.com/test/main.go:42 +0x17
+golang.org/x/sync/singleflight.(*Group).doCall.func2(0xc00004be66, 0xc000052060, 0xa534c0)
+        D:/Go/pkg/mod/golang.org/x/sync@v0.0.0-20210220032951-036812b2e83c/singleflight/singleflight.go:193 +0x6f
+golang.org/x/sync/singleflight.(*Group).doCall(0xa4c980, 0xc00001e030, {0xa5c137, 0x3}, 0x0)
+        D:/Go/pkg/mod/golang.org/x/sync@v0.0.0-20210220032951-036812b2e83c/singleflight/singleflight.go:195 +0xad
+golang.org/x/sync/singleflight.(*Group).Do(0xb076f0, {0xa5c137, 0x3}, 0x0)
+        D:/Go/pkg/mod/golang.org/x/sync@v0.0.0-20210220032951-036812b2e83c/singleflight/singleflight.go:108 +0x154
+main.fetchData({0x0, 0x0}, {0xa5c137, 0x3})
+        D:/Go/src/github.com/test/main.go:41 +0xb8
+main.main.func1()
+        D:/Go/src/github.com/test/main.go:26 +0x6c
+created by main.main
+        D:/Go/src/github.com/test/main.go:24 +0x85
+```
+此时可以使用 DoChan 结合 select 做超时控制:
+```go
+// 获取数据
+func fetchData(ctx context.Context, key string) (string, error) {
+	data, err := fetchDataFromCache(key)
+	if err == errorNotExist {
+		result := sfg.DoChan(key, func() (interface{}, error) {
+			// 模拟出现问题,hang 住
+			select {}
+			return fetchDataFromDB(key)
+			//set cache
+		})
+
+		select {
+		case r := <-result:
+			return r.Val.(string), r.Err
+		case <-ctx.Done():
+			return "", ctx.Err()
+		}
+
+	} else if err != nil {
+		return "", err
+	}
+	return data, nil
+}
+此时若首次请求超时则会出现超时消息:
+
+2021/10/19 14:23:21 context deadline exceeded
+2021/10/19 14:23:21 context deadline exceeded
+2021/10/19 14:23:21 context deadline exceeded
+2021/10/19 14:23:21 context deadline exceeded
+2021/10/19 14:23:21 context deadline exceeded
+2021/10/19 14:23:21 context deadline exceeded
+2021/10/19 14:23:21 context deadline exceeded
+2021/10/19 14:23:21 context deadline exceeded
+2021/10/19 14:23:21 context deadline exceeded
+2021/10/19 14:23:21 context deadline exceeded
+```
+可以看到一次超时，实际上并发请求都会报同样的超时反馈。singleflight 只是为了降低请求的数量级，为了提高程序的试错率，可以用 Forget 让 key 适时过时，提高下游请求的并发数，多试错几次。
+```go
+go func() {
+    log.Printf("forget key: %v\n", key)
+    time.Sleep(100 * time.Millisecond)
+    // logging
+    g.Forget(key)
+}()
+```

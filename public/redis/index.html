@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/redis\/"
-        },"genre": "posts","keywords": "面试","wordcount":  2961 ,
+        },"genre": "posts","keywords": "面试","wordcount":  6242 ,
         "url": "http:\/\/example.org\/redis\/","datePublished": "2022-05-09T13:23:30+08:00","dateModified": "2022-05-09T13:23:30+08:00","publisher": {
             "@type": "Organization",
             "name": "YZJ"},"author": {
@@ -119,8 +119,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Redis</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%9D%A2%E8%AF%95/"><i class="far fa-folder fa-fw"></i>面试</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-09">2022-05-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2961 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-09">2022-05-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6242 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 13 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="true">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -140,6 +140,18 @@
     <li><a href="#有哪几种数据淘汰策略">有哪几种数据“淘汰”策略？</a></li>
     <li><a href="#理解回收进程如何工作是非常重要的">理解回收进程如何工作是非常重要的：</a></li>
     <li><a href="#如果大量的-key-过期时间设置的过于集中到过期的那个时间点redis可能会出现短暂的卡顿现象">如果大量的 key 过期时间设置的过于集中，到过期的那个时间点，Redis可能会出现短暂的卡顿现象。</a></li>
+    <li><a href="#reids-集群-的哨兵模式">reids 集群 的哨兵模式</a>
+      <ul>
+        <li><a href="#哨兵模式概述">哨兵模式概述</a></li>
+      </ul>
+    </li>
+    <li><a href="#什么是缓存穿透如何避免什么是缓存雪崩何如避免">什么是缓存穿透？如何避免？什么是缓存雪崩？何如避免？</a>
+      <ul>
+        <li><a href="#缓存穿透">缓存穿透</a></li>
+        <li><a href="#缓存雪崩">缓存雪崩</a></li>
+        <li><a href="#缓存击穿">缓存击穿</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h1 id="redis">redis</h1>
@@ -376,6 +388,11 @@ netstat -tanp<span class="p">|</span>grep redis
 <li>JSON</li>
 </ul>
 <p>另外，在 Redis 5.0 增加了 Stream 功能，一个新的强大的支持多播的可持久化的消息队列，提供类似 Kafka 的功能。</p>
+<p>(1)字符串类型:在Redis里面采用的是SDS来封装char[]的，这个也是redis的最小存储单元。RedisObject是redis的基本数据类型，对照C#中的Object对象。而字符串类型就是在RedisObject基础上封装的代码。</p>
+<p>(2)列表类型:List类型按照插入顺序排序，最常用作消息队列，常用的就四个方法LPOP,LPUSH,RPOP,RPUSH。我们可将能够异步处理的请求放到消息队列中去。</p>
+<p>(3)哈希类型:Redis中的哈希类型，可以用来存放对象了，类似与C#中的Dictionary以键值对的形式存放数据</p>
+<p>(4)集合类型:集合类型是哈希类型的“简易版”，它比Dictionary节省很多内存消耗，类似C#的HashSet类型。底层数据结构和哈希类型类似，只是value为null，所以key不能重复，且无序。</p>
+<p>(5)有序集合类型:有序集合和哈希类型的最大区别就是范围查找时它的时间复杂度为O(logN) + M，后者为O(N)。它的每一个字符串元素都会关联到score，里面的元素总是通过score进行排序。</p>
 <h2 id="redis-的线程模型">Redis 的线程模型</h2>
 <p>redis 内部使用文件事件处理器 file event handler，这个文件事件处理器是单线程的，所以 Redis 才叫做单线程的模型。它采用 IO 多路复用机制同时监听多个 Socket，根据 Socket 上的事件来选择对应的事件处理器进行处理。</p>
 <p>文件事件处理器的结构包含 4 个部分：</p>
@@ -478,7 +495,514 @@ netstat -tanp<span class="p">|</span>grep redis
 </li>
 </ol>
 <hr>
-</div><div class="post-footer" id="post-footer">
+<h2 id="reids-集群-的哨兵模式">reids 集群 的哨兵模式</h2>
+<h3 id="哨兵模式概述">哨兵模式概述</h3>
+<p>（自动选主机的方式）</p>
+<pre><code>主从切换技术：
+    当主机宕机后，需要手动把一台从（slave）服务器切换为主服务器，这就需要人工干预，费时费力，还回造成一段时间内服务不可用，所以推荐哨兵架构（Sentinel）来解决这个问题。
+</code></pre>
+<p>哨兵模式是一种特殊的模式，首先Redis提供了哨兵的命令，哨兵是一个独立的进程，作为进程，它独立运行。其原理是哨兵通过发送命令，等待Redis服务器响应，从而监控运行的多个Redis实例。</p>
+<p>这里哨兵模式有两个作用：</p>
+<ol>
+<li>通过发送命令，让Redis服务器返回监控其运行状态，包括主服务器和从服务器</li>
+<li>当哨兵监测到Redis主机宕机，会自动将slave切换成master，然后通过发布订阅模式通知其他服务器，修改配置文件，让他们换主机</li>
+<li>当一个哨兵进程对Redis服务器进行监控，可能会出现问题，为此可以使用哨兵进行监控， 各个哨兵之间还会进行监控，这就形成了多哨兵模式。</li>
+</ol>
+<p>Redis 的 Sentinel 系统用于管理多个 Redis 服务器（instance）， 该系统执行以下三个任务：</p>
+<ul>
+<li>监控（Monitoring）： Sentinel 会不断地检查你的主服务器和从服务器是否运作正常。-</li>
+<li>提醒（Notification）： 当被监控的某个 Redis 服务器出现问题时， Sentinel 可以通过 API 向管理员或者其他应用程序发送通知。-</li>
+<li>自动故障迁移（Automatic failover）： 当一个主服务器不能正常工作时， Sentinel 会开始一次自动故障迁移操作， 它会将失效主服务器的其中一个从服务器升级为新的主服务器， 并让失效主服务器的其他从服务器改为复制新的主服务器； 当客户端试图连接失效的主服务器时， 集群也会向客户端返回新主服务器的地址， 使得集群可以使用新主服务器代替失效服务器。-</li>
+</ul>
+<p><strong>Redis Sentinel</strong> 是一个分布式系统， 你可以在一个架构中运行多个 Sentinel 进程（progress）， 这些进程使用流言协议（gossip protocols)来接收关于主服务器是否下线的信息， 并使用投票协议（agreement protocols）来决定是否执行自动故障迁移， 以及选择哪个从服务器作为新的主服务器。这个投票协议的参数可以通过配置文件来更改，也就是说你可以通过更改配置文件来指定哪个从机成为新的主机。</p>
+<p>虽然 Redis Sentinel 释出为一个单独的可执行文件 redis-sentinel ， 但实际上它只是一个运行在特殊模式下的 Redis 服务器， 你可以在启动一个普通 Redis 服务器时通过给定 –sentinel 选项来启动 Redis Sentinel 。</p>
+<h2 id="什么是缓存穿透如何避免什么是缓存雪崩何如避免">什么是缓存穿透？如何避免？什么是缓存雪崩？何如避免？</h2>
+<h3 id="缓存穿透">缓存穿透</h3>
+<pre><code>一般的缓存系统，都是按照 key 去缓存查询，如果不存在对应的 value，就应该去后端系统查找（比如DB）。一些恶意的请求会故意查询不存在的 key,请求量很大，就会对后端系统造成很大的压力。这就叫做缓存穿透。
+
+如何避免？
+
+1. 对查询结果为空的情况也进行缓存，缓存时间设置短一点，或者该 key 对应的数据 insert 了之后清理缓存。
+
+2. 对一定不存在的 key 进行过滤。可以把所有的可能存在的 key 放到一个大的 Bitmap 中，查询时通过该 bitmap 过滤。
+</code></pre>
+<h3 id="缓存雪崩">缓存雪崩</h3>
+<pre><code>当缓存服务器重启或者大量缓存集中在某一个时间段失效，这样在失效的时候，会给后端系统带来很大压力。导致系统崩溃。
+
+如何避免？
+
+1. 在缓存失效后，通过加锁或者队列来控制读数据库写缓存的线程数量。比如对某个 key 只允许一个线程查询数据和写缓存，其他线程等待。
+
+2. 做二级缓存，A1 为原始缓存，A2 为拷贝缓存，A1 失效时，可以访问 A2，A1 缓存失效时间设置为短期，A2 设置为长期
+
+3. 不同的 key，设置不同的过期时间，让缓存失效的时间点尽量均匀
+</code></pre>
+<h3 id="缓存击穿">缓存击穿</h3>
+<p>大并发集中对一个热点的 Key 进行访问，突然间这个 Key 失效了，导致大并发全部打在数据库上，导致数据库压力剧增。</p>
+<p>解决方法:</p>
+<ol>
+<li>
+<p>如果业务允许的话，对于热点的 key 可以设置永不过期的 key
+使用互斥锁。如果缓存失效的情况，只有拿到锁才可以查询数据库，降低了在同一时刻打在数据库上的请求，防止数据库打死。当然这样会导致系统的性能变差。</p>
+</li>
+<li>
+<p><em><strong>singleflight</strong></em></p>
+<p>模拟场景，请求先走 Redis, 发现没有 key, 全部都走到了数据库:</p>
+</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;context&#34;</span>
+	<span class="s">&#34;errors&#34;</span>
+	<span class="s">&#34;log&#34;</span>
+	<span class="s">&#34;sync&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">var</span> <span class="nx">errorNotExist</span> <span class="p">=</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;not exist&#34;</span><span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="c1">// 模拟透传ctx 设定超时时间
+</span><span class="c1"></span>	<span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithTimeout</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">TODO</span><span class="p">(),</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span>
+	<span class="k">defer</span> <span class="nf">cancel</span><span class="p">()</span>
+	<span class="c1">//模拟10个并发
+</span><span class="c1"></span>	<span class="kd">var</span> <span class="nx">wg</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
+	<span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+			<span class="k">defer</span> <span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
+			<span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">fetchData</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="s">&#34;key&#34;</span><span class="p">)</span>
+			<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+				<span class="nx">log</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+				<span class="k">return</span>
+			<span class="p">}</span>
+			<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+		<span class="p">}()</span>
+	<span class="p">}</span>
+	<span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="c1">// 获取数据
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">fetchData</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">fetchDataFromCache</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="nx">errorNotExist</span> <span class="p">{</span>
+		<span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nf">fetchDataFromDB</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+			<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
+		<span class="p">}</span>
+
+		<span class="c1">//TOOD: set cache
+</span><span class="c1"></span>	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">data</span><span class="p">,</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="c1">// 模拟从缓存中获取值,缓存中无该值
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">fetchDataFromCache</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">errorNotExist</span>
+<span class="p">}</span>
+
+<span class="c1">// 模拟从数据库中获取值
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">fetchDataFromDB</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;get %s from database&#34;</span><span class="p">,</span> <span class="nx">key</span><span class="p">)</span>
+	<span class="k">return</span> <span class="s">&#34;data&#34;</span><span class="p">,</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="c1">// 执行输出
+</span><span class="c1"></span><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>从以上出书可以看出，并发请求先到缓存，发现没有值，于是都打到了数据库，假设在真实业务场景中，并发量非常大，数据库可能会瞬间宕机。因此我们需要想办法将并发的请求减少：</p>
+<p>改动 fetchData, 增加 singleflight, 如果并发请求查询某个热点 key, 缓存库没有则首次请求打到数据库，其他请求阻塞，直接取首次请求的返回值即可。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">import</span> <span class="s">&#34;golang.org/x/sync/singleflight&#34;</span>
+
+<span class="kd">var</span> <span class="nx">sfg</span> <span class="nx">singleflight</span><span class="p">.</span><span class="nx">Group</span>
+
+<span class="c1">// 获取数据
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">fetchData</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">fetchDataFromCache</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="nx">errorNotExist</span> <span class="p">{</span>
+		<span class="nx">v</span><span class="p">,</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">sfg</span><span class="p">.</span><span class="nf">Do</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="kd">func</span><span class="p">()</span> <span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="nf">fetchDataFromDB</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+			<span class="c1">//set cache
+</span><span class="c1"></span>		<span class="p">})</span>
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+			<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
+		<span class="p">}</span>
+
+		<span class="c1">//TOOD: set cache
+</span><span class="c1"></span>		<span class="nx">data</span> <span class="p">=</span> <span class="nx">v</span><span class="p">.(</span><span class="kt">string</span><span class="p">)</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">data</span><span class="p">,</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="c1">// 输出
+</span><span class="c1"></span><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到此时只有一个请求进入数据库，其他的请求也正常返回了值，从而保护了后端 DB。但是这样是否真正合理呢？</p>
+<p>模拟首次请求 <code>hang</code> 住，则所有请求都会 <code>hang</code> 住，程序报错退出:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 获取数据
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">fetchData</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">fetchDataFromCache</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="nx">errorNotExist</span> <span class="p">{</span>
+		<span class="nx">v</span><span class="p">,</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">sfg</span><span class="p">.</span><span class="nf">Do</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="kd">func</span><span class="p">()</span> <span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">select</span> <span class="p">{}</span>
+			<span class="k">return</span> <span class="nf">fetchDataFromDB</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+			<span class="c1">//set cache
+</span><span class="c1"></span>		<span class="p">})</span>
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+			<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
+		<span class="p">}</span>
+
+		<span class="c1">//TOOD: set cache
+</span><span class="c1"></span>		<span class="nx">data</span> <span class="p">=</span> <span class="nx">v</span><span class="p">.(</span><span class="kt">string</span><span class="p">)</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">data</span><span class="p">,</span> <span class="kc">nil</span>
+<span class="p">}</span>
+<span class="nx">程序报错</span><span class="err">，</span><span class="nx">发生死锁</span><span class="p">:</span>
+
+<span class="nx">fatal</span> <span class="kt">error</span><span class="p">:</span> <span class="nx">all</span> <span class="nx">goroutines</span> <span class="nx">are</span> <span class="nx">asleep</span> <span class="o">-</span> <span class="nx">deadlock</span><span class="p">!</span>
+
+<span class="nx">goroutine</span> <span class="mi">1</span> <span class="p">[</span><span class="nx">semacquire</span><span class="p">]:</span>
+<span class="nx">sync</span><span class="p">.</span><span class="nf">runtime_Semacquire</span><span class="p">(</span><span class="mh">0x0</span><span class="p">)</span>
+        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Program</span> <span class="nx">Files</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">runtime</span><span class="o">/</span><span class="nx">sema</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">56</span> <span class="o">+</span><span class="mh">0x25</span>
+<span class="nx">sync</span><span class="p">.(</span><span class="o">*</span><span class="nx">WaitGroup</span><span class="p">).</span><span class="nf">Wait</span><span class="p">(</span><span class="mh">0xa80bf0</span><span class="p">)</span>
+        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Program</span> <span class="nx">Files</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">sync</span><span class="o">/</span><span class="nx">waitgroup</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">130</span> <span class="o">+</span><span class="mh">0x71</span>
+<span class="nx">main</span><span class="p">.</span><span class="nf">main</span><span class="p">()</span>
+        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">test</span><span class="o">/</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">34</span> <span class="o">+</span><span class="mh">0x10f</span>
+
+<span class="nx">goroutine</span> <span class="mi">19</span> <span class="p">[</span><span class="k">select</span> <span class="p">(</span><span class="nx">no</span> <span class="nx">cases</span><span class="p">)]:</span>
+<span class="nx">main</span><span class="p">.</span><span class="nx">fetchData</span><span class="p">.</span><span class="nf">func1</span><span class="p">()</span>
+        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">test</span><span class="o">/</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">42</span> <span class="o">+</span><span class="mh">0x17</span>
+<span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">sync</span><span class="o">/</span><span class="nx">singleflight</span><span class="p">.(</span><span class="o">*</span><span class="nx">Group</span><span class="p">).</span><span class="nx">doCall</span><span class="p">.</span><span class="nf">func2</span><span class="p">(</span><span class="mh">0xc00004be66</span><span class="p">,</span> <span class="mh">0xc000052060</span><span class="p">,</span> <span class="mh">0xa534c0</span><span class="p">)</span>
+        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">pkg</span><span class="o">/</span><span class="nx">mod</span><span class="o">/</span><span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">sync</span><span class="err">@</span><span class="nx">v0</span><span class="mf">.0.0</span><span class="o">-</span><span class="mi">20210220032951</span><span class="o">-</span><span class="mo">036</span><span class="mi">812</span><span class="nx">b2e83c</span><span class="o">/</span><span class="nx">singleflight</span><span class="o">/</span><span class="nx">singleflight</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">193</span> <span class="o">+</span><span class="mh">0x6f</span>
+<span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">sync</span><span class="o">/</span><span class="nx">singleflight</span><span class="p">.(</span><span class="o">*</span><span class="nx">Group</span><span class="p">).</span><span class="nf">doCall</span><span class="p">(</span><span class="mh">0xa4c980</span><span class="p">,</span> <span class="mh">0xc00001e030</span><span class="p">,</span> <span class="p">{</span><span class="mh">0xa5c137</span><span class="p">,</span> <span class="mh">0x3</span><span class="p">},</span> <span class="mh">0x0</span><span class="p">)</span>
+        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">pkg</span><span class="o">/</span><span class="nx">mod</span><span class="o">/</span><span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">sync</span><span class="err">@</span><span class="nx">v0</span><span class="mf">.0.0</span><span class="o">-</span><span class="mi">20210220032951</span><span class="o">-</span><span class="mo">036</span><span class="mi">812</span><span class="nx">b2e83c</span><span class="o">/</span><span class="nx">singleflight</span><span class="o">/</span><span class="nx">singleflight</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">195</span> <span class="o">+</span><span class="mh">0xad</span>
+<span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">sync</span><span class="o">/</span><span class="nx">singleflight</span><span class="p">.(</span><span class="o">*</span><span class="nx">Group</span><span class="p">).</span><span class="nf">Do</span><span class="p">(</span><span class="mh">0xb076f0</span><span class="p">,</span> <span class="p">{</span><span class="mh">0xa5c137</span><span class="p">,</span> <span class="mh">0x3</span><span class="p">},</span> <span class="mh">0x0</span><span class="p">)</span>
+        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">pkg</span><span class="o">/</span><span class="nx">mod</span><span class="o">/</span><span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">sync</span><span class="err">@</span><span class="nx">v0</span><span class="mf">.0.0</span><span class="o">-</span><span class="mi">20210220032951</span><span class="o">-</span><span class="mo">036</span><span class="mi">812</span><span class="nx">b2e83c</span><span class="o">/</span><span class="nx">singleflight</span><span class="o">/</span><span class="nx">singleflight</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">108</span> <span class="o">+</span><span class="mh">0x154</span>
+<span class="nx">main</span><span class="p">.</span><span class="nf">fetchData</span><span class="p">({</span><span class="mh">0x0</span><span class="p">,</span> <span class="mh">0x0</span><span class="p">},</span> <span class="p">{</span><span class="mh">0xa5c137</span><span class="p">,</span> <span class="mh">0x3</span><span class="p">})</span>
+        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">test</span><span class="o">/</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">41</span> <span class="o">+</span><span class="mh">0xb8</span>
+<span class="nx">main</span><span class="p">.</span><span class="nx">main</span><span class="p">.</span><span class="nf">func1</span><span class="p">()</span>
+        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">test</span><span class="o">/</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">26</span> <span class="o">+</span><span class="mh">0x6c</span>
+<span class="nx">created</span> <span class="nx">by</span> <span class="nx">main</span><span class="p">.</span><span class="nx">main</span>
+        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">test</span><span class="o">/</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">24</span> <span class="o">+</span><span class="mh">0x85</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>此时可以使用 DoChan 结合 select 做超时控制:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 获取数据
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">fetchData</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">fetchDataFromCache</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="nx">errorNotExist</span> <span class="p">{</span>
+		<span class="nx">result</span> <span class="o">:=</span> <span class="nx">sfg</span><span class="p">.</span><span class="nf">DoChan</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="kd">func</span><span class="p">()</span> <span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+			<span class="c1">// 模拟出现问题,hang 住
+</span><span class="c1"></span>			<span class="k">select</span> <span class="p">{}</span>
+			<span class="k">return</span> <span class="nf">fetchDataFromDB</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+			<span class="c1">//set cache
+</span><span class="c1"></span>		<span class="p">})</span>
+
+		<span class="k">select</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="nx">r</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">result</span><span class="p">:</span>
+			<span class="k">return</span> <span class="nx">r</span><span class="p">.</span><span class="nx">Val</span><span class="p">.(</span><span class="kt">string</span><span class="p">),</span> <span class="nx">r</span><span class="p">.</span><span class="nx">Err</span>
+		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span>
+			<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">ctx</span><span class="p">.</span><span class="nf">Err</span><span class="p">()</span>
+		<span class="p">}</span>
+
+	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">data</span><span class="p">,</span> <span class="kc">nil</span>
+<span class="p">}</span>
+<span class="nx">此时若首次请求超时则会出现超时消息</span><span class="p">:</span>
+
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
+<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到一次超时，实际上并发请求都会报同样的超时反馈。singleflight 只是为了降低请求的数量级，为了提高程序的试错率，可以用 Forget 让 key 适时过时，提高下游请求的并发数，多试错几次。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;forget key: %v\n&#34;</span><span class="p">,</span> <span class="nx">key</span><span class="p">)</span>
+    <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
+    <span class="c1">// logging
+</span><span class="c1"></span>    <span class="nx">g</span><span class="p">.</span><span class="nf">Forget</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+<span class="p">}()</span>
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
