@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/mysql\/"
-        },"genre": "posts","keywords": "面试","wordcount":  24234 ,
+        },"genre": "posts","keywords": "面试","wordcount":  24392 ,
         "url": "http:\/\/example.org\/mysql\/","datePublished": "2022-04-26T14:04:35+08:00","dateModified": "2022-04-26T14:04:35+08:00","publisher": {
             "@type": "Organization",
             "name": "YZJ"},"author": {
@@ -119,7 +119,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Mysql</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%9D%A2%E8%AF%95/"><i class="far fa-folder fa-fw"></i>面试</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-26">2022-04-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 24234 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-26">2022-04-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 24392 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 49 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="true">
                 <div class="details-summary toc-title">
@@ -137,6 +137,7 @@
     <li><a href="#innodb引擎的4大特性">InnoDB引擎的4大特性</a></li>
     <li><a href="#存储引擎选择">存储引擎选择</a></li>
     <li><a href="#什么是索引">什么是索引</a></li>
+    <li><a href="#索引类型">索引类型</a></li>
     <li><a href="#索引有哪些优缺点">索引有哪些优缺点</a></li>
     <li><a href="#索引的数据结构b树hash">索引的数据结构(b树,hash)</a></li>
     <li><a href="#创建索引的原则">创建索引的原则</a></li>
@@ -400,6 +401,15 @@
 <h2 id="什么是索引">什么是索引</h2>
 <p>索引是一种特殊的文件(InnoDB数据表上的索引是表空间的一个组成部分),它们包含着对数据表里所有记录的引用指针。</p>
 <p>索引是一种数据结构。数据库索引,是数据库管理系统中一个排序的数据结构,以协助快速查询、更新数据库表中数据。索引的实现通常用B树及其变种B+树。</p>
+<h2 id="索引类型">索引类型</h2>
+<ul>
+<li>普通索引：最基本的索引，没有任何约束限制。</li>
+<li>唯一索引：和普通索引类似，但是具有唯一性约束，可以有 null</li>
+<li>主键索引：特殊的唯一索引，不允许有 null，一张表最多一个主键索引</li>
+<li>组合索引：多列值组成一个索引，用于组合搜索，效率大于索引合并</li>
+<li>全文索引：对文本的内容进行分词、搜索</li>
+<li>覆盖索引：查询列要被所建的索引覆盖，不必读取数据行</li>
+</ul>
 <h2 id="索引有哪些优缺点">索引有哪些优缺点</h2>
 <p>索引的优点</p>
 <ul>
