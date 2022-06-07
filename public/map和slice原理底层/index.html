@@ -128,10 +128,13 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
+    <li><a href="#slice-切片">slice 切片</a></li>
+    <li><a href="#数组和切片slice的区别">数组和切片slice的区别</a></li>
+    <li><a href="#map">Map</a></li>
     <li><a href="#总结">总结</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="slice-切片">slice 切片</h1>
+            </div><div class="content" id="content"><h2 id="slice-切片">slice 切片</h2>
 <p>切片是基于数组实现的，它的底层是数组，可以理解为对 底层数组的抽象。 切片不是线程安全的</p>
 <p>源码包中<code>src/runtime/slice.go</code> 定义了slice的数据结构：</p>
 <div class="highlight"><div class="chroma">
@@ -278,7 +281,7 @@
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h1 id="数组和切片slice的区别">数组和切片slice的区别</h1>
+</div><h2 id="数组和切片slice的区别">数组和切片slice的区别</h2>
 <p>1） 数组长度不同</p>
 <p>数组初始化必须指定长度，并且长度就是固定的</p>
 <p>切片的长度是不固定的，可以追加元素，在追加时可能使切片的容量增大</p>
@@ -288,7 +291,7 @@
 <p>3）计算数组长度方式不同</p>
 <p>数组需要遍历计算数组长度，时间复杂度为O(n)</p>
 <p>切片底层包含len字段，可以通过len()计算切片长度，时间复杂度为O(1)</p>
-<h1 id="map">Map</h1>
+<h2 id="map">Map</h2>
 <p>Go中的map是一个指针，占用8个字节，指向hmap结构体</p>
 <p>源码包中<code>src/runtime/map.go</code>定义了hmap的数据结构：</p>
 <p>hmap包含若干个结构为bmap的数组，每个bmap底层都采用链表结构，bmap通常叫其bucket</p>
