@@ -4,13 +4,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>Docker2 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="Docker2" />
 <meta property="og:description" content="Docker 组成 描述 Image Docker镜像，用于创建Docker容器的模板 Container Docker容器，独立运行的一个或一组应用 Client Docker客户端，使用Docke" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/docker2/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-05-27T14:48:41+08:00" />
-<meta property="article:modified_time" content="2022-05-27T14:48:41+08:00" />
+<meta property="article:modified_time" content="2022-05-27T14:48:41+08:00" /><meta property="og:site_name" content="My cool site" />
 
 
 <meta name="twitter:card" content="summary_large_image"/>
@@ -19,7 +18,9 @@
 <meta name="twitter:title" content="Docker2"/>
 <meta name="twitter:description" content="Docker 组成 描述 Image Docker镜像，用于创建Docker容器的模板 Container Docker容器，独立运行的一个或一组应用 Client Docker客户端，使用Docke"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/docker2/" /><link rel="prev" href="http://example.org/kubernetes/" /><link rel="next" href="http://example.org/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/docker2/" /><link rel="prev" href="http://example.org/kubernetes/" /><link rel="next" href="http://example.org/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -37,7 +38,7 @@
             },"description": ""
     }
     </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -55,16 +56,16 @@
             <div class="menu-inner"><a class="menu-item" href="/posts/" title="YZJ 的博客"> 文章 </a><a class="menu-item" href="/tags/" title="YZJ 的博客"> 标签 </a><a class="menu-item" href="/categories/" title="YZJ 的博客"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="请输入搜索文章" id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
                 </a>
             </div>
         </div>
@@ -90,41 +91,39 @@
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="请输入搜索文章" id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </div>
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
                 </div><a class="menu-item" href="/posts/" title="YZJ 的博客">文章</a><a class="menu-item" href="/tags/" title="YZJ 的博客">标签</a><a class="menu-item" href="/categories/" title="YZJ 的博客">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
-</header>
-<div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">Docker2</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/docker/"><i class="far fa-folder fa-fw"></i>Docker</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-27">2022-05-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2689 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="true">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Docker2</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yzj</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/docker/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Docker</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-05-27">2022-05-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2689 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
                     <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
@@ -195,10 +194,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">docker version 	<span class="c1">#查看docker的版本信息</span>
-docker info 	<span class="c1">#查看docker系统信息，包括镜像和容器以及部分配置信息</span>
-docker --help 	<span class="c1">#docker帮助命令</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker version 	<span class="c1">#查看docker的版本信息</span>
+</span></span><span class="line"><span class="cl">docker info 	<span class="c1">#查看docker系统信息，包括镜像和容器以及部分配置信息</span>
+</span></span><span class="line"><span class="cl">docker --help 	<span class="c1">#docker帮助命令</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="2">
 <li>容器声明周期管理命令</li>
@@ -229,29 +228,29 @@ docker --help 	<span class="c1">#docker帮助命令</span>
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">docker run <span class="o">[</span>OPTIONS<span class="o">]</span> IMAGE <span class="o">[</span>COMMAND<span class="o">]</span> <span class="o">[</span>ARG...<span class="o">]</span>
-	docker run -i <span class="o">[</span>CONTAINER NAME<span class="o">]</span>				<span class="c1">#以交互模式运行容器，通常与-t同时使用</span>
-	docker run -t <span class="o">[</span>CONTAINER NAME<span class="o">]</span>				<span class="c1">#为容器重新分配一个伪输入终端，通常与-i同时使用</span>
-	docker run --name <span class="o">[</span>CONTAINER NAME<span class="o">]</span>			<span class="c1">#设置容器名称</span>
-	docker run -P 								<span class="c1">#随机端口映射</span>
-	docker run -p <span class="o">[</span>HOST PORT<span class="o">]</span>:<span class="o">[</span>CONTAINER PORT<span class="o">]</span>	<span class="c1">#指定端口映射，映射主机和容器内的端口</span>
-	docker run -e <span class="o">[</span>ENV NAME<span class="o">]=[</span>ENV VALUE<span class="o">]</span>		<span class="c1">#添加环境变量,如username=&#34;admin&#34;</span>
-	docker run -d 								<span class="c1">#后台运行，并返回容器ID</span>
-	docker run -v <span class="o">[</span>HOST FOLDER PATH<span class="o">]</span>:<span class="o">[</span>CONTAINER FOLDER PATH<span class="o">]</span>	<span class="c1">#将主机目录挂在到容器内，可挂载多个目录如：docker run --name nginx81 -d -p 81:80 -v /data/nginx/html:/usr/share/nginx/html -v /data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf  -v /data/nginx/logs:/var/log/nginx -v /data/nginx/conf.d:/etc/nginx/conf.d -d nginx:latest</span>
-docker start <span class="o">[</span>CONTAINER ID<span class="p">|</span>NAME<span class="o">]</span>	<span class="c1">#启动容器(指定容器ID或名称)</span>
-docker restart <span class="o">[</span>CONTAINER ID<span class="p">|</span>NAME<span class="o">]</span>	<span class="c1">#重新启动容器</span>
-docker stop <span class="o">[</span>CONTAINER ID<span class="p">|</span>NAME<span class="o">]</span>		<span class="c1">#停止容器</span>
-docker <span class="nb">kill</span> <span class="o">[</span>CONTAINER ID<span class="p">|</span>NAME<span class="o">]</span> <span class="c1">#杀掉一个运行中的容器</span>
-	docker <span class="nb">kill</span> -s <span class="o">[</span>CONTAINER ID<span class="p">|</span>NAME<span class="o">]</span> <span class="c1">#向容器发送一个信号，并杀掉运行中容器</span>
-docker rm <span class="o">[</span>CONTAINER ID<span class="o">]</span> <span class="c1">#删除容器</span>
-	docker rm -f <span class="o">[</span>CONTAINER ID<span class="o">]</span>	<span class="c1">#强制删除容器</span>
-	docker rm -f <span class="k">$(</span>docker ps -a -q<span class="k">)</span>		<span class="c1">#删除多个容器</span>
-docker pause CONTAINER <span class="o">[</span>CONTAINER ID<span class="p">|</span>NAME<span class="o">]</span> 	<span class="c1">#暂停容器中所有的进程</span>
-docker unpause CONTAINER <span class="o">[</span>CONTAINER ID<span class="p">|</span>NAME<span class="o">]</span><span class="c1">#恢复容器中所有的进程</span>
-docker create --name <span class="o">[</span>NAME<span class="o">]</span> <span class="o">[</span>CONTAINER<span class="o">][</span>:TAG<span class="o">]</span> <span class="c1">#创建一个新的容器但不启动它，如 docker create --name myJava java:latest </span>
-docker <span class="nb">exec</span> -it <span class="o">[</span>CONTAINER NAME<span class="p">|</span>ID<span class="o">]</span> /bin/bash	<span class="c1">#进入容器内</span>
-docker <span class="nb">exec</span> -it <span class="o">[</span>CONTAINER NAME<span class="p">|</span>ID<span class="o">]</span> ping <span class="o">[</span>CONTAINER NAME<span class="p">|</span>ID<span class="o">]</span>	<span class="c1">#一个容器ping另外一个容器</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run <span class="o">[</span>OPTIONS<span class="o">]</span> IMAGE <span class="o">[</span>COMMAND<span class="o">]</span> <span class="o">[</span>ARG...<span class="o">]</span>
+</span></span><span class="line"><span class="cl">	docker run -i <span class="o">[</span>CONTAINER NAME<span class="o">]</span>				<span class="c1">#以交互模式运行容器，通常与-t同时使用</span>
+</span></span><span class="line"><span class="cl">	docker run -t <span class="o">[</span>CONTAINER NAME<span class="o">]</span>				<span class="c1">#为容器重新分配一个伪输入终端，通常与-i同时使用</span>
+</span></span><span class="line"><span class="cl">	docker run --name <span class="o">[</span>CONTAINER NAME<span class="o">]</span>			<span class="c1">#设置容器名称</span>
+</span></span><span class="line"><span class="cl">	docker run -P 								<span class="c1">#随机端口映射</span>
+</span></span><span class="line"><span class="cl">	docker run -p <span class="o">[</span>HOST PORT<span class="o">]</span>:<span class="o">[</span>CONTAINER PORT<span class="o">]</span>	<span class="c1">#指定端口映射，映射主机和容器内的端口</span>
+</span></span><span class="line"><span class="cl">	docker run -e <span class="o">[</span>ENV NAME<span class="o">]=[</span>ENV VALUE<span class="o">]</span>		<span class="c1">#添加环境变量,如username=&#34;admin&#34;</span>
+</span></span><span class="line"><span class="cl">	docker run -d 								<span class="c1">#后台运行，并返回容器ID</span>
+</span></span><span class="line"><span class="cl">	docker run -v <span class="o">[</span>HOST FOLDER PATH<span class="o">]</span>:<span class="o">[</span>CONTAINER FOLDER PATH<span class="o">]</span>	<span class="c1">#将主机目录挂在到容器内，可挂载多个目录如：docker run --name nginx81 -d -p 81:80 -v /data/nginx/html:/usr/share/nginx/html -v /data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf  -v /data/nginx/logs:/var/log/nginx -v /data/nginx/conf.d:/etc/nginx/conf.d -d nginx:latest</span>
+</span></span><span class="line"><span class="cl">docker start <span class="o">[</span>CONTAINER ID<span class="p">|</span>NAME<span class="o">]</span>	<span class="c1">#启动容器(指定容器ID或名称)</span>
+</span></span><span class="line"><span class="cl">docker restart <span class="o">[</span>CONTAINER ID<span class="p">|</span>NAME<span class="o">]</span>	<span class="c1">#重新启动容器</span>
+</span></span><span class="line"><span class="cl">docker stop <span class="o">[</span>CONTAINER ID<span class="p">|</span>NAME<span class="o">]</span>		<span class="c1">#停止容器</span>
+</span></span><span class="line"><span class="cl">docker <span class="nb">kill</span> <span class="o">[</span>CONTAINER ID<span class="p">|</span>NAME<span class="o">]</span> <span class="c1">#杀掉一个运行中的容器</span>
+</span></span><span class="line"><span class="cl">	docker <span class="nb">kill</span> -s <span class="o">[</span>CONTAINER ID<span class="p">|</span>NAME<span class="o">]</span> <span class="c1">#向容器发送一个信号，并杀掉运行中容器</span>
+</span></span><span class="line"><span class="cl">docker rm <span class="o">[</span>CONTAINER ID<span class="o">]</span> <span class="c1">#删除容器</span>
+</span></span><span class="line"><span class="cl">	docker rm -f <span class="o">[</span>CONTAINER ID<span class="o">]</span>	<span class="c1">#强制删除容器</span>
+</span></span><span class="line"><span class="cl">	docker rm -f <span class="k">$(</span>docker ps -a -q<span class="k">)</span>		<span class="c1">#删除多个容器</span>
+</span></span><span class="line"><span class="cl">docker pause CONTAINER <span class="o">[</span>CONTAINER ID<span class="p">|</span>NAME<span class="o">]</span> 	<span class="c1">#暂停容器中所有的进程</span>
+</span></span><span class="line"><span class="cl">docker unpause CONTAINER <span class="o">[</span>CONTAINER ID<span class="p">|</span>NAME<span class="o">]</span><span class="c1">#恢复容器中所有的进程</span>
+</span></span><span class="line"><span class="cl">docker create --name <span class="o">[</span>NAME<span class="o">]</span> <span class="o">[</span>CONTAINER<span class="o">][</span>:TAG<span class="o">]</span> <span class="c1">#创建一个新的容器但不启动它，如 docker create --name myJava java:latest </span>
+</span></span><span class="line"><span class="cl">docker <span class="nb">exec</span> -it <span class="o">[</span>CONTAINER NAME<span class="p">|</span>ID<span class="o">]</span> /bin/bash	<span class="c1">#进入容器内</span>
+</span></span><span class="line"><span class="cl">docker <span class="nb">exec</span> -it <span class="o">[</span>CONTAINER NAME<span class="p">|</span>ID<span class="o">]</span> ping <span class="o">[</span>CONTAINER NAME<span class="p">|</span>ID<span class="o">]</span>	<span class="c1">#一个容器ping另外一个容器</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="3">
 <li>容器操作</li>
@@ -292,39 +291,39 @@ docker <span class="nb">exec</span> -it <span class="o">[</span>CONTAINER NAME<s
 </span><span class="lnt">32
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">docker ps <span class="c1">#列出当前所有正在运行的容器</span>
-	docker ps -q					<span class="c1">#列出所有的容器</span>
-	docker ps -l					<span class="c1">#列出最近创建的容器</span>
-	docker ps -n 3					<span class="c1">#3列出最近创建的3个容器</span>
-	docker ps -q					<span class="c1">#只显示容器ID</span>
-	docker ps --no-trunc			<span class="c1">#显示当前所有正在运行的容器完整信息</span>
-	docker ps -f <span class="s2">&#34;status=exited&#34;</span>	<span class="c1">#显示所有退出的容器</span>
-	docker ps -a -q					<span class="c1">#显示所有容器id</span>
-	docker ps -f <span class="s2">&#34;status=exited&#34;</span> -q	<span class="c1">#显示所有退出容器的id</span>
-docker inspect <span class="o">[</span>CONTAINER NAME<span class="p">|</span>ID<span class="o">]</span> 	<span class="c1">#查看容器/镜像的元数据</span>
-docker top <span class="o">[</span>CONTAINER ID<span class="o">]</span> <span class="c1">#查看容器内运行的进程</span>
-docker attach <span class="o">[</span>CONTAINER ID<span class="o">]</span> 		<span class="c1">#连接到正在运行中的容器，直接进入容器终端的命令，不启动新的进程</span>
-docker logs <span class="o">[</span>CONTAINER ID<span class="o">]</span> <span class="c1">#显示运行容器的日志</span>
-	docker logs -f <span class="o">[</span>CONTAINER ID<span class="o">]</span> 				<span class="c1">#跟踪实时日志输出</span>
-	docker logs --since<span class="o">=[</span>TIME<span class="o">][</span>CONTAINER ID<span class="o">]</span>	<span class="c1">#显示某个开始时间的所有日志，如 --since=&#34;2021-01-01&#34; 即指定日期； --since=30m 即最近30分钟； --since=&#34;2021-02-08T13:23:37&#34; --until &#34;2021-02-09T12:23:37&#34;；--since=&#34;2018-02-08T13:23:37&#34;</span>
-	docker logs -t <span class="o">[</span>CONTAINER ID<span class="o">]</span>				<span class="c1">#显示时间戳，即查看日志产生日期</span>
-	docker logs --tail<span class="o">=[</span>N<span class="o">]</span> <span class="o">[</span>CONTAINER ID<span class="o">]</span>		<span class="c1">#仅列出最新(最后面)N条容器日志 如 docker logs -f -t --since=”2021-07-10” --tail=10 f9e29e8455a5</span>
-docker <span class="nb">wait</span> <span class="o">[</span>CONTAINER ID<span class="o">]</span> <span class="c1">#阻塞运行直到容器停止，然后打印出它的退出代码</span>
-docker <span class="nb">export</span> <span class="o">[</span>CONTAINER NAME<span class="p">|</span>ID<span class="o">]</span> &gt; xxx.tar <span class="c1">#导出的是容器，文件系统作为一个 tar 归档文件</span>
-	docker <span class="nb">export</span> -o xxx.tar <span class="o">[</span>CONTAINER NAME<span class="o">]</span> 
-docker port <span class="o">[</span>CONTAINER ID<span class="p">|</span>NAME<span class="o">]</span> 	<span class="c1">#列出指定的容器的端口映射</span>
-docker stats <span class="c1">#显示容器统计信息(正在运行)</span>
-    docker stats -a	<span class="c1">#显示所有容器的统计信息(包括没有运行的)</span>
-    docker stats -a --no-stream	<span class="c1">#显示所有容器的统计信息(包括没有运行的) ，只显示一次</span>
-    docker stats --no-stream <span class="p">|</span> sort -k8 -h	<span class="c1">#统计容器信息并以使用流量作为倒序</span>
-docker system 
-	docker system df           <span class="c1">#显示硬盘占用</span>
-	docker system events       <span class="c1">#显示容器的实时事件</span>
-	docker system info         <span class="c1">#显示系统信息</span>
-	docker system prune        <span class="c1">#清理文件</span>
-<span class="nb">exit</span>		<span class="c1">#退出并停止容器</span>
-Ctrl+p+q	<span class="c1">#只退出容器，不停止容器</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker ps <span class="c1">#列出当前所有正在运行的容器</span>
+</span></span><span class="line"><span class="cl">	docker ps -q					<span class="c1">#列出所有的容器</span>
+</span></span><span class="line"><span class="cl">	docker ps -l					<span class="c1">#列出最近创建的容器</span>
+</span></span><span class="line"><span class="cl">	docker ps -n 3					<span class="c1">#3列出最近创建的3个容器</span>
+</span></span><span class="line"><span class="cl">	docker ps -q					<span class="c1">#只显示容器ID</span>
+</span></span><span class="line"><span class="cl">	docker ps --no-trunc			<span class="c1">#显示当前所有正在运行的容器完整信息</span>
+</span></span><span class="line"><span class="cl">	docker ps -f <span class="s2">&#34;status=exited&#34;</span>	<span class="c1">#显示所有退出的容器</span>
+</span></span><span class="line"><span class="cl">	docker ps -a -q					<span class="c1">#显示所有容器id</span>
+</span></span><span class="line"><span class="cl">	docker ps -f <span class="s2">&#34;status=exited&#34;</span> -q	<span class="c1">#显示所有退出容器的id</span>
+</span></span><span class="line"><span class="cl">docker inspect <span class="o">[</span>CONTAINER NAME<span class="p">|</span>ID<span class="o">]</span> 	<span class="c1">#查看容器/镜像的元数据</span>
+</span></span><span class="line"><span class="cl">docker top <span class="o">[</span>CONTAINER ID<span class="o">]</span> <span class="c1">#查看容器内运行的进程</span>
+</span></span><span class="line"><span class="cl">docker attach <span class="o">[</span>CONTAINER ID<span class="o">]</span> 		<span class="c1">#连接到正在运行中的容器，直接进入容器终端的命令，不启动新的进程</span>
+</span></span><span class="line"><span class="cl">docker logs <span class="o">[</span>CONTAINER ID<span class="o">]</span> <span class="c1">#显示运行容器的日志</span>
+</span></span><span class="line"><span class="cl">	docker logs -f <span class="o">[</span>CONTAINER ID<span class="o">]</span> 				<span class="c1">#跟踪实时日志输出</span>
+</span></span><span class="line"><span class="cl">	docker logs --since<span class="o">=[</span>TIME<span class="o">][</span>CONTAINER ID<span class="o">]</span>	<span class="c1">#显示某个开始时间的所有日志，如 --since=&#34;2021-01-01&#34; 即指定日期； --since=30m 即最近30分钟； --since=&#34;2021-02-08T13:23:37&#34; --until &#34;2021-02-09T12:23:37&#34;；--since=&#34;2018-02-08T13:23:37&#34;</span>
+</span></span><span class="line"><span class="cl">	docker logs -t <span class="o">[</span>CONTAINER ID<span class="o">]</span>				<span class="c1">#显示时间戳，即查看日志产生日期</span>
+</span></span><span class="line"><span class="cl">	docker logs --tail<span class="o">=[</span>N<span class="o">]</span> <span class="o">[</span>CONTAINER ID<span class="o">]</span>		<span class="c1">#仅列出最新(最后面)N条容器日志 如 docker logs -f -t --since=”2021-07-10” --tail=10 f9e29e8455a5</span>
+</span></span><span class="line"><span class="cl">docker <span class="nb">wait</span> <span class="o">[</span>CONTAINER ID<span class="o">]</span> <span class="c1">#阻塞运行直到容器停止，然后打印出它的退出代码</span>
+</span></span><span class="line"><span class="cl">docker <span class="nb">export</span> <span class="o">[</span>CONTAINER NAME<span class="p">|</span>ID<span class="o">]</span> &gt; xxx.tar <span class="c1">#导出的是容器，文件系统作为一个 tar 归档文件</span>
+</span></span><span class="line"><span class="cl">	docker <span class="nb">export</span> -o xxx.tar <span class="o">[</span>CONTAINER NAME<span class="o">]</span> 
+</span></span><span class="line"><span class="cl">docker port <span class="o">[</span>CONTAINER ID<span class="p">|</span>NAME<span class="o">]</span> 	<span class="c1">#列出指定的容器的端口映射</span>
+</span></span><span class="line"><span class="cl">docker stats <span class="c1">#显示容器统计信息(正在运行)</span>
+</span></span><span class="line"><span class="cl">    docker stats -a	<span class="c1">#显示所有容器的统计信息(包括没有运行的)</span>
+</span></span><span class="line"><span class="cl">    docker stats -a --no-stream	<span class="c1">#显示所有容器的统计信息(包括没有运行的) ，只显示一次</span>
+</span></span><span class="line"><span class="cl">    docker stats --no-stream <span class="p">|</span> sort -k8 -h	<span class="c1">#统计容器信息并以使用流量作为倒序</span>
+</span></span><span class="line"><span class="cl">docker system 
+</span></span><span class="line"><span class="cl">	docker system df           <span class="c1">#显示硬盘占用</span>
+</span></span><span class="line"><span class="cl">	docker system events       <span class="c1">#显示容器的实时事件</span>
+</span></span><span class="line"><span class="cl">	docker system info         <span class="c1">#显示系统信息</span>
+</span></span><span class="line"><span class="cl">	docker system prune        <span class="c1">#清理文件</span>
+</span></span><span class="line"><span class="cl"><span class="nb">exit</span>		<span class="c1">#退出并停止容器</span>
+</span></span><span class="line"><span class="cl">Ctrl+p+q	<span class="c1">#只退出容器，不停止容器</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="4">
 <li>容器rootfs命令</li>
@@ -336,10 +335,10 @@ Ctrl+p+q	<span class="c1">#只退出容器，不停止容器</span>
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">docker commit -m <span class="s2">&#34;提交备注信息&#34;</span> -a <span class="s2">&#34;作者名称&#34;</span> <span class="o">[</span>CONTAINER ID<span class="o">]</span> <span class="o">[</span>TARGET CONTAINER NAME<span class="o">]</span>:<span class="o">[</span>TAG<span class="o">]</span> <span class="c1">#提交容器使之成为一个新的镜像，如 docker commit -m &#34;新的tomcat&#34; -a &#34;alone&#34; f9e29e8455a5 mytomcat:1.2</span>
-docker cp <span class="o">[</span>CONTAINER ID<span class="o">]</span>:<span class="o">[</span>CONTAINER PATH<span class="o">]</span> <span class="o">[</span>HOST PATH<span class="o">]</span> <span class="c1">#从指定容器内路径下文件拷贝到主机指定路径中 如 docker cp 2drf43u1y8dfe:/tmp/test.log /root</span>
-docker diff <span class="o">[</span>CONTAINER ID<span class="p">|</span>NAME<span class="o">]</span>		<span class="c1">#检查容器里文件结构的更改，如 docker diff mymysql</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker commit -m <span class="s2">&#34;提交备注信息&#34;</span> -a <span class="s2">&#34;作者名称&#34;</span> <span class="o">[</span>CONTAINER ID<span class="o">]</span> <span class="o">[</span>TARGET CONTAINER NAME<span class="o">]</span>:<span class="o">[</span>TAG<span class="o">]</span> <span class="c1">#提交容器使之成为一个新的镜像，如 docker commit -m &#34;新的tomcat&#34; -a &#34;alone&#34; f9e29e8455a5 mytomcat:1.2</span>
+</span></span><span class="line"><span class="cl">docker cp <span class="o">[</span>CONTAINER ID<span class="o">]</span>:<span class="o">[</span>CONTAINER PATH<span class="o">]</span> <span class="o">[</span>HOST PATH<span class="o">]</span> <span class="c1">#从指定容器内路径下文件拷贝到主机指定路径中 如 docker cp 2drf43u1y8dfe:/tmp/test.log /root</span>
+</span></span><span class="line"><span class="cl">docker diff <span class="o">[</span>CONTAINER ID<span class="p">|</span>NAME<span class="o">]</span>		<span class="c1">#检查容器里文件结构的更改，如 docker diff mymysql</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="5">
 <li>镜像仓库命令</li>
@@ -357,16 +356,16 @@ docker diff <span class="o">[</span>CONTAINER ID<span class="p">|</span>NAME<spa
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">docker login -u <span class="o">[</span>USER NAME<span class="o">]</span> -p <span class="o">[</span>PASSWORD<span class="o">]</span> <span class="o">[</span>SERVER<span class="o">]</span> <span class="c1">#登陆到一个Docker镜像仓库,如果未指定[server]镜像仓库地址，默认为官方仓库 Docker Hub</span>
-docker <span class="nb">logout</span> <span class="o">[</span>SERVER<span class="o">]</span>	<span class="c1">#登出一个Docker镜像仓库，如果未指定[SERVER]镜像仓库地址，默认为官方仓库Docker Hub 如 docker logout</span>
-docker pull <span class="o">[</span>NAME<span class="o">]</span> <span class="c1">#下载镜像</span>
-	docker pull -a <span class="o">[</span>NAME<span class="o">]</span> <span class="c1">#下载REPOSITORY为指定名称的所有镜像</span>
-docker push <span class="o">[</span>DOCKER USER NAME<span class="o">]</span>/<span class="o">[</span>REPOSITORY<span class="o">][</span>:TAG<span class="o">]</span>	<span class="c1">#将本地的镜像上传到镜像仓库,要先登陆到镜像仓库</span>
-docker search <span class="o">[</span>NAME<span class="o">]</span> <span class="c1">#从仓库中搜索指定镜像，如 docker search nginx</span>
-	docker search --no-trunc <span class="o">[</span>NAME<span class="o">]</span> 	<span class="c1">#显示完整的镜像描述</span>
-	docker search -s <span class="o">[</span>NUM<span class="o">]</span> <span class="o">[</span>NAME<span class="o">]</span> 		<span class="c1">#列出收藏数不小于指定值的镜像</span>
-	docker search --automated <span class="o">[</span>NAME<span class="o">]</span> 	<span class="c1">#只列出 automated build类型的镜像</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker login -u <span class="o">[</span>USER NAME<span class="o">]</span> -p <span class="o">[</span>PASSWORD<span class="o">]</span> <span class="o">[</span>SERVER<span class="o">]</span> <span class="c1">#登陆到一个Docker镜像仓库,如果未指定[server]镜像仓库地址，默认为官方仓库 Docker Hub</span>
+</span></span><span class="line"><span class="cl">docker <span class="nb">logout</span> <span class="o">[</span>SERVER<span class="o">]</span>	<span class="c1">#登出一个Docker镜像仓库，如果未指定[SERVER]镜像仓库地址，默认为官方仓库Docker Hub 如 docker logout</span>
+</span></span><span class="line"><span class="cl">docker pull <span class="o">[</span>NAME<span class="o">]</span> <span class="c1">#下载镜像</span>
+</span></span><span class="line"><span class="cl">	docker pull -a <span class="o">[</span>NAME<span class="o">]</span> <span class="c1">#下载REPOSITORY为指定名称的所有镜像</span>
+</span></span><span class="line"><span class="cl">docker push <span class="o">[</span>DOCKER USER NAME<span class="o">]</span>/<span class="o">[</span>REPOSITORY<span class="o">][</span>:TAG<span class="o">]</span>	<span class="c1">#将本地的镜像上传到镜像仓库,要先登陆到镜像仓库</span>
+</span></span><span class="line"><span class="cl">docker search <span class="o">[</span>NAME<span class="o">]</span> <span class="c1">#从仓库中搜索指定镜像，如 docker search nginx</span>
+</span></span><span class="line"><span class="cl">	docker search --no-trunc <span class="o">[</span>NAME<span class="o">]</span> 	<span class="c1">#显示完整的镜像描述</span>
+</span></span><span class="line"><span class="cl">	docker search -s <span class="o">[</span>NUM<span class="o">]</span> <span class="o">[</span>NAME<span class="o">]</span> 		<span class="c1">#列出收藏数不小于指定值的镜像</span>
+</span></span><span class="line"><span class="cl">	docker search --automated <span class="o">[</span>NAME<span class="o">]</span> 	<span class="c1">#只列出 automated build类型的镜像</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="6">
 <li>本地镜像管理命令</li>
@@ -392,64 +391,62 @@ docker search <span class="o">[</span>NAME<span class="o">]</span> <span class="
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">docker images <span class="c1">#查看本地主机上的镜像</span>
-	docker images -a 			<span class="c1">#列出本地所有的镜像（含中间镜像层）</span>
-	docker images -q 			<span class="c1">#只显示镜像ID</span>
-	docker images --digests 	<span class="c1">#显示镜像的摘要信息</span>
-	docker images --no-trunc 	<span class="c1">#显示完整的镜像信息</span>
-docker rmi <span class="o">[</span>NAME/ID<span class="o">]</span> <span class="c1">#删除镜像（根据镜像名/镜像ID）</span>
-	docker rmi -f <span class="o">[</span>NAME<span class="p">|</span>ID<span class="o">]</span> 			<span class="c1">#强制删除单个镜像</span>
-	docker rmi -f <span class="o">[</span>NAME<span class="p">|</span>ID<span class="o">]</span> <span class="o">[</span>NAME<span class="p">|</span>ID<span class="o">]</span> 	<span class="c1">#强制删除多个镜像</span>
-	docker rmi -f <span class="k">$(</span>docker images -qa<span class="k">)</span> 	<span class="c1">#强制删除全部镜像</span>
-docker tag <span class="o">[</span>NAME<span class="o">][</span>:TAG<span class="o">]</span> <span class="o">[</span>REGISTRYHOST/<span class="o">][</span>USERNAME/<span class="o">][</span>NAME<span class="o">][</span>:TAG<span class="o">]</span> <span class="c1">#标记本地镜像， 将其归入某一仓库</span>
-docker build -t <span class="o">[</span>NAME<span class="o">][</span>:TAG<span class="o">]</span> <span class="o">[</span>PATH<span class="o">]</span> <span class="c1">#Dockerfile 创建镜像</span>
-docker <span class="nb">history</span> <span class="o">[</span>NAME<span class="o">][</span>:TAG<span class="o">]</span> <span class="c1">#查看指定镜像的创建历史</span>
-docker save <span class="o">[</span>NAME<span class="o">][</span>:TAG<span class="o">]</span> &gt; xxx.tar <span class="c1">#将镜像保存成 tar 归档文件</span>
-	docker save -o xxx.tar <span class="o">[</span>NAME<span class="o">][</span>:TAG<span class="o">]</span>
-docker load &lt; xxx.tar <span class="c1">#从归档文件加载镜像</span>
-	docker --input xxx.tar
-docker import <span class="o">[</span>file<span class="p">|</span>URL<span class="o">]</span>- <span class="o">[</span>REPOSITORY<span class="o">[</span>:TAG<span class="o">]]</span> <span class="c1">#从归档文件中创建镜像，如 docker import http://example.com/example</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker images <span class="c1">#查看本地主机上的镜像</span>
+</span></span><span class="line"><span class="cl">	docker images -a 			<span class="c1">#列出本地所有的镜像（含中间镜像层）</span>
+</span></span><span class="line"><span class="cl">	docker images -q 			<span class="c1">#只显示镜像ID</span>
+</span></span><span class="line"><span class="cl">	docker images --digests 	<span class="c1">#显示镜像的摘要信息</span>
+</span></span><span class="line"><span class="cl">	docker images --no-trunc 	<span class="c1">#显示完整的镜像信息</span>
+</span></span><span class="line"><span class="cl">docker rmi <span class="o">[</span>NAME/ID<span class="o">]</span> <span class="c1">#删除镜像（根据镜像名/镜像ID）</span>
+</span></span><span class="line"><span class="cl">	docker rmi -f <span class="o">[</span>NAME<span class="p">|</span>ID<span class="o">]</span> 			<span class="c1">#强制删除单个镜像</span>
+</span></span><span class="line"><span class="cl">	docker rmi -f <span class="o">[</span>NAME<span class="p">|</span>ID<span class="o">]</span> <span class="o">[</span>NAME<span class="p">|</span>ID<span class="o">]</span> 	<span class="c1">#强制删除多个镜像</span>
+</span></span><span class="line"><span class="cl">	docker rmi -f <span class="k">$(</span>docker images -qa<span class="k">)</span> 	<span class="c1">#强制删除全部镜像</span>
+</span></span><span class="line"><span class="cl">docker tag <span class="o">[</span>NAME<span class="o">][</span>:TAG<span class="o">]</span> <span class="o">[</span>REGISTRYHOST/<span class="o">][</span>USERNAME/<span class="o">][</span>NAME<span class="o">][</span>:TAG<span class="o">]</span> <span class="c1">#标记本地镜像， 将其归入某一仓库</span>
+</span></span><span class="line"><span class="cl">docker build -t <span class="o">[</span>NAME<span class="o">][</span>:TAG<span class="o">]</span> <span class="o">[</span>PATH<span class="o">]</span> <span class="c1">#Dockerfile 创建镜像</span>
+</span></span><span class="line"><span class="cl">docker <span class="nb">history</span> <span class="o">[</span>NAME<span class="o">][</span>:TAG<span class="o">]</span> <span class="c1">#查看指定镜像的创建历史</span>
+</span></span><span class="line"><span class="cl">docker save <span class="o">[</span>NAME<span class="o">][</span>:TAG<span class="o">]</span> &gt; xxx.tar <span class="c1">#将镜像保存成 tar 归档文件</span>
+</span></span><span class="line"><span class="cl">	docker save -o xxx.tar <span class="o">[</span>NAME<span class="o">][</span>:TAG<span class="o">]</span>
+</span></span><span class="line"><span class="cl">docker load &lt; xxx.tar <span class="c1">#从归档文件加载镜像</span>
+</span></span><span class="line"><span class="cl">	docker --input xxx.tar
+</span></span><span class="line"><span class="cl">docker import <span class="o">[</span>file<span class="p">|</span>URL<span class="o">]</span>- <span class="o">[</span>REPOSITORY<span class="o">[</span>:TAG<span class="o">]]</span> <span class="c1">#从归档文件中创建镜像，如 docker import http://example.com/example</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
                 <span>更新于 2022-05-27</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
+            </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
                             <a class="link-to-markdown" href="/docker2/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/docker2/" data-title="Docker2" data-via="xxxx" data-hashtags="Docker"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/docker2/" data-hashtag="Docker"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/docker2/" data-title="Docker2" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/docker2/" data-title="Docker2"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/docker2/" data-title="Docker2"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/docker2/" data-title="Docker2" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/docker2/" data-title="Docker2" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/docker2/" data-title="Docker2"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/docker2/" data-title="Docker2" data-via="xxxx" data-hashtags="Docker"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/docker2/" data-hashtag="Docker"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/docker2/" data-title="Docker2" data-web><i class="fab fa-whatsapp fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/docker2/" data-title="Docker2"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/docker2/" data-title="Docker2"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/docker2/" data-title="Docker2" data-description=""><i class="fab fa-blogger fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/docker2/" data-title="Docker2"><i class="fab fa-evernote fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/docker/">Docker</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/docker/">Docker</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/kubernetes/" class="prev" rel="prev" title="Kubernetes"><i class="fas fa-angle-left fa-fw"></i>Kubernetes</a>
-            <a href="/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="next" rel="next" title="单例模式">单例模式<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/kubernetes/" class="prev" rel="prev" title="Kubernetes"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Kubernetes</a>
+            <a href="/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="next" rel="next" title="单例模式">单例模式<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
         <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

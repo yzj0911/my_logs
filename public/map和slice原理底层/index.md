@@ -1,6 +1,6 @@
 # Map和slice原理底层
 
-# slice 切片
+## slice 切片
 
 切片是基于数组实现的，它的底层是数组，可以理解为对 底层数组的抽象。 切片不是线程安全的
 
@@ -83,7 +83,7 @@ func makeslice(et *_type, len, cap int) unsafe.Pointer {
 }
 ```
 
-# 数组和切片slice的区别
+## 数组和切片slice的区别
 1） 数组长度不同
 
 数组初始化必须指定长度，并且长度就是固定的
@@ -105,7 +105,7 @@ func makeslice(et *_type, len, cap int) unsafe.Pointer {
 
 
 
-# Map
+## Map
 
 Go中的map是一个指针，占用8个字节，指向hmap结构体
 

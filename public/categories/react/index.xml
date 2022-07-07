@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>React - 分类 - YZJ 的博客</title>
+        <link>http://example.org/categories/react/</link>
+        <description>React - 分类 - YZJ 的博客</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>935669265@qq.com (yzj)</managingEditor>
+            <webMaster>935669265@qq.com (yzj)</webMaster><lastBuildDate>Wed, 25 May 2022 13:47:39 &#43;0800</lastBuildDate><atom:link href="http://example.org/categories/react/" rel="self" type="application/rss+xml" /><item>
+    <title>React</title>
+    <link>http://example.org/react/</link>
+    <pubDate>Wed, 25 May 2022 13:47:39 &#43;0800</pubDate>
+    <author>yzj</author>
+    <guid>http://example.org/react/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
+</rss>

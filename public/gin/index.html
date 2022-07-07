@@ -4,21 +4,22 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>gin 常用中间件 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="gin 常用中间件" />
-<meta property="og:description" content="日志 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 // 日志记录到文件 func (d *Handler) LoggerToFile() gin.HandlerFunc { return func(c *gin.Context)" />
+<meta property="og:description" content="日志 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 // 日志记录到文件 func (d *Handler) LoggerToFile() gin.HandlerFunc { return func(c *gin.Context) {" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/gin/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-02-08T10:17:16+08:00" />
-<meta property="article:modified_time" content="2022-02-08T10:17:16+08:00" />
+<meta property="article:modified_time" content="2022-02-08T10:17:16+08:00" /><meta property="og:site_name" content="My cool site" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://example.org/logo.png"/>
 
 <meta name="twitter:title" content="gin 常用中间件"/>
-<meta name="twitter:description" content="日志 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 // 日志记录到文件 func (d *Handler) LoggerToFile() gin.HandlerFunc { return func(c *gin.Context)"/>
+<meta name="twitter:description" content="日志 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 // 日志记录到文件 func (d *Handler) LoggerToFile() gin.HandlerFunc { return func(c *gin.Context) {"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/gin/" /><link rel="prev" href="http://example.org/aix1/" /><link rel="next" href="http://example.org/payment/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/gin/" /><link rel="prev" href="http://example.org/aix1/" /><link rel="next" href="http://example.org/payment/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -27,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/gin\/"
-        },"genre": "posts","wordcount":  4399 ,
+        },"genre": "posts","wordcount":  4395 ,
         "url": "http:\/\/example.org\/gin\/","datePublished": "2022-02-08T10:17:16+08:00","dateModified": "2022-02-08T10:17:16+08:00","publisher": {
             "@type": "Organization",
             "name": "YZJ"},"author": {
@@ -36,7 +37,7 @@
             },"description": ""
     }
     </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -54,16 +55,16 @@
             <div class="menu-inner"><a class="menu-item" href="/posts/" title="YZJ 的博客"> 文章 </a><a class="menu-item" href="/tags/" title="YZJ 的博客"> 标签 </a><a class="menu-item" href="/categories/" title="YZJ 的博客"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="请输入搜索文章" id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
                 </a>
             </div>
         </div>
@@ -89,41 +90,39 @@
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="请输入搜索文章" id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </div>
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
                 </div><a class="menu-item" href="/posts/" title="YZJ 的博客">文章</a><a class="menu-item" href="/tags/" title="YZJ 的博客">标签</a><a class="menu-item" href="/categories/" title="YZJ 的博客">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
-</header>
-<div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">gin 常用中间件</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-02-08">2022-02-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4399 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 9 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="true">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">gin 常用中间件</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yzj</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-02-08">2022-02-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4395 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 9 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
                     <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
             </div><div class="content" id="content"><h1 id="日志">日志</h1>
@@ -179,61 +178,59 @@
 </span><span class="lnt">48
 </span><span class="lnt">49
 </span><span class="lnt">50
-</span><span class="lnt">51
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">// 日志记录到文件
-func (d *Handler) LoggerToFile() gin.HandlerFunc {
-
-	return func(c *gin.Context) {
-		// 开始时间
-		startTime := time.Now()
-
-		// 处理请求
-		c.Next()
-
-		// 结束时间
-		endTime := time.Now()
-
-		// 执行时间
-		latencyTime := endTime.Sub(startTime)
-
-		// 请求方式
-		reqMethod := c.Request.Method
-
-		// 请求路由
-		reqUri := c.Request.RequestURI
-
-		// 状态码
-		statusCode := c.Writer.Status()
-
-		// 请求IP
-		clientIP := c.ClientIP()
-
-		//// 日志格式
-		//fmt.Printf(&#34;%s [INFO] %s %s %3d %13v %15s \r\n&#34;,
-		//	startTime.Format(&#34;2006-01-02 15:04:05&#34;),
-		//	reqMethod,
-		//	reqUri,
-		//	statusCode,
-		//	latencyTime,
-		//	clientIP,
-		//)
-
-		log.Infof(&#34;%s %s %3d %13v %15s&#34;,
-			reqMethod,
-			reqUri,
-			statusCode,
-			latencyTime,
-			clientIP)
-
-		if c.Request.Method != &#34;GET&#34; &amp;&amp; c.Request.Method != &#34;OPTIONS&#34; &amp;&amp; conf.Conf.LoggerConfig.EnabledDB {
-			d.SetDBOperLog(c, clientIP, statusCode, reqUri, reqMethod, latencyTime)
-		}
-	}
-}
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// 日志记录到文件
+</span></span><span class="line"><span class="cl">func (d *Handler) LoggerToFile() gin.HandlerFunc {
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	return func(c *gin.Context) {
+</span></span><span class="line"><span class="cl">		// 开始时间
+</span></span><span class="line"><span class="cl">		startTime := time.Now()
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		// 处理请求
+</span></span><span class="line"><span class="cl">		c.Next()
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		// 结束时间
+</span></span><span class="line"><span class="cl">		endTime := time.Now()
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		// 执行时间
+</span></span><span class="line"><span class="cl">		latencyTime := endTime.Sub(startTime)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		// 请求方式
+</span></span><span class="line"><span class="cl">		reqMethod := c.Request.Method
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		// 请求路由
+</span></span><span class="line"><span class="cl">		reqUri := c.Request.RequestURI
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		// 状态码
+</span></span><span class="line"><span class="cl">		statusCode := c.Writer.Status()
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		// 请求IP
+</span></span><span class="line"><span class="cl">		clientIP := c.ClientIP()
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		//// 日志格式
+</span></span><span class="line"><span class="cl">		//fmt.Printf(&#34;%s [INFO] %s %s %3d %13v %15s \r\n&#34;,
+</span></span><span class="line"><span class="cl">		//	startTime.Format(&#34;2006-01-02 15:04:05&#34;),
+</span></span><span class="line"><span class="cl">		//	reqMethod,
+</span></span><span class="line"><span class="cl">		//	reqUri,
+</span></span><span class="line"><span class="cl">		//	statusCode,
+</span></span><span class="line"><span class="cl">		//	latencyTime,
+</span></span><span class="line"><span class="cl">		//	clientIP,
+</span></span><span class="line"><span class="cl">		//)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		log.Infof(&#34;%s %s %3d %13v %15s&#34;,
+</span></span><span class="line"><span class="cl">			reqMethod,
+</span></span><span class="line"><span class="cl">			reqUri,
+</span></span><span class="line"><span class="cl">			statusCode,
+</span></span><span class="line"><span class="cl">			latencyTime,
+</span></span><span class="line"><span class="cl">			clientIP)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		if c.Request.Method != &#34;GET&#34; &amp;&amp; c.Request.Method != &#34;OPTIONS&#34; &amp;&amp; conf.Conf.LoggerConfig.EnabledDB {
+</span></span><span class="line"><span class="cl">			d.SetDBOperLog(c, clientIP, statusCode, reqUri, reqMethod, latencyTime)
+</span></span><span class="line"><span class="cl">		}
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="自定义异常处理">自定义异常处理</h1>
 <div class="highlight"><div class="chroma">
@@ -276,49 +273,47 @@ func (d *Handler) LoggerToFile() gin.HandlerFunc {
 </span><span class="lnt">36
 </span><span class="lnt">37
 </span><span class="lnt">38
-</span><span class="lnt">39
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">func (d *Handler) CustomError(c *gin.Context) {
-	defer func() {
-		if err := recover(); err != nil {
-
-			if c.IsAborted() {
-				c.Status(200)
-			}
-			switch errStr := err.(type) {
-			case string:
-				p := strings.Split(errStr, &#34;#&#34;)
-				if len(p) == 3 &amp;&amp; p[0] == &#34;CustomError&#34; {
-					statusCode, e := strconv.Atoi(p[1])
-					if e != nil {
-						break
-					}
-					c.Status(statusCode)
-					fmt.Println(
-						time.Now().Format(&#34;2006-01-02 15:04:05&#34;),
-						&#34;[ERROR]&#34;,
-						c.Request.Method,
-						c.Request.URL,
-						statusCode,
-						c.Request.RequestURI,
-						c.ClientIP(),
-						p[2],
-					)
-					c.JSON(http.StatusOK, gin.H{
-						&#34;code&#34;: statusCode,
-						&#34;msg&#34;:  p[2],
-					})
-				}
-			default:
-				panic(err)
-			}
-		}
-	}()
-	c.Next()
-}
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">func (d *Handler) CustomError(c *gin.Context) {
+</span></span><span class="line"><span class="cl">	defer func() {
+</span></span><span class="line"><span class="cl">		if err := recover(); err != nil {
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">			if c.IsAborted() {
+</span></span><span class="line"><span class="cl">				c.Status(200)
+</span></span><span class="line"><span class="cl">			}
+</span></span><span class="line"><span class="cl">			switch errStr := err.(type) {
+</span></span><span class="line"><span class="cl">			case string:
+</span></span><span class="line"><span class="cl">				p := strings.Split(errStr, &#34;#&#34;)
+</span></span><span class="line"><span class="cl">				if len(p) == 3 &amp;&amp; p[0] == &#34;CustomError&#34; {
+</span></span><span class="line"><span class="cl">					statusCode, e := strconv.Atoi(p[1])
+</span></span><span class="line"><span class="cl">					if e != nil {
+</span></span><span class="line"><span class="cl">						break
+</span></span><span class="line"><span class="cl">					}
+</span></span><span class="line"><span class="cl">					c.Status(statusCode)
+</span></span><span class="line"><span class="cl">					fmt.Println(
+</span></span><span class="line"><span class="cl">						time.Now().Format(&#34;2006-01-02 15:04:05&#34;),
+</span></span><span class="line"><span class="cl">						&#34;[ERROR]&#34;,
+</span></span><span class="line"><span class="cl">						c.Request.Method,
+</span></span><span class="line"><span class="cl">						c.Request.URL,
+</span></span><span class="line"><span class="cl">						statusCode,
+</span></span><span class="line"><span class="cl">						c.Request.RequestURI,
+</span></span><span class="line"><span class="cl">						c.ClientIP(),
+</span></span><span class="line"><span class="cl">						p[2],
+</span></span><span class="line"><span class="cl">					)
+</span></span><span class="line"><span class="cl">					c.JSON(http.StatusOK, gin.H{
+</span></span><span class="line"><span class="cl">						&#34;code&#34;: statusCode,
+</span></span><span class="line"><span class="cl">						&#34;msg&#34;:  p[2],
+</span></span><span class="line"><span class="cl">					})
+</span></span><span class="line"><span class="cl">				}
+</span></span><span class="line"><span class="cl">			default:
+</span></span><span class="line"><span class="cl">				panic(err)
+</span></span><span class="line"><span class="cl">			}
+</span></span><span class="line"><span class="cl">		}
+</span></span><span class="line"><span class="cl">	}()
+</span></span><span class="line"><span class="cl">	c.Next()
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="请求id">请求id</h1>
 <div class="highlight"><div class="chroma">
@@ -344,26 +339,26 @@ func (d *Handler) LoggerToFile() gin.HandlerFunc {
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">func (d *Handler) RequestId() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		// Check for incoming header, use it if exists
-		requestId := c.Request.Header.Get(&#34;X-Request-Id&#34;)
-
-		// Create request id with UUID4
-		if requestId == &#34;&#34; {
-			u4 := uuid.NewV4()
-			requestId = u4.String()
-		}
-
-		// Expose it for use in the application
-		c.Set(&#34;X-Request-Id&#34;, requestId)
-
-		// Set X-Request-Id header
-		c.Writer.Header().Set(&#34;X-Request-Id&#34;, requestId)
-		c.Next()
-	}
-}
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">func (d *Handler) RequestId() gin.HandlerFunc {
+</span></span><span class="line"><span class="cl">	return func(c *gin.Context) {
+</span></span><span class="line"><span class="cl">		// Check for incoming header, use it if exists
+</span></span><span class="line"><span class="cl">		requestId := c.Request.Header.Get(&#34;X-Request-Id&#34;)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		// Create request id with UUID4
+</span></span><span class="line"><span class="cl">		if requestId == &#34;&#34; {
+</span></span><span class="line"><span class="cl">			u4 := uuid.NewV4()
+</span></span><span class="line"><span class="cl">			requestId = u4.String()
+</span></span><span class="line"><span class="cl">		}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		// Expose it for use in the application
+</span></span><span class="line"><span class="cl">		c.Set(&#34;X-Request-Id&#34;, requestId)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		// Set X-Request-Id header
+</span></span><span class="line"><span class="cl">		c.Writer.Header().Set(&#34;X-Request-Id&#34;, requestId)
+</span></span><span class="line"><span class="cl">		c.Next()
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="nocache">nocache</h1>
 <div class="highlight"><div class="chroma">
@@ -378,15 +373,15 @@ func (d *Handler) LoggerToFile() gin.HandlerFunc {
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">// NoCache is a middleware function that appends headers
-// to prevent the client from caching the HTTP response.
-func (d *Handler) NoCache(c *gin.Context) {
-	c.Header(&#34;Cache-Control&#34;, &#34;no-cache, no-store, max-age=0, must-revalidate, value&#34;)
-	c.Header(&#34;Expires&#34;, &#34;Thu, 01 Jan 1970 00:00:00 GMT&#34;)
-	c.Header(&#34;Last-Modified&#34;, time.Now().UTC().Format(http.TimeFormat))
-	c.Next()
-}
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// NoCache is a middleware function that appends headers
+</span></span><span class="line"><span class="cl">// to prevent the client from caching the HTTP response.
+</span></span><span class="line"><span class="cl">func (d *Handler) NoCache(c *gin.Context) {
+</span></span><span class="line"><span class="cl">	c.Header(&#34;Cache-Control&#34;, &#34;no-cache, no-store, max-age=0, must-revalidate, value&#34;)
+</span></span><span class="line"><span class="cl">	c.Header(&#34;Expires&#34;, &#34;Thu, 01 Jan 1970 00:00:00 GMT&#34;)
+</span></span><span class="line"><span class="cl">	c.Header(&#34;Last-Modified&#34;, time.Now().UTC().Format(http.TimeFormat))
+</span></span><span class="line"><span class="cl">	c.Next()
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="跨域">跨域</h1>
 <div class="highlight"><div class="chroma">
@@ -408,22 +403,22 @@ func (d *Handler) NoCache(c *gin.Context) {
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">//Options is a middleware function that appends headers
-// for options requests and aborts then exits the middleware
-// chain and ends the request.
-func (d *Handler) Options(c *gin.Context) {
-	if c.Request.Method != &#34;OPTIONS&#34; {
-		c.Next()
-	} else {
-		c.Header(&#34;Access-Control-Allow-Origin&#34;, &#34;*&#34;)
-		c.Header(&#34;Access-Control-Allow-Methods&#34;, &#34;GET,POST,PUT,PATCH,DELETE,OPTIONS&#34;)
-		c.Header(&#34;Access-Control-Allow-Headers&#34;, &#34;lang,X-DEVICE-ID,X-APP-VERSION,X-CHANNEL,authorization, origin, content-type, accept,X-TENANT-CODE,sign,time&#34;)
-		c.Header(&#34;Allow&#34;, &#34;HEAD,GET,POST,PUT,PATCH,DELETE,OPTIONS&#34;)
-		c.Header(&#34;Content-Type&#34;, &#34;application/json&#34;)
-		c.AbortWithStatus(200)
-	}
-}
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">//Options is a middleware function that appends headers
+</span></span><span class="line"><span class="cl">// for options requests and aborts then exits the middleware
+</span></span><span class="line"><span class="cl">// chain and ends the request.
+</span></span><span class="line"><span class="cl">func (d *Handler) Options(c *gin.Context) {
+</span></span><span class="line"><span class="cl">	if c.Request.Method != &#34;OPTIONS&#34; {
+</span></span><span class="line"><span class="cl">		c.Next()
+</span></span><span class="line"><span class="cl">	} else {
+</span></span><span class="line"><span class="cl">		c.Header(&#34;Access-Control-Allow-Origin&#34;, &#34;*&#34;)
+</span></span><span class="line"><span class="cl">		c.Header(&#34;Access-Control-Allow-Methods&#34;, &#34;GET,POST,PUT,PATCH,DELETE,OPTIONS&#34;)
+</span></span><span class="line"><span class="cl">		c.Header(&#34;Access-Control-Allow-Headers&#34;, &#34;lang,X-DEVICE-ID,X-APP-VERSION,X-CHANNEL,authorization, origin, content-type, accept,X-TENANT-CODE,sign,time&#34;)
+</span></span><span class="line"><span class="cl">		c.Header(&#34;Allow&#34;, &#34;HEAD,GET,POST,PUT,PATCH,DELETE,OPTIONS&#34;)
+</span></span><span class="line"><span class="cl">		c.Header(&#34;Content-Type&#34;, &#34;application/json&#34;)
+</span></span><span class="line"><span class="cl">		c.AbortWithStatus(200)
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="secure">Secure</h1>
 <div class="highlight"><div class="chroma">
@@ -444,21 +439,21 @@ func (d *Handler) Options(c *gin.Context) {
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">// Secure is a middleware function that appends security
-// and resource access headers.
-func (d *Handler) Secure(c *gin.Context) {
-	c.Header(&#34;Access-Control-Allow-Origin&#34;, &#34;*&#34;)
-	//c.Header(&#34;X-Frame-Options&#34;, &#34;DENY&#34;)
-	c.Header(&#34;X-Content-Type-Options&#34;, &#34;nosniff&#34;)
-	c.Header(&#34;X-XSS-Protection&#34;, &#34;1; mode=block&#34;)
-	if c.Request.TLS != nil {
-		c.Header(&#34;Strict-Transport-Security&#34;, &#34;max-age=31536000&#34;)
-	}
-
-	// Also consider adding Content-Security-Policy headers
-	// c.Header(&#34;Content-Security-Policy&#34;, &#34;script-src &#39;self&#39; https://cdnjs.cloudflare.com&#34;)
-}
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// Secure is a middleware function that appends security
+</span></span><span class="line"><span class="cl">// and resource access headers.
+</span></span><span class="line"><span class="cl">func (d *Handler) Secure(c *gin.Context) {
+</span></span><span class="line"><span class="cl">	c.Header(&#34;Access-Control-Allow-Origin&#34;, &#34;*&#34;)
+</span></span><span class="line"><span class="cl">	//c.Header(&#34;X-Frame-Options&#34;, &#34;DENY&#34;)
+</span></span><span class="line"><span class="cl">	c.Header(&#34;X-Content-Type-Options&#34;, &#34;nosniff&#34;)
+</span></span><span class="line"><span class="cl">	c.Header(&#34;X-XSS-Protection&#34;, &#34;1; mode=block&#34;)
+</span></span><span class="line"><span class="cl">	if c.Request.TLS != nil {
+</span></span><span class="line"><span class="cl">		c.Header(&#34;Strict-Transport-Security&#34;, &#34;max-age=31536000&#34;)
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	// Also consider adding Content-Security-Policy headers
+</span></span><span class="line"><span class="cl">	// c.Header(&#34;Content-Security-Policy&#34;, &#34;script-src &#39;self&#39; https://cdnjs.cloudflare.com&#34;)
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="限流">限流</h1>
 <div class="highlight"><div class="chroma">
@@ -492,34 +487,34 @@ func (d *Handler) Secure(c *gin.Context) {
 </span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">func (d *Handler) Limiter(ctx *gin.Context) {
-	now := time.Now().UnixNano()
-	key := &#34;REDIS_LIMITER&#34;
-	userCntKey := fmt.Sprint(constant.ImApiRedisPrefix, ctx.ClientIP(), &#34;:&#34;, key)
-
-	//五秒限流
-	var limit int64 = 10
-	dura := time.Second * 60
-	//删除有序集合中的五秒之前的数据
-	d.Dao.Redis.ZRemRangeByScore(ctx, userCntKey,
-		&#34;0&#34;,
-		fmt.Sprint(now-(dura.Nanoseconds()))).Result()
-
-	reqs, _ := d.Dao.Redis.ZCard(ctx, userCntKey).Result()
-
-	if reqs &gt;= limit {
-		ctx.AbortWithStatusJSON(http.StatusTooManyRequests, gin.H{
-			&#34;status&#34;:  http.StatusTooManyRequests,
-			&#34;message&#34;: &#34;too many request&#34;,
-		})
-		return
-	}
-
-	ctx.Next()
-	d.Dao.Redis.ZAddNX(ctx, userCntKey, &amp;redis.Z{Score: float64(now), Member: float64(now)})
-	d.Dao.Redis.Expire(ctx, userCntKey, dura)
-}
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">func (d *Handler) Limiter(ctx *gin.Context) {
+</span></span><span class="line"><span class="cl">	now := time.Now().UnixNano()
+</span></span><span class="line"><span class="cl">	key := &#34;REDIS_LIMITER&#34;
+</span></span><span class="line"><span class="cl">	userCntKey := fmt.Sprint(constant.ImApiRedisPrefix, ctx.ClientIP(), &#34;:&#34;, key)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	//五秒限流
+</span></span><span class="line"><span class="cl">	var limit int64 = 10
+</span></span><span class="line"><span class="cl">	dura := time.Second * 60
+</span></span><span class="line"><span class="cl">	//删除有序集合中的五秒之前的数据
+</span></span><span class="line"><span class="cl">	d.Dao.Redis.ZRemRangeByScore(ctx, userCntKey,
+</span></span><span class="line"><span class="cl">		&#34;0&#34;,
+</span></span><span class="line"><span class="cl">		fmt.Sprint(now-(dura.Nanoseconds()))).Result()
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	reqs, _ := d.Dao.Redis.ZCard(ctx, userCntKey).Result()
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	if reqs &gt;= limit {
+</span></span><span class="line"><span class="cl">		ctx.AbortWithStatusJSON(http.StatusTooManyRequests, gin.H{
+</span></span><span class="line"><span class="cl">			&#34;status&#34;:  http.StatusTooManyRequests,
+</span></span><span class="line"><span class="cl">			&#34;message&#34;: &#34;too many request&#34;,
+</span></span><span class="line"><span class="cl">		})
+</span></span><span class="line"><span class="cl">		return
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	ctx.Next()
+</span></span><span class="line"><span class="cl">	d.Dao.Redis.ZAddNX(ctx, userCntKey, &amp;redis.Z{Score: float64(now), Member: float64(now)})
+</span></span><span class="line"><span class="cl">	d.Dao.Redis.Expire(ctx, userCntKey, dura)
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="gin-框架">gin 框架</h1>
 <ol>
@@ -754,255 +749,249 @@ func (d *Handler) Secure(c *gin.Context) {
 </span><span class="lnt">225
 </span><span class="lnt">226
 </span><span class="lnt">227
-</span><span class="lnt">228
-</span><span class="lnt">229
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>  
-	  <span class="nx">router</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span>    <span class="c1">//路由   
-</span><span class="c1"></span>	  <span class="nx">router</span><span class="p">.</span><span class="nf">GET</span><span class="p">(</span><span class="s">&#34;/&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>        <span class="nx">c</span><span class="p">.</span><span class="nf">JSON</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">H</span><span class="p">{</span>            <span class="s">&#34;message&#34;</span><span class="p">:</span> <span class="s">&#34;hello gin&#34;</span><span class="p">,</span>        <span class="p">})</span>    <span class="p">})</span>    <span class="nx">router</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="s">&#34;:8080&#34;</span><span class="p">)}</span><span class="nx">文件上传router</span><span class="p">.</span><span class="nf">POST</span><span class="p">(</span><span class="s">&#34;/upload&#34;</span><span class="p">,</span> <span class="nx">upload</span><span class="p">)</span><span class="kd">func</span> <span class="nf">upload</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>    <span class="nx">file</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nf">FormFile</span><span class="p">(</span><span class="s">&#34;file&#34;</span><span class="p">)</span> <span class="c1">//表单的文件name=&#34;file&#34;    //文件上传路径和文件名    c.SaveUploadedFile(file, &#34;./upload/&#34;+file.Filename)    c.String(http.StatusOK, fmt.Sprintf(&#34;&#39;%s&#39; uploaded!&#34;, file.Filename))}多文件上传router.POST(&#34;/multiupload&#34;, multiupload)func multiupload(c *gin.Context) {    // 文件上传大小限制 8 MB,在路由注册时设定    //router.MaxMultipartMemory = 8 &lt;&lt; 20    formdata := c.Request.MultipartForm    files := formdata.File[&#34;file&#34;] //表单的文件name=&#34;file&#34;    for i, _ := range files {        file, err := files[i].Open()        defer file.Close()        if err != nil {            c.String(http.StatusBadRequest, fmt.Sprintf(&#34;get file err: %s&#34;, err.Error()))            return        }        //文件上传路径和文件名        out, err := os.Create(&#34;./upload/&#34; + files[i].Filename)        defer out.Close()        if err != nil {            c.String(http.StatusBadRequest, fmt.Sprintf(&#34;upload err: %s&#34;, err.Error()))            return        }        _, err = io.Copy(out, file)        if err != nil {            c.String(http.StatusBadRequest, fmt.Sprintf(&#34;save file err: %s&#34;, err.Error()))            return        }        c.String(http.StatusOK, &#34;upload successful&#34;)    }}重定向r.GET(&#34;/redirect&#34;, func(c *gin.Context) {    //支持内部和外部的重定向    c.Redirect(http.StatusMovedPermanently, &#34;http://www.baidu.com/&#34;)    })中间件router := gin.Default()router.Use(middleware.IPLimit()) //使用自定义中间件：IP验证实现：package middlewareimport (    &#34;core&#34;    &#34;github.com/gin-gonic/gin&#34;    &#34;net/http&#34;    &#34;strings&#34;)//访问ip限制func IPLimit() gin.HandlerFunc {    return func(c *gin.Context) {        ip := c.ClientIP()        ipList := strings.Split(core.Config[&#34;allow_ip&#34;], &#34;|&#34;)        flag := false        for i := 0; i &lt; len(ipList); i++ {            if ip == ipList[i] {                flag = true                break            }        }        if !flag {            c.Abort()            c.JSON(http.StatusUnauthorized, gin.H{                &#34;code&#34;: 0,                &#34;msg&#34;:  &#34;IP &#34; + ip + &#34; 没有访问权限&#34;,                &#34;data&#34;: nil})            return             // return也是可以省略的，执行了abort操作，会内置在中间件defer前，return，写出来也只是解答为什么Abort()之后，还能执行返回JSON数据        }    }}日志gin.DisableConsoleColor()   //关掉控制台颜色,可省略f, _ := os.Create(&#34;gin.log&#34;)    //日志文件//gin.DefaultWriter = io.MultiWriter(f) //将日志写入文件gin.DefaultWriter = io.MultiWriter(f, os.Stdout) //将日志写入文件同时在控制台输出下载：go get github.com/sirupsen/logruspackage mainimport (    log &#34;github.com/Sirupsen/logrus&#34;)func main() {    log.Trace(&#34;Something very low level.&#34;)    log.Debug(&#34;Useful debugging information.&#34;)    log.Info(&#34;Something noteworthy happened!&#34;)    log.Warn(&#34;You should probably take a look at this.&#34;)    log.Error(&#34;Something failed but I&#39;m not quitting.&#34;)    // Calls os.Exit(1) after logging    log.Fatal(&#34;Bye.&#34;)    // Calls panic() after logging    log.Panic(&#34;I&#39;m bailing.&#34;)}2.validator(参数校验)使用：只需要在定义结构体时使用binding或validate tag标识相关校验规则，就可以进行参数校验了，很方便例：package mainimport (&#34;fmt&#34;&#34;net/http&#34;&#34;github.com/gin-gonic/gin&#34;)type RegisterRequest struct {    Username string `json:&#34;username&#34; binding:&#34;required&#34;`    Nickname string `json:&#34;nickname&#34; binding:&#34;required&#34;`    Email    string `json:&#34;email&#34; binding:&#34;required,email&#34;`    Password string `json:&#34;password&#34; binding:&#34;required&#34;`    Age      uint8  `json:&#34;age&#34; binding:&#34;gte=1,lte=120&#34;`}func main() {router := gin.Default()router.POST(&#34;register&#34;, Register)router.Run(&#34;:9999&#34;)}func Register(c *gin.Context) {    var r RegisterRequest    err := c.ShouldBindJSON(&amp;r)    if err != nil {      fmt.Println(&#34;register failed&#34;)      c.JSON(http.StatusOK, gin.H{&#34;msg&#34;: err.Error()})      return    }//验证 存储操作省略.....    fmt.Println(&#34;register success&#34;)    c.JSON(http.StatusOK, &#34;successful&#34;)}校验类型：
-</span><span class="c1"></span>	<span class="o">*</span> <span class="nx">required</span> <span class="err">：</span><span class="nx">必填</span> <span class="c1">//非0值
-</span><span class="c1"></span>	<span class="o">*</span> <span class="nx">email</span><span class="err">：</span><span class="nx">验证字符串是email格式</span><span class="err">；</span><span class="nx">例</span><span class="err">：“</span><span class="nx">email</span><span class="err">”</span>
-	<span class="o">*</span> <span class="nx">url</span><span class="err">：</span><span class="nx">这将验证字符串值包含有效的网址</span><span class="p">;</span><span class="nx">例</span><span class="err">：“</span><span class="nx">url</span><span class="err">”</span>
-	<span class="o">*</span> <span class="nx">max</span><span class="err">：</span><span class="nx">字符串最大长度</span><span class="err">；</span><span class="nx">例</span><span class="err">：“</span><span class="nx">max</span><span class="p">=</span><span class="mi">20</span><span class="err">”</span>
-	<span class="o">*</span> <span class="nx">min</span><span class="p">:</span><span class="nx">字符串最小长度</span><span class="err">；</span><span class="nx">例</span><span class="err">：“</span><span class="nx">min</span><span class="p">=</span><span class="mi">6</span><span class="err">”</span>
-	<span class="o">*</span> <span class="nx">excludesall</span><span class="p">:</span><span class="nx">不能包含特殊字符</span><span class="err">；</span><span class="nx">例</span><span class="err">：“</span><span class="nx">excludesall</span><span class="p">=</span><span class="mh">0x2C</span><span class="err">”</span><span class="c1">//注意这里用十六进制表示。
-</span><span class="c1"></span>	<span class="o">*</span> <span class="nx">len</span><span class="err">：</span><span class="nx">字符长度必须等于n</span><span class="err">，</span><span class="nx">或者数组</span><span class="err">、</span><span class="nx">切片</span><span class="err">、</span><span class="nx">map的len值为n</span><span class="err">，</span><span class="nx">即包含的项目数</span><span class="err">；</span><span class="nx">例</span><span class="err">：“</span><span class="nx">len</span><span class="p">=</span><span class="mi">6</span><span class="err">”</span>
-	<span class="o">*</span> <span class="nx">eq</span><span class="err">：</span><span class="nx">数字等于n</span><span class="err">，</span><span class="nx">或者或者数组</span><span class="err">、</span><span class="nx">切片</span><span class="err">、</span><span class="nx">map的len值为n</span><span class="err">，</span><span class="nx">即包含的项目数</span><span class="err">；</span><span class="nx">例</span><span class="err">：“</span><span class="nx">eq</span><span class="p">=</span><span class="mi">6</span><span class="err">”</span>
-	<span class="o">*</span> <span class="nx">ne</span><span class="err">：</span><span class="nx">数字不等于n</span><span class="err">，</span><span class="nx">或者或者数组</span><span class="err">、</span><span class="nx">切片</span><span class="err">、</span><span class="nx">map的len值不等于为n</span><span class="err">，</span><span class="nx">即包含的项目数不为n</span><span class="err">，</span><span class="nx">其和eq相反</span><span class="err">；</span><span class="nx">例</span><span class="err">：“</span><span class="nx">ne</span><span class="p">=</span><span class="mi">6</span><span class="err">”</span>
-	<span class="o">*</span> <span class="nx">gt</span><span class="err">：</span><span class="nx">数字大于n</span><span class="err">，</span><span class="nx">或者或者数组</span><span class="err">、</span><span class="nx">切片</span><span class="err">、</span><span class="nx">map的len值大于n</span><span class="err">，</span><span class="nx">即包含的项目数大于n</span><span class="err">；</span><span class="nx">例</span><span class="err">：“</span><span class="nx">gt</span><span class="p">=</span><span class="mi">6</span><span class="err">”</span>
-	<span class="o">*</span> <span class="nx">gte</span><span class="err">：</span><span class="nx">数字大于或等于n</span><span class="err">，</span><span class="nx">或者或者数组</span><span class="err">、</span><span class="nx">切片</span><span class="err">、</span><span class="nx">map的len值大于或等于n</span><span class="err">，</span><span class="nx">即包含的项目数大于或等于n</span><span class="err">；</span><span class="nx">例</span><span class="err">：“</span><span class="nx">gte</span><span class="p">=</span><span class="mi">6</span><span class="err">”</span>
-	<span class="o">*</span> <span class="nx">lt</span><span class="err">：</span><span class="nx">数字小于n</span><span class="err">，</span><span class="nx">或者或者数组</span><span class="err">、</span><span class="nx">切片</span><span class="err">、</span><span class="nx">map的len值小于n</span><span class="err">，</span><span class="nx">即包含的项目数小于n</span><span class="err">；</span><span class="nx">例</span><span class="err">：“</span><span class="nx">lt</span><span class="p">=</span><span class="mi">6</span><span class="err">”</span>
-	<span class="o">*</span> <span class="nx">lte</span><span class="err">：</span><span class="nx">数字小于或等于n</span><span class="err">，</span><span class="nx">或者或者数组</span><span class="err">、</span><span class="nx">切片</span><span class="err">、</span><span class="nx">map的len值小于或等于n</span><span class="err">，</span><span class="nx">即包含的项目数小于或等于n</span><span class="err">；</span><span class="nx">例</span><span class="err">：“</span><span class="nx">lte</span><span class="p">=</span><span class="mi">6</span><span class="err">”</span>
-	<span class="o">*</span> <span class="nx">field</span> <span class="p">:</span> <span class="nx">等于某个字段</span> <span class="err">（</span><span class="nx">结构体的参数名称</span><span class="err">）</span><span class="c1">// `json:aa rield:B(上面有个参数为B)`
-</span><span class="c1"></span>
- <span class="nx">自定义校验例</span><span class="err">：</span><span class="kn">package</span> <span class="nf">mainimport</span> <span class="p">(</span>    <span class="s">&#34;fmt&#34;</span>    <span class="s">&#34;net/http&#34;</span>    <span class="s">&#34;time&#34;</span>    <span class="s">&#34;github.com/gin-gonic/gin&#34;</span>    <span class="s">&#34;github.com/gin-gonic/gin/binding&#34;</span>    <span class="s">&#34;github.com/go-playground/validator/v10&#34;</span><span class="p">)</span><span class="kd">type</span> <span class="nx">Info</span> <span class="kd">struct</span> <span class="p">{</span>    <span class="nx">CreateTime</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="s">`form:&#34;create_time&#34; binding:&#34;required,timing&#34; time_format:&#34;2006-01-02&#34;`</span>    <span class="nx">UpdateTime</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="s">`form:&#34;update_time&#34; binding:&#34;required,timing&#34; time_format:&#34;2006-01-02&#34;`</span><span class="p">}</span><span class="c1">// 自定义验证规则断言func timing(fl validator.FieldLevel) bool {    if date, ok := fl.Field().Interface().(time.Time); ok {      today := time.Now()      if today.After(date) {       return false      }    }    return true}func main() {    route := gin.Default()    // 注册验证    if v, ok := binding.Validator.Engine().(*validator.Validate); ok {      err := v.RegisterValidation(&#34;timing&#34;, timing)      if err != nil {       fmt.Println(&#34;success&#34;)      }    }    route.GET(&#34;/time&#34;, getTime)    route.Run(&#34;:8080&#34;)}func getTime(c *gin.Context) {    var b Info    // 数据模型绑定查询字符串验证    if err := c.ShouldBindWith(&amp;b, binding.Query); err == nil {      c.JSON(http.StatusOK, gin.H{&#34;message&#34;: &#34;time are valid!&#34;})    } else {      c.JSON(http.StatusBadRequest, gin.H{&#34;error&#34;: err.Error()})    }}
-</span><span class="c1"></span>
-
-<span class="mf">1.</span><span class="nx">路由</span><span class="err">（</span><span class="nx">engine</span><span class="err">）</span>
-<span class="nx">gin</span><span class="p">.</span><span class="k">default</span><span class="p">()</span>    <span class="nx">默认生成一个engine对象</span><span class="err">，</span><span class="nx">包含</span> <span class="nx">logger</span><span class="err">（</span><span class="nx">日志</span><span class="err">）</span><span class="nx">和Recovery</span><span class="err">（</span><span class="nx">错误响应</span><span class="err">）</span>
-<span class="mf">2.</span><span class="nx">路由树</span>
-<span class="nx">如何获得请求路由方法</span><span class="err">，</span><span class="nx">通过路由树</span><span class="err">。</span><span class="nx">树中的节点按照url中的</span><span class="o">/</span><span class="nx">来进行层级划分</span>
-
-<span class="c1">//Engine 对象包含一个 addRoute 方法用于添加 URL 请求处理器，它会将对应的路径和处理器挂接到相应的请求树中
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">e</span> <span class="o">*</span><span class="nx">Engine</span><span class="p">)</span> <span class="nf">addRoute</span><span class="p">(</span><span class="nx">method</span><span class="p">,</span> <span class="nx">path</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">handlers</span> <span class="nx">HandlersChain</span><span class="p">)</span>
-
-<span class="nx">Gin</span> <span class="nx">不支持</span> <span class="nx">HTTPS</span><span class="err">，</span><span class="nx">官方建议是使用</span> <span class="nx">Nginx</span> <span class="nx">来转发</span> <span class="nx">HTTPS</span> <span class="nx">请求到</span> <span class="nx">Gin</span><span class="err">。</span>
-
-<span class="nx">自定义中间件</span>
-<span class="nx">我们已经知道</span><span class="err">，</span><span class="nx">Gin的中间件其实就是一个HandlerFunc</span><span class="p">,</span><span class="nx">那么只要我们自己实现一个HandlerFunc</span><span class="err">，</span><span class="nx">就可以自定义一个自己的中间件</span><span class="err">。</span><span class="nx">现在我们以统计每次请求的执行时间为例</span><span class="err">，</span><span class="nx">来演示如何自定义一个中间件</span><span class="err">。</span>
-
-
-<span class="kd">func</span> <span class="nf">costTime</span><span class="p">()</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">HandlerFunc</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">//请求前获取当前时间
-</span><span class="c1"></span>        <span class="nx">nowTime</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
-        <span class="c1">//请求处理
-</span><span class="c1"></span>        <span class="nx">c</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span>
-        <span class="c1">//处理后获取消耗时间
-</span><span class="c1"></span>        <span class="nx">costTime</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Since</span><span class="p">(</span><span class="nx">nowTime</span><span class="p">)</span>
-        <span class="nx">url</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Request</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nf">String</span><span class="p">()</span>
-        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;the request URL %s cost %v\n&#34;</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">costTime</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">r</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">New</span><span class="p">()</span>
-    <span class="nx">r</span><span class="p">.</span><span class="nf">Use</span><span class="p">(</span><span class="nf">costTime</span><span class="p">())</span>
-
-    <span class="nx">r</span><span class="p">.</span><span class="nf">GET</span><span class="p">(</span><span class="s">&#34;/&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">c</span><span class="p">.</span><span class="nf">JSON</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s">&#34;首页&#34;</span><span class="p">)</span>
-    <span class="p">})</span>
-
-    <span class="nx">r</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="s">&#34;:8080&#34;</span><span class="p">)</span>
-<span class="p">}</span>
-<span class="nx">gin</span> <span class="nx">中间件剥洋葱形式</span><span class="err">，</span><span class="nx">将会先执行cont1的方法</span><span class="err">，</span><span class="nx">并运行到next</span><span class="p">()</span><span class="nx">方法结束</span><span class="err">。</span><span class="nx">在执行cont2</span><span class="p">()</span><span class="nx">方法</span><span class="err">，</span><span class="nx">在到next</span><span class="err">。</span><span class="nx">当中间件不存在Use情况</span><span class="err">，</span><span class="nx">则从cont2继续执行</span><span class="err">，</span><span class="nx">在执行cont1</span>
-
-<span class="nx">r</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">New</span><span class="p">()</span>
-<span class="nx">r</span><span class="p">.</span><span class="nf">Use</span><span class="p">(</span><span class="nf">cont1</span><span class="p">())</span>
-<span class="nx">r</span><span class="p">.</span><span class="nf">Use</span><span class="p">(</span><span class="nf">cont2</span><span class="p">())</span>
-<span class="kd">func</span> <span class="nf">cont1</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">context</span><span class="p">)){</span>
-<span class="k">return</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">context</span><span class="p">){</span>
-        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="err">“</span><span class="o">----</span><span class="mi">1</span><span class="o">----</span><span class="err">”</span><span class="p">)</span>
-        <span class="nx">c</span><span class="p">.</span><span class="nf">next</span><span class="p">()</span>
-        <span class="nx">fmt</span><span class="p">.</span><span class="nb">println</span><span class="p">(</span><span class="err">“</span><span class="o">-----</span><span class="nx">end1</span><span class="o">----</span><span class="err">”</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="kd">func</span> <span class="nf">cont2</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">context</span><span class="p">)){</span>
-<span class="k">return</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">context</span><span class="p">){</span>
-        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="err">“</span><span class="o">----</span><span class="mi">2</span><span class="o">----</span><span class="err">”</span><span class="p">)</span>
-        <span class="nx">c</span><span class="p">.</span><span class="nf">next</span><span class="p">()</span>
-        <span class="nx">fmt</span><span class="p">.</span><span class="nb">println</span><span class="p">(</span><span class="err">“</span><span class="o">-----</span><span class="nx">end2</span><span class="o">----</span><span class="err">”</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="nx">结果应为</span><span class="err">：</span><span class="mi">1</span><span class="p">,</span>   <span class="mi">2</span><span class="err">，</span><span class="nx">end2</span><span class="err">，</span><span class="nx">end1</span>
-<span class="nx">c</span><span class="p">.</span><span class="nf">abort</span><span class="p">()</span> <span class="nx">将不会执行后续的中间件</span> <span class="nx">c</span><span class="p">.</span><span class="nf">AbortWithStatusJson</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span><span class="nx">gin</span><span class="p">.</span><span class="nx">H</span><span class="p">{</span><span class="s">&#34;error&#34;</span><span class="p">:</span><span class="nx">err</span><span class="p">})</span><span class="c1">//将会退出gin。
-</span><span class="c1"></span>
-
-
-
-
-<span class="nx">责任链模式</span>
-<span class="nx">顾名思义</span><span class="err">，</span><span class="nx">责任链模式就是为请求创建一个对象链</span><span class="err">，</span><span class="nx">对象链上的每个对象都可以依次对请求进行处理</span><span class="err">，</span><span class="nx">并把处理过的请求传递给下一个对象</span><span class="err">。</span>
-
-<span class="kd">type</span> <span class="nx">Context</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="c1">// ...
-</span><span class="c1"></span>
-
-    <span class="c1">// handlers 是一个包含执行函数的数组
-</span><span class="c1"></span>    <span class="c1">// type HandlersChain []HandlerFunc
-</span><span class="c1"></span>       <span class="nx">handlers</span> <span class="nx">HandlersChain</span>
-    <span class="c1">// index 表示当前执行到哪个位置了
-</span><span class="c1"></span>    <span class="nx">index</span>    <span class="kt">int8</span>
-
-
-    <span class="c1">// ...
-</span><span class="c1"></span><span class="p">}</span>
-
-
-<span class="c1">// Next 会按照顺序将一个个中间件执行完毕
-</span><span class="c1">// 并且 Next 也可以在中间件中进行调用，达到请求前以及请求后的处理
-</span><span class="c1">// Next should be used only inside middleware.
-</span><span class="c1">// It executes the pending handlers in the chain inside the calling handler.
-</span><span class="c1">// See example in GitHub.
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Context</span><span class="p">)</span> <span class="nf">Next</span><span class="p">()</span> <span class="p">{</span>
-       <span class="nx">c</span><span class="p">.</span><span class="nx">index</span><span class="o">++</span>
-   <span class="k">for</span> <span class="nx">c</span><span class="p">.</span><span class="nx">index</span> <span class="p">&lt;</span> <span class="nb">int8</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">handlers</span><span class="p">))</span> <span class="p">{</span>
-           <span class="nx">c</span><span class="p">.</span><span class="nx">handlers</span><span class="p">[</span><span class="nx">c</span><span class="p">.</span><span class="nx">index</span><span class="p">](</span><span class="nx">c</span><span class="p">)</span>
-              <span class="nx">c</span><span class="p">.</span><span class="nx">index</span><span class="o">++</span>
-   <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="nx">首先</span><span class="err">，</span><span class="nx">在</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">Engine</span> <span class="nx">中</span><span class="err">，</span><span class="nx">使用对象池</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Pool</span> <span class="nx">来存放</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span> <span class="nx">这样做的目的是为</span> <span class="nx">Go</span> <span class="nx">GC</span> <span class="nx">减少压力</span><span class="err">。</span>
-<span class="nx">然后</span><span class="err">，</span><span class="nx">在</span> <span class="nx">Gin</span> <span class="nx">内部</span><span class="err">，</span><span class="nx">当路由匹配成功后</span><span class="err">，</span><span class="nx">将调用</span> <span class="nx">context</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span> <span class="nx">方法</span><span class="err">，</span><span class="nx">开始进入</span> <span class="nx">Gin</span> <span class="nx">中间件和处理函数的执行操作</span><span class="err">，</span><span class="nx">并且</span><span class="err">，</span><span class="nx">需要注意的是</span><span class="err">，</span><span class="nx">在日常开发中</span><span class="err">，</span><span class="nx">该方法</span><span class="err">，</span><span class="nx">只能在中间件中被调用</span><span class="err">。</span>
-<span class="nx">最后</span><span class="err">，</span><span class="nx">以使用</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span> <span class="nx">方法创建</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">Engine</span> <span class="nx">时携带的两个默认中间件</span> <span class="nf">Logger</span><span class="p">()</span> <span class="nx">和</span> <span class="nf">Recovery</span><span class="p">()</span><span class="err">，</span><span class="nx">和我们自己编写的一个模拟身份校验的中间件</span> <span class="nf">Auth</span><span class="p">()</span><span class="err">，</span><span class="nx">结合注册的</span> <span class="nx">path</span> <span class="nx">为</span> <span class="o">/</span><span class="nx">action</span> <span class="nx">的路由</span><span class="err">，</span><span class="nx">对</span> <span class="nx">Gin</span> <span class="nx">中间件和处理函数的工作流程进行了讲解</span><span class="err">。</span>
-<span class="nx">链接</span><span class="err">：</span><span class="nx">https</span><span class="p">:</span><span class="c1">//juejin.cn/post/6844904087318691847
-</span><span class="c1"></span>
-<span class="nx">Gin</span> <span class="nx">Context</span>
-
-<span class="c1">// ServeHTTP conforms to the http.Handler interface.
-</span><span class="c1">// 符合 http.Handler 接口的约定
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">engine</span> <span class="o">*</span><span class="nx">Engine</span><span class="p">)</span> <span class="nf">ServeHTTP</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">req</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// 从对象池中获取已存在的上下文对象
-</span><span class="c1"></span>    <span class="nx">c</span> <span class="o">:=</span> <span class="nx">engine</span><span class="p">.</span><span class="nx">pool</span><span class="p">.</span><span class="nf">Get</span><span class="p">().(</span><span class="o">*</span><span class="nx">Context</span><span class="p">)</span>
-    <span class="c1">// 重置该上下文对象的 ResponseWriter 属性
-</span><span class="c1"></span>    <span class="nx">c</span><span class="p">.</span><span class="nx">writermem</span><span class="p">.</span><span class="nf">reset</span><span class="p">(</span><span class="nx">w</span><span class="p">)</span>
-    <span class="c1">// 设置该上下文对象的 Request 属性
-</span><span class="c1"></span>    <span class="nx">c</span><span class="p">.</span><span class="nx">Request</span> <span class="p">=</span> <span class="nx">req</span>
-    <span class="c1">// 重置上下文中的其他属性信息
-</span><span class="c1"></span>    <span class="nx">c</span><span class="p">.</span><span class="nf">reset</span><span class="p">()</span>
-
-
-    <span class="c1">// 对请求进行处理
-</span><span class="c1"></span>    <span class="nx">engine</span><span class="p">.</span><span class="nf">handleHTTPRequest</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
-
-
-    <span class="c1">// 将该上下文对象重新放回对象池中
-</span><span class="c1"></span>    <span class="nx">engine</span><span class="p">.</span><span class="nx">pool</span><span class="p">.</span><span class="nf">Put</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
-<span class="p">}</span>
-
-
-<span class="c1">// Context is the most important part of gin. It allows us to pass variables between middleware,
-</span><span class="c1">// manage the flow, validate the JSON of a request and render a JSON response for example.
-</span><span class="c1">// 上下文是 Gin 最重要的部分.
-</span><span class="c1">// 它允许我们在中间件之间传递变量, 管理流程, 例如验证请求的 JSON 并呈现 JSON 响应.
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Context</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="c1">// 对 net/http 库中的 ResponseWriter 进行了封装
-</span><span class="c1"></span>    <span class="nx">writermem</span> <span class="nx">responseWriter</span>
-    <span class="c1">// 请求对象
-</span><span class="c1"></span>    <span class="nx">Request</span>   <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span>
-    <span class="c1">// 非 net/http 库中的 ResponseWriter
-</span><span class="c1"></span>    <span class="c1">// 而是 Gin 用来构建 HTTP 响应的一个接口
-</span><span class="c1"></span>    <span class="nx">Writer</span>    <span class="nx">ResponseWriter</span>
-
-
-    <span class="c1">// 存放请求中的 URI 参数
-</span><span class="c1"></span>    <span class="nx">Params</span>   <span class="nx">Params</span>
-    <span class="c1">// 存放该请求的处理函数切片, 包括中间件加最终处理函数
-</span><span class="c1"></span>    <span class="nx">handlers</span> <span class="nx">HandlersChain</span>
-    <span class="c1">// 用于标记当前执行的处理函数
-</span><span class="c1"></span>    <span class="nx">index</span>    <span class="kt">int8</span>
-    <span class="c1">// 请求的完整路径
-</span><span class="c1"></span>    <span class="nx">fullPath</span> <span class="kt">string</span>
-
-
-    <span class="c1">// Gin 引擎对象
-</span><span class="c1"></span>    <span class="nx">engine</span> <span class="o">*</span><span class="nx">Engine</span>
-
-
-    <span class="c1">// Keys is a key/value pair exclusively for the context of each request.
-</span><span class="c1"></span>    <span class="c1">// 用于上下文之间的变量传递
-</span><span class="c1"></span>    <span class="nx">Keys</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}</span>
-
-
-    <span class="c1">// Errors is a list of errors attached to all the handlers/middlewares who used this context.
-</span><span class="c1"></span>    <span class="c1">// 与处理函数/中间件对应的错误列表
-</span><span class="c1"></span>    <span class="nx">Errors</span> <span class="nx">errorMsgs</span>
-
-
-    <span class="c1">// Accepted defines a list of manually accepted formats for content negotiation.
-</span><span class="c1"></span>    <span class="c1">// 接受格式列表
-</span><span class="c1"></span>    <span class="nx">Accepted</span> <span class="p">[]</span><span class="kt">string</span>
-
-
-    <span class="c1">// queryCache use url.ParseQuery cached the param query result from c.Request.URL.Query()
-</span><span class="c1"></span>    <span class="c1">// 用于缓存请求的 URL 参数
-</span><span class="c1"></span>    <span class="nx">queryCache</span> <span class="nx">url</span><span class="p">.</span><span class="nx">Values</span>
-
-
-    <span class="c1">// formCache use url.ParseQuery cached PostForm contains the parsed form data from POST, PATCH,
-</span><span class="c1"></span>    <span class="c1">// or PUT body parameters.
-</span><span class="c1"></span>    <span class="c1">// 用于缓存请求体中的参数
-</span><span class="c1"></span>    <span class="nx">formCache</span> <span class="nx">url</span><span class="p">.</span><span class="nx">Values</span>
-<span class="p">}</span>
-
-<span class="nx">用户模块</span>
-<span class="nx">gin</span> <span class="nx">采用中间件的形式可以做到用户权限模块</span><span class="err">，</span><span class="nx">在调用接口前</span><span class="err">，</span><span class="nx">做Gin</span><span class="p">.</span><span class="nx">HandlerFunc的方法校验</span>
-
-<span class="nx">PrivateGroup</span><span class="p">.</span><span class="nf">Use</span><span class="p">(</span><span class="nx">middleware</span><span class="p">.</span><span class="nf">JWTAuth</span><span class="p">()).</span><span class="nf">Use</span><span class="p">(</span><span class="nx">middleware</span><span class="p">.</span><span class="nf">CasbinHandler</span><span class="p">())</span>
-
-<span class="c1">// 拦截器
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">CasbinHandler</span><span class="p">()</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">HandlerFunc</span> <span class="p">{</span>
-   <span class="k">return</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">claims</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nf">Get</span><span class="p">(</span><span class="s">&#34;claims&#34;</span><span class="p">)</span>
-      <span class="nx">waitUse</span> <span class="o">:=</span> <span class="nx">claims</span><span class="p">.(</span><span class="o">*</span><span class="nx">request</span><span class="p">.</span><span class="nx">CustomClaims</span><span class="p">)</span>
-      <span class="c1">// 获取请求的URI
-</span><span class="c1"></span>      <span class="nx">obj</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Request</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nf">RequestURI</span><span class="p">()</span>
-      <span class="c1">// 获取请求方法
-</span><span class="c1"></span>      <span class="nx">act</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Request</span><span class="p">.</span><span class="nx">Method</span>
-      <span class="c1">// 获取用户的角色
-</span><span class="c1"></span>      <span class="nx">sub</span> <span class="o">:=</span> <span class="nx">waitUse</span><span class="p">.</span><span class="nx">AuthorityId</span>
-      <span class="nx">e</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nf">Casbin</span><span class="p">()</span>
-      <span class="c1">// 判断策略中是否存在
-</span><span class="c1"></span>      <span class="nx">success</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">e</span><span class="p">.</span><span class="nf">Enforce</span><span class="p">(</span><span class="nx">sub</span><span class="p">,</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">act</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">comm</span><span class="p">.</span><span class="nx">Config</span><span class="p">.</span><span class="nx">System</span><span class="p">.</span><span class="nx">Env</span> <span class="o">==</span> <span class="s">&#34;develop&#34;</span> <span class="o">||</span> <span class="nx">success</span> <span class="p">{</span>
-         <span class="nx">c</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span>
-      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-         <span class="nx">response</span><span class="p">.</span><span class="nf">FailWithDetailed</span><span class="p">(</span><span class="nx">gin</span><span class="p">.</span><span class="nx">H</span><span class="p">{},</span> <span class="s">&#34;权限不足&#34;</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span>
-         <span class="nx">c</span><span class="p">.</span><span class="nf">Abort</span><span class="p">()</span>
-         <span class="k">return</span>
-      <span class="p">}</span>
-   <span class="p">}</span>
-<span class="p">}</span>
-
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">	  <span class="nx">router</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span>    <span class="c1">//路由   
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	  <span class="nx">router</span><span class="p">.</span><span class="nf">GET</span><span class="p">(</span><span class="s">&#34;/&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>        <span class="nx">c</span><span class="p">.</span><span class="nf">JSON</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">H</span><span class="p">{</span>            <span class="s">&#34;message&#34;</span><span class="p">:</span> <span class="s">&#34;hello gin&#34;</span><span class="p">,</span>        <span class="p">})</span>    <span class="p">})</span>    <span class="nx">router</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="s">&#34;:8080&#34;</span><span class="p">)}</span><span class="nx">文件上传router</span><span class="p">.</span><span class="nf">POST</span><span class="p">(</span><span class="s">&#34;/upload&#34;</span><span class="p">,</span> <span class="nx">upload</span><span class="p">)</span><span class="kd">func</span> <span class="nf">upload</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>    <span class="nx">file</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nf">FormFile</span><span class="p">(</span><span class="s">&#34;file&#34;</span><span class="p">)</span> <span class="c1">//表单的文件name=&#34;file&#34;    //文件上传路径和文件名    c.SaveUploadedFile(file, &#34;./upload/&#34;+file.Filename)    c.String(http.StatusOK, fmt.Sprintf(&#34;&#39;%s&#39; uploaded!&#34;, file.Filename))}多文件上传router.POST(&#34;/multiupload&#34;, multiupload)func multiupload(c *gin.Context) {    // 文件上传大小限制 8 MB,在路由注册时设定    //router.MaxMultipartMemory = 8 &lt;&lt; 20    formdata := c.Request.MultipartForm    files := formdata.File[&#34;file&#34;] //表单的文件name=&#34;file&#34;    for i, _ := range files {        file, err := files[i].Open()        defer file.Close()        if err != nil {            c.String(http.StatusBadRequest, fmt.Sprintf(&#34;get file err: %s&#34;, err.Error()))            return        }        //文件上传路径和文件名        out, err := os.Create(&#34;./upload/&#34; + files[i].Filename)        defer out.Close()        if err != nil {            c.String(http.StatusBadRequest, fmt.Sprintf(&#34;upload err: %s&#34;, err.Error()))            return        }        _, err = io.Copy(out, file)        if err != nil {            c.String(http.StatusBadRequest, fmt.Sprintf(&#34;save file err: %s&#34;, err.Error()))            return        }        c.String(http.StatusOK, &#34;upload successful&#34;)    }}重定向r.GET(&#34;/redirect&#34;, func(c *gin.Context) {    //支持内部和外部的重定向    c.Redirect(http.StatusMovedPermanently, &#34;http://www.baidu.com/&#34;)    })中间件router := gin.Default()router.Use(middleware.IPLimit()) //使用自定义中间件：IP验证实现：package middlewareimport (    &#34;core&#34;    &#34;github.com/gin-gonic/gin&#34;    &#34;net/http&#34;    &#34;strings&#34;)//访问ip限制func IPLimit() gin.HandlerFunc {    return func(c *gin.Context) {        ip := c.ClientIP()        ipList := strings.Split(core.Config[&#34;allow_ip&#34;], &#34;|&#34;)        flag := false        for i := 0; i &lt; len(ipList); i++ {            if ip == ipList[i] {                flag = true                break            }        }        if !flag {            c.Abort()            c.JSON(http.StatusUnauthorized, gin.H{                &#34;code&#34;: 0,                &#34;msg&#34;:  &#34;IP &#34; + ip + &#34; 没有访问权限&#34;,                &#34;data&#34;: nil})            return             // return也是可以省略的，执行了abort操作，会内置在中间件defer前，return，写出来也只是解答为什么Abort()之后，还能执行返回JSON数据        }    }}日志gin.DisableConsoleColor()   //关掉控制台颜色,可省略f, _ := os.Create(&#34;gin.log&#34;)    //日志文件//gin.DefaultWriter = io.MultiWriter(f) //将日志写入文件gin.DefaultWriter = io.MultiWriter(f, os.Stdout) //将日志写入文件同时在控制台输出下载：go get github.com/sirupsen/logruspackage mainimport (    log &#34;github.com/Sirupsen/logrus&#34;)func main() {    log.Trace(&#34;Something very low level.&#34;)    log.Debug(&#34;Useful debugging information.&#34;)    log.Info(&#34;Something noteworthy happened!&#34;)    log.Warn(&#34;You should probably take a look at this.&#34;)    log.Error(&#34;Something failed but I&#39;m not quitting.&#34;)    // Calls os.Exit(1) after logging    log.Fatal(&#34;Bye.&#34;)    // Calls panic() after logging    log.Panic(&#34;I&#39;m bailing.&#34;)}2.validator(参数校验)使用：只需要在定义结构体时使用binding或validate tag标识相关校验规则，就可以进行参数校验了，很方便例：package mainimport (&#34;fmt&#34;&#34;net/http&#34;&#34;github.com/gin-gonic/gin&#34;)type RegisterRequest struct {    Username string `json:&#34;username&#34; binding:&#34;required&#34;`    Nickname string `json:&#34;nickname&#34; binding:&#34;required&#34;`    Email    string `json:&#34;email&#34; binding:&#34;required,email&#34;`    Password string `json:&#34;password&#34; binding:&#34;required&#34;`    Age      uint8  `json:&#34;age&#34; binding:&#34;gte=1,lte=120&#34;`}func main() {router := gin.Default()router.POST(&#34;register&#34;, Register)router.Run(&#34;:9999&#34;)}func Register(c *gin.Context) {    var r RegisterRequest    err := c.ShouldBindJSON(&amp;r)    if err != nil {      fmt.Println(&#34;register failed&#34;)      c.JSON(http.StatusOK, gin.H{&#34;msg&#34;: err.Error()})      return    }//验证 存储操作省略.....    fmt.Println(&#34;register success&#34;)    c.JSON(http.StatusOK, &#34;successful&#34;)}校验类型：
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="o">*</span> <span class="nx">required</span> <span class="err">：</span><span class="nx">必填</span> <span class="c1">//非0值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="o">*</span> <span class="nx">email</span><span class="err">：</span><span class="nx">验证字符串是email格式</span><span class="err">；</span><span class="nx">例</span><span class="err">：“</span><span class="nx">email</span><span class="err">”</span>
+</span></span><span class="line"><span class="cl">	<span class="o">*</span> <span class="nx">url</span><span class="err">：</span><span class="nx">这将验证字符串值包含有效的网址</span><span class="p">;</span><span class="nx">例</span><span class="err">：“</span><span class="nx">url</span><span class="err">”</span>
+</span></span><span class="line"><span class="cl">	<span class="o">*</span> <span class="nx">max</span><span class="err">：</span><span class="nx">字符串最大长度</span><span class="err">；</span><span class="nx">例</span><span class="err">：“</span><span class="nx">max</span><span class="p">=</span><span class="mi">20</span><span class="err">”</span>
+</span></span><span class="line"><span class="cl">	<span class="o">*</span> <span class="nx">min</span><span class="p">:</span><span class="nx">字符串最小长度</span><span class="err">；</span><span class="nx">例</span><span class="err">：“</span><span class="nx">min</span><span class="p">=</span><span class="mi">6</span><span class="err">”</span>
+</span></span><span class="line"><span class="cl">	<span class="o">*</span> <span class="nx">excludesall</span><span class="p">:</span><span class="nx">不能包含特殊字符</span><span class="err">；</span><span class="nx">例</span><span class="err">：“</span><span class="nx">excludesall</span><span class="p">=</span><span class="mh">0x2C</span><span class="err">”</span><span class="c1">//注意这里用十六进制表示。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="o">*</span> <span class="nx">len</span><span class="err">：</span><span class="nx">字符长度必须等于n</span><span class="err">，</span><span class="nx">或者数组</span><span class="err">、</span><span class="nx">切片</span><span class="err">、</span><span class="nx">map的len值为n</span><span class="err">，</span><span class="nx">即包含的项目数</span><span class="err">；</span><span class="nx">例</span><span class="err">：“</span><span class="nx">len</span><span class="p">=</span><span class="mi">6</span><span class="err">”</span>
+</span></span><span class="line"><span class="cl">	<span class="o">*</span> <span class="nx">eq</span><span class="err">：</span><span class="nx">数字等于n</span><span class="err">，</span><span class="nx">或者或者数组</span><span class="err">、</span><span class="nx">切片</span><span class="err">、</span><span class="nx">map的len值为n</span><span class="err">，</span><span class="nx">即包含的项目数</span><span class="err">；</span><span class="nx">例</span><span class="err">：“</span><span class="nx">eq</span><span class="p">=</span><span class="mi">6</span><span class="err">”</span>
+</span></span><span class="line"><span class="cl">	<span class="o">*</span> <span class="nx">ne</span><span class="err">：</span><span class="nx">数字不等于n</span><span class="err">，</span><span class="nx">或者或者数组</span><span class="err">、</span><span class="nx">切片</span><span class="err">、</span><span class="nx">map的len值不等于为n</span><span class="err">，</span><span class="nx">即包含的项目数不为n</span><span class="err">，</span><span class="nx">其和eq相反</span><span class="err">；</span><span class="nx">例</span><span class="err">：“</span><span class="nx">ne</span><span class="p">=</span><span class="mi">6</span><span class="err">”</span>
+</span></span><span class="line"><span class="cl">	<span class="o">*</span> <span class="nx">gt</span><span class="err">：</span><span class="nx">数字大于n</span><span class="err">，</span><span class="nx">或者或者数组</span><span class="err">、</span><span class="nx">切片</span><span class="err">、</span><span class="nx">map的len值大于n</span><span class="err">，</span><span class="nx">即包含的项目数大于n</span><span class="err">；</span><span class="nx">例</span><span class="err">：“</span><span class="nx">gt</span><span class="p">=</span><span class="mi">6</span><span class="err">”</span>
+</span></span><span class="line"><span class="cl">	<span class="o">*</span> <span class="nx">gte</span><span class="err">：</span><span class="nx">数字大于或等于n</span><span class="err">，</span><span class="nx">或者或者数组</span><span class="err">、</span><span class="nx">切片</span><span class="err">、</span><span class="nx">map的len值大于或等于n</span><span class="err">，</span><span class="nx">即包含的项目数大于或等于n</span><span class="err">；</span><span class="nx">例</span><span class="err">：“</span><span class="nx">gte</span><span class="p">=</span><span class="mi">6</span><span class="err">”</span>
+</span></span><span class="line"><span class="cl">	<span class="o">*</span> <span class="nx">lt</span><span class="err">：</span><span class="nx">数字小于n</span><span class="err">，</span><span class="nx">或者或者数组</span><span class="err">、</span><span class="nx">切片</span><span class="err">、</span><span class="nx">map的len值小于n</span><span class="err">，</span><span class="nx">即包含的项目数小于n</span><span class="err">；</span><span class="nx">例</span><span class="err">：“</span><span class="nx">lt</span><span class="p">=</span><span class="mi">6</span><span class="err">”</span>
+</span></span><span class="line"><span class="cl">	<span class="o">*</span> <span class="nx">lte</span><span class="err">：</span><span class="nx">数字小于或等于n</span><span class="err">，</span><span class="nx">或者或者数组</span><span class="err">、</span><span class="nx">切片</span><span class="err">、</span><span class="nx">map的len值小于或等于n</span><span class="err">，</span><span class="nx">即包含的项目数小于或等于n</span><span class="err">；</span><span class="nx">例</span><span class="err">：“</span><span class="nx">lte</span><span class="p">=</span><span class="mi">6</span><span class="err">”</span>
+</span></span><span class="line"><span class="cl">	<span class="o">*</span> <span class="nx">field</span> <span class="p">:</span> <span class="nx">等于某个字段</span> <span class="err">（</span><span class="nx">结构体的参数名称</span><span class="err">）</span><span class="c1">// `json:aa rield:B(上面有个参数为B)`
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"> <span class="nx">自定义校验例</span><span class="err">：</span><span class="kn">package</span> <span class="nf">mainimport</span> <span class="p">(</span>    <span class="s">&#34;fmt&#34;</span>    <span class="s">&#34;net/http&#34;</span>    <span class="s">&#34;time&#34;</span>    <span class="s">&#34;github.com/gin-gonic/gin&#34;</span>    <span class="s">&#34;github.com/gin-gonic/gin/binding&#34;</span>    <span class="s">&#34;github.com/go-playground/validator/v10&#34;</span><span class="p">)</span><span class="kd">type</span> <span class="nx">Info</span> <span class="kd">struct</span> <span class="p">{</span>    <span class="nx">CreateTime</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="s">`form:&#34;create_time&#34; binding:&#34;required,timing&#34; time_format:&#34;2006-01-02&#34;`</span>    <span class="nx">UpdateTime</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="s">`form:&#34;update_time&#34; binding:&#34;required,timing&#34; time_format:&#34;2006-01-02&#34;`</span><span class="p">}</span><span class="c1">// 自定义验证规则断言func timing(fl validator.FieldLevel) bool {    if date, ok := fl.Field().Interface().(time.Time); ok {      today := time.Now()      if today.After(date) {       return false      }    }    return true}func main() {    route := gin.Default()    // 注册验证    if v, ok := binding.Validator.Engine().(*validator.Validate); ok {      err := v.RegisterValidation(&#34;timing&#34;, timing)      if err != nil {       fmt.Println(&#34;success&#34;)      }    }    route.GET(&#34;/time&#34;, getTime)    route.Run(&#34;:8080&#34;)}func getTime(c *gin.Context) {    var b Info    // 数据模型绑定查询字符串验证    if err := c.ShouldBindWith(&amp;b, binding.Query); err == nil {      c.JSON(http.StatusOK, gin.H{&#34;message&#34;: &#34;time are valid!&#34;})    } else {      c.JSON(http.StatusBadRequest, gin.H{&#34;error&#34;: err.Error()})    }}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="mf">1.</span><span class="nx">路由</span><span class="err">（</span><span class="nx">engine</span><span class="err">）</span>
+</span></span><span class="line"><span class="cl"><span class="nx">gin</span><span class="p">.</span><span class="k">default</span><span class="p">()</span>    <span class="nx">默认生成一个engine对象</span><span class="err">，</span><span class="nx">包含</span> <span class="nx">logger</span><span class="err">（</span><span class="nx">日志</span><span class="err">）</span><span class="nx">和Recovery</span><span class="err">（</span><span class="nx">错误响应</span><span class="err">）</span>
+</span></span><span class="line"><span class="cl"><span class="mf">2.</span><span class="nx">路由树</span>
+</span></span><span class="line"><span class="cl"><span class="nx">如何获得请求路由方法</span><span class="err">，</span><span class="nx">通过路由树</span><span class="err">。</span><span class="nx">树中的节点按照url中的</span><span class="o">/</span><span class="nx">来进行层级划分</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//Engine 对象包含一个 addRoute 方法用于添加 URL 请求处理器，它会将对应的路径和处理器挂接到相应的请求树中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">e</span> <span class="o">*</span><span class="nx">Engine</span><span class="p">)</span> <span class="nf">addRoute</span><span class="p">(</span><span class="nx">method</span><span class="p">,</span> <span class="nx">path</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">handlers</span> <span class="nx">HandlersChain</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">Gin</span> <span class="nx">不支持</span> <span class="nx">HTTPS</span><span class="err">，</span><span class="nx">官方建议是使用</span> <span class="nx">Nginx</span> <span class="nx">来转发</span> <span class="nx">HTTPS</span> <span class="nx">请求到</span> <span class="nx">Gin</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">自定义中间件</span>
+</span></span><span class="line"><span class="cl"><span class="nx">我们已经知道</span><span class="err">，</span><span class="nx">Gin的中间件其实就是一个HandlerFunc</span><span class="p">,</span><span class="nx">那么只要我们自己实现一个HandlerFunc</span><span class="err">，</span><span class="nx">就可以自定义一个自己的中间件</span><span class="err">。</span><span class="nx">现在我们以统计每次请求的执行时间为例</span><span class="err">，</span><span class="nx">来演示如何自定义一个中间件</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">costTime</span><span class="p">()</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">HandlerFunc</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//请求前获取当前时间
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">nowTime</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//请求处理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">c</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//处理后获取消耗时间
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">costTime</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Since</span><span class="p">(</span><span class="nx">nowTime</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">url</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Request</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nf">String</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;the request URL %s cost %v\n&#34;</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">costTime</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">r</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">New</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">r</span><span class="p">.</span><span class="nf">Use</span><span class="p">(</span><span class="nf">costTime</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">r</span><span class="p">.</span><span class="nf">GET</span><span class="p">(</span><span class="s">&#34;/&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">c</span><span class="p">.</span><span class="nf">JSON</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s">&#34;首页&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">r</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="s">&#34;:8080&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">gin</span> <span class="nx">中间件剥洋葱形式</span><span class="err">，</span><span class="nx">将会先执行cont1的方法</span><span class="err">，</span><span class="nx">并运行到next</span><span class="p">()</span><span class="nx">方法结束</span><span class="err">。</span><span class="nx">在执行cont2</span><span class="p">()</span><span class="nx">方法</span><span class="err">，</span><span class="nx">在到next</span><span class="err">。</span><span class="nx">当中间件不存在Use情况</span><span class="err">，</span><span class="nx">则从cont2继续执行</span><span class="err">，</span><span class="nx">在执行cont1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">r</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">New</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nx">r</span><span class="p">.</span><span class="nf">Use</span><span class="p">(</span><span class="nf">cont1</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nx">r</span><span class="p">.</span><span class="nf">Use</span><span class="p">(</span><span class="nf">cont2</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">cont1</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">context</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">context</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="err">“</span><span class="o">----</span><span class="mi">1</span><span class="o">----</span><span class="err">”</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">c</span><span class="p">.</span><span class="nf">next</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nb">println</span><span class="p">(</span><span class="err">“</span><span class="o">-----</span><span class="nx">end1</span><span class="o">----</span><span class="err">”</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">cont2</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">context</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">context</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="err">“</span><span class="o">----</span><span class="mi">2</span><span class="o">----</span><span class="err">”</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">c</span><span class="p">.</span><span class="nf">next</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nb">println</span><span class="p">(</span><span class="err">“</span><span class="o">-----</span><span class="nx">end2</span><span class="o">----</span><span class="err">”</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">结果应为</span><span class="err">：</span><span class="mi">1</span><span class="p">,</span>   <span class="mi">2</span><span class="err">，</span><span class="nx">end2</span><span class="err">，</span><span class="nx">end1</span>
+</span></span><span class="line"><span class="cl"><span class="nx">c</span><span class="p">.</span><span class="nf">abort</span><span class="p">()</span> <span class="nx">将不会执行后续的中间件</span> <span class="nx">c</span><span class="p">.</span><span class="nf">AbortWithStatusJson</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span><span class="nx">gin</span><span class="p">.</span><span class="nx">H</span><span class="p">{</span><span class="s">&#34;error&#34;</span><span class="p">:</span><span class="nx">err</span><span class="p">})</span><span class="c1">//将会退出gin。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">责任链模式</span>
+</span></span><span class="line"><span class="cl"><span class="nx">顾名思义</span><span class="err">，</span><span class="nx">责任链模式就是为请求创建一个对象链</span><span class="err">，</span><span class="nx">对象链上的每个对象都可以依次对请求进行处理</span><span class="err">，</span><span class="nx">并把处理过的请求传递给下一个对象</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Context</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// handlers 是一个包含执行函数的数组
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// type HandlersChain []HandlerFunc
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="nx">handlers</span> <span class="nx">HandlersChain</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// index 表示当前执行到哪个位置了
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">index</span>    <span class="kt">int8</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Next 会按照顺序将一个个中间件执行完毕
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 并且 Next 也可以在中间件中进行调用，达到请求前以及请求后的处理
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Next should be used only inside middleware.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// It executes the pending handlers in the chain inside the calling handler.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// See example in GitHub.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Context</span><span class="p">)</span> <span class="nf">Next</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">       <span class="nx">c</span><span class="p">.</span><span class="nx">index</span><span class="o">++</span>
+</span></span><span class="line"><span class="cl">   <span class="k">for</span> <span class="nx">c</span><span class="p">.</span><span class="nx">index</span> <span class="p">&lt;</span> <span class="nb">int8</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">handlers</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">           <span class="nx">c</span><span class="p">.</span><span class="nx">handlers</span><span class="p">[</span><span class="nx">c</span><span class="p">.</span><span class="nx">index</span><span class="p">](</span><span class="nx">c</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">c</span><span class="p">.</span><span class="nx">index</span><span class="o">++</span>
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">首先</span><span class="err">，</span><span class="nx">在</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">Engine</span> <span class="nx">中</span><span class="err">，</span><span class="nx">使用对象池</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Pool</span> <span class="nx">来存放</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span> <span class="nx">这样做的目的是为</span> <span class="nx">Go</span> <span class="nx">GC</span> <span class="nx">减少压力</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="nx">然后</span><span class="err">，</span><span class="nx">在</span> <span class="nx">Gin</span> <span class="nx">内部</span><span class="err">，</span><span class="nx">当路由匹配成功后</span><span class="err">，</span><span class="nx">将调用</span> <span class="nx">context</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span> <span class="nx">方法</span><span class="err">，</span><span class="nx">开始进入</span> <span class="nx">Gin</span> <span class="nx">中间件和处理函数的执行操作</span><span class="err">，</span><span class="nx">并且</span><span class="err">，</span><span class="nx">需要注意的是</span><span class="err">，</span><span class="nx">在日常开发中</span><span class="err">，</span><span class="nx">该方法</span><span class="err">，</span><span class="nx">只能在中间件中被调用</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="nx">最后</span><span class="err">，</span><span class="nx">以使用</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span> <span class="nx">方法创建</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">Engine</span> <span class="nx">时携带的两个默认中间件</span> <span class="nf">Logger</span><span class="p">()</span> <span class="nx">和</span> <span class="nf">Recovery</span><span class="p">()</span><span class="err">，</span><span class="nx">和我们自己编写的一个模拟身份校验的中间件</span> <span class="nf">Auth</span><span class="p">()</span><span class="err">，</span><span class="nx">结合注册的</span> <span class="nx">path</span> <span class="nx">为</span> <span class="o">/</span><span class="nx">action</span> <span class="nx">的路由</span><span class="err">，</span><span class="nx">对</span> <span class="nx">Gin</span> <span class="nx">中间件和处理函数的工作流程进行了讲解</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="nx">链接</span><span class="err">：</span><span class="nx">https</span><span class="p">:</span><span class="c1">//juejin.cn/post/6844904087318691847
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">Gin</span> <span class="nx">Context</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ServeHTTP conforms to the http.Handler interface.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 符合 http.Handler 接口的约定
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">engine</span> <span class="o">*</span><span class="nx">Engine</span><span class="p">)</span> <span class="nf">ServeHTTP</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">req</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 从对象池中获取已存在的上下文对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">c</span> <span class="o">:=</span> <span class="nx">engine</span><span class="p">.</span><span class="nx">pool</span><span class="p">.</span><span class="nf">Get</span><span class="p">().(</span><span class="o">*</span><span class="nx">Context</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 重置该上下文对象的 ResponseWriter 属性
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">c</span><span class="p">.</span><span class="nx">writermem</span><span class="p">.</span><span class="nf">reset</span><span class="p">(</span><span class="nx">w</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 设置该上下文对象的 Request 属性
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">c</span><span class="p">.</span><span class="nx">Request</span> <span class="p">=</span> <span class="nx">req</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 重置上下文中的其他属性信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">c</span><span class="p">.</span><span class="nf">reset</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 对请求进行处理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">engine</span><span class="p">.</span><span class="nf">handleHTTPRequest</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 将该上下文对象重新放回对象池中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">engine</span><span class="p">.</span><span class="nx">pool</span><span class="p">.</span><span class="nf">Put</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Context is the most important part of gin. It allows us to pass variables between middleware,
+</span></span></span><span class="line"><span class="cl"><span class="c1">// manage the flow, validate the JSON of a request and render a JSON response for example.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 上下文是 Gin 最重要的部分.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 它允许我们在中间件之间传递变量, 管理流程, 例如验证请求的 JSON 并呈现 JSON 响应.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Context</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 对 net/http 库中的 ResponseWriter 进行了封装
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">writermem</span> <span class="nx">responseWriter</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 请求对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">Request</span>   <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 非 net/http 库中的 ResponseWriter
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 而是 Gin 用来构建 HTTP 响应的一个接口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">Writer</span>    <span class="nx">ResponseWriter</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 存放请求中的 URI 参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">Params</span>   <span class="nx">Params</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 存放该请求的处理函数切片, 包括中间件加最终处理函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">handlers</span> <span class="nx">HandlersChain</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 用于标记当前执行的处理函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">index</span>    <span class="kt">int8</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 请求的完整路径
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">fullPath</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Gin 引擎对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">engine</span> <span class="o">*</span><span class="nx">Engine</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Keys is a key/value pair exclusively for the context of each request.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 用于上下文之间的变量传递
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">Keys</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Errors is a list of errors attached to all the handlers/middlewares who used this context.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 与处理函数/中间件对应的错误列表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">Errors</span> <span class="nx">errorMsgs</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Accepted defines a list of manually accepted formats for content negotiation.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 接受格式列表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">Accepted</span> <span class="p">[]</span><span class="kt">string</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// queryCache use url.ParseQuery cached the param query result from c.Request.URL.Query()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 用于缓存请求的 URL 参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">queryCache</span> <span class="nx">url</span><span class="p">.</span><span class="nx">Values</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// formCache use url.ParseQuery cached PostForm contains the parsed form data from POST, PATCH,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// or PUT body parameters.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 用于缓存请求体中的参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">formCache</span> <span class="nx">url</span><span class="p">.</span><span class="nx">Values</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">用户模块</span>
+</span></span><span class="line"><span class="cl"><span class="nx">gin</span> <span class="nx">采用中间件的形式可以做到用户权限模块</span><span class="err">，</span><span class="nx">在调用接口前</span><span class="err">，</span><span class="nx">做Gin</span><span class="p">.</span><span class="nx">HandlerFunc的方法校验</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">PrivateGroup</span><span class="p">.</span><span class="nf">Use</span><span class="p">(</span><span class="nx">middleware</span><span class="p">.</span><span class="nf">JWTAuth</span><span class="p">()).</span><span class="nf">Use</span><span class="p">(</span><span class="nx">middleware</span><span class="p">.</span><span class="nf">CasbinHandler</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 拦截器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">CasbinHandler</span><span class="p">()</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">HandlerFunc</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">claims</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nf">Get</span><span class="p">(</span><span class="s">&#34;claims&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">waitUse</span> <span class="o">:=</span> <span class="nx">claims</span><span class="p">.(</span><span class="o">*</span><span class="nx">request</span><span class="p">.</span><span class="nx">CustomClaims</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 获取请求的URI
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">obj</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Request</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nf">RequestURI</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 获取请求方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">act</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Request</span><span class="p">.</span><span class="nx">Method</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 获取用户的角色
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">sub</span> <span class="o">:=</span> <span class="nx">waitUse</span><span class="p">.</span><span class="nx">AuthorityId</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">e</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nf">Casbin</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 判断策略中是否存在
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">success</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">e</span><span class="p">.</span><span class="nf">Enforce</span><span class="p">(</span><span class="nx">sub</span><span class="p">,</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">act</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="nx">comm</span><span class="p">.</span><span class="nx">Config</span><span class="p">.</span><span class="nx">System</span><span class="p">.</span><span class="nx">Env</span> <span class="o">==</span> <span class="s">&#34;develop&#34;</span> <span class="o">||</span> <span class="nx">success</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">         <span class="nx">c</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">         <span class="nx">response</span><span class="p">.</span><span class="nf">FailWithDetailed</span><span class="p">(</span><span class="nx">gin</span><span class="p">.</span><span class="nx">H</span><span class="p">{},</span> <span class="s">&#34;权限不足&#34;</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">         <span class="nx">c</span><span class="p">.</span><span class="nf">Abort</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">         <span class="k">return</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
                 <span>更新于 2022-02-08</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
+            </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
                             <a class="link-to-markdown" href="/gin/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/gin/" data-title="gin 常用中间件" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/gin/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/gin/" data-title="gin 常用中间件" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/gin/" data-title="gin 常用中间件"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/gin/" data-title="gin 常用中间件"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/gin/" data-title="gin 常用中间件" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/gin/" data-title="gin 常用中间件" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/gin/" data-title="gin 常用中间件"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/gin/" data-title="gin 常用中间件" data-via="xxxx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/gin/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/gin/" data-title="gin 常用中间件" data-web><i class="fab fa-whatsapp fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/gin/" data-title="gin 常用中间件"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/gin/" data-title="gin 常用中间件"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/gin/" data-title="gin 常用中间件" data-description=""><i class="fab fa-blogger fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/gin/" data-title="gin 常用中间件"><i class="fab fa-evernote fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -1014,20 +1003,20 @@ func (d *Handler) Secure(c *gin.Context) {
         </section>
     </div>
 
-    <div class="post-nav"><a href="/aix1/" class="prev" rel="prev" title="Aix添加和删除Iscsi存储卷"><i class="fas fa-angle-left fa-fw"></i>Aix添加和删除Iscsi存储卷</a>
-            <a href="/payment/" class="next" rel="next" title="微信支付的接口">微信支付的接口<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/aix1/" class="prev" rel="prev" title="Aix添加和删除Iscsi存储卷"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Aix添加和删除Iscsi存储卷</a>
+            <a href="/payment/" class="next" rel="next" title="微信支付的接口">微信支付的接口<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
         <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

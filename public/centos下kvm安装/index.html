@@ -4,13 +4,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>CentOS下kvm安装 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="CentOS下kvm安装" />
 <meta property="og:description" content="CentOS下kvm安装 注：运行kvm保证机器支持虚拟化且在bios中开启。 准备工作 清除iptables规则 1 2 3 4 # CentOS6 service iptables stop; service iptables save # CentOS7 systemctl stop" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-12-03T10:17:16+08:00" />
-<meta property="article:modified_time" content="2021-12-03T10:17:16+08:00" />
+<meta property="article:modified_time" content="2021-12-03T10:17:16+08:00" /><meta property="og:site_name" content="My cool site" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://example.org/logo.png"/>
@@ -18,7 +17,9 @@
 <meta name="twitter:title" content="CentOS下kvm安装"/>
 <meta name="twitter:description" content="CentOS下kvm安装 注：运行kvm保证机器支持虚拟化且在bios中开启。 准备工作 清除iptables规则 1 2 3 4 # CentOS6 service iptables stop; service iptables save # CentOS7 systemctl stop"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/" /><link rel="prev" href="http://example.org/containerd%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" /><link rel="next" href="http://example.org/centos7_install_qemu/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/" /><link rel="prev" href="http://example.org/containerd%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" /><link rel="next" href="http://example.org/centos7_install_qemu/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -36,7 +37,7 @@
             },"description": ""
     }
     </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -54,16 +55,16 @@
             <div class="menu-inner"><a class="menu-item" href="/posts/" title="YZJ 的博客"> 文章 </a><a class="menu-item" href="/tags/" title="YZJ 的博客"> 标签 </a><a class="menu-item" href="/categories/" title="YZJ 的博客"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="请输入搜索文章" id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
                 </a>
             </div>
         </div>
@@ -89,41 +90,39 @@
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="请输入搜索文章" id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </div>
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
                 </div><a class="menu-item" href="/posts/" title="YZJ 的博客">文章</a><a class="menu-item" href="/tags/" title="YZJ 的博客">标签</a><a class="menu-item" href="/categories/" title="YZJ 的博客">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
-</header>
-<div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">CentOS下kvm安装</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-03">2021-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1831 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="true">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CentOS下kvm安装</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yzj</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-12-03">2021-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1831 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
                     <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
@@ -160,11 +159,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># CentOS6</span>
-service iptables stop<span class="p">;</span> service iptables save
-<span class="c1"># CentOS7</span>
-systemctl stop firewalld
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># CentOS6</span>
+</span></span><span class="line"><span class="cl">service iptables stop<span class="p">;</span> service iptables save
+</span></span><span class="line"><span class="cl"><span class="c1"># CentOS7</span>
+</span></span><span class="line"><span class="cl">systemctl stop firewalld
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="关闭selinux">关闭selinux</h2>
 <div class="highlight"><div class="chroma">
@@ -173,9 +172,9 @@ systemctl stop firewalld
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sed -i <span class="s1">&#39;s/SELINUX=enforcing/SELINUX=disabled/&#39;</span> /etc/selinux/config
-setenforce <span class="m">0</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sed -i <span class="s1">&#39;s/SELINUX=enforcing/SELINUX=disabled/&#39;</span> /etc/selinux/config
+</span></span><span class="line"><span class="cl">setenforce <span class="m">0</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="检测系统是否支持虚拟化">检测系统是否支持虚拟化</h2>
 <div class="highlight"><div class="chroma">
@@ -183,8 +182,8 @@ setenforce <span class="m">0</span>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">grep -Ei <span class="s1">&#39;vmx|svm&#39;</span> /proc/cpuinfo
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">grep -Ei <span class="s1">&#39;vmx|svm&#39;</span> /proc/cpuinfo
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果有输出内容，则支持，其中intel cpu支持会有vmx，amd cpu支持会有svm</p>
 <h1 id="安装">安装</h1>
@@ -194,8 +193,8 @@ setenforce <span class="m">0</span>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">yum install -y kvm virt-*  libvirt  bridge-utils qemu-img
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum install -y kvm virt-*  libvirt  bridge-utils qemu-img
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>说明：</p>
 <ul>
@@ -211,8 +210,8 @@ setenforce <span class="m">0</span>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">lsmod <span class="p">|</span>grep kvm
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">lsmod <span class="p">|</span>grep kvm
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>结果输出：</p>
 <div class="highlight"><div class="chroma">
@@ -221,9 +220,9 @@ setenforce <span class="m">0</span>
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">kvm_intel              <span class="m">55496</span>  <span class="m">3</span>
-kvm                   <span class="m">337772</span>  <span class="m">1</span> kvm_intel
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kvm_intel              <span class="m">55496</span>  <span class="m">3</span>
+</span></span><span class="line"><span class="cl">kvm                   <span class="m">337772</span>  <span class="m">1</span> kvm_intel
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果没有，需要执行，还没有就重启一下试试</p>
 <div class="highlight"><div class="chroma">
@@ -231,8 +230,8 @@ kvm                   <span class="m">337772</span>  <span class="m">1</span> kv
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">modprobe kvm-intel
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">modprobe kvm-intel
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="配置网卡">配置网卡</h2>
 <div class="highlight"><div class="chroma">
@@ -241,9 +240,9 @@ kvm                   <span class="m">337772</span>  <span class="m">1</span> kv
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /etc/sysconfig/network-scripts/
-cp ifcfg-eth0 ifcfg-br0
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /etc/sysconfig/network-scripts/
+</span></span><span class="line"><span class="cl">cp ifcfg-eth0 ifcfg-br0
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>编辑eth0</p>
 <div class="highlight"><div class="chroma">
@@ -258,15 +257,15 @@ cp ifcfg-eth0 ifcfg-br0
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">DEVICE</span><span class="o">=</span>eth0
-<span class="nv">HWADDR</span><span class="o">=</span>00:0C:29:55:A7:0A
-<span class="nv">TYPE</span><span class="o">=</span>Ethernet
-<span class="nv">UUID</span><span class="o">=</span>2be47d79-2a68-4b65-a9ce-6a2df93759c6
-<span class="nv">ONBOOT</span><span class="o">=</span>yes
-<span class="nv">NM_CONTROLLED</span><span class="o">=</span>yes
-<span class="nv">BOOTPROTO</span><span class="o">=</span>none
-<span class="nv">BRIDGE</span><span class="o">=</span>br0
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">DEVICE</span><span class="o">=</span>eth0
+</span></span><span class="line"><span class="cl"><span class="nv">HWADDR</span><span class="o">=</span>00:0C:29:55:A7:0A
+</span></span><span class="line"><span class="cl"><span class="nv">TYPE</span><span class="o">=</span>Ethernet
+</span></span><span class="line"><span class="cl"><span class="nv">UUID</span><span class="o">=</span>2be47d79-2a68-4b65-a9ce-6a2df93759c6
+</span></span><span class="line"><span class="cl"><span class="nv">ONBOOT</span><span class="o">=</span>yes
+</span></span><span class="line"><span class="cl"><span class="nv">NM_CONTROLLED</span><span class="o">=</span>yes
+</span></span><span class="line"><span class="cl"><span class="nv">BOOTPROTO</span><span class="o">=</span>none
+</span></span><span class="line"><span class="cl"><span class="nv">BRIDGE</span><span class="o">=</span>br0
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>编辑br0</p>
 <div class="highlight"><div class="chroma">
@@ -284,18 +283,18 @@ cp ifcfg-eth0 ifcfg-br0
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">DEVICE</span><span class="o">=</span>br0
-<span class="c1">#HWADDR=00:0C:29:55:A7:0A</span>
-<span class="nv">TYPE</span><span class="o">=</span>Bridge
-<span class="c1">#UUID=2be47d79-2a68-4b65-a9ce-6a2df93759c6</span>
-<span class="nv">ONBOOT</span><span class="o">=</span>yes
-<span class="nv">NM_CONTROLLED</span><span class="o">=</span>yes
-<span class="nv">BOOTPROTO</span><span class="o">=</span>static
-<span class="nv">IPADDR</span><span class="o">=</span>192.168.11.17
-<span class="nv">NETMASK</span><span class="o">=</span>255.255.255.0
-<span class="nv">GATEWAY</span><span class="o">=</span>192.168.11.1
-<span class="nv">DNS1</span><span class="o">=</span>202.106.0.20
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">DEVICE</span><span class="o">=</span>br0
+</span></span><span class="line"><span class="cl"><span class="c1">#HWADDR=00:0C:29:55:A7:0A</span>
+</span></span><span class="line"><span class="cl"><span class="nv">TYPE</span><span class="o">=</span>Bridge
+</span></span><span class="line"><span class="cl"><span class="c1">#UUID=2be47d79-2a68-4b65-a9ce-6a2df93759c6</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ONBOOT</span><span class="o">=</span>yes
+</span></span><span class="line"><span class="cl"><span class="nv">NM_CONTROLLED</span><span class="o">=</span>yes
+</span></span><span class="line"><span class="cl"><span class="nv">BOOTPROTO</span><span class="o">=</span>static
+</span></span><span class="line"><span class="cl"><span class="nv">IPADDR</span><span class="o">=</span>192.168.11.17
+</span></span><span class="line"><span class="cl"><span class="nv">NETMASK</span><span class="o">=</span>255.255.255.0
+</span></span><span class="line"><span class="cl"><span class="nv">GATEWAY</span><span class="o">=</span>192.168.11.1
+</span></span><span class="line"><span class="cl"><span class="nv">DNS1</span><span class="o">=</span>202.106.0.20
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>记得重启网卡：<code>/etc/init.d/network restart</code></p>
 <div class="highlight"><div class="chroma">
@@ -335,40 +334,40 @@ cp ifcfg-eth0 ifcfg-br0
 </span><span class="lnt">33
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">br0       Link encap:Ethernet  HWaddr 00:0C:29:55:A7:0A
-          inet addr:192.168.11.17  Bcast:192.168.11.255  Mask:255.255.255.0
-          inet6 addr: fe80::20c:29ff:fe55:a70a/64 Scope:Link
-          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-          RX packets:141326 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:90931 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:0
-          RX bytes:456024940 <span class="o">(</span>434.8 MiB<span class="o">)</span>  TX bytes:10933593 <span class="o">(</span>10.4 MiB<span class="o">)</span>
-
-eth0      Link encap:Ethernet  HWaddr 00:0C:29:55:A7:0A
-          inet6 addr: fe80::20c:29ff:fe55:a70a/64 Scope:Link
-          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-          RX packets:341978 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:90946 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000
-          RX bytes:468848861 <span class="o">(</span>447.1 MiB<span class="o">)</span>  TX bytes:10934699 <span class="o">(</span>10.4 MiB<span class="o">)</span>
-
-lo        Link encap:Local Loopback
-          inet addr:127.0.0.1  Mask:255.0.0.0
-          inet6 addr: ::1/128 Scope:Host
-          UP LOOPBACK RUNNING  MTU:65536  Metric:1
-          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:0
-          RX bytes:0 <span class="o">(</span>0.0 b<span class="o">)</span>  TX bytes:0 <span class="o">(</span>0.0 b<span class="o">)</span>
-
-virbr0    Link encap:Ethernet  HWaddr 52:54:00:14:EF:D5
-          inet addr:192.168.122.1  Bcast:192.168.122.255  Mask:255.255.255.0
-          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:0
-          RX bytes:0 <span class="o">(</span>0.0 b<span class="o">)</span>  TX bytes:0 <span class="o">(</span>0.0 b<span class="o">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">br0       Link encap:Ethernet  HWaddr 00:0C:29:55:A7:0A
+</span></span><span class="line"><span class="cl">          inet addr:192.168.11.17  Bcast:192.168.11.255  Mask:255.255.255.0
+</span></span><span class="line"><span class="cl">          inet6 addr: fe80::20c:29ff:fe55:a70a/64 Scope:Link
+</span></span><span class="line"><span class="cl">          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+</span></span><span class="line"><span class="cl">          RX packets:141326 errors:0 dropped:0 overruns:0 frame:0
+</span></span><span class="line"><span class="cl">          TX packets:90931 errors:0 dropped:0 overruns:0 carrier:0
+</span></span><span class="line"><span class="cl">          collisions:0 txqueuelen:0
+</span></span><span class="line"><span class="cl">          RX bytes:456024940 <span class="o">(</span>434.8 MiB<span class="o">)</span>  TX bytes:10933593 <span class="o">(</span>10.4 MiB<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">eth0      Link encap:Ethernet  HWaddr 00:0C:29:55:A7:0A
+</span></span><span class="line"><span class="cl">          inet6 addr: fe80::20c:29ff:fe55:a70a/64 Scope:Link
+</span></span><span class="line"><span class="cl">          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+</span></span><span class="line"><span class="cl">          RX packets:341978 errors:0 dropped:0 overruns:0 frame:0
+</span></span><span class="line"><span class="cl">          TX packets:90946 errors:0 dropped:0 overruns:0 carrier:0
+</span></span><span class="line"><span class="cl">          collisions:0 txqueuelen:1000
+</span></span><span class="line"><span class="cl">          RX bytes:468848861 <span class="o">(</span>447.1 MiB<span class="o">)</span>  TX bytes:10934699 <span class="o">(</span>10.4 MiB<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">lo        Link encap:Local Loopback
+</span></span><span class="line"><span class="cl">          inet addr:127.0.0.1  Mask:255.0.0.0
+</span></span><span class="line"><span class="cl">          inet6 addr: ::1/128 Scope:Host
+</span></span><span class="line"><span class="cl">          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+</span></span><span class="line"><span class="cl">          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+</span></span><span class="line"><span class="cl">          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+</span></span><span class="line"><span class="cl">          collisions:0 txqueuelen:0
+</span></span><span class="line"><span class="cl">          RX bytes:0 <span class="o">(</span>0.0 b<span class="o">)</span>  TX bytes:0 <span class="o">(</span>0.0 b<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">virbr0    Link encap:Ethernet  HWaddr 52:54:00:14:EF:D5
+</span></span><span class="line"><span class="cl">          inet addr:192.168.122.1  Bcast:192.168.122.255  Mask:255.255.255.0
+</span></span><span class="line"><span class="cl">          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+</span></span><span class="line"><span class="cl">          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+</span></span><span class="line"><span class="cl">          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+</span></span><span class="line"><span class="cl">          collisions:0 txqueuelen:0
+</span></span><span class="line"><span class="cl">          RX bytes:0 <span class="o">(</span>0.0 b<span class="o">)</span>  TX bytes:0 <span class="o">(</span>0.0 b<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="启动服务">启动服务</h2>
 <div class="highlight"><div class="chroma">
@@ -377,9 +376,9 @@ virbr0    Link encap:Ethernet  HWaddr 52:54:00:14:EF:D5
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">/etc/init.d/libvirtd start
-/etc/init.d/messagebus restart
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/etc/init.d/libvirtd start
+</span></span><span class="line"><span class="cl">/etc/init.d/messagebus restart
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>此时可以查看网络接口列表</p>
 <div class="highlight"><div class="chroma">
@@ -390,11 +389,11 @@ virbr0    Link encap:Ethernet  HWaddr 52:54:00:14:EF:D5
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ brctl show 
-bridge name     bridge id               STP enabled     interfaces
-br0             8000.000c2955a70a       no              eth0
-virbr0          8000.52540014efd5       yes             virbr0-nic
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ brctl show 
+</span></span><span class="line"><span class="cl">bridge name     bridge id               STP enabled     interfaces
+</span></span><span class="line"><span class="cl">br0             8000.000c2955a70a       no              eth0
+</span></span><span class="line"><span class="cl">virbr0          8000.52540014efd5       yes             virbr0-nic
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="创建虚拟机">创建虚拟机</h1>
 <p>创建一个存储虚拟机虚拟磁盘的目录，该目录所在分区必须足够大</p>
@@ -403,8 +402,8 @@ virbr0          8000.52540014efd5       yes             virbr0-nic
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir /data/   
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir /data/   
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>执行命令：</p>
 <div class="highlight"><div class="chroma">
@@ -423,25 +422,25 @@ virbr0          8000.52540014efd5       yes             virbr0-nic
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">virt-install <span class="se">\
-</span><span class="se"></span>--name ping <span class="se">\
-</span><span class="se"></span>--ram <span class="m">512</span> <span class="se">\
-</span><span class="se"></span>--disk <span class="nv">path</span><span class="o">=</span>/data/ping.img,size<span class="o">=</span><span class="m">20</span> <span class="se">\
-</span><span class="se"></span>--vcpus <span class="m">1</span> <span class="se">\
-</span><span class="se"></span>--os-type linux <span class="se">\
-</span><span class="se"></span>--os-variant rhel6 <span class="se">\
-</span><span class="se"></span>--network <span class="nv">bridge</span><span class="o">=</span>br0 <span class="se">\
-</span><span class="se"></span>--graphics none <span class="se">\
-</span><span class="se"></span>--console pty,target_type<span class="o">=</span>serial <span class="se">\
-</span><span class="se"></span>--location <span class="s1">&#39;http://mirrors.163.com/centos/6.8/os/x86_64/&#39;</span> <span class="se">\
-</span><span class="se"></span>--extra-args <span class="s1">&#39;console=ttyS0,115200n8 serial&#39;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">virt-install <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--name ping <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--ram <span class="m">512</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--disk <span class="nv">path</span><span class="o">=</span>/data/ping.img,size<span class="o">=</span><span class="m">20</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--vcpus <span class="m">1</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--os-type linux <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--os-variant rhel6 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--network <span class="nv">bridge</span><span class="o">=</span>br0 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--graphics none <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--console pty,target_type<span class="o">=</span>serial <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--location <span class="s1">&#39;http://mirrors.163.com/centos/6.8/os/x86_64/&#39;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--extra-args <span class="s1">&#39;console=ttyS0,115200n8 serial&#39;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>说明：</p>
 <ul>
 <li>&ndash;name  指定虚拟机的名字</li>
 <li>&ndash;ram 指定内存分配多少</li>
-<li>&ndash;disk path 指定虚拟磁盘放到哪里，size=30 指定磁盘大小为30G,这样磁盘文件格式为raw，raw格式不能做快照，后面有说明，需要转换为qcow2格式，如果要使用qcow2格式的虚拟磁盘，需要事先创建qcow2格式的虚拟磁盘。 参考  <a href="http://www.361way.com/kvm-qcow2-preallocation-metadata/3354.html" target="_blank" rel="noopener noreffer">http://www.361way.com/kvm-qcow2-preallocation-metadata/3354.html</a>   示例:qemu-img create -f qcow2 -o preallocation=metadata  /data/test02.img 7G;  &ndash;disk path=/data/test02.img,format=qcow2,size=7,bus=virtio</li>
+<li>&ndash;disk path 指定虚拟磁盘放到哪里，size=30 指定磁盘大小为30G,这样磁盘文件格式为raw，raw格式不能做快照，后面有说明，需要转换为qcow2格式，如果要使用qcow2格式的虚拟磁盘，需要事先创建qcow2格式的虚拟磁盘。 参考  <a href="http://www.361way.com/kvm-qcow2-preallocation-metadata/3354.html" target="_blank" rel="noopener noreffer ">http://www.361way.com/kvm-qcow2-preallocation-metadata/3354.html</a>   示例:qemu-img create -f qcow2 -o preallocation=metadata  /data/test02.img 7G;  &ndash;disk path=/data/test02.img,format=qcow2,size=7,bus=virtio</li>
 <li>&ndash;vcpus 指定分配cpu几个</li>
 <li>&ndash;os-type 指定系统类型为linux</li>
 <li>&ndash;os-variant 指定系统版本</li>
@@ -463,15 +462,15 @@ virbr0          8000.52540014efd5       yes             virbr0-nic
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">开始安装......
-搜索文件 .treeinfo......                             <span class="p">|</span>  <span class="m">720</span> B     00:00 ...
-搜索文件 vmlinuz......                               <span class="p">|</span> 7.7 MB     00:02 ...
-搜索文件 initrd.img......                            <span class="p">|</span>  <span class="m">63</span> MB     00:23 ...
-创建存储文件 ping.img                       <span class="p">|</span>  <span class="m">30</span> GB     00:00
-创建域......                                          <span class="p">|</span>    <span class="m">0</span> B     00:00
-连接到域 ping
-Escape character is ^<span class="o">]</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">开始安装......
+</span></span><span class="line"><span class="cl">搜索文件 .treeinfo......                             <span class="p">|</span>  <span class="m">720</span> B     00:00 ...
+</span></span><span class="line"><span class="cl">搜索文件 vmlinuz......                               <span class="p">|</span> 7.7 MB     00:02 ...
+</span></span><span class="line"><span class="cl">搜索文件 initrd.img......                            <span class="p">|</span>  <span class="m">63</span> MB     00:23 ...
+</span></span><span class="line"><span class="cl">创建存储文件 ping.img                       <span class="p">|</span>  <span class="m">30</span> GB     00:00
+</span></span><span class="line"><span class="cl">创建域......                                          <span class="p">|</span>    <span class="m">0</span> B     00:00
+</span></span><span class="line"><span class="cl">连接到域 ping
+</span></span><span class="line"><span class="cl">Escape character is ^<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后就是我们非常熟悉的OK or  Next 了 ，只不过这个过程是文本模式，如果想使用图形，只能开启vnc啦</p>
 <p>最后安装完，reboot就进入刚刚创建的虚拟机了。要想退回到宿主机，<code>ctrl +  ]</code> 即可。
@@ -485,8 +484,8 @@ Escape character is ^<span class="o">]</span>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">yum install libvirt-devel 
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum install libvirt-devel 
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="安装python的libvirt库">安装python的libvirt库</h2>
 <div class="highlight"><div class="chroma">
@@ -494,8 +493,8 @@ Escape character is ^<span class="o">]</span>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">pip install libvirt-python libvirt
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install libvirt-python libvirt
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="测试">测试</h2>
 <div class="highlight"><div class="chroma">
@@ -504,9 +503,9 @@ Escape character is ^<span class="o">]</span>
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">libvirt</span>
-<span class="n">conn</span> <span class="o">=</span> <span class="n">libvirt</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&#34;qemu:///system&#34;</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">libvirt</span>
+</span></span><span class="line"><span class="cl"><span class="n">conn</span> <span class="o">=</span> <span class="n">libvirt</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&#34;qemu:///system&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="远程管理">远程管理</h2>
 <p>直接上述安装还只能在本地使用python管理。如果还需要远程管理的话还要额外的配置。</p>
@@ -530,22 +529,22 @@ Escape character is ^<span class="o">]</span>
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">###/etc/libvirt/libvirtd.conf</span>
-<span class="nv">listen_tls</span> <span class="o">=</span> 0　　　　　　　　　　<span class="c1">#禁用tls登录</span>
-<span class="nv">listen_tcp</span> <span class="o">=</span> 1　　　　　　　　　  <span class="c1">#启用tcp方式登录</span>
-<span class="nv">tcp_port</span> <span class="o">=</span> <span class="s2">&#34;16509&#34;</span>　　　　　　　<span class="c1">#tcp端口16509</span>
-<span class="nv">listen_addr</span> <span class="o">=</span> <span class="s2">&#34;0.0.0.0&#34;</span>
-<span class="nv">unix_sock_group</span> <span class="o">=</span> <span class="s2">&#34;libvirtd&#34;</span>
-<span class="nv">unix_sock_rw_perms</span> <span class="o">=</span> <span class="s2">&#34;0770&#34;</span>
-<span class="nv">auth_unix_ro</span> <span class="o">=</span> <span class="s2">&#34;none&#34;</span>
-<span class="nv">auth_unix_rw</span> <span class="o">=</span> <span class="s2">&#34;none&#34;</span>
-<span class="nv">auth_tcp</span> <span class="o">=</span> <span class="s2">&#34;none&#34;</span>　　　　　　   <span class="c1">#TCP不使用认证</span>
-<span class="nv">max_clients</span> <span class="o">=</span> 1024　　　　　　  <span class="c1">#最大总的连接客户数1024</span>
-<span class="nv">min_workers</span> <span class="o">=</span> 50　　　　　　    <span class="c1">#libvirtd启动时，初始的工作线程数目</span>
-<span class="nv">max_workers</span> <span class="o">=</span> 200　　　　　　 <span class="c1">#同上，最大数目</span>
-<span class="nv">max_requests</span> <span class="o">=</span> 1000　　　　　 <span class="c1">#最大同时支持的RPC调用，必须大于等于max_workers</span>
-<span class="nv">max_client_requests</span> <span class="o">=</span> 200　　 <span class="c1">#每个客户端支持的最大连接数</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">###/etc/libvirt/libvirtd.conf</span>
+</span></span><span class="line"><span class="cl"><span class="nv">listen_tls</span> <span class="o">=</span> 0　　　　　　　　　　<span class="c1">#禁用tls登录</span>
+</span></span><span class="line"><span class="cl"><span class="nv">listen_tcp</span> <span class="o">=</span> 1　　　　　　　　　  <span class="c1">#启用tcp方式登录</span>
+</span></span><span class="line"><span class="cl"><span class="nv">tcp_port</span> <span class="o">=</span> <span class="s2">&#34;16509&#34;</span>　　　　　　　<span class="c1">#tcp端口16509</span>
+</span></span><span class="line"><span class="cl"><span class="nv">listen_addr</span> <span class="o">=</span> <span class="s2">&#34;0.0.0.0&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">unix_sock_group</span> <span class="o">=</span> <span class="s2">&#34;libvirtd&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">unix_sock_rw_perms</span> <span class="o">=</span> <span class="s2">&#34;0770&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">auth_unix_ro</span> <span class="o">=</span> <span class="s2">&#34;none&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">auth_unix_rw</span> <span class="o">=</span> <span class="s2">&#34;none&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">auth_tcp</span> <span class="o">=</span> <span class="s2">&#34;none&#34;</span>　　　　　　   <span class="c1">#TCP不使用认证</span>
+</span></span><span class="line"><span class="cl"><span class="nv">max_clients</span> <span class="o">=</span> 1024　　　　　　  <span class="c1">#最大总的连接客户数1024</span>
+</span></span><span class="line"><span class="cl"><span class="nv">min_workers</span> <span class="o">=</span> 50　　　　　　    <span class="c1">#libvirtd启动时，初始的工作线程数目</span>
+</span></span><span class="line"><span class="cl"><span class="nv">max_workers</span> <span class="o">=</span> 200　　　　　　 <span class="c1">#同上，最大数目</span>
+</span></span><span class="line"><span class="cl"><span class="nv">max_requests</span> <span class="o">=</span> 1000　　　　　 <span class="c1">#最大同时支持的RPC调用，必须大于等于max_workers</span>
+</span></span><span class="line"><span class="cl"><span class="nv">max_client_requests</span> <span class="o">=</span> 200　　 <span class="c1">#每个客户端支持的最大连接数</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>修改配置文件<code>/etc/sysconfig/libvirtd</code>：</p>
 <div class="highlight"><div class="chroma">
@@ -553,8 +552,8 @@ Escape character is ^<span class="o">]</span>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">LIBVIRTD_ARGS</span><span class="o">=</span><span class="s2">&#34;--listen&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">LIBVIRTD_ARGS</span><span class="o">=</span><span class="s2">&#34;--listen&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>重启服务后libvirtd会绑定在16509端口</p>
 <p>在远程的机器上安装python库</p>
@@ -564,9 +563,9 @@ Escape character is ^<span class="o">]</span>
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">yum install libvirt-devel python-devel <span class="c1"># 要先安装libvirt-devel包，因为libvirt-python依赖于libvirt-devel</span>
-pip install libvirt libvirt-python
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum install libvirt-devel python-devel <span class="c1"># 要先安装libvirt-devel包，因为libvirt-python依赖于libvirt-devel</span>
+</span></span><span class="line"><span class="cl">pip install libvirt libvirt-python
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>测试代码：</p>
 <div class="highlight"><div class="chroma">
@@ -575,9 +574,9 @@ pip install libvirt libvirt-python
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">libvirt</span>
-<span class="n">conn</span> <span class="o">=</span> <span class="n">libvirt</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&#34;qemu+tcp://192.168.11.17/system&#34;</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">libvirt</span>
+</span></span><span class="line"><span class="cl"><span class="n">conn</span> <span class="o">=</span> <span class="n">libvirt</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&#34;qemu+tcp://192.168.11.17/system&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>没有报错，安装完毕。</p>
 </div><div class="post-footer" id="post-footer">
@@ -585,15 +584,13 @@ pip install libvirt libvirt-python
         <div class="post-info-line">
             <div class="post-info-mod">
                 <span>更新于 2021-12-03</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
+            </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
                             <a class="link-to-markdown" href="/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/" data-title="CentOS下kvm安装" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/" data-title="CentOS下kvm安装" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/" data-title="CentOS下kvm安装"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/" data-title="CentOS下kvm安装"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/" data-title="CentOS下kvm安装" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/" data-title="CentOS下kvm安装" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/" data-title="CentOS下kvm安装"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/" data-title="CentOS下kvm安装" data-via="xxxx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/" data-title="CentOS下kvm安装" data-web><i class="fab fa-whatsapp fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/" data-title="CentOS下kvm安装"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/" data-title="CentOS下kvm安装"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/" data-title="CentOS下kvm安装" data-description=""><i class="fab fa-blogger fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/" data-title="CentOS下kvm安装"><i class="fab fa-evernote fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -605,20 +602,20 @@ pip install libvirt libvirt-python
         </section>
     </div>
 
-    <div class="post-nav"><a href="/containerd%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="prev" rel="prev" title="Containerd源码分析"><i class="fas fa-angle-left fa-fw"></i>Containerd源码分析</a>
-            <a href="/centos7_install_qemu/" class="next" rel="next" title="CentOS7 安装 qemu-5.2.0">CentOS7 安装 qemu-5.2.0<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/containerd%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="prev" rel="prev" title="Containerd源码分析"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Containerd源码分析</a>
+            <a href="/centos7_install_qemu/" class="next" rel="next" title="CentOS7 安装 qemu-5.2.0">CentOS7 安装 qemu-5.2.0<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
         <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

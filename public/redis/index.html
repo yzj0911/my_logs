@@ -4,13 +4,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>Redis - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="Redis" />
 <meta property="og:description" content="redis 简介：Redis ，全称 Remote Dictionary Server ，是一个基于内存的高性能 Key-Value 数据库。 脚本自动安装任意版本 sh redis-install.sh 4.0.10 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/redis/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-05-09T13:23:30+08:00" />
-<meta property="article:modified_time" content="2022-05-09T13:23:30+08:00" />
+<meta property="article:modified_time" content="2022-05-09T13:23:30+08:00" /><meta property="og:site_name" content="My cool site" />
 
 
 <meta name="twitter:card" content="summary_large_image"/>
@@ -19,7 +18,9 @@
 <meta name="twitter:title" content="Redis"/>
 <meta name="twitter:description" content="redis 简介：Redis ，全称 Remote Dictionary Server ，是一个基于内存的高性能 Key-Value 数据库。 脚本自动安装任意版本 sh redis-install.sh 4.0.10 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/redis/" /><link rel="prev" href="http://example.org/%E4%B8%89%E8%89%B2%E6%A0%87%E8%AE%B0%E6%B3%95/" /><link rel="next" href="http://example.org/%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/redis/" /><link rel="prev" href="http://example.org/%E4%B8%89%E8%89%B2%E6%A0%87%E8%AE%B0%E6%B3%95/" /><link rel="next" href="http://example.org/%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -28,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/redis\/"
-        },"genre": "posts","keywords": "面试","wordcount":  6242 ,
+        },"genre": "posts","keywords": "面试","wordcount":  6243 ,
         "url": "http:\/\/example.org\/redis\/","datePublished": "2022-05-09T13:23:30+08:00","dateModified": "2022-05-09T13:23:30+08:00","publisher": {
             "@type": "Organization",
             "name": "YZJ"},"author": {
@@ -37,7 +38,7 @@
             },"description": ""
     }
     </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -55,16 +56,16 @@
             <div class="menu-inner"><a class="menu-item" href="/posts/" title="YZJ 的博客"> 文章 </a><a class="menu-item" href="/tags/" title="YZJ 的博客"> 标签 </a><a class="menu-item" href="/categories/" title="YZJ 的博客"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="请输入搜索文章" id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
                 </a>
             </div>
         </div>
@@ -90,41 +91,39 @@
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="请输入搜索文章" id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </div>
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
                 </div><a class="menu-item" href="/posts/" title="YZJ 的博客">文章</a><a class="menu-item" href="/tags/" title="YZJ 的博客">标签</a><a class="menu-item" href="/categories/" title="YZJ 的博客">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
-</header>
-<div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">Redis</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%9D%A2%E8%AF%95/"><i class="far fa-folder fa-fw"></i>面试</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-09">2022-05-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6242 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 13 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="true">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Redis</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yzj</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%9D%A2%E8%AF%95/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>面试</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-05-09">2022-05-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 6243 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 13 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
                     <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
@@ -262,108 +261,108 @@
 </span><span class="lnt">101
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#! /usr/bin/bash
-</span><span class="cp"></span><span class="c1">##redis任何版本全程自动化源码编译安装</span>
-<span class="c1">##用法：sh redis-install.sh 4.0.10 （后面跟的是你需要的版本号，需要什么版本就写什么版本），我这里安装的4.0.10</span>
-<span class="nv">version</span><span class="o">=</span><span class="nv">$1</span>
-usage<span class="o">(){</span>
-<span class="nb">echo</span> <span class="s2">&#34;usage: </span><span class="nv">$0</span><span class="s2"> version&#34;</span>
-<span class="o">}</span>
-
-<span class="k">if</span> <span class="o">[</span> <span class="nv">$#</span> -ne <span class="m">1</span> <span class="o">]</span>
-<span class="k">then</span>
-usage
-<span class="nb">exit</span> -1
-<span class="k">fi</span>
-
-<span class="c1">#Redis安装包下载</span>
-<span class="nb">cd</span> /usr/local/src
-<span class="k">if</span> <span class="o">[</span> ! -f redis-<span class="si">${</span><span class="nv">version</span><span class="si">}</span>.tar.gz <span class="o">]</span>
-<span class="k">then</span>
-curl -o /usr/local/src/redis-<span class="si">${</span><span class="nv">version</span><span class="si">}</span>.tar.gz http://download.redis.io/releases/redis-<span class="si">${</span><span class="nv">version</span><span class="si">}</span>.tar.gz
-<span class="k">fi</span>
-
-<span class="c1">#Redis依赖包安装</span>
-yum clean all
-yum makecache fast
-yum -y install gcc gcc-c++ tcl
-
-<span class="c1">#编译Redis所需要的gcc</span>
-yum -y install centos-release-scl
-yum -y install devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils
-<span class="nb">source</span> /opt/rh/devtoolset-9/enable
-<span class="nb">echo</span> <span class="s2">&#34;source /opt/rh/devtoolset-9/enable&#34;</span> &gt;&gt;/etc/profile
-gcc --version
-
-<span class="c1">##内系统参数核优化</span>
-cat &gt;&gt; /etc/rc.d/rc.local &lt;&lt; <span class="s2">&#34;EOF&#34;</span>
-
-<span class="c1">##关闭Linux的THP（内存管理系统）通过使用更大的内存页面，来减少具有大量内存的计算机上的TLB的开销</span>
-<span class="k">if</span> <span class="o">[</span> -f /sys/kernel/mm/transparent_hugepage/enabled <span class="o">]</span>
-<span class="k">then</span>
-<span class="nb">echo</span> never &gt; /sys/kernel/mm/transparent_hugepage/enabled
-<span class="k">fi</span>
-
-<span class="k">if</span> <span class="o">[</span> -f /sys/kernel/mm/transparent_hugepage/defrag <span class="o">]</span>
-<span class="k">then</span>
-<span class="nb">echo</span> never &gt; /sys/kernel/mm/transparent_hugepage/defrag
-<span class="k">fi</span>
-EOF
-chmod u+x /etc/rc.d/rc.local
-
-<span class="k">if</span> <span class="o">[</span> -f /sys/kernel/mm/transparent_hugepage/enabled <span class="o">]</span>
-<span class="k">then</span>
-<span class="nb">echo</span> never &gt; /sys/kernel/mm/transparent_hugepage/enabled
-<span class="k">fi</span>
-
-<span class="k">if</span> <span class="o">[</span> -f /sys/kernel/mm/transparent_hugepage/defrag <span class="o">]</span>
-<span class="k">then</span>
-<span class="nb">echo</span> never &gt; /sys/kernel/mm/transparent_hugepage/defrag
-<span class="k">fi</span>
-
-cat &gt;&gt; /etc/sysctl.conf &lt;&lt; <span class="s2">&#34;EOF&#34;</span>
-
-<span class="c1">#Linux系统内核参数优化</span>
-net.core.somaxconn <span class="o">=</span> <span class="m">2048</span>
-net.ipv4.tcp_max_syn_backlog <span class="o">=</span> <span class="m">2048</span>
-vm.overcommit_memory <span class="o">=</span> <span class="m">1</span>
-EOF
-sysctl -p
-
-cat &gt; /etc/security/limits.conf &lt;&lt; <span class="s2">&#34;EOF&#34;</span>
-root soft nofile <span class="m">65535</span>
-root hard nofile <span class="m">65535</span>
-* soft nofile <span class="m">65535</span>
-* hard nofile <span class="m">65535</span>
-EOF
-
-<span class="c1">#Redis编译安装</span>
-<span class="nb">cd</span> /usr/local/src
-tar -zxvf redis-<span class="si">${</span><span class="nv">version</span><span class="si">}</span>.tar.gz
-<span class="nb">cd</span> /usr/local/src/redis-<span class="si">${</span><span class="nv">version</span><span class="si">}</span>
-make
-make <span class="nv">PREFIX</span><span class="o">=</span>/usr/local/redis install
-
-<span class="c1">#Redis基础配置</span>
-mkdir -p /usr/local/redis/<span class="o">{</span>etc,logs,data<span class="o">}</span>
-egrep -v <span class="s2">&#34;^</span>$<span class="s2">|^#&#34;</span> /usr/local/src/redis-<span class="si">${</span><span class="nv">version</span><span class="si">}</span>/redis.conf &gt; /usr/local/redis/etc/redis.conf
-<span class="c1">#sed -i &#34;s/bind 127.0.0.1/bind 0.0.0.0/g&#34; /usr/local/redis/etc/redis.conf</span>
-sed -i <span class="s2">&#34;s/protected-mode yes/protected-mode no/g&#34;</span> /usr/local/redis/etc/redis.conf
-sed -i <span class="s2">&#34;s/daemonize no/daemonize yes/g&#34;</span> /usr/local/redis/etc/redis.conf
-sed -i <span class="s2">&#34;s/pidfile \/var\/run\/redis_6379.pid/pidfile \/usr\/local\/redis\/redis.pid/g&#34;</span> /usr/local/redis/etc/redis.conf
-sed -i <span class="s2">&#34;s/dir \.\//dir \/usr\/local\/redis\/data/g&#34;</span> /usr/local/redis/etc/redis.conf
-sed -i <span class="s2">&#34;s/logfile \&#34;\&#34;/logfile \&#34;\/usr\/local\/redis\/logs\/redis.log\&#34;/g&#34;</span> /usr/local/redis/etc/redis.conf
-sed -i <span class="s2">&#34;s/dbfilename dump.rdb/dbfilename dump.rdb/g&#34;</span> /usr/local/redis/etc/redis.conf
-sed -i <span class="s2">&#34;s/appendfilename \&#34;appendonly.aof\&#34;/appendfilename \&#34;appendonly.aof\&#34;/g&#34;</span> /usr/local/redis/etc/redis.conf
-
-<span class="c1">#PATH配置</span>
-<span class="nb">echo</span> <span class="s2">&#34;export PATH=</span><span class="si">${</span><span class="nv">PATH</span><span class="si">}</span><span class="s2">:/usr/local/redis/bin&#34;</span> &gt;&gt;/etc/profile
-<span class="nb">source</span> /etc/profile
-<span class="c1">#启动redis服务</span>
-/usr/local/redis/bin/redis-server /usr/local/redis/etc/redis.conf
-<span class="c1">#查看redis监听端口</span>
-netstat -tanp<span class="p">|</span>grep redis
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#! /usr/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1">##redis任何版本全程自动化源码编译安装</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##用法：sh redis-install.sh 4.0.10 （后面跟的是你需要的版本号，需要什么版本就写什么版本），我这里安装的4.0.10</span>
+</span></span><span class="line"><span class="cl"><span class="nv">version</span><span class="o">=</span><span class="nv">$1</span>
+</span></span><span class="line"><span class="cl">usage<span class="o">(){</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;usage: </span><span class="nv">$0</span><span class="s2"> version&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="nv">$#</span> -ne <span class="m">1</span> <span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="k">then</span>
+</span></span><span class="line"><span class="cl">usage
+</span></span><span class="line"><span class="cl"><span class="nb">exit</span> -1
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#Redis安装包下载</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /usr/local/src
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> ! -f redis-<span class="si">${</span><span class="nv">version</span><span class="si">}</span>.tar.gz <span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="k">then</span>
+</span></span><span class="line"><span class="cl">curl -o /usr/local/src/redis-<span class="si">${</span><span class="nv">version</span><span class="si">}</span>.tar.gz http://download.redis.io/releases/redis-<span class="si">${</span><span class="nv">version</span><span class="si">}</span>.tar.gz
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#Redis依赖包安装</span>
+</span></span><span class="line"><span class="cl">yum clean all
+</span></span><span class="line"><span class="cl">yum makecache fast
+</span></span><span class="line"><span class="cl">yum -y install gcc gcc-c++ tcl
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#编译Redis所需要的gcc</span>
+</span></span><span class="line"><span class="cl">yum -y install centos-release-scl
+</span></span><span class="line"><span class="cl">yum -y install devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> /opt/rh/devtoolset-9/enable
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;source /opt/rh/devtoolset-9/enable&#34;</span> &gt;&gt;/etc/profile
+</span></span><span class="line"><span class="cl">gcc --version
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">##内系统参数核优化</span>
+</span></span><span class="line"><span class="cl">cat &gt;&gt; /etc/rc.d/rc.local &lt;&lt; <span class="s2">&#34;EOF&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">##关闭Linux的THP（内存管理系统）通过使用更大的内存页面，来减少具有大量内存的计算机上的TLB的开销</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> -f /sys/kernel/mm/transparent_hugepage/enabled <span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="k">then</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> never &gt; /sys/kernel/mm/transparent_hugepage/enabled
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> -f /sys/kernel/mm/transparent_hugepage/defrag <span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="k">then</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> never &gt; /sys/kernel/mm/transparent_hugepage/defrag
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">EOF
+</span></span><span class="line"><span class="cl">chmod u+x /etc/rc.d/rc.local
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> -f /sys/kernel/mm/transparent_hugepage/enabled <span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="k">then</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> never &gt; /sys/kernel/mm/transparent_hugepage/enabled
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> -f /sys/kernel/mm/transparent_hugepage/defrag <span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="k">then</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> never &gt; /sys/kernel/mm/transparent_hugepage/defrag
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cat &gt;&gt; /etc/sysctl.conf &lt;&lt; <span class="s2">&#34;EOF&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#Linux系统内核参数优化</span>
+</span></span><span class="line"><span class="cl">net.core.somaxconn <span class="o">=</span> <span class="m">2048</span>
+</span></span><span class="line"><span class="cl">net.ipv4.tcp_max_syn_backlog <span class="o">=</span> <span class="m">2048</span>
+</span></span><span class="line"><span class="cl">vm.overcommit_memory <span class="o">=</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">EOF
+</span></span><span class="line"><span class="cl">sysctl -p
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cat &gt; /etc/security/limits.conf &lt;&lt; <span class="s2">&#34;EOF&#34;</span>
+</span></span><span class="line"><span class="cl">root soft nofile <span class="m">65535</span>
+</span></span><span class="line"><span class="cl">root hard nofile <span class="m">65535</span>
+</span></span><span class="line"><span class="cl">* soft nofile <span class="m">65535</span>
+</span></span><span class="line"><span class="cl">* hard nofile <span class="m">65535</span>
+</span></span><span class="line"><span class="cl">EOF
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#Redis编译安装</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /usr/local/src
+</span></span><span class="line"><span class="cl">tar -zxvf redis-<span class="si">${</span><span class="nv">version</span><span class="si">}</span>.tar.gz
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /usr/local/src/redis-<span class="si">${</span><span class="nv">version</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">make
+</span></span><span class="line"><span class="cl">make <span class="nv">PREFIX</span><span class="o">=</span>/usr/local/redis install
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#Redis基础配置</span>
+</span></span><span class="line"><span class="cl">mkdir -p /usr/local/redis/<span class="o">{</span>etc,logs,data<span class="o">}</span>
+</span></span><span class="line"><span class="cl">egrep -v <span class="s2">&#34;^</span>$<span class="s2">|^#&#34;</span> /usr/local/src/redis-<span class="si">${</span><span class="nv">version</span><span class="si">}</span>/redis.conf &gt; /usr/local/redis/etc/redis.conf
+</span></span><span class="line"><span class="cl"><span class="c1">#sed -i &#34;s/bind 127.0.0.1/bind 0.0.0.0/g&#34; /usr/local/redis/etc/redis.conf</span>
+</span></span><span class="line"><span class="cl">sed -i <span class="s2">&#34;s/protected-mode yes/protected-mode no/g&#34;</span> /usr/local/redis/etc/redis.conf
+</span></span><span class="line"><span class="cl">sed -i <span class="s2">&#34;s/daemonize no/daemonize yes/g&#34;</span> /usr/local/redis/etc/redis.conf
+</span></span><span class="line"><span class="cl">sed -i <span class="s2">&#34;s/pidfile \/var\/run\/redis_6379.pid/pidfile \/usr\/local\/redis\/redis.pid/g&#34;</span> /usr/local/redis/etc/redis.conf
+</span></span><span class="line"><span class="cl">sed -i <span class="s2">&#34;s/dir \.\//dir \/usr\/local\/redis\/data/g&#34;</span> /usr/local/redis/etc/redis.conf
+</span></span><span class="line"><span class="cl">sed -i <span class="s2">&#34;s/logfile \&#34;\&#34;/logfile \&#34;\/usr\/local\/redis\/logs\/redis.log\&#34;/g&#34;</span> /usr/local/redis/etc/redis.conf
+</span></span><span class="line"><span class="cl">sed -i <span class="s2">&#34;s/dbfilename dump.rdb/dbfilename dump.rdb/g&#34;</span> /usr/local/redis/etc/redis.conf
+</span></span><span class="line"><span class="cl">sed -i <span class="s2">&#34;s/appendfilename \&#34;appendonly.aof\&#34;/appendfilename \&#34;appendonly.aof\&#34;/g&#34;</span> /usr/local/redis/etc/redis.conf
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#PATH配置</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;export PATH=</span><span class="si">${</span><span class="nv">PATH</span><span class="si">}</span><span class="s2">:/usr/local/redis/bin&#34;</span> &gt;&gt;/etc/profile
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> /etc/profile
+</span></span><span class="line"><span class="cl"><span class="c1">#启动redis服务</span>
+</span></span><span class="line"><span class="cl">/usr/local/redis/bin/redis-server /usr/local/redis/etc/redis.conf
+</span></span><span class="line"><span class="cl"><span class="c1">#查看redis监听端口</span>
+</span></span><span class="line"><span class="cl">netstat -tanp<span class="p">|</span>grep redis
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="redis-有哪些数据结构">Redis 有哪些数据结构？</h2>
 <p>如果你是 <code>Redis</code> 普通玩家，可能你的回答是如下五种数据结构：</p>
@@ -636,89 +635,89 @@ netstat -tanp<span class="p">|</span>grep redis
 </span><span class="lnt">82
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
-
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&#34;context&#34;</span>
-	<span class="s">&#34;errors&#34;</span>
-	<span class="s">&#34;log&#34;</span>
-	<span class="s">&#34;sync&#34;</span>
-	<span class="s">&#34;time&#34;</span>
-<span class="p">)</span>
-
-<span class="kd">var</span> <span class="nx">errorNotExist</span> <span class="p">=</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;not exist&#34;</span><span class="p">)</span>
-
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="c1">// 模拟透传ctx 设定超时时间
-</span><span class="c1"></span>	<span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithTimeout</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">TODO</span><span class="p">(),</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span>
-	<span class="k">defer</span> <span class="nf">cancel</span><span class="p">()</span>
-	<span class="c1">//模拟10个并发
-</span><span class="c1"></span>	<span class="kd">var</span> <span class="nx">wg</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
-	<span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-		<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-			<span class="k">defer</span> <span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
-			<span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">fetchData</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="s">&#34;key&#34;</span><span class="p">)</span>
-			<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-				<span class="nx">log</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-				<span class="k">return</span>
-			<span class="p">}</span>
-			<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
-		<span class="p">}()</span>
-	<span class="p">}</span>
-	<span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
-<span class="p">}</span>
-
-<span class="c1">// 获取数据
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">fetchData</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">fetchDataFromCache</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="nx">errorNotExist</span> <span class="p">{</span>
-		<span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nf">fetchDataFromDB</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
-		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-			<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-			<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
-		<span class="p">}</span>
-
-		<span class="c1">//TOOD: set cache
-</span><span class="c1"></span>	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nx">data</span><span class="p">,</span> <span class="kc">nil</span>
-<span class="p">}</span>
-
-<span class="c1">// 模拟从缓存中获取值,缓存中无该值
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">fetchDataFromCache</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">errorNotExist</span>
-<span class="p">}</span>
-
-<span class="c1">// 模拟从数据库中获取值
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">fetchDataFromDB</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;get %s from database&#34;</span><span class="p">,</span> <span class="nx">key</span><span class="p">)</span>
-	<span class="k">return</span> <span class="s">&#34;data&#34;</span><span class="p">,</span> <span class="kc">nil</span>
-<span class="p">}</span>
-
-<span class="c1">// 执行输出
-</span><span class="c1"></span><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;context&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;errors&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;log&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;sync&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;time&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">errorNotExist</span> <span class="p">=</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;not exist&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 模拟透传ctx 设定超时时间
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithTimeout</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">TODO</span><span class="p">(),</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nf">cancel</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//模拟10个并发
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">var</span> <span class="nx">wg</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">defer</span> <span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">fetchData</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="s">&#34;key&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">log</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="k">return</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 获取数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">fetchData</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">fetchDataFromCache</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="nx">errorNotExist</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nf">fetchDataFromDB</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">//TOOD: set cache
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">data</span><span class="p">,</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 模拟从缓存中获取值,缓存中无该值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">fetchDataFromCache</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">errorNotExist</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 模拟从数据库中获取值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">fetchDataFromDB</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;get %s from database&#34;</span><span class="p">,</span> <span class="nx">key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="s">&#34;data&#34;</span><span class="p">,</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 执行输出
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span> <span class="nx">data</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>从以上出书可以看出，并发请求先到缓存，发现没有值，于是都打到了数据库，假设在真实业务场景中，并发量非常大，数据库可能会瞬间宕机。因此我们需要想办法将并发的请求减少：</p>
 <p>改动 fetchData, 增加 singleflight, 如果并发请求查询某个热点 key, 缓存库没有则首次请求打到数据库，其他请求阻塞，直接取首次请求的返回值即可。</p>
@@ -763,44 +762,44 @@ netstat -tanp<span class="p">|</span>grep redis
 </span><span class="lnt">37
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">import</span> <span class="s">&#34;golang.org/x/sync/singleflight&#34;</span>
-
-<span class="kd">var</span> <span class="nx">sfg</span> <span class="nx">singleflight</span><span class="p">.</span><span class="nx">Group</span>
-
-<span class="c1">// 获取数据
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">fetchData</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">fetchDataFromCache</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="nx">errorNotExist</span> <span class="p">{</span>
-		<span class="nx">v</span><span class="p">,</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">sfg</span><span class="p">.</span><span class="nf">Do</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="kd">func</span><span class="p">()</span> <span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-			<span class="k">return</span> <span class="nf">fetchDataFromDB</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
-			<span class="c1">//set cache
-</span><span class="c1"></span>		<span class="p">})</span>
-		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-			<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-			<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
-		<span class="p">}</span>
-
-		<span class="c1">//TOOD: set cache
-</span><span class="c1"></span>		<span class="nx">data</span> <span class="p">=</span> <span class="nx">v</span><span class="p">.(</span><span class="kt">string</span><span class="p">)</span>
-	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nx">data</span><span class="p">,</span> <span class="kc">nil</span>
-<span class="p">}</span>
-
-<span class="c1">// 输出
-</span><span class="c1"></span><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;golang.org/x/sync/singleflight&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">sfg</span> <span class="nx">singleflight</span><span class="p">.</span><span class="nx">Group</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 获取数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">fetchData</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">fetchDataFromCache</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="nx">errorNotExist</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">v</span><span class="p">,</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">sfg</span><span class="p">.</span><span class="nf">Do</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="kd">func</span><span class="p">()</span> <span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="nf">fetchDataFromDB</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">//set cache
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="p">})</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">//TOOD: set cache
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">data</span> <span class="p">=</span> <span class="nx">v</span><span class="p">.(</span><span class="kt">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">data</span><span class="p">,</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 输出
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">get</span> <span class="nx">key</span> <span class="nx">from</span> <span class="nx">database</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">25</span> <span class="nx">data</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以看到此时只有一个请求进入数据库，其他的请求也正常返回了值，从而保护了后端 DB。但是这样是否真正合理呢？</p>
 <p>模拟首次请求 <code>hang</code> 住，则所有请求都会 <code>hang</code> 住，程序报错退出:</p>
@@ -856,55 +855,55 @@ netstat -tanp<span class="p">|</span>grep redis
 </span><span class="lnt">48
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 获取数据
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">fetchData</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">fetchDataFromCache</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="nx">errorNotExist</span> <span class="p">{</span>
-		<span class="nx">v</span><span class="p">,</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">sfg</span><span class="p">.</span><span class="nf">Do</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="kd">func</span><span class="p">()</span> <span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-			<span class="k">select</span> <span class="p">{}</span>
-			<span class="k">return</span> <span class="nf">fetchDataFromDB</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
-			<span class="c1">//set cache
-</span><span class="c1"></span>		<span class="p">})</span>
-		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-			<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-			<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
-		<span class="p">}</span>
-
-		<span class="c1">//TOOD: set cache
-</span><span class="c1"></span>		<span class="nx">data</span> <span class="p">=</span> <span class="nx">v</span><span class="p">.(</span><span class="kt">string</span><span class="p">)</span>
-	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nx">data</span><span class="p">,</span> <span class="kc">nil</span>
-<span class="p">}</span>
-<span class="nx">程序报错</span><span class="err">，</span><span class="nx">发生死锁</span><span class="p">:</span>
-
-<span class="nx">fatal</span> <span class="kt">error</span><span class="p">:</span> <span class="nx">all</span> <span class="nx">goroutines</span> <span class="nx">are</span> <span class="nx">asleep</span> <span class="o">-</span> <span class="nx">deadlock</span><span class="p">!</span>
-
-<span class="nx">goroutine</span> <span class="mi">1</span> <span class="p">[</span><span class="nx">semacquire</span><span class="p">]:</span>
-<span class="nx">sync</span><span class="p">.</span><span class="nf">runtime_Semacquire</span><span class="p">(</span><span class="mh">0x0</span><span class="p">)</span>
-        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Program</span> <span class="nx">Files</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">runtime</span><span class="o">/</span><span class="nx">sema</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">56</span> <span class="o">+</span><span class="mh">0x25</span>
-<span class="nx">sync</span><span class="p">.(</span><span class="o">*</span><span class="nx">WaitGroup</span><span class="p">).</span><span class="nf">Wait</span><span class="p">(</span><span class="mh">0xa80bf0</span><span class="p">)</span>
-        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Program</span> <span class="nx">Files</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">sync</span><span class="o">/</span><span class="nx">waitgroup</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">130</span> <span class="o">+</span><span class="mh">0x71</span>
-<span class="nx">main</span><span class="p">.</span><span class="nf">main</span><span class="p">()</span>
-        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">test</span><span class="o">/</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">34</span> <span class="o">+</span><span class="mh">0x10f</span>
-
-<span class="nx">goroutine</span> <span class="mi">19</span> <span class="p">[</span><span class="k">select</span> <span class="p">(</span><span class="nx">no</span> <span class="nx">cases</span><span class="p">)]:</span>
-<span class="nx">main</span><span class="p">.</span><span class="nx">fetchData</span><span class="p">.</span><span class="nf">func1</span><span class="p">()</span>
-        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">test</span><span class="o">/</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">42</span> <span class="o">+</span><span class="mh">0x17</span>
-<span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">sync</span><span class="o">/</span><span class="nx">singleflight</span><span class="p">.(</span><span class="o">*</span><span class="nx">Group</span><span class="p">).</span><span class="nx">doCall</span><span class="p">.</span><span class="nf">func2</span><span class="p">(</span><span class="mh">0xc00004be66</span><span class="p">,</span> <span class="mh">0xc000052060</span><span class="p">,</span> <span class="mh">0xa534c0</span><span class="p">)</span>
-        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">pkg</span><span class="o">/</span><span class="nx">mod</span><span class="o">/</span><span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">sync</span><span class="err">@</span><span class="nx">v0</span><span class="mf">.0.0</span><span class="o">-</span><span class="mi">20210220032951</span><span class="o">-</span><span class="mo">036</span><span class="mi">812</span><span class="nx">b2e83c</span><span class="o">/</span><span class="nx">singleflight</span><span class="o">/</span><span class="nx">singleflight</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">193</span> <span class="o">+</span><span class="mh">0x6f</span>
-<span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">sync</span><span class="o">/</span><span class="nx">singleflight</span><span class="p">.(</span><span class="o">*</span><span class="nx">Group</span><span class="p">).</span><span class="nf">doCall</span><span class="p">(</span><span class="mh">0xa4c980</span><span class="p">,</span> <span class="mh">0xc00001e030</span><span class="p">,</span> <span class="p">{</span><span class="mh">0xa5c137</span><span class="p">,</span> <span class="mh">0x3</span><span class="p">},</span> <span class="mh">0x0</span><span class="p">)</span>
-        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">pkg</span><span class="o">/</span><span class="nx">mod</span><span class="o">/</span><span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">sync</span><span class="err">@</span><span class="nx">v0</span><span class="mf">.0.0</span><span class="o">-</span><span class="mi">20210220032951</span><span class="o">-</span><span class="mo">036</span><span class="mi">812</span><span class="nx">b2e83c</span><span class="o">/</span><span class="nx">singleflight</span><span class="o">/</span><span class="nx">singleflight</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">195</span> <span class="o">+</span><span class="mh">0xad</span>
-<span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">sync</span><span class="o">/</span><span class="nx">singleflight</span><span class="p">.(</span><span class="o">*</span><span class="nx">Group</span><span class="p">).</span><span class="nf">Do</span><span class="p">(</span><span class="mh">0xb076f0</span><span class="p">,</span> <span class="p">{</span><span class="mh">0xa5c137</span><span class="p">,</span> <span class="mh">0x3</span><span class="p">},</span> <span class="mh">0x0</span><span class="p">)</span>
-        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">pkg</span><span class="o">/</span><span class="nx">mod</span><span class="o">/</span><span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">sync</span><span class="err">@</span><span class="nx">v0</span><span class="mf">.0.0</span><span class="o">-</span><span class="mi">20210220032951</span><span class="o">-</span><span class="mo">036</span><span class="mi">812</span><span class="nx">b2e83c</span><span class="o">/</span><span class="nx">singleflight</span><span class="o">/</span><span class="nx">singleflight</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">108</span> <span class="o">+</span><span class="mh">0x154</span>
-<span class="nx">main</span><span class="p">.</span><span class="nf">fetchData</span><span class="p">({</span><span class="mh">0x0</span><span class="p">,</span> <span class="mh">0x0</span><span class="p">},</span> <span class="p">{</span><span class="mh">0xa5c137</span><span class="p">,</span> <span class="mh">0x3</span><span class="p">})</span>
-        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">test</span><span class="o">/</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">41</span> <span class="o">+</span><span class="mh">0xb8</span>
-<span class="nx">main</span><span class="p">.</span><span class="nx">main</span><span class="p">.</span><span class="nf">func1</span><span class="p">()</span>
-        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">test</span><span class="o">/</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">26</span> <span class="o">+</span><span class="mh">0x6c</span>
-<span class="nx">created</span> <span class="nx">by</span> <span class="nx">main</span><span class="p">.</span><span class="nx">main</span>
-        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">test</span><span class="o">/</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">24</span> <span class="o">+</span><span class="mh">0x85</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 获取数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">fetchData</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">fetchDataFromCache</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="nx">errorNotExist</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">v</span><span class="p">,</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">sfg</span><span class="p">.</span><span class="nf">Do</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="kd">func</span><span class="p">()</span> <span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">select</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="nf">fetchDataFromDB</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">//set cache
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="p">})</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">//TOOD: set cache
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">data</span> <span class="p">=</span> <span class="nx">v</span><span class="p">.(</span><span class="kt">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">data</span><span class="p">,</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">程序报错</span><span class="err">，</span><span class="nx">发生死锁</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">fatal</span> <span class="kt">error</span><span class="p">:</span> <span class="nx">all</span> <span class="nx">goroutines</span> <span class="nx">are</span> <span class="nx">asleep</span> <span class="o">-</span> <span class="nx">deadlock</span><span class="p">!</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">goroutine</span> <span class="mi">1</span> <span class="p">[</span><span class="nx">semacquire</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl"><span class="nx">sync</span><span class="p">.</span><span class="nf">runtime_Semacquire</span><span class="p">(</span><span class="mh">0x0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Program</span> <span class="nx">Files</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">runtime</span><span class="o">/</span><span class="nx">sema</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">56</span> <span class="o">+</span><span class="mh">0x25</span>
+</span></span><span class="line"><span class="cl"><span class="nx">sync</span><span class="p">.(</span><span class="o">*</span><span class="nx">WaitGroup</span><span class="p">).</span><span class="nf">Wait</span><span class="p">(</span><span class="mh">0xa80bf0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Program</span> <span class="nx">Files</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">sync</span><span class="o">/</span><span class="nx">waitgroup</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">130</span> <span class="o">+</span><span class="mh">0x71</span>
+</span></span><span class="line"><span class="cl"><span class="nx">main</span><span class="p">.</span><span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">test</span><span class="o">/</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">34</span> <span class="o">+</span><span class="mh">0x10f</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">goroutine</span> <span class="mi">19</span> <span class="p">[</span><span class="k">select</span> <span class="p">(</span><span class="nx">no</span> <span class="nx">cases</span><span class="p">)]:</span>
+</span></span><span class="line"><span class="cl"><span class="nx">main</span><span class="p">.</span><span class="nx">fetchData</span><span class="p">.</span><span class="nf">func1</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">test</span><span class="o">/</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">42</span> <span class="o">+</span><span class="mh">0x17</span>
+</span></span><span class="line"><span class="cl"><span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">sync</span><span class="o">/</span><span class="nx">singleflight</span><span class="p">.(</span><span class="o">*</span><span class="nx">Group</span><span class="p">).</span><span class="nx">doCall</span><span class="p">.</span><span class="nf">func2</span><span class="p">(</span><span class="mh">0xc00004be66</span><span class="p">,</span> <span class="mh">0xc000052060</span><span class="p">,</span> <span class="mh">0xa534c0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">pkg</span><span class="o">/</span><span class="nx">mod</span><span class="o">/</span><span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">sync</span><span class="err">@</span><span class="nx">v0</span><span class="mf">.0.0</span><span class="o">-</span><span class="mi">20210220032951</span><span class="o">-</span><span class="mo">036</span><span class="mi">812</span><span class="nx">b2e83c</span><span class="o">/</span><span class="nx">singleflight</span><span class="o">/</span><span class="nx">singleflight</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">193</span> <span class="o">+</span><span class="mh">0x6f</span>
+</span></span><span class="line"><span class="cl"><span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">sync</span><span class="o">/</span><span class="nx">singleflight</span><span class="p">.(</span><span class="o">*</span><span class="nx">Group</span><span class="p">).</span><span class="nf">doCall</span><span class="p">(</span><span class="mh">0xa4c980</span><span class="p">,</span> <span class="mh">0xc00001e030</span><span class="p">,</span> <span class="p">{</span><span class="mh">0xa5c137</span><span class="p">,</span> <span class="mh">0x3</span><span class="p">},</span> <span class="mh">0x0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">pkg</span><span class="o">/</span><span class="nx">mod</span><span class="o">/</span><span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">sync</span><span class="err">@</span><span class="nx">v0</span><span class="mf">.0.0</span><span class="o">-</span><span class="mi">20210220032951</span><span class="o">-</span><span class="mo">036</span><span class="mi">812</span><span class="nx">b2e83c</span><span class="o">/</span><span class="nx">singleflight</span><span class="o">/</span><span class="nx">singleflight</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">195</span> <span class="o">+</span><span class="mh">0xad</span>
+</span></span><span class="line"><span class="cl"><span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">sync</span><span class="o">/</span><span class="nx">singleflight</span><span class="p">.(</span><span class="o">*</span><span class="nx">Group</span><span class="p">).</span><span class="nf">Do</span><span class="p">(</span><span class="mh">0xb076f0</span><span class="p">,</span> <span class="p">{</span><span class="mh">0xa5c137</span><span class="p">,</span> <span class="mh">0x3</span><span class="p">},</span> <span class="mh">0x0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">pkg</span><span class="o">/</span><span class="nx">mod</span><span class="o">/</span><span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">sync</span><span class="err">@</span><span class="nx">v0</span><span class="mf">.0.0</span><span class="o">-</span><span class="mi">20210220032951</span><span class="o">-</span><span class="mo">036</span><span class="mi">812</span><span class="nx">b2e83c</span><span class="o">/</span><span class="nx">singleflight</span><span class="o">/</span><span class="nx">singleflight</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">108</span> <span class="o">+</span><span class="mh">0x154</span>
+</span></span><span class="line"><span class="cl"><span class="nx">main</span><span class="p">.</span><span class="nf">fetchData</span><span class="p">({</span><span class="mh">0x0</span><span class="p">,</span> <span class="mh">0x0</span><span class="p">},</span> <span class="p">{</span><span class="mh">0xa5c137</span><span class="p">,</span> <span class="mh">0x3</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">test</span><span class="o">/</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">41</span> <span class="o">+</span><span class="mh">0xb8</span>
+</span></span><span class="line"><span class="cl"><span class="nx">main</span><span class="p">.</span><span class="nx">main</span><span class="p">.</span><span class="nf">func1</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">test</span><span class="o">/</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">26</span> <span class="o">+</span><span class="mh">0x6c</span>
+</span></span><span class="line"><span class="cl"><span class="nx">created</span> <span class="nx">by</span> <span class="nx">main</span><span class="p">.</span><span class="nx">main</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">test</span><span class="o">/</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">24</span> <span class="o">+</span><span class="mh">0x85</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>此时可以使用 DoChan 结合 select 做超时控制:</p>
 <div class="highlight"><div class="chroma">
@@ -946,42 +945,42 @@ netstat -tanp<span class="p">|</span>grep redis
 </span><span class="lnt">35
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 获取数据
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">fetchData</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">fetchDataFromCache</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="nx">errorNotExist</span> <span class="p">{</span>
-		<span class="nx">result</span> <span class="o">:=</span> <span class="nx">sfg</span><span class="p">.</span><span class="nf">DoChan</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="kd">func</span><span class="p">()</span> <span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-			<span class="c1">// 模拟出现问题,hang 住
-</span><span class="c1"></span>			<span class="k">select</span> <span class="p">{}</span>
-			<span class="k">return</span> <span class="nf">fetchDataFromDB</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
-			<span class="c1">//set cache
-</span><span class="c1"></span>		<span class="p">})</span>
-
-		<span class="k">select</span> <span class="p">{</span>
-		<span class="k">case</span> <span class="nx">r</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">result</span><span class="p">:</span>
-			<span class="k">return</span> <span class="nx">r</span><span class="p">.</span><span class="nx">Val</span><span class="p">.(</span><span class="kt">string</span><span class="p">),</span> <span class="nx">r</span><span class="p">.</span><span class="nx">Err</span>
-		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span>
-			<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">ctx</span><span class="p">.</span><span class="nf">Err</span><span class="p">()</span>
-		<span class="p">}</span>
-
-	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nx">data</span><span class="p">,</span> <span class="kc">nil</span>
-<span class="p">}</span>
-<span class="nx">此时若首次请求超时则会出现超时消息</span><span class="p">:</span>
-
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
-<span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 获取数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">fetchData</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">fetchDataFromCache</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="nx">errorNotExist</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">result</span> <span class="o">:=</span> <span class="nx">sfg</span><span class="p">.</span><span class="nf">DoChan</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="kd">func</span><span class="p">()</span> <span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">// 模拟出现问题,hang 住
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="k">select</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="nf">fetchDataFromDB</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">//set cache
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">case</span> <span class="nx">r</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">result</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="nx">r</span><span class="p">.</span><span class="nx">Val</span><span class="p">.(</span><span class="kt">string</span><span class="p">),</span> <span class="nx">r</span><span class="p">.</span><span class="nx">Err</span>
+</span></span><span class="line"><span class="cl">		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">ctx</span><span class="p">.</span><span class="nf">Err</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">data</span><span class="p">,</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">此时若首次请求超时则会出现超时消息</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2021</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">19</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span> <span class="nx">context</span> <span class="nx">deadline</span> <span class="nx">exceeded</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以看到一次超时，实际上并发请求都会报同样的超时反馈。singleflight 只是为了降低请求的数量级，为了提高程序的试错率，可以用 Forget 让 key 适时过时，提高下游请求的并发数，多试错几次。</p>
 <div class="highlight"><div class="chroma">
@@ -994,53 +993,51 @@ netstat -tanp<span class="p">|</span>grep redis
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;forget key: %v\n&#34;</span><span class="p">,</span> <span class="nx">key</span><span class="p">)</span>
-    <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
-    <span class="c1">// logging
-</span><span class="c1"></span>    <span class="nx">g</span><span class="p">.</span><span class="nf">Forget</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
-<span class="p">}()</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;forget key: %v\n&#34;</span><span class="p">,</span> <span class="nx">key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// logging
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">g</span><span class="p">.</span><span class="nf">Forget</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}()</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
                 <span>更新于 2022-05-09</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
+            </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
                             <a class="link-to-markdown" href="/redis/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/redis/" data-title="Redis" data-via="xxxx" data-hashtags="面试"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/redis/" data-hashtag="面试"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/redis/" data-title="Redis" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/redis/" data-title="Redis"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/redis/" data-title="Redis"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/redis/" data-title="Redis" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/redis/" data-title="Redis" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/redis/" data-title="Redis"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/redis/" data-title="Redis" data-via="xxxx" data-hashtags="面试"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/redis/" data-hashtag="面试"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/redis/" data-title="Redis" data-web><i class="fab fa-whatsapp fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/redis/" data-title="Redis"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/redis/" data-title="Redis"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/redis/" data-title="Redis" data-description=""><i class="fab fa-blogger fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/redis/" data-title="Redis"><i class="fab fa-evernote fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E9%9D%A2%E8%AF%95/">面试</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E9%9D%A2%E8%AF%95/">面试</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/%E4%B8%89%E8%89%B2%E6%A0%87%E8%AE%B0%E6%B3%95/" class="prev" rel="prev" title="三色标记法"><i class="fas fa-angle-left fa-fw"></i>三色标记法</a>
-            <a href="/%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8/" class="next" rel="next" title="内存逃逸">内存逃逸<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/%E4%B8%89%E8%89%B2%E6%A0%87%E8%AE%B0%E6%B3%95/" class="prev" rel="prev" title="三色标记法"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>三色标记法</a>
+            <a href="/%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8/" class="next" rel="next" title="内存逃逸">内存逃逸<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
         <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

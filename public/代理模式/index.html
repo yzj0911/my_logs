@@ -4,13 +4,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>代理模式 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="代理模式" />
 <meta property="og:description" content="代理模式 接下来会通过 golang 实现静态代理，有 Golang 和 java 的差异性，我们无法比较方便的利用反射实现动态代理，但是我们可以利用** go generate **实现类似的效果，并" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-06-07T10:24:42+08:00" />
-<meta property="article:modified_time" content="2022-06-07T10:24:42+08:00" />
+<meta property="article:modified_time" content="2022-06-07T10:24:42+08:00" /><meta property="og:site_name" content="My cool site" />
 
 
 <meta name="twitter:card" content="summary_large_image"/>
@@ -19,7 +18,9 @@
 <meta name="twitter:title" content="代理模式"/>
 <meta name="twitter:description" content="代理模式 接下来会通过 golang 实现静态代理，有 Golang 和 java 的差异性，我们无法比较方便的利用反射实现动态代理，但是我们可以利用** go generate **实现类似的效果，并"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" /><link rel="prev" href="http://example.org/%E5%88%9B%E5%BB%BA%E8%80%85%E6%A8%A1%E5%BC%8F/" /><link rel="next" href="http://example.org/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" /><link rel="prev" href="http://example.org/%E5%88%9B%E5%BB%BA%E8%80%85%E6%A8%A1%E5%BC%8F/" /><link rel="next" href="http://example.org/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -28,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F\/"
-        },"genre": "posts","keywords": "设计模式","wordcount":  1792 ,
+        },"genre": "posts","keywords": "设计模式","wordcount":  1830 ,
         "url": "http:\/\/example.org\/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F\/","datePublished": "2022-06-07T10:24:42+08:00","dateModified": "2022-06-07T10:24:42+08:00","publisher": {
             "@type": "Organization",
             "name": "YZJ"},"author": {
@@ -37,7 +38,7 @@
             },"description": ""
     }
     </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -55,16 +56,16 @@
             <div class="menu-inner"><a class="menu-item" href="/posts/" title="YZJ 的博客"> 文章 </a><a class="menu-item" href="/tags/" title="YZJ 的博客"> 标签 </a><a class="menu-item" href="/categories/" title="YZJ 的博客"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="请输入搜索文章" id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
                 </a>
             </div>
         </div>
@@ -90,41 +91,39 @@
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="请输入搜索文章" id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </div>
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
                 </div><a class="menu-item" href="/posts/" title="YZJ 的博客">文章</a><a class="menu-item" href="/tags/" title="YZJ 的博客">标签</a><a class="menu-item" href="/categories/" title="YZJ 的博客">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
-</header>
-<div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">代理模式</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><i class="far fa-folder fa-fw"></i>设计模式</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-07">2022-06-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1792 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="true">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">代理模式</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yzj</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>设计模式</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-06-07">2022-06-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1830 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
                     <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
@@ -203,56 +202,56 @@
 </span><span class="lnt">49
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">proxy</span>
-
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&#34;log&#34;</span>
-	<span class="s">&#34;time&#34;</span>
-<span class="p">)</span>
-
-<span class="c1">// IUser IUser
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">IUser</span> <span class="kd">interface</span> <span class="p">{</span>
-	<span class="nf">Login</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="nx">password</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
-<span class="p">}</span>
-
-<span class="c1">// User 用户
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">User</span> <span class="kd">struct</span> <span class="p">{</span>
-<span class="p">}</span>
-
-<span class="c1">// Login 用户登录
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">u</span> <span class="o">*</span><span class="nx">User</span><span class="p">)</span> <span class="nf">Login</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="nx">password</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
-	<span class="c1">// 不实现细节
-</span><span class="c1"></span>	<span class="k">return</span> <span class="kc">nil</span>
-<span class="p">}</span>
-
-<span class="c1">// UserProxy 代理类
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">UserProxy</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">user</span> <span class="o">*</span><span class="nx">User</span>
-<span class="p">}</span>
-
-<span class="c1">// NewUserProxy NewUserProxy
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">NewUserProxy</span><span class="p">(</span><span class="nx">user</span> <span class="o">*</span><span class="nx">User</span><span class="p">)</span> <span class="o">*</span><span class="nx">UserProxy</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">UserProxy</span><span class="p">{</span>
-		<span class="nx">user</span><span class="p">:</span> <span class="nx">user</span><span class="p">,</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-
-<span class="c1">// Login 登录，和 user 实现相同的接口
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">UserProxy</span><span class="p">)</span> <span class="nf">Login</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="nx">password</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
-	<span class="c1">// before 这里可能会有一些统计的逻辑
-</span><span class="c1"></span>	<span class="nx">start</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
-
-	<span class="c1">// 这里是原有的业务逻辑
-</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nf">Login</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="nx">err</span>
-	<span class="p">}</span>
-
-	<span class="c1">// after 这里可能也有一些监控统计的逻辑
-</span><span class="c1"></span>	<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;user login cost time: %s&#34;</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">().</span><span class="nf">Sub</span><span class="p">(</span><span class="nx">start</span><span class="p">))</span>
-
-	<span class="k">return</span> <span class="kc">nil</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">proxy</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;log&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;time&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// IUser IUser
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">IUser</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">Login</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="nx">password</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// User 用户
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">User</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Login 用户登录
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">u</span> <span class="o">*</span><span class="nx">User</span><span class="p">)</span> <span class="nf">Login</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="nx">password</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 不实现细节
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">return</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// UserProxy 代理类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">UserProxy</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">user</span> <span class="o">*</span><span class="nx">User</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// NewUserProxy NewUserProxy
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">NewUserProxy</span><span class="p">(</span><span class="nx">user</span> <span class="o">*</span><span class="nx">User</span><span class="p">)</span> <span class="o">*</span><span class="nx">UserProxy</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">UserProxy</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">user</span><span class="p">:</span> <span class="nx">user</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Login 登录，和 user 实现相同的接口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">UserProxy</span><span class="p">)</span> <span class="nf">Login</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="nx">password</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// before 这里可能会有一些统计的逻辑
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">start</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 这里是原有的业务逻辑
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nf">Login</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// after 这里可能也有一些监控统计的逻辑
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;user login cost time: %s&#34;</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">().</span><span class="nf">Sub</span><span class="p">(</span><span class="nx">start</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="单元测试">单元测试</h2>
 <div class="highlight"><div class="chroma">
@@ -274,22 +273,22 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">proxy</span>
-
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&#34;testing&#34;</span>
-
-	<span class="s">&#34;github.com/stretchr/testify/require&#34;</span>
-<span class="p">)</span>
-
-<span class="kd">func</span> <span class="nf">TestUserProxy_Login</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">proxy</span> <span class="o">:=</span> <span class="nf">NewUserProxy</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">User</span><span class="p">{})</span>
-
-	<span class="nx">err</span> <span class="o">:=</span> <span class="nx">proxy</span><span class="p">.</span><span class="nf">Login</span><span class="p">(</span><span class="s">&#34;test&#34;</span><span class="p">,</span> <span class="s">&#34;password&#34;</span><span class="p">)</span>
-
-	<span class="nx">require</span><span class="p">.</span><span class="nf">Nil</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">proxy</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;testing&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;github.com/stretchr/testify/require&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">TestUserProxy_Login</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">proxy</span> <span class="o">:=</span> <span class="nf">NewUserProxy</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">User</span><span class="p">{})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">err</span> <span class="o">:=</span> <span class="nx">proxy</span><span class="p">.</span><span class="nf">Login</span><span class="p">(</span><span class="s">&#34;test&#34;</span><span class="p">,</span> <span class="s">&#34;password&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">require</span><span class="p">.</span><span class="nf">Nil</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="go-generate-实现-动态代理">Go Generate 实现 “动态代理”</h2>
 <p>关于 <code>go generate</code> 之前已经写过一篇入门的介绍文章:<code> go generate and ast</code>，这里就不再赘述了，如果对相关的知识点不太清楚，可以先看前面的那篇文章。
@@ -306,11 +305,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// User 用户
-</span><span class="c1">// @proxy IUser
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">User</span> <span class="kd">struct</span> <span class="p">{</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// User 用户
+</span></span></span><span class="line"><span class="cl"><span class="c1">// @proxy IUser
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">User</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Code
 接来下我们会简单的实现这个需求，由于篇幅和时间的关系，我们会略过一些检查之类的代码，例如 <code>User</code>  是否真正实现了 <code>IUser</code>  这种情况。
@@ -500,179 +499,179 @@
 </span><span class="lnt">172
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">proxy</span>
-
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&#34;bytes&#34;</span>
-	<span class="s">&#34;fmt&#34;</span>
-	<span class="s">&#34;go/ast&#34;</span>
-	<span class="s">&#34;go/format&#34;</span>
-	<span class="s">&#34;go/parser&#34;</span>
-	<span class="s">&#34;go/token&#34;</span>
-	<span class="s">&#34;strings&#34;</span>
-	<span class="s">&#34;text/template&#34;</span>
-<span class="p">)</span>
-
-<span class="kd">func</span> <span class="nf">generate</span><span class="p">(</span><span class="nx">file</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">fset</span> <span class="o">:=</span> <span class="nx">token</span><span class="p">.</span><span class="nf">NewFileSet</span><span class="p">()</span> <span class="c1">// positions are relative to fset
-</span><span class="c1"></span>	<span class="nx">f</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">parser</span><span class="p">.</span><span class="nf">ParseFile</span><span class="p">(</span><span class="nx">fset</span><span class="p">,</span> <span class="nx">file</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">parser</span><span class="p">.</span><span class="nx">ParseComments</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
-	<span class="p">}</span>
-
-	<span class="c1">// 获取代理需要的数据
-</span><span class="c1"></span>	<span class="nx">data</span> <span class="o">:=</span> <span class="nx">proxyData</span><span class="p">{</span>
-		<span class="nx">Package</span><span class="p">:</span> <span class="nx">f</span><span class="p">.</span><span class="nx">Name</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span>
-	<span class="p">}</span>
-
-	<span class="c1">// 构建注释和 node 的关系
-</span><span class="c1"></span>	<span class="nx">cmap</span> <span class="o">:=</span> <span class="nx">ast</span><span class="p">.</span><span class="nf">NewCommentMap</span><span class="p">(</span><span class="nx">fset</span><span class="p">,</span> <span class="nx">f</span><span class="p">,</span> <span class="nx">f</span><span class="p">.</span><span class="nx">Comments</span><span class="p">)</span>
-	<span class="k">for</span> <span class="nx">node</span><span class="p">,</span> <span class="nx">group</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">cmap</span> <span class="p">{</span>
-		<span class="c1">// 从注释 @proxy 接口名，获取接口名称
-</span><span class="c1"></span>		<span class="nx">name</span> <span class="o">:=</span> <span class="nf">getProxyInterfaceName</span><span class="p">(</span><span class="nx">group</span><span class="p">)</span>
-		<span class="k">if</span> <span class="nx">name</span> <span class="o">==</span> <span class="s">&#34;&#34;</span> <span class="p">{</span>
-			<span class="k">continue</span>
-		<span class="p">}</span>
-
-		<span class="c1">// 获取代理的类名
-</span><span class="c1"></span>		<span class="nx">data</span><span class="p">.</span><span class="nx">ProxyStructName</span> <span class="p">=</span> <span class="nx">node</span><span class="p">.(</span><span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">GenDecl</span><span class="p">).</span><span class="nx">Specs</span><span class="p">[</span><span class="mi">0</span><span class="p">].(</span><span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">TypeSpec</span><span class="p">).</span><span class="nx">Name</span><span class="p">.</span><span class="nx">Name</span>
-
-		<span class="c1">// 从文件中查找接口
-</span><span class="c1"></span>		<span class="nx">obj</span> <span class="o">:=</span> <span class="nx">f</span><span class="p">.</span><span class="nx">Scope</span><span class="p">.</span><span class="nf">Lookup</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
-
-		<span class="c1">// 类型转换，注意: 这里没有对断言进行判断，可能会导致 panic
-</span><span class="c1"></span>		<span class="nx">t</span> <span class="o">:=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">Decl</span><span class="p">.(</span><span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">TypeSpec</span><span class="p">).</span><span class="nx">Type</span><span class="p">.(</span><span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">InterfaceType</span><span class="p">)</span>
-
-		<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">field</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Methods</span><span class="p">.</span><span class="nx">List</span> <span class="p">{</span>
-			<span class="nx">fc</span> <span class="o">:=</span> <span class="nx">field</span><span class="p">.</span><span class="nx">Type</span><span class="p">.(</span><span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">FuncType</span><span class="p">)</span>
-
-			<span class="c1">// 代理的方法
-</span><span class="c1"></span>			<span class="nx">method</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">proxyMethod</span><span class="p">{</span>
-				<span class="nx">Name</span><span class="p">:</span> <span class="nx">field</span><span class="p">.</span><span class="nx">Names</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">Name</span><span class="p">,</span>
-			<span class="p">}</span>
-
-			<span class="c1">// 获取方法的参数和返回值
-</span><span class="c1"></span>			<span class="nx">method</span><span class="p">.</span><span class="nx">Params</span><span class="p">,</span> <span class="nx">method</span><span class="p">.</span><span class="nx">ParamNames</span> <span class="p">=</span> <span class="nf">getParamsOrResults</span><span class="p">(</span><span class="nx">fc</span><span class="p">.</span><span class="nx">Params</span><span class="p">)</span>
-			<span class="nx">method</span><span class="p">.</span><span class="nx">Results</span><span class="p">,</span> <span class="nx">method</span><span class="p">.</span><span class="nx">ResultNames</span> <span class="p">=</span> <span class="nf">getParamsOrResults</span><span class="p">(</span><span class="nx">fc</span><span class="p">.</span><span class="nx">Results</span><span class="p">)</span>
-
-			<span class="nx">data</span><span class="p">.</span><span class="nx">Methods</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">Methods</span><span class="p">,</span> <span class="nx">method</span><span class="p">)</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-
-	<span class="c1">// 生成文件
-</span><span class="c1"></span>	<span class="nx">tpl</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">).</span><span class="nf">Parse</span><span class="p">(</span><span class="nx">proxyTpl</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
-	<span class="p">}</span>
-
-	<span class="nx">buf</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span><span class="p">{}</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">tpl</span><span class="p">.</span><span class="nf">Execute</span><span class="p">(</span><span class="nx">buf</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
-	<span class="p">}</span>
-
-	<span class="c1">// 使用 go fmt 对生成的代码进行格式化
-</span><span class="c1"></span>	<span class="nx">src</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">format</span><span class="p">.</span><span class="nf">Source</span><span class="p">(</span><span class="nx">buf</span><span class="p">.</span><span class="nf">Bytes</span><span class="p">())</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
-	<span class="p">}</span>
-
-	<span class="k">return</span> <span class="nb">string</span><span class="p">(</span><span class="nx">src</span><span class="p">),</span> <span class="kc">nil</span>
-<span class="p">}</span>
-
-<span class="c1">// getParamsOrResults 获取参数或者是返回值
-</span><span class="c1">// 返回带类型的参数，以及不带类型的参数，以逗号间隔
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">getParamsOrResults</span><span class="p">(</span><span class="nx">fields</span> <span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">FieldList</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-	<span class="kd">var</span> <span class="p">(</span>
-		<span class="nx">params</span>     <span class="p">[]</span><span class="kt">string</span>
-		<span class="nx">paramNames</span> <span class="p">[]</span><span class="kt">string</span>
-	<span class="p">)</span>
-
-	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">param</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">fields</span><span class="p">.</span><span class="nx">List</span> <span class="p">{</span>
-		<span class="c1">// 循环获取所有的参数名
-</span><span class="c1"></span>		<span class="kd">var</span> <span class="nx">names</span> <span class="p">[]</span><span class="kt">string</span>
-		<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">name</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">param</span><span class="p">.</span><span class="nx">Names</span> <span class="p">{</span>
-			<span class="nx">names</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">names</span><span class="p">,</span> <span class="nx">name</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
-		<span class="p">}</span>
-
-		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">names</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-			<span class="nx">names</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">names</span><span class="p">,</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;r%d&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">))</span>
-		<span class="p">}</span>
-
-		<span class="nx">paramNames</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">paramNames</span><span class="p">,</span> <span class="nx">names</span><span class="o">...</span><span class="p">)</span>
-
-		<span class="c1">// 参数名加参数类型组成完整的参数
-</span><span class="c1"></span>		<span class="nx">param</span> <span class="o">:=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%s %s&#34;</span><span class="p">,</span>
-			<span class="nx">strings</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">names</span><span class="p">,</span> <span class="s">&#34;,&#34;</span><span class="p">),</span>
-			<span class="nx">param</span><span class="p">.</span><span class="nx">Type</span><span class="p">.(</span><span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">Ident</span><span class="p">).</span><span class="nx">Name</span><span class="p">,</span>
-		<span class="p">)</span>
-		<span class="nx">params</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">TrimSpace</span><span class="p">(</span><span class="nx">param</span><span class="p">))</span>
-	<span class="p">}</span>
-
-	<span class="k">return</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="s">&#34;,&#34;</span><span class="p">),</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">paramNames</span><span class="p">,</span> <span class="s">&#34;,&#34;</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="nf">getProxyInterfaceName</span><span class="p">(</span><span class="nx">groups</span> <span class="p">[]</span><span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">CommentGroup</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">commentGroup</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">groups</span> <span class="p">{</span>
-		<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">comment</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">commentGroup</span><span class="p">.</span><span class="nx">List</span> <span class="p">{</span>
-			<span class="k">if</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Contains</span><span class="p">(</span><span class="nx">comment</span><span class="p">.</span><span class="nx">Text</span><span class="p">,</span> <span class="s">&#34;@proxy&#34;</span><span class="p">)</span> <span class="p">{</span>
-				<span class="nx">interfaceName</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">TrimLeft</span><span class="p">(</span><span class="nx">comment</span><span class="p">.</span><span class="nx">Text</span><span class="p">,</span> <span class="s">&#34;// @proxy &#34;</span><span class="p">)</span>
-				<span class="k">return</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">TrimSpace</span><span class="p">(</span><span class="nx">interfaceName</span><span class="p">)</span>
-			<span class="p">}</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="s">&#34;&#34;</span>
-<span class="p">}</span>
-
-<span class="c1">// 生成代理类的文件模板
-</span><span class="c1"></span><span class="kd">const</span> <span class="nx">proxyTpl</span> <span class="p">=</span> <span class="s">`
-</span><span class="s">package </span><span class="cp">{{</span><span class="na">.Package</span><span class="cp">}}</span><span class="s">
-</span><span class="s">
-</span><span class="s">type </span><span class="cp">{{</span><span class="w"> </span><span class="na">.ProxyStructName</span><span class="w"> </span><span class="cp">}}</span><span class="s">Proxy struct {
-</span><span class="s">	child *</span><span class="cp">{{</span><span class="w"> </span><span class="na">.ProxyStructName</span><span class="w"> </span><span class="cp">}}</span><span class="s">
-</span><span class="s">}
-</span><span class="s">
-</span><span class="s">func New</span><span class="cp">{{</span><span class="w"> </span><span class="na">.ProxyStructName</span><span class="w"> </span><span class="cp">}}</span><span class="s">Proxy(child *</span><span class="cp">{{</span><span class="w"> </span><span class="na">.ProxyStructName</span><span class="w"> </span><span class="cp">}}</span><span class="s">) *</span><span class="cp">{{</span><span class="w"> </span><span class="na">.ProxyStructName</span><span class="w"> </span><span class="cp">}}</span><span class="s">Proxy {
-</span><span class="s">	return &amp;</span><span class="cp">{{</span><span class="w"> </span><span class="na">.ProxyStructName</span><span class="w"> </span><span class="cp">}}</span><span class="s">Proxy{child: child}
-</span><span class="s">}
-</span><span class="s">
-</span><span class="s"></span><span class="cp">{{</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="na">.Methods</span><span class="w"> </span><span class="cp">}}</span><span class="s">
-</span><span class="s">func (p *</span><span class="cp">{{</span><span class="na">$.ProxyStructName</span><span class="cp">}}</span><span class="s">Proxy) </span><span class="cp">{{</span><span class="w"> </span><span class="na">.Name</span><span class="w"> </span><span class="cp">}}</span><span class="s"> (</span><span class="cp">{{</span><span class="w"> </span><span class="na">.Params</span><span class="w"> </span><span class="cp">}}</span><span class="s">) (</span><span class="cp">{{</span><span class="w"> </span><span class="na">.Results</span><span class="w"> </span><span class="cp">}}</span><span class="s">) {
-</span><span class="s">	// before 这里可能会有一些统计的逻辑
-</span><span class="s">	start := time.Now()
-</span><span class="s">
-</span><span class="s">	</span><span class="cp">{{</span><span class="w"> </span><span class="na">.ResultNames</span><span class="w"> </span><span class="cp">}}</span><span class="s"> = p.child.</span><span class="cp">{{</span><span class="w"> </span><span class="na">.Name</span><span class="w"> </span><span class="cp">}}</span><span class="s">(</span><span class="cp">{{</span><span class="w"> </span><span class="na">.ParamNames</span><span class="w"> </span><span class="cp">}}</span><span class="s">)
-</span><span class="s">
-</span><span class="s">	// after 这里可能也有一些监控统计的逻辑
-</span><span class="s">	log.Printf(&#34;user login cost time: %s&#34;, time.Now().Sub(start))
-</span><span class="s">
-</span><span class="s">	return </span><span class="cp">{{</span><span class="w"> </span><span class="na">.ResultNames</span><span class="w"> </span><span class="cp">}}</span><span class="s">
-</span><span class="s">}
-</span><span class="s"></span><span class="cp">{{</span><span class="w"> </span><span class="k">end</span><span class="w"> </span><span class="cp">}}</span><span class="s">
-</span><span class="s">`</span>
-
-<span class="kd">type</span> <span class="nx">proxyData</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="c1">// 包名
-</span><span class="c1"></span>	<span class="nx">Package</span> <span class="kt">string</span>
-	<span class="c1">// 需要代理的类名
-</span><span class="c1"></span>	<span class="nx">ProxyStructName</span> <span class="kt">string</span>
-	<span class="c1">// 需要代理的方法
-</span><span class="c1"></span>	<span class="nx">Methods</span> <span class="p">[]</span><span class="o">*</span><span class="nx">proxyMethod</span>
-<span class="p">}</span>
-
-<span class="c1">// proxyMethod 代理的方法
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">proxyMethod</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="c1">// 方法名
-</span><span class="c1"></span>	<span class="nx">Name</span> <span class="kt">string</span>
-	<span class="c1">// 参数，含参数类型
-</span><span class="c1"></span>	<span class="nx">Params</span> <span class="kt">string</span>
-	<span class="c1">// 参数名
-</span><span class="c1"></span>	<span class="nx">ParamNames</span> <span class="kt">string</span>
-	<span class="c1">// 返回值
-</span><span class="c1"></span>	<span class="nx">Results</span> <span class="kt">string</span>
-	<span class="c1">// 返回值名
-</span><span class="c1"></span>	<span class="nx">ResultNames</span> <span class="kt">string</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">proxy</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;bytes&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;go/ast&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;go/format&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;go/parser&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;go/token&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;strings&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;text/template&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">generate</span><span class="p">(</span><span class="nx">file</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fset</span> <span class="o">:=</span> <span class="nx">token</span><span class="p">.</span><span class="nf">NewFileSet</span><span class="p">()</span> <span class="c1">// positions are relative to fset
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">f</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">parser</span><span class="p">.</span><span class="nf">ParseFile</span><span class="p">(</span><span class="nx">fset</span><span class="p">,</span> <span class="nx">file</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">parser</span><span class="p">.</span><span class="nx">ParseComments</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 获取代理需要的数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">data</span> <span class="o">:=</span> <span class="nx">proxyData</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">Package</span><span class="p">:</span> <span class="nx">f</span><span class="p">.</span><span class="nx">Name</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 构建注释和 node 的关系
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">cmap</span> <span class="o">:=</span> <span class="nx">ast</span><span class="p">.</span><span class="nf">NewCommentMap</span><span class="p">(</span><span class="nx">fset</span><span class="p">,</span> <span class="nx">f</span><span class="p">,</span> <span class="nx">f</span><span class="p">.</span><span class="nx">Comments</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">node</span><span class="p">,</span> <span class="nx">group</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">cmap</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// 从注释 @proxy 接口名，获取接口名称
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">name</span> <span class="o">:=</span> <span class="nf">getProxyInterfaceName</span><span class="p">(</span><span class="nx">group</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">name</span> <span class="o">==</span> <span class="s">&#34;&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">continue</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">// 获取代理的类名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">data</span><span class="p">.</span><span class="nx">ProxyStructName</span> <span class="p">=</span> <span class="nx">node</span><span class="p">.(</span><span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">GenDecl</span><span class="p">).</span><span class="nx">Specs</span><span class="p">[</span><span class="mi">0</span><span class="p">].(</span><span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">TypeSpec</span><span class="p">).</span><span class="nx">Name</span><span class="p">.</span><span class="nx">Name</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">// 从文件中查找接口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">obj</span> <span class="o">:=</span> <span class="nx">f</span><span class="p">.</span><span class="nx">Scope</span><span class="p">.</span><span class="nf">Lookup</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">// 类型转换，注意: 这里没有对断言进行判断，可能会导致 panic
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">t</span> <span class="o">:=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">Decl</span><span class="p">.(</span><span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">TypeSpec</span><span class="p">).</span><span class="nx">Type</span><span class="p">.(</span><span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">InterfaceType</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">field</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Methods</span><span class="p">.</span><span class="nx">List</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">fc</span> <span class="o">:=</span> <span class="nx">field</span><span class="p">.</span><span class="nx">Type</span><span class="p">.(</span><span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">FuncType</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">			<span class="c1">// 代理的方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="nx">method</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">proxyMethod</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">Name</span><span class="p">:</span> <span class="nx">field</span><span class="p">.</span><span class="nx">Names</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">Name</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">			<span class="c1">// 获取方法的参数和返回值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="nx">method</span><span class="p">.</span><span class="nx">Params</span><span class="p">,</span> <span class="nx">method</span><span class="p">.</span><span class="nx">ParamNames</span> <span class="p">=</span> <span class="nf">getParamsOrResults</span><span class="p">(</span><span class="nx">fc</span><span class="p">.</span><span class="nx">Params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">method</span><span class="p">.</span><span class="nx">Results</span><span class="p">,</span> <span class="nx">method</span><span class="p">.</span><span class="nx">ResultNames</span> <span class="p">=</span> <span class="nf">getParamsOrResults</span><span class="p">(</span><span class="nx">fc</span><span class="p">.</span><span class="nx">Results</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">			<span class="nx">data</span><span class="p">.</span><span class="nx">Methods</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">Methods</span><span class="p">,</span> <span class="nx">method</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 生成文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">tpl</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">).</span><span class="nf">Parse</span><span class="p">(</span><span class="nx">proxyTpl</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">buf</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">tpl</span><span class="p">.</span><span class="nf">Execute</span><span class="p">(</span><span class="nx">buf</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 使用 go fmt 对生成的代码进行格式化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">src</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">format</span><span class="p">.</span><span class="nf">Source</span><span class="p">(</span><span class="nx">buf</span><span class="p">.</span><span class="nf">Bytes</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nb">string</span><span class="p">(</span><span class="nx">src</span><span class="p">),</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// getParamsOrResults 获取参数或者是返回值
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 返回带类型的参数，以及不带类型的参数，以逗号间隔
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">getParamsOrResults</span><span class="p">(</span><span class="nx">fields</span> <span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">FieldList</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">params</span>     <span class="p">[]</span><span class="kt">string</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">paramNames</span> <span class="p">[]</span><span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">param</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">fields</span><span class="p">.</span><span class="nx">List</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// 循环获取所有的参数名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="kd">var</span> <span class="nx">names</span> <span class="p">[]</span><span class="kt">string</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">name</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">param</span><span class="p">.</span><span class="nx">Names</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">names</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">names</span><span class="p">,</span> <span class="nx">name</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">names</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">names</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">names</span><span class="p">,</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;r%d&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="nx">paramNames</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">paramNames</span><span class="p">,</span> <span class="nx">names</span><span class="o">...</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">// 参数名加参数类型组成完整的参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">param</span> <span class="o">:=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%s %s&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">strings</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">names</span><span class="p">,</span> <span class="s">&#34;,&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">param</span><span class="p">.</span><span class="nx">Type</span><span class="p">.(</span><span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">Ident</span><span class="p">).</span><span class="nx">Name</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">params</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">TrimSpace</span><span class="p">(</span><span class="nx">param</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="s">&#34;,&#34;</span><span class="p">),</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">paramNames</span><span class="p">,</span> <span class="s">&#34;,&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">getProxyInterfaceName</span><span class="p">(</span><span class="nx">groups</span> <span class="p">[]</span><span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">CommentGroup</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">commentGroup</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">groups</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">comment</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">commentGroup</span><span class="p">.</span><span class="nx">List</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Contains</span><span class="p">(</span><span class="nx">comment</span><span class="p">.</span><span class="nx">Text</span><span class="p">,</span> <span class="s">&#34;@proxy&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">interfaceName</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">TrimLeft</span><span class="p">(</span><span class="nx">comment</span><span class="p">.</span><span class="nx">Text</span><span class="p">,</span> <span class="s">&#34;// @proxy &#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="k">return</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">TrimSpace</span><span class="p">(</span><span class="nx">interfaceName</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="s">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 生成代理类的文件模板
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">const</span> <span class="nx">proxyTpl</span> <span class="p">=</span> <span class="s">`
+</span></span></span><span class="line"><span class="cl"><span class="s">package </span><span class="cp">{{</span><span class="na">.Package</span><span class="cp">}}</span><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">type </span><span class="cp">{{</span><span class="w"> </span><span class="na">.ProxyStructName</span><span class="w"> </span><span class="cp">}}</span><span class="s">Proxy struct {
+</span></span></span><span class="line"><span class="cl"><span class="s">	child *</span><span class="cp">{{</span><span class="w"> </span><span class="na">.ProxyStructName</span><span class="w"> </span><span class="cp">}}</span><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">}
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">func New</span><span class="cp">{{</span><span class="w"> </span><span class="na">.ProxyStructName</span><span class="w"> </span><span class="cp">}}</span><span class="s">Proxy(child *</span><span class="cp">{{</span><span class="w"> </span><span class="na">.ProxyStructName</span><span class="w"> </span><span class="cp">}}</span><span class="s">) *</span><span class="cp">{{</span><span class="w"> </span><span class="na">.ProxyStructName</span><span class="w"> </span><span class="cp">}}</span><span class="s">Proxy {
+</span></span></span><span class="line"><span class="cl"><span class="s">	return &amp;</span><span class="cp">{{</span><span class="w"> </span><span class="na">.ProxyStructName</span><span class="w"> </span><span class="cp">}}</span><span class="s">Proxy{child: child}
+</span></span></span><span class="line"><span class="cl"><span class="s">}
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s"></span><span class="cp">{{</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="na">.Methods</span><span class="w"> </span><span class="cp">}}</span><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">func (p *</span><span class="cp">{{</span><span class="na">$.ProxyStructName</span><span class="cp">}}</span><span class="s">Proxy) </span><span class="cp">{{</span><span class="w"> </span><span class="na">.Name</span><span class="w"> </span><span class="cp">}}</span><span class="s"> (</span><span class="cp">{{</span><span class="w"> </span><span class="na">.Params</span><span class="w"> </span><span class="cp">}}</span><span class="s">) (</span><span class="cp">{{</span><span class="w"> </span><span class="na">.Results</span><span class="w"> </span><span class="cp">}}</span><span class="s">) {
+</span></span></span><span class="line"><span class="cl"><span class="s">	// before 这里可能会有一些统计的逻辑
+</span></span></span><span class="line"><span class="cl"><span class="s">	start := time.Now()
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">	</span><span class="cp">{{</span><span class="w"> </span><span class="na">.ResultNames</span><span class="w"> </span><span class="cp">}}</span><span class="s"> = p.child.</span><span class="cp">{{</span><span class="w"> </span><span class="na">.Name</span><span class="w"> </span><span class="cp">}}</span><span class="s">(</span><span class="cp">{{</span><span class="w"> </span><span class="na">.ParamNames</span><span class="w"> </span><span class="cp">}}</span><span class="s">)
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">	// after 这里可能也有一些监控统计的逻辑
+</span></span></span><span class="line"><span class="cl"><span class="s">	log.Printf(&#34;user login cost time: %s&#34;, time.Now().Sub(start))
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">	return </span><span class="cp">{{</span><span class="w"> </span><span class="na">.ResultNames</span><span class="w"> </span><span class="cp">}}</span><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">}
+</span></span></span><span class="line"><span class="cl"><span class="s"></span><span class="cp">{{</span><span class="w"> </span><span class="k">end</span><span class="w"> </span><span class="cp">}}</span><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">`</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">proxyData</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 包名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">Package</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 需要代理的类名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">ProxyStructName</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 需要代理的方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">Methods</span> <span class="p">[]</span><span class="o">*</span><span class="nx">proxyMethod</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// proxyMethod 代理的方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">proxyMethod</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 方法名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">Name</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 参数，含参数类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">Params</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 参数名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">ParamNames</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 返回值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">Results</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 返回值名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">ResultNames</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="单元测试-1">单元测试</h2>
 <div class="highlight"><div class="chroma">
@@ -715,83 +714,81 @@
 </span><span class="lnt">36
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">proxy</span>
-
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&#34;testing&#34;</span>
-
-	<span class="s">&#34;github.com/stretchr/testify/assert&#34;</span>
-	<span class="s">&#34;github.com/stretchr/testify/require&#34;</span>
-<span class="p">)</span>
-
-<span class="kd">func</span> <span class="nf">Test_generate</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">want</span> <span class="o">:=</span> <span class="s">`package proxy
-</span><span class="s">
-</span><span class="s">type UserProxy struct {
-</span><span class="s">	child *User
-</span><span class="s">}
-</span><span class="s">
-</span><span class="s">func NewUserProxy(child *User) *UserProxy {
-</span><span class="s">	return &amp;UserProxy{child: child}
-</span><span class="s">}
-</span><span class="s">
-</span><span class="s">func (p *UserProxy) Login(username, password string) (r0 error) {
-</span><span class="s">	// before 这里可能会有一些统计的逻辑
-</span><span class="s">	start := time.Now()
-</span><span class="s">
-</span><span class="s">	r0 = p.child.Login(username, password)
-</span><span class="s">
-</span><span class="s">	// after 这里可能也有一些监控统计的逻辑
-</span><span class="s">	log.Printf(&#34;user login cost time: %s&#34;, time.Now().Sub(start))
-</span><span class="s">
-</span><span class="s">	return r0
-</span><span class="s">}
-</span><span class="s">`</span>
-	<span class="nx">got</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">generate</span><span class="p">(</span><span class="s">&#34;./static_proxy.go&#34;</span><span class="p">)</span>
-	<span class="nx">require</span><span class="p">.</span><span class="nf">Nil</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-	<span class="nx">assert</span><span class="p">.</span><span class="nf">Equal</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">want</span><span class="p">,</span> <span class="nx">got</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">proxy</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;testing&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;github.com/stretchr/testify/assert&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;github.com/stretchr/testify/require&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">Test_generate</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">want</span> <span class="o">:=</span> <span class="s">`package proxy
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">type UserProxy struct {
+</span></span></span><span class="line"><span class="cl"><span class="s">	child *User
+</span></span></span><span class="line"><span class="cl"><span class="s">}
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">func NewUserProxy(child *User) *UserProxy {
+</span></span></span><span class="line"><span class="cl"><span class="s">	return &amp;UserProxy{child: child}
+</span></span></span><span class="line"><span class="cl"><span class="s">}
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">func (p *UserProxy) Login(username, password string) (r0 error) {
+</span></span></span><span class="line"><span class="cl"><span class="s">	// before 这里可能会有一些统计的逻辑
+</span></span></span><span class="line"><span class="cl"><span class="s">	start := time.Now()
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">	r0 = p.child.Login(username, password)
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">	// after 这里可能也有一些监控统计的逻辑
+</span></span></span><span class="line"><span class="cl"><span class="s">	log.Printf(&#34;user login cost time: %s&#34;, time.Now().Sub(start))
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">	return r0
+</span></span></span><span class="line"><span class="cl"><span class="s">}
+</span></span></span><span class="line"><span class="cl"><span class="s">`</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">got</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">generate</span><span class="p">(</span><span class="s">&#34;./static_proxy.go&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">require</span><span class="p">.</span><span class="nf">Nil</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">assert</span><span class="p">.</span><span class="nf">Equal</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">want</span><span class="p">,</span> <span class="nx">got</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
                 <span>更新于 2022-06-07</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
+            </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
                             <a class="link-to-markdown" href="/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" data-title="代理模式" data-via="xxxx" data-hashtags="设计模式"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" data-hashtag="设计模式"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" data-title="代理模式" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" data-title="代理模式"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" data-title="代理模式"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" data-title="代理模式" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" data-title="代理模式" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" data-title="代理模式"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" data-title="代理模式" data-via="xxxx" data-hashtags="设计模式"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" data-hashtag="设计模式"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" data-title="代理模式" data-web><i class="fab fa-whatsapp fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" data-title="代理模式"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" data-title="代理模式"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" data-title="代理模式" data-description=""><i class="fab fa-blogger fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" data-title="代理模式"><i class="fab fa-evernote fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/%E5%88%9B%E5%BB%BA%E8%80%85%E6%A8%A1%E5%BC%8F/" class="prev" rel="prev" title="创建者模式"><i class="fas fa-angle-left fa-fw"></i>创建者模式</a>
-            <a href="/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/" class="next" rel="next" title="桥接模式">桥接模式<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/%E5%88%9B%E5%BB%BA%E8%80%85%E6%A8%A1%E5%BC%8F/" class="prev" rel="prev" title="创建者模式"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>创建者模式</a>
+            <a href="/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/" class="next" rel="next" title="桥接模式">桥接模式<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
         <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

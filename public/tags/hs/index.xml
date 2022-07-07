@@ -8,8 +8,9 @@
     <title>微信支付的接口</title>
     <link>http://example.org/payment/</link>
     <pubDate>Fri, 08 Apr 2022 09:49:46 &#43;0800</pubDate>
-    <author>作者</author>
+    <author>yzj</author>
     <guid>http://example.org/payment/</guid>
     <description><![CDATA[微信支付V3 整理整体流程]]></description>
-</item></channel>
+</item>
+</channel>
 </rss>

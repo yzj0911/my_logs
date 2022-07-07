@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Docker - 标签 - YZJ 的博客</title>
+        <link>http://example.org/tags/docker/</link>
+        <description>Docker - 标签 - YZJ 的博客</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>935669265@qq.com (yzj)</managingEditor>
+            <webMaster>935669265@qq.com (yzj)</webMaster><lastBuildDate>Fri, 27 May 2022 14:48:41 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/docker/" rel="self" type="application/rss+xml" /><item>
+    <title>Docker2</title>
+    <link>http://example.org/docker2/</link>
+    <pubDate>Fri, 27 May 2022 14:48:41 &#43;0800</pubDate>
+    <author>yzj</author>
+    <guid>http://example.org/docker2/</guid>
+    <description><![CDATA[Docker 组成 描述 Image Docker镜像，用于创建Docker容器的模板 Container Docker容器，独立运行的一个或一组应用 Client Docker客户端，使用Docke]]></description>
+</item>
+<item>
+    <title>Kubernetes</title>
+    <link>http://example.org/kubernetes/</link>
+    <pubDate>Fri, 27 May 2022 10:04:56 &#43;0800</pubDate>
+    <author>yzj</author>
+    <guid>http://example.org/kubernetes/</guid>
+    <description><![CDATA[Kubernetes 高可用集群的副本数量最好是 &gt;=3 的奇数个数量 kubernetes 基础组件: APISERVER: 所有服务访问的同意口径 Crontroller-Manager: 持续副本期望数目 Scheduler : 负责介绍任务，选择最合适的节点，进行任务]]></description>
+</item>
+</channel>
+</rss>

@@ -4,13 +4,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>Interface - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="Interface" />
 <meta property="og:description" content="interface的底层实现 所有interface，包括有方法和空接口，在内存中都是占据两个字长，在32位机器上就是8个字节，在64位机器上" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/interface/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-04-13T21:03:11+08:00" />
-<meta property="article:modified_time" content="2022-04-13T21:03:11+08:00" />
+<meta property="article:modified_time" content="2022-04-13T21:03:11+08:00" /><meta property="og:site_name" content="My cool site" />
 
 
 <meta name="twitter:card" content="summary_large_image"/>
@@ -19,7 +18,9 @@
 <meta name="twitter:title" content="Interface"/>
 <meta name="twitter:description" content="interface的底层实现 所有interface，包括有方法和空接口，在内存中都是占据两个字长，在32位机器上就是8个字节，在64位机器上"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/interface/" /><link rel="prev" href="http://example.org/gmp/" /><link rel="next" href="http://example.org/100%E9%A2%98/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/interface/" /><link rel="prev" href="http://example.org/gmp/" /><link rel="next" href="http://example.org/100%E9%A2%98/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -37,7 +38,7 @@
             },"description": ""
     }
     </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -55,16 +56,16 @@
             <div class="menu-inner"><a class="menu-item" href="/posts/" title="YZJ 的博客"> 文章 </a><a class="menu-item" href="/tags/" title="YZJ 的博客"> 标签 </a><a class="menu-item" href="/categories/" title="YZJ 的博客"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="请输入搜索文章" id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
                 </a>
             </div>
         </div>
@@ -90,41 +91,39 @@
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="请输入搜索文章" id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </div>
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
                 </div><a class="menu-item" href="/posts/" title="YZJ 的博客">文章</a><a class="menu-item" href="/tags/" title="YZJ 的博客">标签</a><a class="menu-item" href="/categories/" title="YZJ 的博客">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
-</header>
-<div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">Interface</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%9D%A2%E8%AF%95/"><i class="far fa-folder fa-fw"></i>面试</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-13">2022-04-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1670 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="true">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Interface</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yzj</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%9D%A2%E8%AF%95/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>面试</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-04-13">2022-04-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1670 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
                     <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
@@ -146,12 +145,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nx">runtime</span><span class="p">.</span><span class="nx">eface</span><span class="err">：</span>
-<span class="kd">type</span> <span class="nx">eface</span> <span class="kd">struct</span><span class="p">{</span>
-    <span class="nx">_type</span> <span class="o">*</span><span class="nx">_type</span>	<span class="c1">// 数据的真实类型
-</span><span class="c1"></span>    <span class="nx">data</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">runtime</span><span class="p">.</span><span class="nx">eface</span><span class="err">：</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">eface</span> <span class="kd">struct</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">_type</span> <span class="o">*</span><span class="nx">_type</span>	<span class="c1">// 数据的真实类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">data</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>空接口由两个指针组成，_type表示接口的类型相关的信息，data表示数据的指针。</p>
 <div class="highlight"><div class="chroma">
@@ -174,23 +173,23 @@
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">_type</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">size</span>       <span class="kt">uintptr</span>	<span class="c1">// 内存大小
-</span><span class="c1"></span>    <span class="nx">ptrdata</span>    <span class="kt">uintptr</span> 	<span class="c1">// 内存前缀大小
-</span><span class="c1"></span>    <span class="nx">hash</span>       <span class="kt">uint32</span>	<span class="c1">// 类型的hash值
-</span><span class="c1"></span>    <span class="nx">tflag</span>      <span class="nx">tflag</span>	<span class="c1">// 类型信息标志，和反射相关
-</span><span class="c1"></span>    <span class="nx">align</span>      <span class="kt">uint8</span>	<span class="c1">// 内存对齐大小
-</span><span class="c1"></span>    <span class="nx">fieldalign</span> <span class="kt">uint8</span>	<span class="c1">// 结构体字段内存对齐大小
-</span><span class="c1"></span>    <span class="nx">kind</span>       <span class="kt">uint8</span>	<span class="c1">// 类别
-</span><span class="c1"></span>    <span class="nx">equal</span> <span class="kd">func</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">,</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">)</span> <span class="kt">bool</span>
-    <span class="c1">// gcdata stores the GC type data for the garbage collector.
-</span><span class="c1"></span>    <span class="c1">// If the KindGCProg bit is set in kind, gcdata is a GC program.
-</span><span class="c1"></span>    <span class="c1">// Otherwise it is a ptrmask bitmap. See mbitmap.go for details.
-</span><span class="c1"></span>    <span class="nx">gcdata</span>    <span class="o">*</span><span class="kt">byte</span>		<span class="c1">// gc相关
-</span><span class="c1"></span>    <span class="nx">str</span>       <span class="nx">nameOff</span>
-    <span class="nx">ptrToThis</span> <span class="nx">typeOff</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">_type</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">size</span>       <span class="kt">uintptr</span>	<span class="c1">// 内存大小
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">ptrdata</span>    <span class="kt">uintptr</span> 	<span class="c1">// 内存前缀大小
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">hash</span>       <span class="kt">uint32</span>	<span class="c1">// 类型的hash值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">tflag</span>      <span class="nx">tflag</span>	<span class="c1">// 类型信息标志，和反射相关
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">align</span>      <span class="kt">uint8</span>	<span class="c1">// 内存对齐大小
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">fieldalign</span> <span class="kt">uint8</span>	<span class="c1">// 结构体字段内存对齐大小
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">kind</span>       <span class="kt">uint8</span>	<span class="c1">// 类别
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">equal</span> <span class="kd">func</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">,</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">)</span> <span class="kt">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// gcdata stores the GC type data for the garbage collector.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// If the KindGCProg bit is set in kind, gcdata is a GC program.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// Otherwise it is a ptrmask bitmap. See mbitmap.go for details.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">gcdata</span>    <span class="o">*</span><span class="kt">byte</span>		<span class="c1">// gc相关
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">str</span>       <span class="nx">nameOff</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ptrToThis</span> <span class="nx">typeOff</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -201,12 +200,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nx">runtime</span><span class="p">.</span><span class="nx">iface</span>
-<span class="kd">type</span> <span class="nx">iface</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">tab</span>  <span class="o">*</span><span class="nx">itab</span>
-    <span class="nx">data</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">runtime</span><span class="p">.</span><span class="nx">iface</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">iface</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">tab</span>  <span class="o">*</span><span class="nx">itab</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">data</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>有方法的接口也由两个指针组成，tab存放接口的类型以及方法表，data表示数据的指针</p>
 <div class="highlight"><div class="chroma">
@@ -234,28 +233,28 @@
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">itab</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">inter</span>  <span class="o">*</span><span class="nx">interfacetype</span>	<span class="c1">// 接口类型（比如Bird）
-</span><span class="c1"></span>    <span class="nx">_type</span>  <span class="o">*</span><span class="nx">_type</span>			<span class="c1">// 数据真实类型，动态类型（比如Sparrow）
-</span><span class="c1"></span>    <span class="nx">hash</span>   <span class="kt">uint32</span> <span class="c1">// copy of _type.hash. Used for type switches.
-</span><span class="c1"></span>	<span class="nx">_</span>      <span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="kt">byte</span>
-	<span class="nx">fun</span>    <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="kt">uintptr</span> <span class="c1">// variable sized. fun[0]==0 means _type does not implement inter.
-</span><span class="c1"></span><span class="p">}</span>
-
-<span class="kd">type</span> <span class="nx">nameOff</span> <span class="kt">int32</span>
-<span class="kd">type</span> <span class="nx">typeOff</span> <span class="kt">int32</span>
-
-<span class="kd">type</span> <span class="nx">imethod</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">name</span> <span class="nx">nameOff</span>
-	<span class="nx">ityp</span> <span class="nx">typeOff</span>
-<span class="p">}</span>
-
-<span class="kd">type</span> <span class="nx">interfacetype</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">typ</span>     <span class="nx">_type</span>	<span class="c1">// 具体的类型
-</span><span class="c1"></span>    <span class="nx">pkgpath</span> <span class="nx">name</span>	<span class="c1">// 接口的包名
-</span><span class="c1"></span>    <span class="nx">mhdr</span>    <span class="p">[]</span><span class="nx">imethod</span>  <span class="c1">//接口定义的函数列表
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">itab</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">inter</span>  <span class="o">*</span><span class="nx">interfacetype</span>	<span class="c1">// 接口类型（比如Bird）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">_type</span>  <span class="o">*</span><span class="nx">_type</span>			<span class="c1">// 数据真实类型，动态类型（比如Sparrow）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">hash</span>   <span class="kt">uint32</span> <span class="c1">// copy of _type.hash. Used for type switches.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">_</span>      <span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="kt">byte</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fun</span>    <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="kt">uintptr</span> <span class="c1">// variable sized. fun[0]==0 means _type does not implement inter.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">nameOff</span> <span class="kt">int32</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">typeOff</span> <span class="kt">int32</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">imethod</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">name</span> <span class="nx">nameOff</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">ityp</span> <span class="nx">typeOff</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">interfacetype</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">typ</span>     <span class="nx">_type</span>	<span class="c1">// 具体的类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">pkgpath</span> <span class="nx">name</span>	<span class="c1">// 接口的包名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">mhdr</span>    <span class="p">[]</span><span class="nx">imethod</span>  <span class="c1">//接口定义的函数列表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>itab中 inter 表示接口类型，包含类型、包名、方法等信息，_type 表示数据的真实类型。
 fun字段为与接口方法对应的具体数据类型的方法地址，fun的数组大小为1，存放的是第一个方法的地址，如果有多个方法，因为内存是连续的，可以通过增加指针获取后面的方法地址。
@@ -270,12 +269,12 @@ reflect.Typeof() 返回的是数据的真实类型。</p>
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="kd">var</span> <span class="nx">x</span> <span class="kt">int64</span> <span class="p">=</span> <span class="mi">1</span>
-	<span class="kd">var</span> <span class="nx">a</span> <span class="kd">interface</span><span class="p">{}</span> <span class="p">=</span> <span class="nx">x</span>
-	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">x</span> <span class="kt">int64</span> <span class="p">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">a</span> <span class="kd">interface</span><span class="p">{}</span> <span class="p">=</span> <span class="nx">x</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这段代码将int64的x赋值给a，将发生类型转换。打印其汇编代码：</p>
 <div class="highlight"><div class="chroma">
@@ -283,8 +282,8 @@ reflect.Typeof() 返回的是数据的真实类型。</p>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="k">go</span> <span class="nx">tool</span> <span class="nx">compile</span> <span class="o">-</span><span class="nx">S</span> <span class="nx">mian</span><span class="p">.</span><span class="k">go</span> <span class="p">&gt;</span> <span class="nx">mian</span><span class="p">.</span><span class="nx">s</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">tool</span> <span class="nx">compile</span> <span class="o">-</span><span class="nx">S</span> <span class="nx">mian</span><span class="p">.</span><span class="k">go</span> <span class="p">&gt;</span> <span class="nx">mian</span><span class="p">.</span><span class="nx">s</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>观察汇编可以发现，在执行 var a interface{} = x的时候，发现其调用了runtime.convT64(SB)方法。</p>
 <p>实际上根据所赋与值的类型的不同，会调用不同的转换方法，类似的还有 convTstring，convT32等。</p>
@@ -305,19 +304,19 @@ reflect.Typeof() 返回的是数据的真实类型。</p>
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">any</span> <span class="kd">interface</span><span class="p">{}</span> <span class="p">=</span> <span class="mi">1</span>
-<span class="nx">i</span><span class="p">,</span><span class="nx">ok</span> <span class="o">:=</span> <span class="nx">any</span><span class="p">.(</span><span class="kt">int</span><span class="p">)</span>
-
-<span class="kd">var</span> <span class="nx">any</span> <span class="kd">interface</span><span class="p">{}</span>
-<span class="k">switch</span> <span class="nx">any</span><span class="p">.(</span><span class="kd">type</span><span class="p">){</span>
-<span class="k">case</span> <span class="kt">int</span><span class="p">:</span>
-	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;type int&#34;</span><span class="p">)</span>
-<span class="k">case</span> <span class="kt">string</span><span class="p">:</span>
-	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;type string)
-</span><span class="s">default:
-</span><span class="s">	fmt.Println(&#34;</span><span class="kd">type</span> <span class="nx">unknow</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">any</span> <span class="kd">interface</span><span class="p">{}</span> <span class="p">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="nx">i</span><span class="p">,</span><span class="nx">ok</span> <span class="o">:=</span> <span class="nx">any</span><span class="p">.(</span><span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">any</span> <span class="kd">interface</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="k">switch</span> <span class="nx">any</span><span class="p">.(</span><span class="kd">type</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="kt">int</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;type int&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="kt">string</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;type string)
+</span></span></span><span class="line"><span class="cl"><span class="s">default:
+</span></span></span><span class="line"><span class="cl"><span class="s">	fmt.Println(&#34;</span><span class="kd">type</span> <span class="nx">unknow</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>类型断言interface的类型就是它的数据真实类型。例如：</p>
 <div class="highlight"><div class="chroma">
@@ -330,13 +329,13 @@ reflect.Typeof() 返回的是数据的真实类型。</p>
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">a</span> <span class="kt">int64</span>
-
-<span class="kd">func</span> <span class="nf">main</span><span class="p">(){</span>
-    <span class="kd">var</span> <span class="nx">i</span> <span class="kd">interface</span><span class="p">{}</span> <span class="p">=</span> <span class="nf">a</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1">// i的真实数据类型为 main.a而不是int64
-</span><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">.(</span><span class="nx">a</span><span class="p">))</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">a</span> <span class="kt">int64</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">i</span> <span class="kd">interface</span><span class="p">{}</span> <span class="p">=</span> <span class="nf">a</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1">// i的真实数据类型为 main.a而不是int64
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">.(</span><span class="nx">a</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>类型断言参考：runtime.assertxx 方法的实现。</p>
 <h2 id="指针接收者还是值接收者">指针接收者还是值接收者？</h2>
@@ -363,24 +362,24 @@ reflect.Typeof() 返回的是数据的真实类型。</p>
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Bird</span> <span class="kd">interface</span> <span class="p">{</span>
-	<span class="nf">Fly</span><span class="p">()</span>
-<span class="p">}</span>
-
-<span class="kd">type</span> <span class="nx">Sparrow</span> <span class="kd">struct</span> <span class="p">{</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="p">(</span><span class="nx">Sparrow</span><span class="p">)</span> <span class="nf">Fly</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;sparrow fly&#34;</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="kd">var</span> <span class="nx">s1</span> <span class="nx">Bird</span> <span class="p">=</span> <span class="nx">Sparrow</span><span class="p">{}</span>
-	<span class="nx">s1</span><span class="p">.</span><span class="nf">Fly</span><span class="p">()</span>
-	<span class="kd">var</span> <span class="nx">s2</span> <span class="nx">Bird</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">Sparrow</span><span class="p">{}</span>
-	<span class="nx">s2</span><span class="p">.</span><span class="nf">Fly</span><span class="p">()</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Bird</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">Fly</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Sparrow</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">Sparrow</span><span class="p">)</span> <span class="nf">Fly</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;sparrow fly&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">s1</span> <span class="nx">Bird</span> <span class="p">=</span> <span class="nx">Sparrow</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">s1</span><span class="p">.</span><span class="nf">Fly</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">s2</span> <span class="nx">Bird</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">Sparrow</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">s2</span><span class="p">.</span><span class="nf">Fly</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>打印结果为：</p>
 <div class="highlight"><div class="chroma">
@@ -389,9 +388,9 @@ reflect.Typeof() 返回的是数据的真实类型。</p>
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nx">sparrow</span> <span class="nx">fly</span>
-<span class="nx">sparrow</span> <span class="nx">fly</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">sparrow</span> <span class="nx">fly</span>
+</span></span><span class="line"><span class="cl"><span class="nx">sparrow</span> <span class="nx">fly</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -408,18 +407,18 @@ reflect.Typeof() 返回的是数据的真实类型。</p>
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nx">当Fly的接收者为指针类型时</span><span class="err">：</span>
-<span class="kd">func</span> <span class="p">(</span><span class="o">*</span><span class="nx">Sparrow</span><span class="p">)</span> <span class="nf">Fly</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;sparrow fly&#34;</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="kd">var</span> <span class="nx">s1</span> <span class="nx">Bird</span> <span class="p">=</span> <span class="nx">Sparrow</span><span class="p">{}</span>
-	<span class="nx">s1</span><span class="p">.</span><span class="nf">Fly</span><span class="p">()</span>
-	<span class="kd">var</span> <span class="nx">s2</span> <span class="nx">Bird</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">Sparrow</span><span class="p">{}</span>
-	<span class="nx">s2</span><span class="p">.</span><span class="nf">Fly</span><span class="p">()</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">当Fly的接收者为指针类型时</span><span class="err">：</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="o">*</span><span class="nx">Sparrow</span><span class="p">)</span> <span class="nf">Fly</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;sparrow fly&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">s1</span> <span class="nx">Bird</span> <span class="p">=</span> <span class="nx">Sparrow</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">s1</span><span class="p">.</span><span class="nf">Fly</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">s2</span> <span class="nx">Bird</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">Sparrow</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">s2</span><span class="p">.</span><span class="nf">Fly</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>打印结果为：</p>
 <div class="highlight"><div class="chroma">
@@ -428,9 +427,9 @@ reflect.Typeof() 返回的是数据的真实类型。</p>
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nx">cannot</span> <span class="nx">use</span> <span class="nx">Sparrow</span> <span class="nf">literal</span> <span class="p">(</span><span class="kd">type</span> <span class="nx">Sparrow</span><span class="p">)</span> <span class="nx">as</span> <span class="kd">type</span> <span class="nx">Bird</span> <span class="nx">in</span> <span class="nx">assignment</span><span class="p">:</span>
-<span class="nx">Sparrow</span> <span class="nx">does</span> <span class="nx">not</span> <span class="nx">implement</span> <span class="nf">Bird</span> <span class="p">(</span><span class="nx">Fly</span> <span class="nx">method</span> <span class="nx">has</span> <span class="nx">pointer</span> <span class="nx">receiver</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">cannot</span> <span class="nx">use</span> <span class="nx">Sparrow</span> <span class="nf">literal</span> <span class="p">(</span><span class="kd">type</span> <span class="nx">Sparrow</span><span class="p">)</span> <span class="nx">as</span> <span class="kd">type</span> <span class="nx">Bird</span> <span class="nx">in</span> <span class="nx">assignment</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Sparrow</span> <span class="nx">does</span> <span class="nx">not</span> <span class="nx">implement</span> <span class="nf">Bird</span> <span class="p">(</span><span class="nx">Fly</span> <span class="nx">method</span> <span class="nx">has</span> <span class="nx">pointer</span> <span class="nx">receiver</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以看出，当方法的接收者为值类型时，不管是指针类型的值还是值类型的值都可以调用该方法，因为go会把指针进行隐式的转换得到指针的值，而当方法的接收者为指针类型时，值类型的值调用该方法会报错。</p>
 <p>*类型 T 变量只有接受者是 T 的方法；而类型 *T变量拥有接受者是 T 和 T 的方法</p>
@@ -450,10 +449,10 @@ reflect.Typeof() 返回的是数据的真实类型。</p>
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kd">interface</span><span class="p">{}</span>
-<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="o">==</span><span class="nx">b</span><span class="p">)</span>	<span class="c1">// true
-</span><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="o">!=</span><span class="nx">b</span><span class="p">)</span>	<span class="c1">// false
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kd">interface</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="o">==</span><span class="nx">b</span><span class="p">)</span>	<span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="o">!=</span><span class="nx">b</span><span class="p">)</span>	<span class="c1">// false
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果两个不是空接口，那么只有当他们的动态类型和动态值都相等的情况下，他们才相等（==操作符返回true）。</p>
 <p>上面的情况都是基于动态类型都能比较的情况下进行的，如果动态类型不能比较呢（比如：slice，map，array， function和结构体等），那么，执行比较操作的时候会抛出运行时异常。</p>
@@ -462,40 +461,38 @@ reflect.Typeof() 返回的是数据的真实类型。</p>
         <div class="post-info-line">
             <div class="post-info-mod">
                 <span>更新于 2022-04-13</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
+            </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
                             <a class="link-to-markdown" href="/interface/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/interface/" data-title="Interface" data-via="xxxx" data-hashtags="面试"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/interface/" data-hashtag="面试"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/interface/" data-title="Interface" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/interface/" data-title="Interface"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/interface/" data-title="Interface"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/interface/" data-title="Interface" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/interface/" data-title="Interface" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/interface/" data-title="Interface"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/interface/" data-title="Interface" data-via="xxxx" data-hashtags="面试"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/interface/" data-hashtag="面试"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/interface/" data-title="Interface" data-web><i class="fab fa-whatsapp fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/interface/" data-title="Interface"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/interface/" data-title="Interface"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/interface/" data-title="Interface" data-description=""><i class="fab fa-blogger fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/interface/" data-title="Interface"><i class="fab fa-evernote fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E9%9D%A2%E8%AF%95/">面试</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E9%9D%A2%E8%AF%95/">面试</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/gmp/" class="prev" rel="prev" title="GMP"><i class="fas fa-angle-left fa-fw"></i>GMP</a>
-            <a href="/100%E9%A2%98/" class="next" rel="next" title="100题">100题<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/gmp/" class="prev" rel="prev" title="GMP"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>GMP</a>
+            <a href="/100%E9%A2%98/" class="next" rel="next" title="100题">100题<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
         <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

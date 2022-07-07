@@ -4,13 +4,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>深入理解计算机系统 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="深入理解计算机系统" />
 <meta property="og:description" content="深入理解计算机系统 一、计算机系统漫游 计算机系统是由硬件和软件组成。 1.1 信息就是位 &#43; 上下文 系统中所有的信息——包括磁盘文件、内存中的程序、内存中" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/csapp/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-12-03T10:17:16+08:00" />
-<meta property="article:modified_time" content="2021-12-03T10:17:16+08:00" />
+<meta property="article:modified_time" content="2021-12-03T10:17:16+08:00" /><meta property="og:site_name" content="My cool site" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://example.org/logo.png"/>
@@ -18,7 +17,9 @@
 <meta name="twitter:title" content="深入理解计算机系统"/>
 <meta name="twitter:description" content="深入理解计算机系统 一、计算机系统漫游 计算机系统是由硬件和软件组成。 1.1 信息就是位 &#43; 上下文 系统中所有的信息——包括磁盘文件、内存中的程序、内存中"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/csapp/" /><link rel="next" href="http://example.org/lnmp/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/csapp/" /><link rel="next" href="http://example.org/lnmp/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -36,7 +37,7 @@
             },"description": ""
     }
     </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -54,16 +55,16 @@
             <div class="menu-inner"><a class="menu-item" href="/posts/" title="YZJ 的博客"> 文章 </a><a class="menu-item" href="/tags/" title="YZJ 的博客"> 标签 </a><a class="menu-item" href="/categories/" title="YZJ 的博客"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="请输入搜索文章" id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
                 </a>
             </div>
         </div>
@@ -89,41 +90,39 @@
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="请输入搜索文章" id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </div>
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
                 </div><a class="menu-item" href="/posts/" title="YZJ 的博客">文章</a><a class="menu-item" href="/tags/" title="YZJ 的博客">标签</a><a class="menu-item" href="/categories/" title="YZJ 的博客">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
-</header>
-<div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">深入理解计算机系统</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-03">2021-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 9815 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 20 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="true">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">深入理解计算机系统</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yzj</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-12-03">2021-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 9815 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 20 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
                     <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
@@ -365,8 +364,8 @@
         title="https://raw.githubusercontent.com/yzj0911/my_logs/main/content/images/20210907213431.png" /></p>
 <p>关于寄存器的说明可以参考:</p>
 <ul>
-<li><a href="https://blog.csdn.net/u013982161/article/details/51347944" target="_blank" rel="noopener noreffer">X86-64 寄存器和栈帧</a></li>
-<li><a href="https://lenzhao.com/topic/597acd202e95f0fd0a981868" target="_blank" rel="noopener noreffer">x86_64 寄存器介绍</a></li>
+<li><a href="https://blog.csdn.net/u013982161/article/details/51347944" target="_blank" rel="noopener noreffer ">X86-64 寄存器和栈帧</a></li>
+<li><a href="https://lenzhao.com/topic/597acd202e95f0fd0a981868" target="_blank" rel="noopener noreffer ">x86_64 寄存器介绍</a></li>
 </ul>
 <p>大多数指令有一个或多个操作数(operand)，指示出执行一个操作中要使用到的源数据值，以及放置结果的目的位置。</p>
 <p>存放操作数的类型：</p>
@@ -475,12 +474,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nf">movl</span> <span class="no">$0x4050</span><span class="p">,</span> <span class="no">$eax</span>        <span class="c">; Immediate -- Register, 4 bytes
-</span><span class="c"></span><span class="no">movw</span> <span class="nv">%bp</span><span class="p">,</span> <span class="nv">%sp</span>             <span class="c">; Register -- Register,  2 bytes
-</span><span class="c"></span><span class="no">movb</span> <span class="p">(</span><span class="nv">%bp</span><span class="p">,</span> <span class="nv">%rcx</span><span class="p">),</span> <span class="nv">%al</span>     <span class="c">; Memory -- Register,    1 bytes
-</span><span class="c"></span><span class="no">movb</span> <span class="no">$-17</span><span class="p">,</span> <span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>         <span class="c">; Immediate -- Memory,   1 bytes
-</span><span class="c"></span><span class="no">movq</span> <span class="nv">%rax</span><span class="p">,</span> <span class="p">-</span><span class="mi">12</span><span class="p">(</span><span class="nv">%rbp</span><span class="p">)</span>      <span class="c">; Register -- Memory,    8 bytes
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">movl</span> <span class="no">$0x4050</span><span class="p">,</span> <span class="no">$eax</span>        <span class="c">; Immediate -- Register, 4 bytes
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">movw</span> <span class="nv">%bp</span><span class="p">,</span> <span class="nv">%sp</span>             <span class="c">; Register -- Register,  2 bytes
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">movb</span> <span class="p">(</span><span class="nv">%bp</span><span class="p">,</span> <span class="nv">%rcx</span><span class="p">),</span> <span class="nv">%al</span>     <span class="c">; Memory -- Register,    1 bytes
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">movb</span> <span class="no">$-17</span><span class="p">,</span> <span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>         <span class="c">; Immediate -- Memory,   1 bytes
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">movq</span> <span class="nv">%rax</span><span class="p">,</span> <span class="p">-</span><span class="mi">12</span><span class="p">(</span><span class="nv">%rbp</span><span class="p">)</span>      <span class="c">; Register -- Memory,    8 bytes
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>MOVZ</code> 类中指令把目的中剩余的字节填充为0。</p>
 <p><img
@@ -511,13 +510,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">long</span> <span class="nf">exchange</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="n">xp</span><span class="p">,</span> <span class="kt">long</span> <span class="n">y</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">long</span> <span class="n">x</span> <span class="o">=</span> <span class="o">*</span><span class="n">xp</span><span class="p">;</span>
-    <span class="o">*</span><span class="n">xp</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>
-    <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">long</span> <span class="nf">exchange</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="n">xp</span><span class="p">,</span> <span class="kt">long</span> <span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">long</span> <span class="n">x</span> <span class="o">=</span> <span class="o">*</span><span class="n">xp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="n">xp</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>执行命令 <code>gcc -Og -S main.c</code> 生成以下汇编内容:</p>
 <div class="highlight"><div class="chroma">
@@ -528,11 +527,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nl">exchange:</span>
-        <span class="nf">movq</span>    <span class="p">(</span><span class="nv">%rdi</span><span class="p">),</span> <span class="nv">%rax</span>
-        <span class="nf">movq</span>    <span class="nv">%rsi</span><span class="p">,</span> <span class="p">(</span><span class="nv">%rdi</span><span class="p">)</span>
-        <span class="nf">ret</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nl">exchange:</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">movq</span>    <span class="p">(</span><span class="nv">%rdi</span><span class="p">),</span> <span class="nv">%rax</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">movq</span>    <span class="nv">%rsi</span><span class="p">,</span> <span class="p">(</span><span class="nv">%rdi</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">ret</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以看出: C 语言的 &ldquo;指针&rdquo; 其实就是地址。间接引用指针就是间该指针放在一个寄存器中，然后再内存引用中使用这个寄存器。</p>
 <p>最后的两个数据传送操作: 将数据压入程序栈中，从程序栈中弹出数据。</p>
@@ -552,11 +551,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nf">pushq</span> <span class="nv">%rbp</span>        <span class="c">; 栈指针减8，然后将值写到新的栈顶地址。
-</span><span class="c">; 等同于
-</span><span class="c"></span><span class="no">subq</span> <span class="no">$8</span><span class="p">,</span> <span class="nv">%rsp</span>     <span class="c">; Decrement stack pointer
-</span><span class="c"></span><span class="no">movq</span> <span class="nv">%rbp</span><span class="p">,</span> <span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span> <span class="c">; Store %rbp on stack
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">pushq</span> <span class="nv">%rbp</span>        <span class="c">; 栈指针减8，然后将值写到新的栈顶地址。
+</span></span></span><span class="line"><span class="cl"><span class="c">; 等同于
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">subq</span> <span class="no">$8</span><span class="p">,</span> <span class="nv">%rsp</span>     <span class="c">; Decrement stack pointer
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">movq</span> <span class="nv">%rbp</span><span class="p">,</span> <span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span> <span class="c">; Store %rbp on stack
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>操作示意图:
 <img
@@ -575,11 +574,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nf">popq</span> <span class="nv">%rbp</span>         <span class="c">; 弹出一个四字的操作包括从栈顶位置读出数据，然后减栈指针加8。
-</span><span class="c">; 等同于
-</span><span class="c"></span><span class="no">movq</span> <span class="nv">%rsp</span><span class="p">,</span> <span class="p">(</span><span class="nv">%rax</span><span class="p">)</span> <span class="c">; Read %rax from stack
-</span><span class="c"></span><span class="no">addq</span> <span class="no">$8</span><span class="p">,</span> <span class="nv">%rsp</span>     <span class="c">; Increment stack pointer
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">popq</span> <span class="nv">%rbp</span>         <span class="c">; 弹出一个四字的操作包括从栈顶位置读出数据，然后减栈指针加8。
+</span></span></span><span class="line"><span class="cl"><span class="c">; 等同于
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">movq</span> <span class="nv">%rsp</span><span class="p">,</span> <span class="p">(</span><span class="nv">%rax</span><span class="p">)</span> <span class="c">; Read %rax from stack
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">addq</span> <span class="no">$8</span><span class="p">,</span> <span class="nv">%rsp</span>     <span class="c">; Increment stack pointer
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="35-算术和逻辑操作">3.5 算术和逻辑操作</h3>
 <p>指令类 ADD 由四条加法指令组成: <code>addb</code> 字节加法、<code>addw</code> 字加法、<code>addl</code> 双字加法 和 <code>addq</code> 四字加法。</p>
@@ -601,11 +600,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">long</span> <span class="nf">scale</span><span class="p">(</span><span class="kt">long</span> <span class="n">x</span><span class="p">,</span> <span class="kt">long</span> <span class="n">y</span><span class="p">,</span> <span class="kt">long</span> <span class="n">z</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">long</span> <span class="n">t</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">12</span> <span class="o">*</span> <span class="n">z</span><span class="p">;</span>
-    <span class="k">return</span> <span class="n">t</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">long</span> <span class="nf">scale</span><span class="p">(</span><span class="kt">long</span> <span class="n">x</span><span class="p">,</span> <span class="kt">long</span> <span class="n">y</span><span class="p">,</span> <span class="kt">long</span> <span class="n">z</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">long</span> <span class="n">t</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">12</span> <span class="o">*</span> <span class="n">z</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>得到汇编命令:</p>
 <div class="highlight"><div class="chroma">
@@ -622,17 +621,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nl">_scale:</span>                                 <span class="c">## @scale
-</span><span class="c"></span>	<span class="na">.cfi_startproc</span>
-<span class="c">## %bb.0:
-</span><span class="c"></span>	<span class="nf">pushq</span>	<span class="nv">%rbp</span>
-	<span class="nf">movq</span>	<span class="nv">%rsp</span><span class="p">,</span> <span class="nv">%rbp</span>
-	<span class="nf">leaq</span>	<span class="p">(</span><span class="nv">%rdi</span><span class="p">,</span><span class="nv">%rsi</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nv">%rax</span>
-	<span class="nf">leaq</span>	<span class="p">(</span><span class="nv">%rdx</span><span class="p">,</span><span class="nv">%rdx</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="nv">%rcx</span>
-	<span class="nf">leaq</span>	<span class="p">(</span><span class="nv">%rax</span><span class="p">,</span><span class="nv">%rcx</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nv">%rax</span>
-	<span class="nf">popq</span>	<span class="nv">%rbp</span>
-	<span class="nf">retq</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nl">_scale:</span>                                 <span class="c">## @scale
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>	<span class="na">.cfi_startproc</span>
+</span></span><span class="line"><span class="cl"><span class="c">## %bb.0:
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>	<span class="nf">pushq</span>	<span class="nv">%rbp</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">movq</span>	<span class="nv">%rsp</span><span class="p">,</span> <span class="nv">%rbp</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">leaq</span>	<span class="p">(</span><span class="nv">%rdi</span><span class="p">,</span><span class="nv">%rsi</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nv">%rax</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">leaq</span>	<span class="p">(</span><span class="nv">%rdx</span><span class="p">,</span><span class="nv">%rdx</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="nv">%rcx</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">leaq</span>	<span class="p">(</span><span class="nv">%rax</span><span class="p">,</span><span class="nv">%rcx</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nv">%rax</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">popq</span>	<span class="nv">%rbp</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">retq</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>一元操作数只有一个操作数，既是源又是目的。如 <code>incq (%rsp)</code>。</p>
 <p>二元操作数，第二个操作数既是源又是目的。如 <code>subq %rax,%rdx</code>。</p>
@@ -666,22 +665,22 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="cp">#include</span> <span class="cpf">&lt;inttypes.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="k">typedef</span> <span class="kt">unsigned</span> <span class="n">__int128</span> <span class="n">uint128_t</span><span class="p">;</span>
-
-<span class="kt">void</span> <span class="nf">store_uprod</span><span class="p">(</span><span class="n">uint128_t</span> <span class="o">*</span><span class="n">dest</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">x</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
-    <span class="o">*</span><span class="n">dest</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="n">uint128_t</span><span class="p">)</span> <span class="n">y</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="nf">remdiv</span><span class="p">(</span><span class="kt">long</span> <span class="n">x</span><span class="p">,</span> <span class="kt">long</span> <span class="n">y</span><span class="p">,</span>
-            <span class="kt">long</span> <span class="o">*</span><span class="n">qp</span><span class="p">,</span> <span class="kt">long</span> <span class="o">*</span><span class="n">rp</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">long</span> <span class="n">q</span> <span class="o">=</span> <span class="n">x</span> <span class="o">/</span> <span class="n">y</span><span class="p">;</span>
-    <span class="kt">long</span> <span class="n">r</span> <span class="o">=</span> <span class="n">x</span><span class="o">%</span><span class="n">y</span><span class="p">;</span>
-    <span class="o">*</span><span class="n">qp</span> <span class="o">=</span> <span class="n">q</span><span class="p">;</span>
-    <span class="o">*</span><span class="n">rp</span> <span class="o">=</span> <span class="n">r</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;inttypes.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="kt">unsigned</span> <span class="n">__int128</span> <span class="n">uint128_t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">store_uprod</span><span class="p">(</span><span class="n">uint128_t</span> <span class="o">*</span><span class="n">dest</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">x</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="n">dest</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="n">uint128_t</span><span class="p">)</span> <span class="n">y</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">remdiv</span><span class="p">(</span><span class="kt">long</span> <span class="n">x</span><span class="p">,</span> <span class="kt">long</span> <span class="n">y</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">long</span> <span class="o">*</span><span class="n">qp</span><span class="p">,</span> <span class="kt">long</span> <span class="o">*</span><span class="n">rp</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">long</span> <span class="n">q</span> <span class="o">=</span> <span class="n">x</span> <span class="o">/</span> <span class="n">y</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">long</span> <span class="n">r</span> <span class="o">=</span> <span class="n">x</span><span class="o">%</span><span class="n">y</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="n">qp</span> <span class="o">=</span> <span class="n">q</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="n">rp</span> <span class="o">=</span> <span class="n">r</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>生成汇编</p>
 <div class="highlight"><div class="chroma">
@@ -705,24 +704,24 @@
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nl">store_uprod:</span>
-	<span class="nf">movq</span>	<span class="nv">%rsp</span><span class="p">,</span> <span class="nv">%rbp</span>
-	<span class="nf">movq</span>	<span class="nv">%rdx</span><span class="p">,</span> <span class="nv">%rax</span>      <span class="c">; Copy x to multiplicand
-</span><span class="c"></span>	<span class="no">mulq</span>	<span class="nv">%rsi</span>            <span class="c">; Multiply by y
-</span><span class="c"></span>	<span class="no">movq</span>	<span class="nv">%rdx</span><span class="p">,</span> <span class="mi">8</span><span class="p">(</span><span class="nv">%rdi</span><span class="p">)</span>   <span class="c">; Store upper 8 bytes at dest+8
-</span><span class="c"></span>	<span class="no">movq</span>	<span class="nv">%rax</span><span class="p">,</span> <span class="p">(</span><span class="nv">%rdi</span><span class="p">)</span>    <span class="c">; Store lower 8 bytes at dest
-</span><span class="c"></span>	<span class="no">retq</span>
-
-<span class="nl">remdiv:</span>
-	<span class="nf">movq</span>	<span class="nv">%rsp</span><span class="p">,</span> <span class="nv">%rbp</span>
-	<span class="nf">movq</span>	<span class="nv">%rdx</span><span class="p">,</span> <span class="nv">%r8</span>       <span class="c">; Copy qp
-</span><span class="c"></span>	<span class="no">movq</span>	<span class="nv">%rdi</span><span class="p">,</span> <span class="nv">%rax</span>      <span class="c">; Move x to lower 8 bytes of dividend
-</span><span class="c"></span>	<span class="no">cqto</span>                  <span class="c">; Sign-extend to upper 8 bytes of dividend
-</span><span class="c"></span>	<span class="no">idivq</span>	<span class="nv">%rsi</span>            <span class="c">; Divide by y 
-</span><span class="c"></span>	<span class="no">movq</span>	<span class="nv">%rax</span><span class="p">,</span> <span class="p">(</span><span class="nv">%r8</span><span class="p">)</span>     <span class="c">; Store remainder at rp
-</span><span class="c"></span>	<span class="no">movq</span>	<span class="nv">%rdx</span><span class="p">,</span> <span class="p">(</span><span class="nv">%rcx</span><span class="p">)</span>    <span class="c">; Store quotient at qp
-</span><span class="c"></span>	<span class="no">retq</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nl">store_uprod:</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">movq</span>	<span class="nv">%rsp</span><span class="p">,</span> <span class="nv">%rbp</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">movq</span>	<span class="nv">%rdx</span><span class="p">,</span> <span class="nv">%rax</span>      <span class="c">; Copy x to multiplicand
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>	<span class="no">mulq</span>	<span class="nv">%rsi</span>            <span class="c">; Multiply by y
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>	<span class="no">movq</span>	<span class="nv">%rdx</span><span class="p">,</span> <span class="mi">8</span><span class="p">(</span><span class="nv">%rdi</span><span class="p">)</span>   <span class="c">; Store upper 8 bytes at dest+8
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>	<span class="no">movq</span>	<span class="nv">%rax</span><span class="p">,</span> <span class="p">(</span><span class="nv">%rdi</span><span class="p">)</span>    <span class="c">; Store lower 8 bytes at dest
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>	<span class="no">retq</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nl">remdiv:</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">movq</span>	<span class="nv">%rsp</span><span class="p">,</span> <span class="nv">%rbp</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">movq</span>	<span class="nv">%rdx</span><span class="p">,</span> <span class="nv">%r8</span>       <span class="c">; Copy qp
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>	<span class="no">movq</span>	<span class="nv">%rdi</span><span class="p">,</span> <span class="nv">%rax</span>      <span class="c">; Move x to lower 8 bytes of dividend
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>	<span class="no">cqto</span>                  <span class="c">; Sign-extend to upper 8 bytes of dividend
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>	<span class="no">idivq</span>	<span class="nv">%rsi</span>            <span class="c">; Divide by y 
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>	<span class="no">movq</span>	<span class="nv">%rax</span><span class="p">,</span> <span class="p">(</span><span class="nv">%r8</span><span class="p">)</span>     <span class="c">; Store remainder at rp
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>	<span class="no">movq</span>	<span class="nv">%rdx</span><span class="p">,</span> <span class="p">(</span><span class="nv">%rcx</span><span class="p">)</span>    <span class="c">; Store quotient at qp
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>	<span class="no">retq</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="36-控制">3.6 控制</h3>
 <p>CPU 还维护着一组单个位的条件码 (condition code) 寄存器，它们描述了最近的算术或逻辑操作的属性。可以检测这些寄存器来执行条件分支指令。最常用的条件码有:</p>
@@ -770,12 +769,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm">  <span class="nf">movq</span> <span class="no">$0</span><span class="p">,</span><span class="nv">%rax</span>        <span class="c">; Set %rax to 0
-</span><span class="c"></span>  <span class="no">jmp</span> <span class="no">.L1</span>             <span class="c">; Goto .L1
-</span><span class="c"></span>  <span class="no">movq</span> <span class="p">(</span><span class="nv">%rax</span><span class="p">),</span> <span class="nv">%rdx</span>   <span class="c">; Null pointer dereference (skipped)
-</span><span class="c"></span><span class="no">.L1</span><span class="p">:</span>
-  <span class="nf">popq</span> <span class="nv">%rdx</span>           <span class="c">; Jump target
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl">  <span class="nf">movq</span> <span class="no">$0</span><span class="p">,</span><span class="nv">%rax</span>        <span class="c">; Set %rax to 0
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  <span class="no">jmp</span> <span class="no">.L1</span>             <span class="c">; Goto .L1
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  <span class="no">movq</span> <span class="p">(</span><span class="nv">%rax</span><span class="p">),</span> <span class="nv">%rdx</span>   <span class="c">; Null pointer dereference (skipped)
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">.L1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">popq</span> <span class="nv">%rdx</span>           <span class="c">; Jump target
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -808,15 +807,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="kt">long</span> <span class="nf">fact_do</span><span class="p">(</span><span class="kt">long</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">long</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="k">do</span> <span class="p">{</span>
-        <span class="n">result</span> <span class="o">*=</span> <span class="n">n</span><span class="p">;</span>
-        <span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">);</span>
-    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="kt">long</span> <span class="nf">fact_do</span><span class="p">(</span><span class="kt">long</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">long</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">do</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span> <span class="o">*=</span> <span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>生成汇编代码:</p>
 <div class="highlight"><div class="chroma">
@@ -834,18 +833,18 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nl">_fact_do:</span>                               <span class="c">## @fact_do
-</span><span class="c"></span>	<span class="nf">pushq</span>	<span class="nv">%rbp</span>
-	<span class="nf">movq</span>	<span class="nv">%rsp</span><span class="p">,</span> <span class="nv">%rbp</span>
-	<span class="nf">movl</span>	<span class="no">$1</span><span class="p">,</span> <span class="nv">%eax</span>
-<span class="nl">LBB0_1:</span>                                 <span class="c">## =&gt;This Inner Loop Header: Depth=1
-</span><span class="c"></span>	<span class="nf">imulq</span>	<span class="nv">%rdi</span><span class="p">,</span> <span class="nv">%rax</span>
-	<span class="nf">decq</span>	<span class="nv">%rdi</span>
-	<span class="nf">cmpq</span>	<span class="no">$1</span><span class="p">,</span> <span class="nv">%rdi</span>
-	<span class="nf">jg</span>	<span class="no">LBB0_1</span>
-	<span class="nf">popq</span>	<span class="nv">%rbp</span>
-	<span class="nf">retq</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nl">_fact_do:</span>                               <span class="c">## @fact_do
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>	<span class="nf">pushq</span>	<span class="nv">%rbp</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">movq</span>	<span class="nv">%rsp</span><span class="p">,</span> <span class="nv">%rbp</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">movl</span>	<span class="no">$1</span><span class="p">,</span> <span class="nv">%eax</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LBB0_1:</span>                                 <span class="c">## =&gt;This Inner Loop Header: Depth=1
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>	<span class="nf">imulq</span>	<span class="nv">%rdi</span><span class="p">,</span> <span class="nv">%rax</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">decq</span>	<span class="nv">%rdi</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">cmpq</span>	<span class="no">$1</span><span class="p">,</span> <span class="nv">%rdi</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">jg</span>	<span class="no">LBB0_1</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">popq</span>	<span class="nv">%rbp</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">retq</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>switch 语句可以根据一个整数索引值进行多重分支 (multiway branching)。switch 会被转化成跳转表 (jump table)。跳转表示一个数组，表项 i 是一个代码段的地址，这个代码段实现当开关索引值等于 i 时程序应该采取的动作。程序代码用开关索引值来执行一个跳转表内的数组引用，确定跳转指令的目标。和使用一组很长的 if-else 语句对比，使用跳转表的优点是执行开关语句的时间与开关情况的数量无关。</p>
 <p>C switch 代码:</p>
@@ -879,33 +878,33 @@
 </span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="kt">void</span> <span class="nf">switch_eg</span><span class="p">(</span><span class="kt">long</span> <span class="n">x</span><span class="p">,</span> <span class="kt">long</span> <span class="n">n</span><span class="p">,</span>
-               <span class="kt">long</span> <span class="o">*</span><span class="n">dest</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">long</span> <span class="n">val</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
-
-    <span class="k">switch</span> <span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">case</span> <span class="mi">100</span><span class="o">:</span>
-            <span class="n">val</span> <span class="o">*=</span> <span class="mi">13</span><span class="p">;</span>
-            <span class="k">break</span><span class="p">;</span>
-
-        <span class="k">case</span> <span class="mi">102</span><span class="o">:</span>
-            <span class="n">val</span> <span class="o">+=</span> <span class="mi">10</span><span class="p">;</span>
-
-        <span class="k">case</span> <span class="mi">103</span><span class="o">:</span>
-            <span class="n">val</span> <span class="o">+=</span> <span class="mi">11</span><span class="p">;</span>
-            <span class="k">break</span><span class="p">;</span>
-
-        <span class="k">case</span> <span class="mi">104</span><span class="o">:</span>
-        <span class="k">case</span> <span class="mi">106</span><span class="o">:</span>
-            <span class="n">val</span> <span class="o">*=</span> <span class="n">val</span><span class="p">;</span>
-            <span class="k">break</span><span class="p">;</span>
-
-        <span class="k">default</span><span class="o">:</span>
-            <span class="n">val</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="o">*</span><span class="n">dest</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">switch_eg</span><span class="p">(</span><span class="kt">long</span> <span class="n">x</span><span class="p">,</span> <span class="kt">long</span> <span class="n">n</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">               <span class="kt">long</span> <span class="o">*</span><span class="n">dest</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">long</span> <span class="n">val</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">switch</span> <span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="mi">100</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">val</span> <span class="o">*=</span> <span class="mi">13</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="mi">102</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">val</span> <span class="o">+=</span> <span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="mi">103</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">val</span> <span class="o">+=</span> <span class="mi">11</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="mi">104</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="mi">106</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">val</span> <span class="o">*=</span> <span class="n">val</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">default</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">val</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="n">dest</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>生成汇编:</p>
 <div class="highlight"><div class="chroma">
@@ -946,41 +945,41 @@
 </span><span class="lnt">34
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm">	<span class="na">.section</span>	<span class="no">__TEXT</span><span class="p">,</span><span class="no">__text</span><span class="p">,</span><span class="no">regular</span><span class="p">,</span><span class="no">pure_instructions</span>
-	<span class="na">.build_version</span> <span class="no">macos</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">4</span>	<span class="no">sdk_version</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">4</span>
-	<span class="na">.globl</span>	<span class="no">_switch_eg</span>              <span class="c">## -- Begin function switch_eg
-</span><span class="c"></span>	<span class="no">.p2align</span>	<span class="mi">4</span><span class="p">,</span> <span class="mi">0x90</span>
-<span class="nl">_switch_eg:</span>                             <span class="c">## @switch_eg
-</span><span class="c">## %bb.0:
-</span><span class="c"></span>	<span class="nf">pushq</span>	<span class="nv">%rbp</span>
-	<span class="nf">movq</span>	<span class="nv">%rsp</span><span class="p">,</span> <span class="nv">%rbp</span>
-	<span class="nf">xorl</span>	<span class="nv">%eax</span><span class="p">,</span> <span class="nv">%eax</span>
-	<span class="nf">addq</span>	<span class="no">$-100</span><span class="p">,</span> <span class="nv">%rsi</span>
-	<span class="nf">cmpq</span>	<span class="no">$6</span><span class="p">,</span> <span class="nv">%rsi</span>
-	<span class="nf">ja</span>	<span class="no">LBB0_7</span>
-<span class="c">## %bb.1:
-</span><span class="c"></span>	<span class="nf">leaq</span>	<span class="no">LJTI0_0</span><span class="p">(</span><span class="nv">%rip</span><span class="p">),</span> <span class="nv">%rcx</span>
-	<span class="nf">movslq</span>	<span class="p">(</span><span class="nv">%rcx</span><span class="p">,</span><span class="nv">%rsi</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nv">%rsi</span>
-	<span class="nf">addq</span>	<span class="nv">%rcx</span><span class="p">,</span> <span class="nv">%rsi</span>
-	<span class="nf">jmpq</span>	<span class="p">*</span><span class="nv">%rsi</span>
-<span class="nl">LBB0_5:</span>
-	<span class="nf">imulq</span>	<span class="nv">%rdi</span><span class="p">,</span> <span class="nv">%rdi</span>
-	<span class="nf">jmp</span>	<span class="no">LBB0_6</span>
-<span class="nl">LBB0_2:</span>
-	<span class="nf">leaq</span>	<span class="p">(</span><span class="nv">%rdi</span><span class="p">,</span><span class="nv">%rdi</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="nv">%rax</span>
-	<span class="nf">leaq</span>	<span class="p">(</span><span class="nv">%rdi</span><span class="p">,</span><span class="nv">%rax</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nv">%rax</span>
-	<span class="nf">jmp</span>	<span class="no">LBB0_7</span>
-<span class="nl">LBB0_3:</span>
-	<span class="nf">addq</span>	<span class="no">$10</span><span class="p">,</span> <span class="nv">%rdi</span>
-<span class="nl">LBB0_4:</span>
-	<span class="nf">addq</span>	<span class="no">$11</span><span class="p">,</span> <span class="nv">%rdi</span>
-<span class="nl">LBB0_6:</span>
-	<span class="nf">movq</span>	<span class="nv">%rdi</span><span class="p">,</span> <span class="nv">%rax</span>
-<span class="nl">LBB0_7:</span>
-	<span class="nf">movq</span>	<span class="nv">%rax</span><span class="p">,</span> <span class="p">(</span><span class="nv">%rdx</span><span class="p">)</span>
-	<span class="nf">popq</span>	<span class="nv">%rbp</span>
-	<span class="nf">retq</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl">	<span class="na">.section</span>	<span class="no">__TEXT</span><span class="p">,</span><span class="no">__text</span><span class="p">,</span><span class="no">regular</span><span class="p">,</span><span class="no">pure_instructions</span>
+</span></span><span class="line"><span class="cl">	<span class="na">.build_version</span> <span class="no">macos</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">4</span>	<span class="no">sdk_version</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">4</span>
+</span></span><span class="line"><span class="cl">	<span class="na">.globl</span>	<span class="no">_switch_eg</span>              <span class="c">## -- Begin function switch_eg
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>	<span class="no">.p2align</span>	<span class="mi">4</span><span class="p">,</span> <span class="mi">0x90</span>
+</span></span><span class="line"><span class="cl"><span class="nl">_switch_eg:</span>                             <span class="c">## @switch_eg
+</span></span></span><span class="line"><span class="cl"><span class="c">## %bb.0:
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>	<span class="nf">pushq</span>	<span class="nv">%rbp</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">movq</span>	<span class="nv">%rsp</span><span class="p">,</span> <span class="nv">%rbp</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">xorl</span>	<span class="nv">%eax</span><span class="p">,</span> <span class="nv">%eax</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">addq</span>	<span class="no">$-100</span><span class="p">,</span> <span class="nv">%rsi</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">cmpq</span>	<span class="no">$6</span><span class="p">,</span> <span class="nv">%rsi</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">ja</span>	<span class="no">LBB0_7</span>
+</span></span><span class="line"><span class="cl"><span class="c">## %bb.1:
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>	<span class="nf">leaq</span>	<span class="no">LJTI0_0</span><span class="p">(</span><span class="nv">%rip</span><span class="p">),</span> <span class="nv">%rcx</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">movslq</span>	<span class="p">(</span><span class="nv">%rcx</span><span class="p">,</span><span class="nv">%rsi</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nv">%rsi</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">addq</span>	<span class="nv">%rcx</span><span class="p">,</span> <span class="nv">%rsi</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">jmpq</span>	<span class="p">*</span><span class="nv">%rsi</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LBB0_5:</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">imulq</span>	<span class="nv">%rdi</span><span class="p">,</span> <span class="nv">%rdi</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">jmp</span>	<span class="no">LBB0_6</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LBB0_2:</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">leaq</span>	<span class="p">(</span><span class="nv">%rdi</span><span class="p">,</span><span class="nv">%rdi</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="nv">%rax</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">leaq</span>	<span class="p">(</span><span class="nv">%rdi</span><span class="p">,</span><span class="nv">%rax</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nv">%rax</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">jmp</span>	<span class="no">LBB0_7</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LBB0_3:</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">addq</span>	<span class="no">$10</span><span class="p">,</span> <span class="nv">%rdi</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LBB0_4:</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">addq</span>	<span class="no">$11</span><span class="p">,</span> <span class="nv">%rdi</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LBB0_6:</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">movq</span>	<span class="nv">%rdi</span><span class="p">,</span> <span class="nv">%rax</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LBB0_7:</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">movq</span>	<span class="nv">%rax</span><span class="p">,</span> <span class="p">(</span><span class="nv">%rdx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">popq</span>	<span class="nv">%rbp</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">retq</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="37-过程">3.7 过程</h3>
 <p>过程是软件中一种很重要的抽象。它提供了一种封装代码的方式，用一组指定的参数和一个可选的返回值实现了某种功能。然后，可以在程序中不同的地方调用这个函数。设计良好的如软件用过程作为抽象机制，隐藏某个行为的具体实现，同时又提供清晰简洁的接口定义，说明要计算的是哪些值，过程会对程序状态产生说明样的影响。</p>
@@ -1046,17 +1045,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="kt">void</span> <span class="nf">proc</span><span class="p">(</span><span class="kt">long</span> <span class="n">a1</span><span class="p">,</span> <span class="kt">long</span> <span class="o">*</span><span class="n">a1p</span><span class="p">,</span>
-          <span class="kt">int</span> <span class="n">a2</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">a2p</span><span class="p">,</span>
-          <span class="kt">short</span> <span class="n">a3</span><span class="p">,</span> <span class="kt">short</span> <span class="o">*</span><span class="n">a3p</span><span class="p">,</span>
-          <span class="kt">char</span> <span class="n">a4</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">a4p</span><span class="p">)</span> <span class="p">{</span>
-
-    <span class="o">*</span><span class="n">a1p</span> <span class="o">+=</span> <span class="n">a1</span><span class="p">;</span>
-    <span class="o">*</span><span class="n">a2p</span> <span class="o">+=</span> <span class="n">a2</span><span class="p">;</span>
-    <span class="o">*</span><span class="n">a3p</span> <span class="o">+=</span> <span class="n">a3</span><span class="p">;</span>
-    <span class="o">*</span><span class="n">a4p</span> <span class="o">+=</span> <span class="n">a4</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">proc</span><span class="p">(</span><span class="kt">long</span> <span class="n">a1</span><span class="p">,</span> <span class="kt">long</span> <span class="o">*</span><span class="n">a1p</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="kt">int</span> <span class="n">a2</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">a2p</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="kt">short</span> <span class="n">a3</span><span class="p">,</span> <span class="kt">short</span> <span class="o">*</span><span class="n">a3p</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="kt">char</span> <span class="n">a4</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">a4p</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="n">a1p</span> <span class="o">+=</span> <span class="n">a1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="n">a2p</span> <span class="o">+=</span> <span class="n">a2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="n">a3p</span> <span class="o">+=</span> <span class="n">a3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="n">a4p</span> <span class="o">+=</span> <span class="n">a4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -1085,15 +1084,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="kt">long</span> <span class="nf">call_proc</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kt">long</span> <span class="n">x1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">x2</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-    <span class="kt">short</span> <span class="n">x3</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-    <span class="kt">char</span> <span class="n">x4</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-    <span class="n">proc</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x2</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x3</span><span class="p">,</span> <span class="n">x4</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x4</span><span class="p">);</span> <span class="c1">// 创建栈帧
-</span><span class="c1"></span>    <span class="k">return</span> <span class="p">(</span><span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x3</span> <span class="o">-</span> <span class="n">x4</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="kt">long</span> <span class="nf">call_proc</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">long</span> <span class="n">x1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x2</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">short</span> <span class="n">x3</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">x4</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">proc</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x2</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x3</span><span class="p">,</span> <span class="n">x4</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x4</span><span class="p">);</span> <span class="c1">// 创建栈帧
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="p">(</span><span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x3</span> <span class="o">-</span> <span class="n">x4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -1124,16 +1123,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="kt">long</span> <span class="nf">rfact</span><span class="p">(</span><span class="kt">long</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">long</span> <span class="n">result</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">rfact</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="kt">long</span> <span class="nf">rfact</span><span class="p">(</span><span class="kt">long</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">long</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">rfact</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>对应汇编代码:</p>
 <div class="highlight"><div class="chroma">
@@ -1152,19 +1151,19 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nl">rfact:</span>
-    <span class="nf">pushq</span>   <span class="nv">%rbx</span>
-    <span class="nf">movq</span>    <span class="nv">%rdi</span><span class="p">,</span> <span class="no">rbx</span>
-    <span class="nf">movl</span>    <span class="no">$1</span><span class="p">,</span> <span class="nv">%eax</span>
-    <span class="nf">cmpq</span>    <span class="no">$1</span><span class="p">,</span> <span class="nv">%rdi</span>
-    <span class="nf">jle</span>     <span class="no">.L35</span>
-    <span class="nf">leaq</span>    <span class="p">-</span><span class="mi">1</span><span class="p">(</span><span class="nv">%rdi</span><span class="p">),</span> <span class="nv">%rdi</span>
-    <span class="nf">call</span>    <span class="no">rfact</span>
-    <span class="nf">imulq</span>   <span class="nv">%rbx</span><span class="p">,</span> <span class="nv">%rax</span>
-<span class="nl">.L35:</span>
-    <span class="nf">popq</span>    <span class="nv">%rbx</span>
-    <span class="nf">ret</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nl">rfact:</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">pushq</span>   <span class="nv">%rbx</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">movq</span>    <span class="nv">%rdi</span><span class="p">,</span> <span class="no">rbx</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">movl</span>    <span class="no">$1</span><span class="p">,</span> <span class="nv">%eax</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">cmpq</span>    <span class="no">$1</span><span class="p">,</span> <span class="nv">%rdi</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">jle</span>     <span class="no">.L35</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">leaq</span>    <span class="p">-</span><span class="mi">1</span><span class="p">(</span><span class="nv">%rdi</span><span class="p">),</span> <span class="nv">%rdi</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">call</span>    <span class="no">rfact</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">imulq</span>   <span class="nv">%rbx</span><span class="p">,</span> <span class="nv">%rax</span>
+</span></span><span class="line"><span class="cl"><span class="nl">.L35:</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">popq</span>    <span class="nv">%rbx</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">ret</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="38-数组分配和访问">3.8 数组分配和访问</h3>
 <p>C 语言的数组是一种将标量数据聚集成更大数据类型的方式。</p>
@@ -1174,7 +1173,7 @@
 <p>起始位置表示为 $x_A$。这个声明有两个效果。首先，它在内存中分配一个 L·N 字节的连续区域。这里 L 是数据类型 <em>T</em> 的大小(单位为字节)。其次，它引入了标识符 A，可以用 A 来作为指向数组开头的指针，这个指针的值就是 $x_A$。可用用 0~N-1 的证书索引来访问该数组元素。数组元素 i 会被存放在地址为 $x_A$+L·i 的地方。</p>
 <h4 id="382-指针运算">3.8.2 指针运算</h4>
 <p>C 语言允许对指针进行运算，而计算出来的值会根据该指针引用的数据类型的大小进行伸缩。也就是说，如果 p 是一个指向类型为 <em>T</em> 的数据的指针，p 的值为 $x_p$，那么表达式 p+i 的值为 $x_p$+L·i，这里 <em>L</em> 是数据类型 <em>T</em> 的大小。</p>
-<p>单操作数操作符 &lsquo;$&rsquo; 和 &lsquo;* ' 可以产生指针和间接引用指针。对于一个表示某个对象的表达式 <code>Expr</code>，<code>&amp;Expr</code> 是该对象的一个指针。对于一个表示地址的表达式 <code>AExpr</code>, <code>*AExpr</code> 是该地址的值。因此，表达式 <code>Expr</code> 与 <code>* &amp;Expr</code> 是等价的。可以对数组和指针应用数组下标操作。</p>
+<p>单操作数操作符 &lsquo;$&rsquo; 和 &lsquo;* &rsquo; 可以产生指针和间接引用指针。对于一个表示某个对象的表达式 <code>Expr</code>，<code>&amp;Expr</code> 是该对象的一个指针。对于一个表示地址的表达式 <code>AExpr</code>, <code>*AExpr</code> 是该地址的值。因此，表达式 <code>Expr</code> 与 <code>* &amp;Expr</code> 是等价的。可以对数组和指针应用数组下标操作。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -1206,13 +1205,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="k">struct</span> <span class="n">rect</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">j</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
-    <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">rect</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">j</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>该结构在内存中的布局:</p>
 <p><img
@@ -1243,8 +1242,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="na">.align</span> <span class="mi">8</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="na">.align</span> <span class="mi">8</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这命令就保证了它后面的数据的开始地址是 8 的倍数。因为每个表项长 8 个字节，后面的元素都会遵守 8 字节对齐的限制。</p>
 <p>对于包含结构的代码，编译器可能需要在字段的分配中插入间隙，以保证每个结构元素都满足它的对齐要求。而结构本身对它的起始地址也有一些对齐要求。</p>
@@ -1258,12 +1257,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="k">struct</span> <span class="n">S1</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
-    <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">j</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">S1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">j</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果编译器用最小的9字节分配，内存布局会是这样:</p>
 <p><img
@@ -1320,27 +1319,27 @@
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="kt">int</span> <span class="nf">fun</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">);</span>
-
-<span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">fp</span><span class="p">)(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="p">);</span>
-
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">fp</span> <span class="o">=</span> <span class="n">fun</span><span class="p">;</span>
-
-    <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">fp</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">y</span><span class="p">);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
-<span class="p">}</span>
-
-
-<span class="kt">int</span> <span class="nf">fun</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span>
-    <span class="o">*</span><span class="n">p</span> <span class="o">+=</span> <span class="n">x</span><span class="p">;</span>
-    <span class="k">return</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">fun</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">fp</span><span class="p">)(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fp</span> <span class="o">=</span> <span class="n">fun</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">fp</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">y</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">fun</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="n">p</span> <span class="o">+=</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="311-浮点代码">3.11 浮点代码</h3>
 <p>处理器的浮点系统结构包括多个方面，会影响对浮点数据操作的程序如何被映射到机器上，包括:</p>
@@ -1414,13 +1413,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="c1">// 这个函数会把 x 存放在 %edi 中，y 放在 %xmm0 中，z 放在 %rsi 中。
-</span><span class="c1"></span><span class="kt">double</span> <span class="nf">f1</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y</span><span class="p">,</span> <span class="kt">long</span> <span class="n">z</span><span class="p">);</span>
-<span class="c1">// 这个函数的寄存器分配与函数 f1 相同。
-</span><span class="c1"></span><span class="kt">double</span> <span class="nf">f2</span><span class="p">(</span><span class="kt">double</span> <span class="n">y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">long</span> <span class="n">z</span><span class="p">);</span>
-<span class="c1">// 这个函数会将 x 放在 %xmm0 中，y 放在 %rdi 中，z 放在 %rsi 中。
-</span><span class="c1"></span><span class="kt">double</span> <span class="nf">f1</span><span class="p">(</span><span class="kt">float</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="o">*</span><span class="n">y</span><span class="p">,</span> <span class="kt">long</span> <span class="o">*</span><span class="n">z</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="c1">// 这个函数会把 x 存放在 %edi 中，y 放在 %xmm0 中，z 放在 %rsi 中。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">double</span> <span class="nf">f1</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y</span><span class="p">,</span> <span class="kt">long</span> <span class="n">z</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 这个函数的寄存器分配与函数 f1 相同。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">double</span> <span class="nf">f2</span><span class="p">(</span><span class="kt">double</span> <span class="n">y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">long</span> <span class="n">z</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 这个函数会将 x 放在 %xmm0 中，y 放在 %rdi 中，z 放在 %rsi 中。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">double</span> <span class="nf">f1</span><span class="p">(</span><span class="kt">float</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="o">*</span><span class="n">y</span><span class="p">,</span> <span class="kt">long</span> <span class="o">*</span><span class="n">z</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="3113-浮点运算操作">3.11.3 浮点运算操作</h4>
 <p>下图描述了一组执行算术运算的标量 AVX2 浮点指令。每条指令有一个($S_1$)或两个($S_1, S_2$)，和一个目的操作数 <em>D</em>。第一个源操作数 $S_1$ 可以是一个 XMM 寄存器或一个内存位置。第二个源操作数和目的操作数都必须是 XMM 寄存器。每个操作多有一条针对当精度的指令和一条针对双精度的指令。结果存放在目的寄存器中。</p>
@@ -1458,15 +1457,13 @@
         <div class="post-info-line">
             <div class="post-info-mod">
                 <span>更新于 2021-12-03</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
+            </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
                             <a class="link-to-markdown" href="/csapp/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/csapp/" data-title="深入理解计算机系统" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/csapp/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/csapp/" data-title="深入理解计算机系统" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/csapp/" data-title="深入理解计算机系统"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/csapp/" data-title="深入理解计算机系统"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/csapp/" data-title="深入理解计算机系统" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/csapp/" data-title="深入理解计算机系统" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/csapp/" data-title="深入理解计算机系统"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/csapp/" data-title="深入理解计算机系统" data-via="xxxx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/csapp/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/csapp/" data-title="深入理解计算机系统" data-web><i class="fab fa-whatsapp fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/csapp/" data-title="深入理解计算机系统"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/csapp/" data-title="深入理解计算机系统"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/csapp/" data-title="深入理解计算机系统" data-description=""><i class="fab fa-blogger fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/csapp/" data-title="深入理解计算机系统"><i class="fab fa-evernote fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -1479,19 +1476,19 @@
     </div>
 
     <div class="post-nav">
-            <a href="/lnmp/" class="next" rel="next" title="搭建lnmp环境">搭建lnmp环境<i class="fas fa-angle-right fa-fw"></i></a></div>
+            <a href="/lnmp/" class="next" rel="next" title="搭建lnmp环境">搭建lnmp环境<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
         <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

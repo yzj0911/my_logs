@@ -4,13 +4,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>KVM之虚拟机管理 - YZJ 的博客</title><meta name="Description" content="Hello 来了就别走了，进来留下文章"><meta property="og:title" content="KVM之虚拟机管理" />
 <meta property="og:description" content="KVM之虚拟机管理 本篇文章介绍 KVM 虚拟机的管理，包括虚拟机的创建、修改、启动、删除等内容 安装虚拟机 使用 virt-install 安装 virt-install 是一个命令行工具，专门用于安装 kvm" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/kvm_vm/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-12-03T10:17:16+08:00" />
-<meta property="article:modified_time" content="2021-12-03T10:17:16+08:00" />
+<meta property="article:modified_time" content="2021-12-03T10:17:16+08:00" /><meta property="og:site_name" content="My cool site" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://example.org/logo.png"/>
@@ -18,7 +17,9 @@
 <meta name="twitter:title" content="KVM之虚拟机管理"/>
 <meta name="twitter:description" content="KVM之虚拟机管理 本篇文章介绍 KVM 虚拟机的管理，包括虚拟机的创建、修改、启动、删除等内容 安装虚拟机 使用 virt-install 安装 virt-install 是一个命令行工具，专门用于安装 kvm"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/kvm_vm/" /><link rel="prev" href="http://example.org/kvm_detail/" /><link rel="next" href="http://example.org/iscsi%E5%85%B1%E4%BA%AB%E7%A3%81%E7%9B%98%E6%9C%8D%E5%8A%A1/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/posts/images/avatar.webp"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/kvm_vm/" /><link rel="prev" href="http://example.org/linux%E8%BF%9B%E7%A8%8B/" /><link rel="next" href="http://example.org/libguestfs/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -27,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/kvm_vm\/"
-        },"genre": "posts","wordcount":  1865 ,
+        },"genre": "posts","wordcount":  1864 ,
         "url": "http:\/\/example.org\/kvm_vm\/","datePublished": "2021-12-03T10:17:16+08:00","dateModified": "2021-12-03T10:17:16+08:00","publisher": {
             "@type": "Organization",
             "name": "YZJ"},"author": {
@@ -36,7 +37,7 @@
             },"description": ""
     }
     </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -54,16 +55,16 @@
             <div class="menu-inner"><a class="menu-item" href="/posts/" title="YZJ 的博客"> 文章 </a><a class="menu-item" href="/tags/" title="YZJ 的博客"> 标签 </a><a class="menu-item" href="/categories/" title="YZJ 的博客"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="请输入搜索文章" id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
                 </a>
             </div>
         </div>
@@ -89,41 +90,39 @@
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="请输入搜索文章" id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </div>
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
                 </div><a class="menu-item" href="/posts/" title="YZJ 的博客">文章</a><a class="menu-item" href="/tags/" title="YZJ 的博客">标签</a><a class="menu-item" href="/categories/" title="YZJ 的博客">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
-</header>
-<div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">KVM之虚拟机管理</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yzj</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-03">2021-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1865 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="true">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">KVM之虚拟机管理</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/yzj0911" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yzj</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-12-03">2021-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1864 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
                     <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
@@ -167,17 +166,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">virt-install <span class="se">\
-</span><span class="se"></span>  --name centos <span class="se">\
-</span><span class="se"></span>  --ram <span class="m">1024</span> <span class="se">\
-</span><span class="se"></span>  --disk <span class="nv">path</span><span class="o">=</span>/data/kvm/centos.img,size<span class="o">=</span><span class="m">20</span> <span class="se">\
-</span><span class="se"></span>  --vcpus <span class="m">1</span> <span class="se">\
-</span><span class="se"></span>  --os-type linux --os-variant rhel7 <span class="se">\
-</span><span class="se"></span>  --network <span class="nv">bridge</span><span class="o">=</span>br0 <span class="se">\
-</span><span class="se"></span>  --graphics vnc,listen<span class="o">=</span>0.0.0.0,port<span class="o">=</span><span class="m">5999</span> --noautoconsole <span class="se">\
-</span><span class="se"></span>  --console pty,target_type<span class="o">=</span>serial <span class="se">\
-</span><span class="se"></span>  --cdrom CentOS-7-x86_64-DVD-1810.iso 
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">virt-install <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --name centos <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --ram <span class="m">1024</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --disk <span class="nv">path</span><span class="o">=</span>/data/kvm/centos.img,size<span class="o">=</span><span class="m">20</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --vcpus <span class="m">1</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --os-type linux --os-variant rhel7 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --network <span class="nv">bridge</span><span class="o">=</span>br0 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --graphics vnc,listen<span class="o">=</span>0.0.0.0,port<span class="o">=</span><span class="m">5999</span> --noautoconsole <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --console pty,target_type<span class="o">=</span>serial <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --cdrom CentOS-7-x86_64-DVD-1810.iso 
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>进入安装流程：</p>
 <div class="highlight"><div class="chroma">
@@ -188,18 +187,18 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># virsh list --all</span>
- Id    名称                         状态
-----------------------------------------------------
- <span class="m">2</span>     centos                         running
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># virsh list --all</span>
+</span></span><span class="line"><span class="cl"> Id    名称                         状态
+</span></span><span class="line"><span class="cl">----------------------------------------------------
+</span></span><span class="line"><span class="cl"> <span class="m">2</span>     centos                         running
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以使用 vnc 客户端连接虚拟机。</p>
 <p>参数说明：</p>
 <ul>
 <li>-–name 指定虚拟机的名字</li>
 <li>–-ram 指定内存分配多少</li>
-<li>–-disk path 指定虚拟磁盘放到哪里，size=30 指定磁盘大小为30G,这样磁盘文件格式为raw，raw格式不能做快照，后面有说明，需要转换为qcow2格式，如果要使用qcow2格式的虚拟磁盘，需要事先创建qcow2格式的虚拟磁盘。 参考 <a href="http://www.361way.com/kvm-qcow2-preallocation-metadata/3354.html" target="_blank" rel="noopener noreffer">http://www.361way.com/kvm-qcow2-preallocation-metadata/3354.html</a> 示例:qemu-img create -f qcow2 -o preallocation=metadata /data/test02.img 7G; –disk path=/data/test02.img,format=qcow2,size=7,bus=virtio</li>
+<li>–-disk path 指定虚拟磁盘放到哪里，size=30 指定磁盘大小为30G,这样磁盘文件格式为raw，raw格式不能做快照，后面有说明，需要转换为qcow2格式，如果要使用qcow2格式的虚拟磁盘，需要事先创建qcow2格式的虚拟磁盘。 参考 <a href="http://www.361way.com/kvm-qcow2-preallocation-metadata/3354.html" target="_blank" rel="noopener noreffer ">http://www.361way.com/kvm-qcow2-preallocation-metadata/3354.html</a> 示例:qemu-img create -f qcow2 -o preallocation=metadata /data/test02.img 7G; –disk path=/data/test02.img,format=qcow2,size=7,bus=virtio</li>
 <li>–-vcpus 指定分配cpu几个</li>
 <li>-–os-type 指定系统类型为linux</li>
 <li>–-os-variant 指定系统版本</li>
@@ -219,8 +218,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">CPU mode <span class="s1">&#39;custom&#39;</span> <span class="k">for</span> x86_64 kvm domain on x86_64 host is not supported by hypervisor
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">CPU mode <span class="s1">&#39;custom&#39;</span> <span class="k">for</span> x86_64 kvm domain on x86_64 host is not supported by hypervisor
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>解决方式是重启宿主机</p>
 <h3 id="错误二">错误二</h3>
@@ -237,15 +236,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">Creating storage file centos.img                                                                           <span class="p">|</span>  <span class="m">20</span> GB     00:00     
-ERROR    internal error Process exited <span class="k">while</span> reading console log output: char device redirected to /dev/pts/4
-2016-01-27T08:56:58.986952Z ...: Permission denied
-
-Domain installation does not appear to have been successful.
-If it was, you can restart your domain by running:
-  virsh --connect qemu:///system start centos65
-otherwise, please restart your installation.
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Creating storage file centos.img                                                                           <span class="p">|</span>  <span class="m">20</span> GB     00:00     
+</span></span><span class="line"><span class="cl">ERROR    internal error Process exited <span class="k">while</span> reading console log output: char device redirected to /dev/pts/4
+</span></span><span class="line"><span class="cl">2016-01-27T08:56:58.986952Z ...: Permission denied
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Domain installation does not appear to have been successful.
+</span></span><span class="line"><span class="cl">If it was, you can restart your domain by running:
+</span></span><span class="line"><span class="cl">  virsh --connect qemu:///system start centos65
+</span></span><span class="line"><span class="cl">otherwise, please restart your installation.
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>解决方式修改 <code>/etc/libvirt/qemu.conf</code> 配置文件，添加 user 和 group 配置：</p>
 <div class="highlight"><div class="chroma">
@@ -257,12 +256,12 @@ otherwise, please restart your installation.
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># /etc/libvirt/qemu.conf</span>
-<span class="c1"># ...</span>
-<span class="nv">user</span> <span class="o">=</span> <span class="s2">&#34;root&#34;</span>
-<span class="c1"># ...</span>
-<span class="nv">group</span> <span class="o">=</span> <span class="s2">&#34;root&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># /etc/libvirt/qemu.conf</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ...</span>
+</span></span><span class="line"><span class="cl"><span class="nv">user</span> <span class="o">=</span> <span class="s2">&#34;root&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ...</span>
+</span></span><span class="line"><span class="cl"><span class="nv">group</span> <span class="o">=</span> <span class="s2">&#34;root&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>重启服务:</p>
 <div class="highlight"><div class="chroma">
@@ -270,8 +269,8 @@ otherwise, please restart your installation.
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">systemctl restart libvirtd
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl restart libvirtd
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="错误三">错误三</h3>
 <p>第三个错误是执行命令 <code>virsh console centos</code> 时卡住:</p>
@@ -282,16 +281,14 @@ otherwise, please restart your installation.
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
-</span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># virsh console centos</span>
-
-
-连接到域 centos
-换码符为 ^<span class="o">]</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># virsh console centos</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">连接到域 centos
+</span></span><span class="line"><span class="cl">换码符为 ^<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>解决方式如下：</p>
 <p>确认 <code>ttyS0</code> 存在在 <code>/etc/securetty</code> 文件中，没有就执行以下命令:</p>
@@ -300,8 +297,8 @@ otherwise, please restart your installation.
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">&#34;ttyS0&#34;</span> &gt;&gt; /etc/securetty
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;ttyS0&#34;</span> &gt;&gt; /etc/securetty
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>修改 <code>/etc/default/grub</code> 文件：</p>
 <div class="highlight"><div class="chroma">
@@ -311,10 +308,10 @@ otherwise, please restart your installation.
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># GRUB_CMDLINE_LINUX=&#34;crashkernel=auto rd.lvm.lv=cl/root rd.lvm.lv=cl/swap rhgb quiet”</span>
-<span class="c1"># 改成</span>
-<span class="nv">GRUB_CMDLINE_LINUX</span><span class="o">=</span><span class="s2">&#34;crashkernel=auto rd.lvm.lv=centos/root rd.lvm.lv=centos/swap rhgb quiet net.ifnames=0 console=ttyS0,115200&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># GRUB_CMDLINE_LINUX=&#34;crashkernel=auto rd.lvm.lv=cl/root rd.lvm.lv=cl/swap rhgb quiet”</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 改成</span>
+</span></span><span class="line"><span class="cl"><span class="nv">GRUB_CMDLINE_LINUX</span><span class="o">=</span><span class="s2">&#34;crashkernel=auto rd.lvm.lv=centos/root rd.lvm.lv=centos/swap rhgb quiet net.ifnames=0 console=ttyS0,115200&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>重新生成 grub 文件：</p>
 <div class="highlight"><div class="chroma">
@@ -322,8 +319,8 @@ otherwise, please restart your installation.
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">grub2-mkconfig -o /boot/grub2/grub.cfg
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">grub2-mkconfig -o /boot/grub2/grub.cfg
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>启动 serial-getty 服务:</p>
 <div class="highlight"><div class="chroma">
@@ -332,9 +329,9 @@ otherwise, please restart your installation.
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">systemctl start serial-getty@ttyS0.service
-systemctl <span class="nb">enable</span> serial-getty@ttyS0.service
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl start serial-getty@ttyS0.service
+</span></span><span class="line"><span class="cl">systemctl <span class="nb">enable</span> serial-getty@ttyS0.service
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="操作虚拟机">操作虚拟机</h1>
 <p>KVM 在 Hypervisor 中被称作域(domain)。使用 <code>virsh</code> 命令可以很有效的管理域。
@@ -471,28 +468,28 @@ virsh 中管理域的命令:</p>
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 启动虚拟机</span>
-virsh start centos
-
-<span class="c1"># 关闭虚拟机</span>
-virsh shutdown centos
-
-<span class="c1"># 重启虚拟机</span>
-virsh reboot centos
-
-<span class="c1"># 销毁虚拟机</span>
-virsh destroy centos
-
-<span class="c1"># 暂停虚拟机</span>
-virsh <span class="nb">suspend</span> centos
-
-<span class="c1"># 恢复虚拟机</span>
-virsh resume centos
-
-<span class="c1"># 删除虚拟机</span>
-virsh undefine centos
-rm -fr /etc/libvirt/qemu/centos.xml
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 启动虚拟机</span>
+</span></span><span class="line"><span class="cl">virsh start centos
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 关闭虚拟机</span>
+</span></span><span class="line"><span class="cl">virsh shutdown centos
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 重启虚拟机</span>
+</span></span><span class="line"><span class="cl">virsh reboot centos
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 销毁虚拟机</span>
+</span></span><span class="line"><span class="cl">virsh destroy centos
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 暂停虚拟机</span>
+</span></span><span class="line"><span class="cl">virsh <span class="nb">suspend</span> centos
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 恢复虚拟机</span>
+</span></span><span class="line"><span class="cl">virsh resume centos
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 删除虚拟机</span>
+</span></span><span class="line"><span class="cl">virsh undefine centos
+</span></span><span class="line"><span class="cl">rm -fr /etc/libvirt/qemu/centos.xml
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="限制和修改虚拟机-cpu">限制和修改虚拟机 cpu</h2>
 <p>先关闭虚拟机，修改虚拟机 xml 文件:</p>
@@ -502,9 +499,9 @@ rm -fr /etc/libvirt/qemu/centos.xml
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 设置 cpu 最大个数为 4 个，当前为 1</span>
-&lt;vcpu <span class="nv">placement</span><span class="o">=</span><span class="s1">&#39;static&#39;</span> <span class="nv">current</span><span class="o">=</span><span class="s1">&#39;1&#39;</span>&gt;4&lt;/vcpu&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 设置 cpu 最大个数为 4 个，当前为 1</span>
+</span></span><span class="line"><span class="cl">&lt;vcpu <span class="nv">placement</span><span class="o">=</span><span class="s1">&#39;static&#39;</span> <span class="nv">current</span><span class="o">=</span><span class="s1">&#39;1&#39;</span>&gt;4&lt;/vcpu&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>开启虚拟机后，动态设置虚拟机 cpu</p>
 <div class="highlight"><div class="chroma">
@@ -513,9 +510,9 @@ rm -fr /etc/libvirt/qemu/centos.xml
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 最大个数不能超过指定值</span>
-virsh setvcpus centos <span class="m">2</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 最大个数不能超过指定值</span>
+</span></span><span class="line"><span class="cl">virsh setvcpus centos <span class="m">2</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="限制和修改虚拟机内存">限制和修改虚拟机内存</h2>
 <p>修改虚拟机内存最大值需要先关闭虚拟机</p>
@@ -525,9 +522,9 @@ virsh setvcpus centos <span class="m">2</span>
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 最大值不能超过宿主机内存最大值</span>
-virsh setmaxmem centos 4G
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 最大值不能超过宿主机内存最大值</span>
+</span></span><span class="line"><span class="cl">virsh setmaxmem centos 4G
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>动态设置虚拟机内存</p>
 <div class="highlight"><div class="chroma">
@@ -535,8 +532,8 @@ virsh setmaxmem centos 4G
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">virsh setmem centos 2G
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">virsh setmem centos 2G
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="在线添加和删除虚拟机硬盘">在线添加和删除虚拟机硬盘</h2>
 <p>先创建硬盘:</p>
@@ -546,9 +543,9 @@ virsh setmaxmem centos 4G
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># qemu-img create -f qcow2 disk1.qcow2 2G</span>
-Formatting <span class="s1">&#39;disk1.qcow2&#39;</span>, <span class="nv">fmt</span><span class="o">=</span>qcow2 <span class="nv">cluster_size</span><span class="o">=</span><span class="m">65536</span> <span class="nv">extended_l2</span><span class="o">=</span>off <span class="nv">compression_type</span><span class="o">=</span>zlib <span class="nv">size</span><span class="o">=</span><span class="m">2147483648</span> <span class="nv">lazy_refcounts</span><span class="o">=</span>off <span class="nv">refcount_bits</span><span class="o">=</span><span class="m">16</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># qemu-img create -f qcow2 disk1.qcow2 2G</span>
+</span></span><span class="line"><span class="cl">Formatting <span class="s1">&#39;disk1.qcow2&#39;</span>, <span class="nv">fmt</span><span class="o">=</span>qcow2 <span class="nv">cluster_size</span><span class="o">=</span><span class="m">65536</span> <span class="nv">extended_l2</span><span class="o">=</span>off <span class="nv">compression_type</span><span class="o">=</span>zlib <span class="nv">size</span><span class="o">=</span><span class="m">2147483648</span> <span class="nv">lazy_refcounts</span><span class="o">=</span>off <span class="nv">refcount_bits</span><span class="o">=</span><span class="m">16</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>创建 disk.xml 文件</p>
 <div class="highlight"><div class="chroma">
@@ -562,14 +559,14 @@ Formatting <span class="s1">&#39;disk1.qcow2&#39;</span>, <span class="nv">fmt</
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ vim disk.xml
-&lt;disk <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;file&#39;</span> <span class="nv">device</span><span class="o">=</span><span class="s1">&#39;disk&#39;</span>&gt;
-    &lt;driver <span class="nv">name</span><span class="o">=</span><span class="s1">&#39;qemu&#39;</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;qcow2&#39;</span>/&gt;
-    &lt;<span class="nb">source</span> <span class="nv">file</span><span class="o">=</span><span class="s1">&#39;/data/kvm/disk1.qcow2&#39;</span>/&gt;
-    &lt;target <span class="nv">dev</span><span class="o">=</span><span class="s1">&#39;vdb&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;virtio&#39;</span>/&gt;
-    &lt;address <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;pci&#39;</span> <span class="nv">domain</span><span class="o">=</span><span class="s1">&#39;0x0000&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;0x00&#39;</span> <span class="nv">slot</span><span class="o">=</span><span class="s1">&#39;0x08&#39;</span> <span class="k">function</span><span class="o">=</span><span class="s1">&#39;0x0&#39;</span>/&gt;
-&lt;/disk&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ vim disk.xml
+</span></span><span class="line"><span class="cl">&lt;disk <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;file&#39;</span> <span class="nv">device</span><span class="o">=</span><span class="s1">&#39;disk&#39;</span>&gt;
+</span></span><span class="line"><span class="cl">    &lt;driver <span class="nv">name</span><span class="o">=</span><span class="s1">&#39;qemu&#39;</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;qcow2&#39;</span>/&gt;
+</span></span><span class="line"><span class="cl">    &lt;<span class="nb">source</span> <span class="nv">file</span><span class="o">=</span><span class="s1">&#39;/data/kvm/disk1.qcow2&#39;</span>/&gt;
+</span></span><span class="line"><span class="cl">    &lt;target <span class="nv">dev</span><span class="o">=</span><span class="s1">&#39;vdb&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;virtio&#39;</span>/&gt;
+</span></span><span class="line"><span class="cl">    &lt;address <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;pci&#39;</span> <span class="nv">domain</span><span class="o">=</span><span class="s1">&#39;0x0000&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;0x00&#39;</span> <span class="nv">slot</span><span class="o">=</span><span class="s1">&#39;0x08&#39;</span> <span class="k">function</span><span class="o">=</span><span class="s1">&#39;0x0&#39;</span>/&gt;
+</span></span><span class="line"><span class="cl">&lt;/disk&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>添加硬盘设备:</p>
 <div class="highlight"><div class="chroma">
@@ -577,8 +574,8 @@ Formatting <span class="s1">&#39;disk1.qcow2&#39;</span>, <span class="nv">fmt</
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">virsh attach-device centos disk.xml
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">virsh attach-device centos disk.xml
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>卸载硬盘设备</p>
 <div class="highlight"><div class="chroma">
@@ -586,8 +583,8 @@ Formatting <span class="s1">&#39;disk1.qcow2&#39;</span>, <span class="nv">fmt</
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">virsh dettach-device centos disk.xml
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">virsh dettach-device centos disk.xml
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="在线添加和删除虚拟机网卡">在线添加和删除虚拟机网卡</h2>
 <p>添加 bridge 网卡</p>
@@ -596,8 +593,8 @@ Formatting <span class="s1">&#39;disk1.qcow2&#39;</span>, <span class="nv">fmt</
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">virsh attach-interface centos --type bridge --source br0
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">virsh attach-interface centos --type bridge --source br0
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>卸载网卡</p>
 <div class="highlight"><div class="chroma">
@@ -605,8 +602,8 @@ Formatting <span class="s1">&#39;disk1.qcow2&#39;</span>, <span class="nv">fmt</
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">virsh detach-interface centos --type bridge --mac 52:54:00:d9:90:bb
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">virsh detach-interface centos --type bridge --mac 52:54:00:d9:90:bb
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="修改虚拟机-vnc">修改虚拟机 vnc</h2>
 <p>先关闭虚拟机</p>
@@ -615,8 +612,8 @@ Formatting <span class="s1">&#39;disk1.qcow2&#39;</span>, <span class="nv">fmt</
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">virsh stop centos
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">virsh stop centos
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>修改虚拟机文件</p>
 <div class="highlight"><div class="chroma">
@@ -627,11 +624,11 @@ Formatting <span class="s1">&#39;disk1.qcow2&#39;</span>, <span class="nv">fmt</
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># irsh edit centos</span>
-    &lt;graphics <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;vnc&#39;</span> <span class="nv">port</span><span class="o">=</span><span class="s1">&#39;6000&#39;</span> <span class="nv">autoport</span><span class="o">=</span><span class="s1">&#39;no&#39;</span> <span class="nv">listen</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span> <span class="nv">passwd</span><span class="o">=</span><span class="s1">&#39;123456&#39;</span>&gt;
-      &lt;listen <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;address&#39;</span> <span class="nv">address</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span>/&gt;
-    &lt;/graphics&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># irsh edit centos</span>
+</span></span><span class="line"><span class="cl">    &lt;graphics <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;vnc&#39;</span> <span class="nv">port</span><span class="o">=</span><span class="s1">&#39;6000&#39;</span> <span class="nv">autoport</span><span class="o">=</span><span class="s1">&#39;no&#39;</span> <span class="nv">listen</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span> <span class="nv">passwd</span><span class="o">=</span><span class="s1">&#39;123456&#39;</span>&gt;
+</span></span><span class="line"><span class="cl">      &lt;listen <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;address&#39;</span> <span class="nv">address</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span>/&gt;
+</span></span><span class="line"><span class="cl">    &lt;/graphics&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>注: 虚拟机 vnc 的端口必须在 5900 - 65535 之间</p>
@@ -642,8 +639,8 @@ Formatting <span class="s1">&#39;disk1.qcow2&#39;</span>, <span class="nv">fmt</
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">virsh define /etc/libvirt/qemu/centos.xml
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">virsh define /etc/libvirt/qemu/centos.xml
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>最后启动虚拟机</p>
 <div class="highlight"><div class="chroma">
@@ -651,23 +648,21 @@ Formatting <span class="s1">&#39;disk1.qcow2&#39;</span>, <span class="nv">fmt</
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">virsh start centos
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">virsh start centos
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
                 <span>更新于 2021-12-03</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
+            </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
                             <a class="link-to-markdown" href="/kvm_vm/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/kvm_vm/" data-title="KVM之虚拟机管理" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/kvm_vm/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/kvm_vm/" data-title="KVM之虚拟机管理" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/kvm_vm/" data-title="KVM之虚拟机管理"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/kvm_vm/" data-title="KVM之虚拟机管理"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/kvm_vm/" data-title="KVM之虚拟机管理" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/kvm_vm/" data-title="KVM之虚拟机管理" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/kvm_vm/" data-title="KVM之虚拟机管理"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/kvm_vm/" data-title="KVM之虚拟机管理" data-via="xxxx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/kvm_vm/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/kvm_vm/" data-title="KVM之虚拟机管理" data-web><i class="fab fa-whatsapp fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/kvm_vm/" data-title="KVM之虚拟机管理"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/kvm_vm/" data-title="KVM之虚拟机管理"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/kvm_vm/" data-title="KVM之虚拟机管理" data-description=""><i class="fab fa-blogger fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/kvm_vm/" data-title="KVM之虚拟机管理"><i class="fab fa-evernote fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -679,20 +674,20 @@ Formatting <span class="s1">&#39;disk1.qcow2&#39;</span>, <span class="nv">fmt</
         </section>
     </div>
 
-    <div class="post-nav"><a href="/kvm_detail/" class="prev" rel="prev" title="KVM介绍"><i class="fas fa-angle-left fa-fw"></i>KVM介绍</a>
-            <a href="/iscsi%E5%85%B1%E4%BA%AB%E7%A3%81%E7%9B%98%E6%9C%8D%E5%8A%A1/" class="next" rel="next" title="iscsi共享磁盘服务">iscsi共享磁盘服务<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/linux%E8%BF%9B%E7%A8%8B/" class="prev" rel="prev" title="Linux进程"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Linux进程</a>
+            <a href="/libguestfs/" class="next" rel="next" title="KVM镜像管理工具libguestfs">KVM镜像管理工具libguestfs<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/yzj0911" target="_blank">yzj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
         <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>
